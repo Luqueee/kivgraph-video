@@ -1,0 +1,122 @@
+import React from "react";
+import {
+  AbsoluteFill,
+  Easing,
+  Interactive,
+  interpolate,
+  interpolateColors,
+  useCurrentFrame,
+} from "remotion";
+import { CodeWorld } from "../components/CodeWorld";
+import { fontMono } from "../brand/fonts";
+import { brand } from "../brand/tokens";
+import type { Camera } from "../world/camera";
+
+/**
+ * Scene 01 — Symbol (master frames 0000-0120).
+ *
+ * The camera is inside the code. `withRetry` is pinned to one screen point for
+ * the whole scene while the camera pulls back, so the symbol is the fixed thing
+ * and the codebase is what moves. There is no editor chrome and no explanatory
+ * text: hierarchy is luminance, depth is parallax plus falloff, and the only
+ * words on screen are the file path.
+ *
+ * The scene establishes the symbol and nothing else. The question it provokes is
+ * not spoken here — the agent types it in scene 02.
+ *
+ * See docs/scenes/01-symbol.md for intent and invariants.
+ */
+
+/**
+ * The single window in which the shot resolves.
+ *
+ * Everything happens here and only here: the camera arrives, the code becomes
+ * legible, the symbol takes the accent, its underline draws, and the file
+ * caption appears. One window, one curve, one landing frame. After frame 80 the
+ * scene does not move again — scene 02 is what breaks the stillness.
+ */
+const resolveFrom = 28;
+const resolveTo = 80;
+
+export const SymbolScene: React.FC = () => {
+  const frame = useCurrentFrame();
+
+  /** 0 -> 1 across the resolve window. Every value in the scene rides this. */
+  const resolve = interpolate(frame, [resolveFrom, resolveTo], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.22, 1, 0.36, 1),
+  });
+
+  /**
+   * One move in one direction: back off the symbol and stop.
+   *
+   * There is deliberately no push-in at the end. An earlier cut leaned back in
+   * over the last 30 frames to make the ending feel unresolved, but scene 02
+   * immediately reverses it — the camera read as a wobble rather than a gesture.
+   * The scene now ends at rest and scene 02 supplies the next move, outward,
+   * from exactly where this one stopped.
+   *
+   * The curve is not the project's `bezier(0.22, 1, 0.36, 1)`: that front-loads
+   * too hard to read as a camera.
+   */
+  const zoom = interpolate(frame, [0, resolveTo], [2.35, 1.12], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.33, 0.05, 0.2, 1),
+  });
+
+  /** The symbol never leaves the lower-left third. */
+  const camera: Camera = { x: 0, y: 0, zoom, screenX: 620, screenY: 662 };
+
+  /**
+   * Luminance rises on the same window and then holds. Scene 02 inherits these
+   * settled values and takes the light out of the code itself, so nothing in
+   * this scene ever dims.
+   */
+  const lum = (dim: number, lit: number) => dim + (lit - dim) * resolve;
+
+  return (
+    <AbsoluteFill style={{ backgroundColor: brand.background }}>
+      <CodeWorld
+        camera={camera}
+        main={{
+          symbol: 1,
+          signature: lum(0.3, 0.55),
+          body: lum(0.1, 0.38),
+          context: lum(0.08, 0.22),
+        }}
+        symbolColor={interpolateColors(
+          resolve,
+          [0, 1],
+          [brand.textPrimary, brand.accentText],
+        )}
+        neighbours={0}
+        bed={lum(0.09, 0.16)}
+        mark={resolve}
+      />
+
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(118% 108% at 33% 62%, rgba(${brand.backgroundRgb}, 0) 0%, rgba(${brand.backgroundRgb}, 0) 28%, rgba(${brand.backgroundRgb}, 0.55) 64%, rgba(${brand.backgroundRgb}, 0.93) 100%)`,
+        }}
+      />
+
+      <Interactive.Div
+        name="File caption"
+        style={{
+          position: "absolute",
+          top: 118,
+          right: 132,
+          fontFamily: fontMono,
+          fontSize: 20,
+          letterSpacing: "0.04em",
+          color: brand.textMuted,
+          opacity: resolve * 0.8,
+        }}
+      >
+        payments-api/internal/retry/retry.go
+      </Interactive.Div>
+    </AbsoluteFill>
+  );
+};

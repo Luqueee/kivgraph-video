@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "google-search-console": {
+      "source": "kostja94/marketing-skills",
+      "sourceType": "github",
+      "skillPath": "skills/analytics/seo/google-search-console/SKILL.md",
+      "computedHash": "211104a946051497f2726df67d8ada3317542e47b720521c14dbc287aea29fc1"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-best-practices/SKILL.md",
+      "computedHash": "b7f0bded89309f00d6290e98e8eee5b69c3436287e3a074f6f717c5d5e3ac270"
+    },
+    "remotion-create": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-create/SKILL.md",
+      "computedHash": "74ab3a9c8f3547204eecc0f84ee76302e1c96e312e9498392677f7989480f882"
+    },
+    "remotion-docs": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-docs/SKILL.md",
+      "computedHash": "fee7bc3fe8687a568f417c7620b98ed029007743ef15fe7daff1ce9e88d43095"
+    },
+    "remotion-interactivity": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-interactivity/SKILL.md",
+      "computedHash": "a982ea216e6f0eb444bf0e9521f607a5e6514d62a1b46d709ce902ad6ffb0997"
+    },
+    "remotion-render": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-render/SKILL.md",
+      "computedHash": "a1087ae15d3e862dd3644563ba4dbfee2ff582d1208b1d16fe3d7851ff7c6643"
+    },
+    "remotion-studio": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-studio/SKILL.md",
+      "computedHash": "55aad3451d73e7d407c32eb2e465401311e96af76e64cd0c630d3165155a80b4"
+    }
+  }
+}

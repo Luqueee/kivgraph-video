@@ -5,3 +5,9 @@ dist
 
 # Ignore the output video from Git but not videos you import into src/.
 out
+.tokensave
+
+# Vendored agent skill payloads. Regenerable from skills-lock.json, which is
+# tracked; .claude/skills is only symlinks into .agents/skills.
+.agents
+.claude
