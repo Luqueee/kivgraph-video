@@ -169,23 +169,40 @@ lean, so a far label now looks faintly italic: that is not a defect, it is the
 perspective the plate always had, and the flat overlay was the thing that was
 lying about it.
 
-**troika lays down 20.8% less ink than Chrome at the same weight.** Both render
-JetBrains Mono at 400; the deficit is the blend model — troika's SDF coverage is
-linear alpha, Chrome's text is gamma-corrected — and it is invariant to
-`sdfGlyphSize` (`-20.83%` at 64, `-20.88%` at 256), which is what proves it is not
-a resolution artefact. Over the match-cut token rectangle, with the pre-existing
-field-opacity step compensated out, glyph rasterisation alone measures 22.74 dB.
+**troika laid down 20.8% less ink than Chrome, and now does not.** Both render
+JetBrains Mono at 400; the deficit was the blend model — troika's SDF coverage is
+linear alpha, Chrome's text is gamma-corrected — and it was invariant to
+`sdfGlyphSize` (`-20.83%` at 64, `-20.88%` at 256), which is what proved it was
+not a resolution artefact. Left alone it made the graph's type lighter than the
+same typeface on the shipped web, and `src/brand` mirrors that design system 1:1.
+
+The correction is stem darkening: an outline in the fill's own colour and
+opacity, `0.75%` of the em, which thickens the stroke the way a rasteriser does
+without changing the letterform. Raising `fontWeight` would have been the fake —
+and is also unavailable, since troika renders the variable font's default
+instance.
+
+The value is measured rather than chosen. Integrated glyph coverage over the
+match-cut token rectangle, at master 0360 — the frame where the dissolve's
+residual has reached zero while the camera still holds the match-cut pose, so the
+rectangle holds the troika label alone at the size the DOM token had. Matching a
+20.8% deficit means raising ink by `1 / (1 - 0.208) - 1 = 26.3%`; `0.75%` of em
+measures **+26.60%**, which is inside the metric's own noise. Being in em it is
+invariant to distance, so every label in the cascade takes the same correction
+instead of the near ones taking more.
+
+One measurement trap, recorded because it cost a wrong answer first: comparing
+the rectangle across two different frames does not work. Once the selection field
+has faded, the rectangle holds background outside the plate and plate inside it,
+and estimating the glyph's base from the darkest pixel makes the plate itself read
+as 10% coverage everywhere — thousands of pixels of ink that are not ink, which
+reported troika as having *more* ink than the DOM. The base has to be the modal
+dark value, which is the surface actually behind the type, and comparisons have to
+be same-frame before and after a change.
+
 Everything else about that cut is exact: the troika word lands in the DOM token's
 rectangle to within 0.5 px per glyph, the ink bounding box is identical at 207 px
 wide, and the field and fill are byte-exact `#1e3a8a` and `#bfdbfe`.
-
-It ships at 400, unfaked. The graph's labels are all troika so they are internally
-consistent, and the deviation is against the DOM code bed and the shipped web.
-Correcting it properly means emulating the reference rasteriser's stem darkening
-— a small same-colour outline tuned until integrated ink matches — not raising the
-weight, which would invent a typeface the design system does not have. Open, with
-the number recorded so the decision can be made on evidence.
-drift the cut breaks and nothing in the build will say so.
 
 ## Scene numbering
 

@@ -45,6 +45,12 @@ import { fontMonoSdf } from "../brand/fonts";
  * synchronously, and only then is the handle given back.
  */
 
+/**
+ * Outline width, in em, that brings troika's ink up to Chrome's. Measured; see
+ * the `outlineWidth` prop below for why this exists at all.
+ */
+const stemDarkening = "0.75%";
+
 /** Render handles held while troika is building a label, by gate key. */
 const holding = new Map<string, number>();
 
@@ -226,6 +232,32 @@ export const GraphLabel: React.FC<Props> = ({
        * whatever is drawn behind it.
        */
       fillOpacity={opacity}
+      /**
+       * Stem darkening, and the reason it is not fake bold.
+       *
+       * Both renderers draw JetBrains Mono at weight 400, and troika still lays
+       * down measurably less ink than Chrome does. The cause is the blend model,
+       * not the weight and not the resolution: troika's SDF gives linear alpha
+       * coverage, Chrome gamma-corrects its text, and the deficit is invariant
+       * to `sdfGlyphSize` - `-20.83%` measured at 64 and `-20.88%` at 256, which
+       * is what rules resolution out. Left uncorrected, the graph's type is
+       * lighter than the same typeface on the Kivgraph web, and `src/brand`
+       * mirrors that design system 1:1.
+       *
+       * The correction is an outline in the fill's own colour and opacity, which
+       * is what a rasteriser's stem darkening does: it thickens the stroke
+       * without changing the letterform or claiming a weight the family does not
+       * ship. Raising `fontWeight` would be the fake, and it is also unavailable
+       * - troika renders the variable font's default instance.
+       *
+       * The value is measured, not chosen: integrated glyph coverage over the
+       * match-cut token rectangle, tuned until troika's ink matches the DOM's.
+       * Being in `em` it is invariant to distance, so every label in the cascade
+       * gets the same correction rather than the near ones getting more.
+       */
+      outlineWidth={stemDarkening}
+      outlineColor={colour}
+      outlineOpacity={opacity}
       onSync={syncedAndDrawn}
     >
       {text}
