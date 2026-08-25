@@ -9,7 +9,7 @@ import type { Look } from "./projection";
 /**
  * Scene 05's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-150 (master 0750-0900).
+ * Scene-local frames 0-150 (master 0730-0880).
  *
  * The scene retires the 3D graph by flattening it, not by cutting away from it.
  * Its argument is a difference in count rather than a spatial claim, so depth
@@ -36,8 +36,14 @@ const ramp = (frame: number, from: number, to: number) =>
     easing: ease,
   });
 
-/** The frame scene 04 hands over: accent-marked, at rest, on a clear frame. */
-const inherited = getBlastState(120);
+/**
+ * The frame scene 04 hands over: accent-marked, at rest, on a clear frame.
+ *
+ * 100 is that scene's last frame, not an arbitrary sample. Everything in it
+ * settles by local 75 and every ramp clamps, so this is the image the cut
+ * arrives on.
+ */
+const inherited = getBlastState(100);
 
 /**
  * What survives into the right column: the resolved symbol and the relationships
@@ -165,7 +171,7 @@ export const getSemanticState = (frame: number): GraphVisualState => {
   const flatten = ramp(frame, 0, 40);
 
   /**
-   * The contraction at the tail: the two callers and their tubes leave, so 0989
+   * The contraction at the tail: the two callers and their tubes leave, so 0879
    * hands the next scene a single settled symbol to match-cut on. The camera
    * does not move for it - a shape that is still moving cannot be cut on.
    */
@@ -268,7 +274,7 @@ export const leftColumn = (frame: number) => ({
   label: ramp(frame, 30, 46),
   rows: [ramp(frame, 36, 54), ramp(frame, 46, 64)],
   counter: ramp(frame, 60, 78),
-  /** Never to zero: the comparison has to still be a comparison at 0989. */
+  /** Never to zero: the comparison has to still be a comparison at 0879. */
   dim: 1 - 0.82 * ramp(frame, 90, 130),
 });
 

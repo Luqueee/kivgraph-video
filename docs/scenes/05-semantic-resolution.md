@@ -33,7 +33,7 @@ which is the entire reason a coding agent would want Kivgraph.
 
 ## Narrative context
 
-**Immediately before.** Scene 04 (`04-blast-radius.md`, frames 0630–0750)
+**Immediately before.** Scene 04 (`04-blast-radius.md`, frames 0630–0730)
 propagated a change through the graph and counted it on a card
 (`7 affected symbols`, `3 dependency paths`, `2 repositories`). The graph is
 accent-marked, at rest and at full presence, and the card is the only flat
@@ -44,14 +44,14 @@ representation is retired here — deliberately, and by flattening rather than b
 cutting away — because the argument being made is not spatial. It is a difference
 in count.
 
-**What it prepares.** Scene 06 (`06-agent-answer.md`, frames 0900–0990) returns
+**What it prepares.** Scene 06 (`06-agent-answer.md`, frames 0880–0970) returns
 to the agent prompt, where the agent states the answer in prose. That return is a
 match cut on a symbol that does not move across it: this scene ends with
 `withRetry()` alone in the right column, settled and still, and Scene 06 opens on
 it in that same place at that same apparent size. Carrying it back to the prompt's
 token — closing the loop the 0330 cut opened — is Scene 06's move, made in its own
 ninety frames. This scene owns the contraction that leaves the symbol alone and
-must have it fully settled at 0899.
+must have it fully settled at 0879.
 
 ## Timeline
 
@@ -61,36 +61,36 @@ must have it fully settled at 0899.
   cut, so every document number from `04-blast-radius.md` onward is **two** lower
   than its storyboard scene number. `docs/scenes/README.md` § Scene numbering
   holds the whole mapping.
-- Global frames: **0750–0900**
+- Global frames: **0730–0880**
 - Scene-local frames: **0000–0150**
-- Time: **12.5 s – 15.0 s**
+- Time: **12.17 s – 14.67 s**
 - Duration: **150 frames / 2.5 s** at 60 fps
 - Remotion component: `src/scenes/SemanticScene.tsx`
-- Boundary source: the inline `<Sequence name="05 Semantic Resolution" from={750} durationInFrames={150}>`
+- Boundary source: the inline `<Sequence name="05 Semantic Resolution" from={730} durationInFrames={150}>`
   literal in `src/Composition.tsx`
 
-Beats (scene-local = master − 750):
+Beats (scene-local = master − 730):
 
 | Master      | Local       | Beat                                                                                             |
 | ----------- | ----------- | ------------------------------------------------------------------------------------------------ |
-| `0750–0790` | `0000–0040` | The rig straightens, depth collapses, the graph flattens into the right half, split view forms. The impact card fades out. |
-| `0780–0820` | `0030–0070` | Left side builds: label `Name matching`, two `withRetry()` entries under two languages, both highlighted. |
-| `0805–0835` | `0055–0085` | Right side resolves: label `Semantic resolution`, the symbol and the two relationships that reach it. |
-| `0835`      | `0085`      | Both counters settled: `2 matches` left, `1 symbol` and `2 real relationships` right.              |
-| `0840–0880` | `0090–0130` | Left side loses opacity. Right side stays clear. `0860` is the key visual frame. |
-| `0880–0889` | `0130–0139` | Hold.                                                                                              |
-| `0889–0899` | `0139–0149` | The two callers and their tubes leave; `withRetry()` alone, settled and still at 0899 for the match cut. |
+| `0730–0770` | `0000–0040` | The rig straightens, depth collapses, the graph flattens into the right half, split view forms. The impact card fades out. |
+| `0760–0800` | `0030–0070` | Left side builds: label `Name matching`, two `withRetry()` entries under two languages, both highlighted. |
+| `0785–0815` | `0055–0085` | Right side resolves: label `Semantic resolution`, the symbol and the two relationships that reach it. |
+| `0815`      | `0085`      | Both counters settled: `2 matches` left, `1 symbol` and `2 real relationships` right.              |
+| `0820–0860` | `0090–0130` | Left side loses opacity. Right side stays clear. `0840` is the key visual frame. |
+| `0860–0869` | `0130–0139` | Hold.                                                                                              |
+| `0869–0879` | `0139–0149` | The two callers and their tubes leave; `withRetry()` alone, settled and still at 0879 for the match cut. |
 
-The internal beat frames between 0750 and 0835 are this document's proposal; the
-storyboard fixes only the transition, the `0840–0880` fade and the hold. Its
-centred copy at what is now 0860 was cut, so the key visual frame is the
+The internal beat frames between 0730 and 0815 are this document's proposal; the
+storyboard fixes only the transition, the `0820–0860` fade and the hold. Its
+centred copy at what is now 0840 was cut, so the key visual frame is the
 comparison itself rather than a sentence over it. See `## Flexible elements` and
 `## Current compromises`.
 
 ## Initial state
 
-At master frame 0750 (local 0000) the frame is **visually identical** to master
-frame 0749: the 3D graph as Scene 04 left it, at rest and accent-marked, at full
+At master frame 0730 (local 0000) the frame is **visually identical** to master
+frame 0729: the 3D graph as Scene 04 left it, at rest and accent-marked, at full
 presence, with the impact card in the **top-left**.
 
 There is no veil to inherit and none to raise. Scene 04 used to hand one over at
@@ -115,9 +115,9 @@ comparison.
 
 ## Final state
 
-At master frame 0900 (local 0150, the frame after this scene's last):
+At master frame 0880 (local 0150, the frame after this scene's last):
 
-By 0899 the frame holds:
+By 0879 the frame holds:
 
 - the right side only, at full clarity: one symbol, the two relationships that
   reach it, `Semantic resolution`, `1 symbol`, `2 real relationships`;
@@ -128,9 +128,9 @@ By 0899 the frame holds:
 - the two callers and their tubes gone, leaving the single `withRetry()` node
   settled and still at the centre of the right column, at the apparent size the
   column drew it at — 152 master pixels per world unit — which is the position and
-  the size `AgentAnswerScene.tsx` opens on at 0900.
+  the size `AgentAnswerScene.tsx` opens on at 0880.
 
-Nothing is mid-animation at 0899. A match cut requires the outgoing shape to be at
+Nothing is mid-animation at 0879. A match cut requires the outgoing shape to be at
 rest at the cut.
 
 ## Visual composition
@@ -227,7 +227,7 @@ right side's single symbol and the two relationships that reach it; `selection`
 carries the left side's highlight. Well inside the 85–90% / 10–15% split
 (`AGENTS.md` §26).
 
-**Hierarchy** at 0860, strongest first:
+**Hierarchy** at 0840, strongest first:
 
 1. the right side's single resolved symbol;
 2. the left side's two matches, already fading;
@@ -249,7 +249,7 @@ pointing exactly down it. The carry into the right half is done by aiming the ri
 beside the cluster rather than by translating the graph, because a look-at camera
 always projects its target to the centre of the frame, so an off-centre cluster
 is a property of where the camera is pointed. Eased with
-`Easing.bezier(0.22, 1, 0.36, 1)` across `0750–0790`. The impact card fades out
+`Easing.bezier(0.22, 1, 0.36, 1)` across `0730–0770`. The impact card fades out
 during this move — `reportFade` over local 0–36 — and it does not slide or wipe.
 There is nothing else to clear.
 
@@ -264,13 +264,13 @@ distinguish between them, so nothing about their appearance may suggest ranking.
 relationships that reach it. Where the left side arrives all at once, the right
 side arrives deliberately.
 
-**The subtraction.** `0840–0880` reduces the left side's opacity while the right
+**The subtraction.** `0820–0860` reduces the left side's opacity while the right
 side holds. As in Scene 04, the scene makes its point by removing rather than by
 adding. The left side must not vanish: the comparison has to remain a comparison
-in the still at 0860, and with no sentence over that frame the asymmetry is the
+in the still at 0840, and with no sentence over that frame the asymmetry is the
 only thing the still has to carry.
 
-**The hold.** `0880` onward the frame is still and readable.
+**The hold.** `0860` onward the frame is still and readable.
 
 **The contraction.** In the final frames, local 139–149, the two callers and their
 tubes leave and `withRetry()` is left alone. It is a subtraction, not a move: the
@@ -299,7 +299,7 @@ and leaves it, from its local 268 onward, at eye `(7.0, 3.2, 10.0)` looking at
 the cross-repository scene between them while it existed. That scene used to
 export the pose as `restLook` from `src/three/crossRepoState.ts`; both are gone,
 and this scene now reads the pose off the state it inherits — `inherited.look`,
-from `getBlastState(120)` — instead of importing a named constant. It still reads
+from `getBlastState(100)` — instead of importing a named constant. It still reads
 what it inherits rather than restating it. Straightening the rig to frontal is
 therefore part of the flatten, not a step already taken.
 
@@ -385,23 +385,23 @@ module over its own scene-local frames. Scene 04 samples `getGraphState(300)`
 rather than restating Scene 03's settled numbers, because a whole graph state is
 twenty-odd values and copying them would be a second source of truth that goes
 stale the first time the scene before it is retuned. This scene follows the same
-pattern: `getSemanticState` samples `getBlastState(120)`. Extending
+pattern: `getSemanticState` samples `getBlastState(100)`. Extending
 `getGraphState` with an offset, which an earlier version of this document
 proposed, would fight that pattern rather than follow it.
 
 ## Transition in
 
-Hard sequence boundary at 0750, and it is **pixel-identical**: at 0750 the frame
-equals 0749 — the accent-marked graph at rest at full presence, with the impact
+Hard sequence boundary at 0730, and it is **pixel-identical**: at 0730 the frame
+equals 0729 — the accent-marked graph at rest at full presence, with the impact
 card top-left and nothing else. Getting there mattered: the card and the claim
 line under it used to be drawn by this scene and by Scene 04 from two different
-places, and the 0749/0750 seam measured 22 dB. Both scenes now draw
+places, and the 0729/0730 seam measured 22 dB. Both scenes now draw
 `src/components/ImpactReport.tsx`, which since the claim line was cut is the card
 alone.
 
 The flatten then begins. Its preconditions, owed by Scene 04:
 
-- the graph must be **at rest** at 0750, otherwise the flatten reads as a glitch
+- the graph must be **at rest** at 0730, otherwise the flatten reads as a glitch
   rather than as a change of representation;
 - the accent state must carry over unchanged, so the right column is recognisably
   the same symbol;
@@ -413,17 +413,17 @@ it samples the graph curve shared with Scenes 03 and 04.
 
 ## Transition out
 
-At 0900 `AgentAnswerScene.tsx` takes over with a **match cut** into the agent
+At 0880 `AgentAnswerScene.tsx` takes over with a **match cut** into the agent
 prompt (`STORYBOARD.md` §27, *Graph → Agent*: graph contracts into selected
 symbol → match cut into prompt text).
 
 The contract with `06-agent-answer.md`:
 
 - this scene owns the contraction, which is the two callers and their tubes
-  leaving over local 139–149, and completes it at **0899**;
-- at 0899 `withRetry()` is alone, settled and still, at the centre of the right
+  leaving over local 139–149, and completes it at **0879**;
+- at 0879 `withRetry()` is alone, settled and still, at the centre of the right
   column and at the apparent size the column drew it at;
-- at 0900 Scene 06 opens on the symbol in that same place at that same size, and
+- at 0880 Scene 06 opens on the symbol in that same place at that same size, and
   then carries it back to the prompt's token over its own duration.
 
 Scene 06 therefore inherits **a position and an apparent size**, not the token
@@ -469,7 +469,7 @@ Semantic resolution
 ```
 
 No centre copy. `A name is not a symbol.` used to be set across the middle of the
-frame from what is now 0860; it was cut, and nothing replaced it.
+frame from what is now 0840; it was cut, and nothing replaced it.
 
 The right-hand counter reads `2 real relationships` because two is how many the
 fixture has. `src/data/graphDemo.ts` gives `withRetry` exactly two edges whose
@@ -516,15 +516,15 @@ text appears in the scene.
 Frames to inspect manually (`STORYBOARD.md` §28):
 
 ```text
-0750 — frame identical to 0749; flatten begins
-0810 — split view established, both matches highlighted, right side resolving
-0860 — KEY VISUAL: name matching vs semantic resolution, the asymmetry alone
-0899 — contraction settled, ready for the match cut
+0730 — frame identical to 0729; flatten begins
+0790 — split view established, both matches highlighted, right side resolving
+0840 — KEY VISUAL: name matching vs semantic resolution, the asymmetry alone
+0879 — contraction settled, ready for the match cut
 ```
 
-**Frame 0860 is a key visual frame** (`STORYBOARD.md` §29 and `AGENTS.md`'s
+**Frame 0840 is a key visual frame** (`STORYBOARD.md` §29 and `AGENTS.md`'s
 still-image key frame list), earmarked for technical marketing. It must work as
-a still image, which means at 0860:
+a still image, which means at 0840:
 
 - the two-versus-one asymmetry is countable at a glance;
 - both counters (`2 matches`, `1 symbol`, `2 real relationships`) are legible;
@@ -589,24 +589,24 @@ Preserve unless the creative direction is explicitly changed:
   of itself and the split forms around it; the rig straightens as part of that
   move, not in place of it. Never a wipe, spin, page curl or generic transition
   (`STORYBOARD.md` §27).
-- **The contraction is a subtraction and it is settled at 0899.** The callers
+- **The contraction is a subtraction and it is settled at 0879.** The callers
   leave; the surviving node does not move, rescale or lose its accent. Scene 06
   inherits its position and apparent size and moves it from there.
-- **Frame 0860 works as a still image.**
+- **Frame 0840 works as a still image.**
 
 ## Flexible elements
 
 Safe to change without altering the scene's purpose:
 
 - exact frames of the left build and the right resolve, provided both are complete
-  and both counters are legible by roughly 0835, and provided the left side arrives
+  and both counters are legible by roughly 0815, and provided the left side arrives
   as an unordered burst while the right arrives deliberately;
 - exact row height, column padding and list alignment on the left;
 - exact layout of the right column's two relationships;
 - exact divider colour choice between `border` `#22262b` and `borderStrong`
   `#333a42`;
 - exact easing, as long as it stays non-elastic;
-- exact opacity the left side settles at, provided it stays readable at 0860;
+- exact opacity the left side settles at, provided it stays readable at 0840;
 - exact type scale of the side labels and counters, above the small-text floor of
   `STORYBOARD.md` §7;
 - exact split ratio, if a slight asymmetry reads better than exactly 50/50;
@@ -620,9 +620,9 @@ Safe to change without altering the scene's purpose:
 
 - Component: `src/scenes/SemanticScene.tsx`.
 - Global scene boundaries live only as inline `<Sequence>` literals in
-  `src/Composition.tsx` (`from={750}`, `durationInFrames={150}`), so Remotion
+  `src/Composition.tsx` (`from={730}`, `durationInFrames={150}`), so Remotion
   Studio can trim them. There is no timing module; do not introduce one and do not
-  restate 0750/0900 inside the scene. The scene animates in scene-local frames.
+  restate 0730/0880 inside the scene. The scene animates in scene-local frames.
 - Pieces involved during the flatten, as the graph scenes ship them:
   `src/components/GraphWorld.tsx` draws the graph from a `GraphVisualState` and is
   shared by every graph scene; `src/three/GraphNode.tsx` is a node — an extruded
@@ -650,19 +650,19 @@ Safe to change without altering the scene's purpose:
   `"JetBrains Mono"`). Fonts load deterministically from `public/fonts/*.woff2`; late
   loading must not reflow the list, which would be visible on a key
   frame.
-- The hand-over at 0900 is a cross-component contract, and it is a position and an
+- The hand-over at 0880 is a cross-component contract, and it is a position and an
   apparent size rather than a rect. This scene leaves `withRetry()` where the
   right column drew it; Scene 06 reads that and animates from it to the prompt's
   token, which is exported from `src/components/AgentPrompt.tsx` as `tokenRect`
   and, once the prompt's grow has settled, as `selectedTokenRect` — the same rect
   `graphOffset` in `src/three/graphFrame.ts` was derived from at the 0330 cut, so
-  the return closes that loop rather than repeating it. Inspect 0899 and 0900 as a
+  the return closes that loop rather than repeating it. Inspect 0879 and 0880 as a
   pair on every change to either scene (`AGENTS.md` §9, §11).
 - Performance: the flatten animates camera plus per-node depth and opacity while a
   DOM list fades in. Reuse geometry and materials; avoid stacked postprocessing
   (`AGENTS.md` §35, §36).
-- Iterate with Remotion Studio plus small range renders over roughly 0740–0910.
-  Scrub forward, backward, forward across both seams (0749/0750 and 0899/0900) and
+- Iterate with Remotion Studio plus small range renders over roughly 0720–0890.
+  Scrub forward, backward, forward across both seams (0729/0730 and 0879/0880) and
   confirm identical rendering (`AGENTS.md` §40).
 
 ## Current compromises
@@ -690,21 +690,21 @@ Safe to change without altering the scene's purpose:
   version that can be read — the whole cascade in half a frame puts every label at
   about 11 px.
 - **Ownership of the contraction is an open decision resolved here.**
-  `STORYBOARD.md` SCENE 07 asks for a hold across `0880–0900`, while SCENE 08
-  places "el grafo se contrae hacia el nodo seleccionado" at frame `0900` — which
-  is unreachable, because 0900 is the first frame of `AgentAnswerScene` and the
+  `STORYBOARD.md` SCENE 07 asks for a hold across `0860–0880`, while SCENE 08
+  places "el grafo se contrae hacia el nodo seleccionado" at frame `0880` — which
+  is unreachable, because 0880 is the first frame of `AgentAnswerScene` and the
   graph no longer exists there. Resolution agreed with `06-agent-answer.md`:
-  `SemanticScene` owns the contraction, the hold occupies roughly `0880–0889` and
-  the contraction `0889–0899`, and the storyboard's "se contrae hacia el nodo
+  `SemanticScene` owns the contraction, the hold occupies roughly `0860–0869` and
+  the contraction `0869–0879`, and the storyboard's "se contrae hacia el nodo
   seleccionado" is realised as everything else leaving rather than as a collapse
   travelling toward the node. This shortens the literal hold the storyboard
   specifies. Revisit if the match cut reads better with a longer hold and a faster
   contraction.
 - **Internal beat frames are this document's proposal.** The storyboard fixes only
-  the transition, the `0840–0880` fade and the hold; its centred copy at what is
-  now `0860` was cut, so that beat no longer constrains anything. The flatten
+  the transition, the `0820–0860` fade and the hold; its centred copy at what is
+  now `0840` was cut, so that beat no longer constrains anything. The flatten
   window, the left build and the right resolve windows in `## Timeline` are
-  derived from the critical frames `0750`, `0810`, `0860` and `0899`.
+  derived from the critical frames `0730`, `0790`, `0840` and `0879`.
 - **The flatten technique is decided, and it is decided as an experiment.** The
   first implementation is a true R3F flatten with the canvas kept alive. It was
   not chosen for being the better renderer; it was chosen for being the cheaper
@@ -894,4 +894,28 @@ Safe to change without altering the scene's purpose:
   `2 real relationships`, the two real `nameMatches` entries with their paths, the
   152 px per world unit, the 11 px whole-cascade measurement and the 35–45 px
   surviving labels.
+```
+
+```text
+2026-08-25
+- The blast radius was trimmed from 120 to 100 frames, so every master frame in
+  this document moved −20: the scene spans 0730–0880 (12.17 s – 14.67 s), its key
+  visual frame is 0840, and the contraction settles at 0879. The master is now
+  1300 frames (21.7 s). Beats, durations and scene-local frames are unchanged —
+  the contraction still runs local 139–149.
+- The trim was the previous scene's, not this one's: with `Exact symbols. Not name
+  matches.` and its veil gone, nothing animated in the blast radius' tail and 41
+  of its last frames were pixel-identical. Twenty came off, leaving it a 21-frame
+  hold.
+- The settle frame is corrected as well as shifted. This document said the
+  contraction settles at 0899 and, before the cross-repository cut, at 0989; the
+  source comment had been stale through both shifts and is now 0879.
+- Seams re-measured: the inherited boundary is 0729/0730 and it is
+  pixel-identical, and 880 mounted frames render with no black frame and no
+  single-frame anomaly. `getSemanticState` samples `getBlastState(100)` rather
+  than `getBlastState(120)`, which is the same "sample one past the previous
+  scene's last local frame" rule at the shorter duration.
+- Every counted figure is untouched: `2 matches`, `1 symbol`,
+  `2 real relationships`, the 152 px per world unit, the 11 px whole-cascade
+  measurement and the 35–45 px surviving labels.
 ```

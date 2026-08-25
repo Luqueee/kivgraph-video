@@ -5,29 +5,33 @@
 | 01  | Symbol              |     0–120 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                            |
 | 02  | Agent               |   120–330 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                              |
 | 03  | Graph Reveal        |   330–630 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
-| 04  | Blast Radius        |   630–750 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
-| 05  | Semantic Resolution |   750–900 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
-| 06  | Agent Answer        |   900–990 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
-| 07  | Benchmark           |  990–1110 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
-| 08  | Brand               | 1110–1200 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
-| 09  | Outro               | 1200–1320 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
+| 04  | Blast Radius        |   630–730 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
+| 05  | Semantic Resolution |   730–880 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
+| 06  | Agent Answer        |   880–970 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
+| 07  | Benchmark           |  970–1090 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
+| 08  | Brand               | 1090–1180 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
+| 09  | Outro               | 1180–1300 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
 
-Master: 1920 × 1080, 60 fps, **1320 frames, 22 s**. Global frame boundaries
+Master: 1920 × 1080, 60 fps, **1300 frames, 21.7 s**. Global frame boundaries
 live only in `src/Composition.tsx`.
 
-That 1320 is the plan, not what renders today. Scenes 01–05 exist, so
-`KivgraphPromo` is registered at `mountedFrames` — currently **900 frames,
-15 s** — and Studio and `remotion render` produce the film that exists instead
-of fifteen seconds of video followed by seven of black. Raise
+That 1300 is the plan, not what renders today. Scenes 01–05 exist, so
+`KivgraphPromo` is registered at `mountedFrames` — currently **880 frames,
+14.67 s** — and Studio and `remotion render` produce the film that exists instead
+of just under fifteen seconds of video followed by seven of black. Raise
 `mountedFrames` in `src/Composition.tsx` as each scene lands, and delete it once
-it reaches 1320.
+it reaches 1300.
 
-The master length has moved four times. Three were because the opening changed:
+The master length has moved five times. Three were because the opening changed:
 it was 1500, grew to 1620 when scene 01 was extended from 90 to 210 frames,
 returned to 1500 when the old scene 02 was deleted, and fell to 1410 when scene
 01 was cut from 210 to 120. The fourth was the first one a later scene caused —
-1410 to 1320, when the cross-repository scene was cut. Every other scene has kept
-its duration throughout; only offsets moved.
+1410 to 1320, when the cross-repository scene was cut. The fifth, on 2026-08-25,
+is the first one a *surviving* scene caused: 1320 to 1300, when the blast radius
+was trimmed from 120 to 100 frames because the last 41 frames of it had become
+pixel-identical once its claim line and veil were cut. Only two scenes have ever
+changed duration — scene 01, and now the blast radius. For every other scene,
+only offsets have moved.
 
 ## Implementation status
 
@@ -231,8 +235,9 @@ record of a cut scene rather than a scene. Documents are therefore offset by one
 across the graph reveal and by **two** from `04-blast-radius.md` onward.
 
 The storyboard keeps its own numbering: SCENE 05 stays in place as the cut
-record, and SCENE 06 to SCENE 11 keep their numbers and only shifted their frame
-ranges by −90.
+record, and SCENE 06 to SCENE 11 keep their numbers. Their frame ranges moved
+−90 with the cut; SCENE 06 then gave up twenty frames of its own tail, and
+SCENE 07 to SCENE 11 moved a further −20.
 
 | Document | Storyboard scene |
 | --- | --- |
@@ -283,9 +288,10 @@ anywhere in the film after 0598 except scene 05 straightening the rig into its
 flatten. `src/three/crossRepoState.ts` and its `restLook` export went with the
 scene; scene 05 reads the pose off the state it inherits instead.
 
-Measured after the cut: the 0330 and 0750 seams are pixel-identical, 0630 is
-62.93 dB (glyph antialiasing only), and 900 mounted frames render with no black
-frame and no single-frame anomaly.
+Measured after the cut, and re-measured after the blast radius was trimmed: the
+0330 and 0730 seams are pixel-identical, 0630 is 62.93 dB (glyph antialiasing
+only), and 880 mounted frames render with no black frame and no single-frame
+anomaly.
 
 ### The problem scene
 
@@ -310,9 +316,12 @@ find it is in the length of the two scenes that remain.
 
 ## Key frames
 
-Frames that must hold up as still images: `0080`, `0629`, `0710`, `0860`,
-`1030`, `1190`. Each is documented in the scene that owns it. The four after
-`0629` each moved −90 with the cross-repository cut.
+Frames that must hold up as still images: `0080`, `0629`, `0710`, `0840`,
+`1010`, `1170`. Each is documented in the scene that owns it. The four after
+`0629` each moved −90 with the cross-repository cut, and the last three moved a
+further −20 when the blast radius was trimmed. `0710` did not move with the trim:
+it is scene-local 80, so it still sits inside the shorter scene, and the hold
+behind it is now twenty-one frames rather than forty.
 
 Scene 03's entry moved from `0620` to `0629`. Both frames sit inside the held
 final camera pose, but at 0620 the last crossing is still handing its accent back
@@ -321,7 +330,7 @@ settled, and the image `04-blast-radius.md` inherits one frame later — so the 
 and the handoff are the same picture. `STORYBOARD.md` §28-§29 still list `0620`
 and have not been reconciled.
 
-`0860` lost its headline rather than just its number. It used to hold
+`0840` lost its headline rather than just its number. It used to hold
 `A name is not a symbol.` across the middle of the split view; with that sentence
 cut, the still carries the two-column asymmetry on its own and has to be
 unmistakable without a caption telling the viewer what to conclude.
@@ -361,7 +370,7 @@ the one seam the design spends everything to hide. Premounting mounts the scene
 thirty frames early while `<Sequence>`'s hardcoded `hideWhilePremounted:
 "opacity"` keeps it invisible, so the canvas paints and the context is warm
 before it is seen. Scenes 03 and 04 also carry `postmountFor={30}`, because
-scrubbing back across 0630 or 0750 remounts them and the timeline has to
+scrubbing back across 0630 or 0730 remounts them and the timeline has to
 survive being walked backwards as well as forwards. None of this touches the
 film: `premountingActive` is gated on `!isRendering`, so no rendered frame
 changes — the render never had the blink, only the preview did. Repeat both props

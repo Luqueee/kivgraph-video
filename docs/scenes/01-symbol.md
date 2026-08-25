@@ -212,7 +212,7 @@ frame 0119 — byte-identical to 0080. The handoff frame.
 ```
 
 The still-image key frame is `0080`. The project's still-image list reads `0080`,
-`0620`, `0710`, `0860`, `1030`, `1190`.
+`0620`, `0710`, `0840`, `1010`, `1170`.
 
 ## Invariants
 
@@ -322,7 +322,7 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
   written for the video, chosen to agree with the repository and symbol names of
   later scenes. Nothing is read from a real Kivgraph index.
 - Scenes 01–05 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
-  (900) rather than the planned 1320. Frames `0900–1320` do not render at all
+  (880) rather than the planned 1300. Frames `0880–1300` do not render at all
   yet, which is preferred over seven seconds of black.
 
 ## Modification history
@@ -419,4 +419,15 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
   symbol at all. It is the public bridge out of the repository - Client.Charge
   goes through retry.Policy.Do, Client.Refund through retry.Once - and scene 03
   puts both methods on screen by name.
+
+2026-08-25
+- The blast radius scene was trimmed from 120 to 100 frames, so every master frame
+  from 0730 onward shifted -20 and the master is now 1300 frames (21.7 s). This
+  scene owns none of those frames: its own frames, beats, camera, luminance and
+  content are untouched, and 0080 is still its still-image key frame.
+- Two lists here follow the shift: the project still-image list now reads 0080,
+  0620, 0710, 0840, 1010, 1170, and mountedFrames is 880 against a planned 1300.
+- Reason for the trim, kept because it is the kind of thing that gets re-added:
+  once the blast radius lost its claim line and veil, nothing animated in its
+  tail and 41 of its last frames were pixel-identical.
 ```

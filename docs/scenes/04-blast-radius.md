@@ -75,12 +75,12 @@ the rest of the video refers to.
   cut, so every document number from this one onward is **two** lower than its
   storyboard scene number. `docs/scenes/README.md` § Scene numbering holds the
   whole mapping.
-- Global frames: **0630–0750**
-- Scene-local frames: **0000–0120**
-- Time: **10.5 s – 12.5 s**
-- Duration: **120 frames / 2.0 s** at 60 fps
+- Global frames: **0630–0730**
+- Scene-local frames: **0000–0100**
+- Time: **10.5 s – 12.17 s**
+- Duration: **100 frames / 1.67 s** at 60 fps
 - Remotion component: `src/scenes/BlastRadiusScene.tsx`
-- Boundary source: the inline `<Sequence name="04 Blast Radius" from={630} durationInFrames={120}>`
+- Boundary source: the inline `<Sequence name="04 Blast Radius" from={630} durationInFrames={100}>`
   literal in `src/Composition.tsx`
 
 Beats (scene-local = master − 630):
@@ -93,7 +93,7 @@ Beats (scene-local = master − 630):
 | `0678–0710` | `0048–0080` | Hop 3, the three `checkout-service` consumers, four frames apart.                         |
 | `0685–0705` | `0055–0075` | The impact card: `opacity 0 → 1`, `x +24 → 0`, no overshoot.                              |
 | `0710`      | `0080`      | Propagation complete, card settled. **Key visual frame.**                                 |
-| `0710–0750` | `0080–0120` | Hold. Nothing moves; the frame exists to be read.                                         |
+| `0710–0730` | `0080–0100` | Hold. Nothing moves; the frame exists to be read.                                         |
 
 Every relation lifts six frames before the node it reaches, for the reason scene
 03 drew an edge before the plate at its end: the shot travels a relationship and
@@ -132,7 +132,7 @@ The pulse on `withRetry()` begins on this frame.
 
 ## Final state
 
-At master frame 0750 (local 0120, the boundary frame handed to
+At master frame 0730 (local 0100, the boundary frame handed to
 `SemanticScene.tsx`):
 
 - Every affected node carries the Kivgraph accent, all the way back to the last
@@ -142,7 +142,7 @@ At master frame 0750 (local 0120, the boundary frame handed to
 - No veil and no sentence. The graph is at full presence under the card.
 - The camera has not moved at all; the graph is still, propagation finished.
 
-Nothing is mid-animation at 0750. The next scene begins by flattening this exact
+Nothing is mid-animation at 0730. The next scene begins by flattening this exact
 frame.
 
 ## Visual composition
@@ -216,8 +216,9 @@ because every string in it is a symbol name, a cluster name or a measured value.
 
 ## Motion
 
-**Rhythm.** Cause, spread, count. Three events in two seconds, each distinctly
-separated, and then a forty-frame hold. No two events compete for attention.
+**Rhythm.** Cause, spread, count. Three events in a hundred frames, each
+distinctly separated, and then a twenty-one-frame hold. No two events compete for
+attention.
 
 **The pulse.** `withRetry()` pulses exactly **once** at 0630 — a single short
 brightness swell that returns to rest. Brightness and not scale: apparent size in
@@ -277,7 +278,7 @@ governs nothing implemented: with no viewer-addressed sentence anywhere in the
 graph passage there is nothing for a veil to carry, and a scene that dims for no
 sentence is just a scene that dims.
 
-The graph therefore stays at full presence for all 120 frames. That is the right
+The graph therefore stays at full presence for all 100 frames. That is the right
 outcome for the card rather than a concession: its three lines are graph-attached
 technical values whose job is to be read *against* the structure behind them, and
 key frame 0710 has to hold the count and the evidence in one image. Darkening the
@@ -289,9 +290,15 @@ graph. It stays the `lookAt` rig at eye `(7.0, 3.2, 10.0)` looking at
 `(8.0, 0.0, -2.4)`, 15° off `-Z`, `up` world up on every frame. No orbit, no roll,
 no rotation, no shake, no dolly.
 
-**Holds.** 0710 must be still enough to export as an image. 0710–0750 is a true
+**Holds.** 0710 must be still enough to export as an image. 0710–0730 is a true
 hold — nothing changes after the card settles, and the frame's job there is to be
-read.
+read. It used to run 0710–0750, and the twenty frames that came off it were dead:
+with the claim line and its veil cut, nothing in the scene's tail animated at all.
+Measured on the render, the frame stopped changing at scene-local 78 and the
+remaining 41 frames were pixel-identical — a third of the scene was a frozen
+image. What is left is a 21-frame hold, frames 0709–0729 measured identical, which
+is long enough to read the card's three lines and to let the cut land on a still
+frame.
 
 ## Three.js
 
@@ -310,7 +317,7 @@ edge inside `payments-api`. No node is added, moved or removed by this scene; on
 visual state changes.
 
 **Camera intent.** Hold. This scene spends its motion budget on the graph, not the
-camera. The rig is held for all 120 frames, so this scene's angular variation is
+camera. The rig is held for all 100 frames, so this scene's angular variation is
 zero and the 15–20° per-sequence budget (`STORYBOARD.md` §13, `AGENTS.md` §22) is
 satisfied trivially rather than narrowly — Scene 03 already spent that budget
 arriving at 15° off `-Z`.
@@ -378,7 +385,7 @@ Hard sequence boundary at 0630, and it is **visually continuous rather than
 byte-identical**: frames 0629 and 0630 measure **62.93 dB** PSNR, and the
 difference is glyph antialiasing and nothing else. Scene 03's camera move
 completes at 0598 and nothing in the film moves the camera after it, so the pose
-is provably still for all 120 frames of this scene.
+is provably still for all 100 frames of this scene.
 
 Scene 03 hands over its whole settled graph: eight nodes and seven edges at the
 presence it finished on, `withRetry()` accent-lit at the head of the cascade, and
@@ -413,7 +420,7 @@ lands on a clean frame.
 
 ## Transition out
 
-At 0750 `SemanticScene.tsx` takes over and the transition comes from the content
+At 0730 `SemanticScene.tsx` takes over and the transition comes from the content
 (`STORYBOARD.md` §27, *Graph → Semantic comparison*): the graph flattens and the
 frame becomes a split view. The camera does not straighten up first, and it should
 not: the graph sequence ends 15° off `-Z`, and the flatten resolves that oblique
@@ -422,7 +429,7 @@ rather than a camera move.
 
 Consequences this scene must respect:
 
-- the graph must be **at rest** at 0750 — a flatten applied to a still frame reads
+- the graph must be **at rest** at 0730 — a flatten applied to a still frame reads
   as a deliberate change of representation; applied to a moving frame it reads as a
   glitch;
 - the accent state produced here carries into the right-hand side of the split, so
@@ -476,11 +483,11 @@ Frames to inspect manually (`STORYBOARD.md` §28):
 0630 — single pulse on withRetry(); frame otherwise identical to 0629
 0670 — propagation mid-flight, ordering clearly readable
 0710 — KEY VISUAL: full blast radius plus impact card
-0740 — hold on the settled frame; card and propagation, nothing dimmed
+0729 — last frame of the scene; identical to 0709, card and propagation, nothing dimmed
 ```
 
 **Frame 0710 is a key visual frame** (`STORYBOARD.md` §29, and `AGENTS.md`'s list
-of frames that must remain intentional as stills: 0080, 0620, 0710, 0860, 1030, 1190),
+of frames that must remain intentional as stills: 0080, 0620, 0710, 0840, 1010, 1170),
 earmarked for the README. It must work as a still image, which means at 0710:
 
 - the propagation is complete and every affected node is unambiguously marked;
@@ -564,18 +571,18 @@ Safe to change without altering the scene's purpose:
 
 - Component: `src/scenes/BlastRadiusScene.tsx`.
 - Global scene boundaries live only as inline `<Sequence>` literals in
-  `src/Composition.tsx` (`from={630}`, `durationInFrames={120}`), so Remotion
+  `src/Composition.tsx` (`from={630}`, `durationInFrames={100}`), so Remotion
   Studio can trim them. There is no timing module; do not introduce one and do not
-  restate 630/750 inside the scene. The scene animates in scene-local frames, and
+  restate 630/730 inside the scene. The scene animates in scene-local frames, and
   offsets to absolute frames only where it samples Scene 03's graph curve.
 - The card belongs in `src/components/MetricCard.tsx` (`AGENTS.md` §4, §31) so
   Scene 07 can reuse the same surface language for benchmark values, and it is
   composed by `src/components/ImpactReport.tsx`, which this scene and Scene 05
   both draw. `ImpactReport` is now the card alone: it used to compose the card
   with the claim line under it, and the claim line was cut. Scene 05 inherits the
-  block at 0750 and fades it out during the flatten, so the two scenes have to
+  block at 0730 and fades it out during the flatten, so the two scenes have to
   render it identically; the first version had this scene own the markup, Scene 05
-  simply not draw it, and the 0749/0750 seam measured 22 dB PSNR. It is now
+  simply not draw it, and the 0729/0730 seam measured 22 dB PSNR. It is now
   pixel-identical.
 - Rendering pieces involved: `src/scenes/GraphRevealScene.tsx` is the reference
   implementation of this graph — extruded plates from `src/three/GraphNode.tsx`,
@@ -603,7 +610,7 @@ Safe to change without altering the scene's purpose:
   tubes are real geometry rebuilt per frame, which is cheap at this count, and
   per-edge accent means each tube carries its own material. Avoid stacked
   postprocessing (`AGENTS.md` §35, §36).
-- Iterate with Remotion Studio plus a small range render over roughly 0620–0760;
+- Iterate with Remotion Studio plus a small range render over roughly 0620–0740;
   scrub forward, backward, forward and confirm 0710 renders identically each time
   (`AGENTS.md` §40).
 
@@ -830,4 +837,23 @@ Safe to change without altering the scene's purpose:
   measurements went with them.
 - Frame numbers aside, the three card values, the propagation order, the hop
   geometry, the dataset reasoning and every other measurement are unchanged.
+```
+
+```text
+2026-08-25
+- Trimmed from 120 to 100 frames. Every master frame from 0730 onward moved −20;
+  this scene keeps its own start at 0630 and now spans 0630–0730
+  (10.5 s – 12.17 s). Its key visual frame is still 0710 — scene-local 80, inside
+  the shorter range — and the master is now 1300 frames (21.7 s).
+- The twenty frames were dead. Cutting `Exact symbols. Not name matches.` and the
+  veil under it left nothing animating in the tail: measured on the render, the
+  frame stopped changing at scene-local 78 and the remaining 41 frames were
+  pixel-identical, so a third of the scene was a frozen image. The hold is now 21
+  frames, 0709–0729 measured identical, which is long enough to read the card's
+  three lines and to let the cut land on a still frame.
+- Seams re-measured: 0630 still grades 62.93 dB, glyph antialiasing only, and the
+  new 0729/0730 boundary into the semantic scene is pixel-identical. 880 mounted
+  frames render with no black frame and no single-frame anomaly.
+- Beats, scene-local frames, the pulse, the propagation order, the hop geometry,
+  the three card values and every visible string are unchanged.
 ```

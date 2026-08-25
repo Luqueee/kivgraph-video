@@ -35,8 +35,8 @@ Three.js debe utilizarse para visualizar el concepto que hace especial a Kivgrap
 ```text
 Resolution: 1920 × 1080
 FPS: 60
-Duration: 22.0 s
-Frames: 1320
+Duration: 21.7 s
+Frames: 1300
 Aspect ratio: 16:9
 ```
 
@@ -686,7 +686,7 @@ desplazamiento es del composer y no del render.
 Arreglable en principio, dándole al composer un render lineal y dejando que él
 haga la conversión a sRGB. Eso significa reconstruir el pipeline de color que el
 proyecto ya arregló midiendo, y volver a verificar cada gris de token y cada
-costura en los 900 frames montados.
+costura en los 880 frames montados.
 
 **Y las restricciones no le dejan nada que desenfocar.** «Nunca desenfocar
 información importante» significa aquí: ni el símbolo cambiado, ni las crossings,
@@ -1409,9 +1409,9 @@ oscurecía a `0.86` y se leía `Cross-repository.` sobre el velo, centrado, entr
 0658 y 0708. Aterrizaba como un subtítulo quemado sobre un plano y no como parte
 de la película.
 
-Medido tras el corte: las costuras 0330 y 0750 son idénticas píxel a píxel, la
-0630 mide 62,93 dB — sólo antialiasing — y los 900 frames montados no tienen
-frame negro ni una sola anomalía de un frame.
+Medido tras el corte y tras el recorte de la 06: las costuras 0330 y 0730 son
+idénticas píxel a píxel, la 0630 mide 62,93 dB — sólo antialiasing — y los 880
+frames montados no tienen frame negro ni una sola anomalía de un frame.
 
 El número 05 se queda ocupado por este registro y las escenas siguientes
 conservan su numeración de storyboard.
@@ -1423,8 +1423,8 @@ conservan su numeración de storyboard.
 ### Frames
 
 ```text
-0630–0750
-14.0–16.0 s
+0630–0730
+14.0–15.67 s
 ```
 
 ---
@@ -1497,6 +1497,14 @@ Sin rebotes.
 
 ---
 
+### Frames 0709–0729
+
+Hold. El cuadro no vuelve a cambiar: 21 frames idénticos píxel a píxel, los que
+la card necesita para que se lean sus tres líneas y para que el corte hacia la 07
+caiga sobre una imagen quieta.
+
+---
+
 ### No hay claim line
 
 Aquí había una frase. Debajo de la card se leía `Exact symbols. Not name
@@ -1511,6 +1519,15 @@ La card se queda sola. Sus tres valores se leen contra el grafo sin oscurecer,
 que es exactamente lo que §7 pide para los valores de una card de métricas: el
 grafo debajo de `7 affected symbols` es la prueba de la cifra.
 
+Con la frase y el velo se fue lo único que seguía moviéndose en la cola de la
+escena. Medido sobre el render: el cuadro deja de cambiar en el frame local 78 y
+los 41 frames restantes eran idénticos píxel a píxel, un tercio de la escena
+convertido en imagen congelada. Por eso la escena se recorta de 120 a 100 frames
+— 0630–0730, 1,67 s — y el hold se queda en 21 frames, 0709–0729: bastante para
+leer las tres líneas de la card y para que el corte caiga sobre una imagen
+quieta. La costura nueva 0729 → 0730 es idéntica píxel a píxel; el corte hacia la
+07 sigue siendo invisible.
+
 ---
 
 # SCENE 07 — NAME ≠ SYMBOL
@@ -1518,8 +1535,8 @@ grafo debajo de `7 affected symbols` es la prueba de la cifra.
 ### Frames
 
 ```text
-0750–0900
-16.0–18.5 s
+0730–0880
+15.67–18.17 s
 ```
 
 ---
@@ -1609,7 +1626,7 @@ etiqueta caería a unos 11 px.
 
 ---
 
-### Frames 0840–0880
+### Frames 0820–0860
 
 El lado izquierdo pierde opacidad.
 
@@ -1634,7 +1651,7 @@ clara, y esa asimetría es la frase.
 
 ---
 
-### Frames 0880–0900
+### Frames 0860–0880
 
 Hold.
 
@@ -1645,13 +1662,13 @@ Hold.
 ### Frames
 
 ```text
-0900–0990
-18.5–20.0 s
+0880–0970
+18.17–19.67 s
 ```
 
 ---
 
-### Frame 0900
+### Frame 0880
 
 El grafo se contrae hacia el nodo seleccionado.
 
@@ -1680,7 +1697,7 @@ Entrar por bloques.
 
 ---
 
-### Frame 0960
+### Frame 0940
 
 Pequeño label:
 
@@ -1695,13 +1712,13 @@ Answered with Kivgraph
 ### Frames
 
 ```text
-0990–1110
-20.0–22.0 s
+0970–1090
+19.67–21.67 s
 ```
 
 ---
 
-### Frame 0990
+### Frame 0970
 
 Hard cut limpio.
 
@@ -1715,7 +1732,7 @@ Sólo tipografía.
 
 ---
 
-### Frames 0990–1030
+### Frames 0970–1010
 
 Aparece:
 
@@ -1731,7 +1748,7 @@ tokens
 
 ---
 
-### Frames 1010–1050
+### Frames 0990–1030
 
 A la derecha:
 
@@ -1744,7 +1761,7 @@ Mucho menos protagonista.
 
 ---
 
-### Frames 1040–1080
+### Frames 1020–1060
 
 Aparece:
 
@@ -1754,7 +1771,7 @@ Aparece:
 
 ---
 
-### Frames 1060–1100
+### Frames 1040–1080
 
 Aparece:
 
@@ -1786,13 +1803,13 @@ Los números deben hablar solos.
 ### Frames
 
 ```text
-1110–1200
-22.0–23.5 s
+1090–1180
+21.67–23.17 s
 ```
 
 ---
 
-### Frame 1110
+### Frame 1090
 
 Todo desaparece.
 
@@ -1800,13 +1817,13 @@ Negro.
 
 ---
 
-### Frame 1120
+### Frame 1100
 
 Aparece un único nodo.
 
 ---
 
-### Frames 1120–1160
+### Frames 1100–1140
 
 Pequeñas líneas empiezan a llegar desde fuera del frame hacia ese nodo.
 
@@ -1818,7 +1835,7 @@ Pequeñas líneas empiezan a llegar desde fuera del frame hacia ese nodo.
 
 ---
 
-### Frames 1150–1180
+### Frames 1130–1160
 
 Las relaciones convergen formando una composición inspirada en el lenguaje visual de Kivgraph.
 
@@ -1828,7 +1845,7 @@ La animación simplemente sirve como transición.
 
 ---
 
-### Frame 1180
+### Frame 1160
 
 Aparece:
 
@@ -1836,7 +1853,7 @@ Aparece:
 
 ---
 
-### Frame 1190
+### Frame 1170
 
 Debajo:
 
@@ -1849,13 +1866,13 @@ Debajo:
 ### Frames
 
 ```text
-1200–1320
-23.5–25.5 s
+1180–1300
+23.17–25.17 s
 ```
 
 ---
 
-### Frames 1200–1230
+### Frames 1180–1210
 
 Aparecen integrations:
 
@@ -1867,7 +1884,7 @@ Opcionalmente otras compatibles si hay espacio.
 
 ---
 
-### Frame 1230
+### Frame 1210
 
 CTA:
 
@@ -1883,7 +1900,7 @@ kivgraph.dev
 
 ---
 
-### Frame 1250
+### Frame 1230
 
 Instalación, si se decide mostrarla:
 
@@ -1905,7 +1922,7 @@ kivgraph.dev
 
 ---
 
-### Frames 1260–1320
+### Frames 1240–1300
 
 Hold completo.
 
@@ -2260,27 +2277,27 @@ scenes/
     <GraphRevealScene />
   </Sequence>
 
-  <Sequence from={630} durationInFrames={120}>
+  <Sequence from={630} durationInFrames={100}>
     <BlastRadiusScene />
   </Sequence>
 
-  <Sequence from={750} durationInFrames={150}>
+  <Sequence from={730} durationInFrames={150}>
     <SemanticScene />
   </Sequence>
 
-  <Sequence from={900} durationInFrames={90}>
+  <Sequence from={880} durationInFrames={90}>
     <AgentAnswerScene />
   </Sequence>
 
-  <Sequence from={990} durationInFrames={120}>
+  <Sequence from={970} durationInFrames={120}>
     <BenchmarkScene />
   </Sequence>
 
-  <Sequence from={1110} durationInFrames={90}>
+  <Sequence from={1090} durationInFrames={90}>
     <BrandScene />
   </Sequence>
 
-  <Sequence from={1200} durationInFrames={120}>
+  <Sequence from={1180} durationInFrames={120}>
     <OutroScene />
   </Sequence>
 </>
@@ -2377,28 +2394,28 @@ Durante desarrollo revisar específicamente:
 0630
 0670
 0710
-0740
+0729
 
-0750
-0810
-0860
-0899
+0730
+0790
+0840
+0879
 
-0900
-0960
+0880
+0940
 
-0990
-1030
-1070
-1109
+0970
+1010
+1050
+1089
 
-1110
-1160
-1190
+1090
+1140
+1170
 
-1200
-1260
-1319
+1180
+1240
+1299
 ```
 
 Los frames:
@@ -2407,9 +2424,9 @@ Los frames:
 0080
 0620
 0710
-0860
-1030
-1190
+0840
+1010
+1170
 ```
 
 deben funcionar incluso como capturas estáticas.
@@ -2457,7 +2474,7 @@ Usable en README.
 
 ---
 
-## Frame ~0860
+## Frame ~0840
 
 ```text
 Name matching vs Semantic resolution
@@ -2470,7 +2487,7 @@ Usable para marketing técnico.
 
 ---
 
-## Frame ~1030
+## Frame ~1010
 
 ```text
 6.2k vs 63.5k
@@ -2596,7 +2613,7 @@ Give coding agents structural context.
 La primera versión debe entregar:
 
 ```text
-22.0 s master
+21.7 s master
 1920×1080
 60 FPS
 H.264
@@ -2739,4 +2756,19 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   card de impacto queda sola sobre un grafo sin oscurecer. La regla §7 sigue en
   pie, pero de momento no gobierna nada implementado. Afecta a las secciones 7,
   28 y 29 y a los beats de las escenas 06 y 07.
+
+2026-08-25
+- Blast radius recortada de 120 a 100 frames (0630–0730). Cortadas su claim line
+  y su velo, en la cola de la escena no quedaba nada moviéndose: medido sobre el
+  render, el cuadro deja de cambiar en el frame local 78 y los 41 frames
+  siguientes eran idénticos píxel a píxel — un tercio de la escena era una imagen
+  congelada. Se quitan 20 frames y el hold queda en 21, 0709–0729, bastante para
+  leer las tres líneas de la card y para que el corte caiga sobre una imagen
+  quieta. Todo lo posterior a 0730 se adelanta 20 frames y el master pasa de 1320
+  a 1300 frames (21,7 s). Medido tras el recorte: la costura nueva 0729 → 0730 es
+  idéntica píxel a píxel, la 0630 sigue en 62,93 dB (sólo antialiasing) y los 880
+  frames montados no tienen frame negro ni una sola anomalía de un frame. El
+  still clave 0710 no se mueve — es el frame local 80 — y los posteriores pasan a
+  0840, 1010 y 1170. Afecta a las secciones 2, 15, 26, 28, 29 y 34 y a los rangos
+  de las escenas 06–11.
 ```

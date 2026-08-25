@@ -6,7 +6,7 @@ import type { GraphVisualState } from "./graphState";
 /**
  * Scene 04's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-120 (master 0630-0750).
+ * Scene-local frames 0-100 (master 0630-0730).
  *
  * The scene has one argument and it is made by ordering: a change happens at
  * one symbol, and then it is seen to *travel* - hop 1, hop 2, hop 3, never two

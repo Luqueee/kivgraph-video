@@ -16,14 +16,18 @@ import { SymbolScene } from "./scenes/SymbolScene";
  *
  * Planned timeline (STORYBOARD.md 26, docs/scenes/README.md):
  *   0000-0120 Symbol         0120-0330 Agent         0330-0630 Graph Reveal
- *   0630-0750 Blast Radius   0750-0900 Semantic      0900-0990 Agent Answer
- *   0990-1110 Benchmark      1110-1200 Brand         1200-1320 Outro
+ *   0630-0730 Blast Radius   0730-0880 Semantic      0880-0970 Agent Answer
+ *   0970-1090 Benchmark      1090-1180 Brand         1180-1300 Outro
  *
- * The master is 1320 frames, not the 1410 it was: the cross-repository scene
- * was cut. It spent ninety frames turning the camera around a structure that
- * had already been read, which did not communicate, and its one other beat
- * suppressed exactly the two hop-1 nodes the next scene immediately lights
- * again. Everything after 0630 moved ninety frames earlier.
+ * The master is 1300 frames, not the 1410 it was, and two cuts got it there.
+ * The cross-repository scene was deleted: it spent ninety frames turning the
+ * camera around a structure that had already been read, which did not
+ * communicate, and its one other beat suppressed exactly the two hop-1 nodes
+ * the next scene immediately lights again. Then the blast radius lost twenty
+ * frames, because removing its claim line left the last thirty-five of its
+ * frames pixel-identical - the veil and the sentence had been the only things
+ * moving there. Everything after 0630 moved ninety frames earlier, and
+ * everything after 0730 another twenty.
  *
  * Scenes 01 and 02 are one continuous camera move through one code environment
  * and have no cut between them; the boundary at 0120 is where the camera changes
@@ -36,13 +40,13 @@ import { SymbolScene } from "./scenes/SymbolScene";
 /**
  * Frames of the master that are actually mounted.
  *
- * The finished piece is 1410 frames (23.5 s), and that is the number every
+ * The finished piece is 1300 frames (21.7 s), and that is the number every
  * document plans against. Until the remaining scenes exist, the composition is
  * registered at this length instead, so Studio and `remotion render` produce the
- * film that exists rather than fourteen seconds of video followed by nine and a
- * half of black. Raise it as each scene lands; delete it once it reaches 1410.
+ * film that exists rather than fifteen seconds of video followed by seven of
+ * black. Raise it as each scene lands; delete it once it reaches 1300.
  */
-export const mountedFrames = 900;
+export const mountedFrames = 880;
 
 export const KivgraphVideo: React.FC = () => {
   return (
@@ -89,7 +93,7 @@ export const KivgraphVideo: React.FC = () => {
       <Sequence
         name="04 Blast Radius"
         from={630}
-        durationInFrames={120}
+        durationInFrames={100}
         premountFor={30}
         postmountFor={30}
       >
@@ -97,7 +101,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="05 Semantic Resolution"
-        from={750}
+        from={730}
         durationInFrames={150}
         premountFor={30}
       >

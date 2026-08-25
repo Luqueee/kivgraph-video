@@ -49,9 +49,9 @@ storyboard SCENE 03 and SCENE 04 are implemented as the single
 from the film, so storyboard SCENE 08 is document 06. Read the mapping table in
 `docs/scenes/README.md` before comparing frame numbers between the two files.
 
-- Global frames: `0900`–`0990`
-- Scene-local frames: `0000`–`0090` (last rendered frame `0089` / master `0989`)
-- Time: 15.0 s – 16.5 s
+- Global frames: `0880`–`0970`
+- Scene-local frames: `0000`–`0090` (last rendered frame `0089` / master `0969`)
+- Time: 14.67 s – 16.17 s
 - Duration: 90 frames / 1.5 s at 60 fps
 - Remotion component: `src/scenes/AgentAnswerScene.tsx`
 
@@ -59,20 +59,20 @@ Beats:
 
 | Master      | Local       | Beat                                                          |
 | ----------- | ----------- | ------------------------------------------------------------- |
-| `0900`      | `0000`      | Match cut lands. Prompt layer is back, question still on screen. |
-| `0910`–`0925` | `0010`–`0025` | Block 1: `Changing withRetry() affects:`                      |
-| `0925`–`0945` | `0025`–`0045` | Block 2: `7 symbols` / `across 2 repositories.`               |
-| `0940`–`0960` | `0040`–`0060` | Block 3: the `checkout-service` path sentence                 |
-| `0960`      | `0060`      | Label `Answered with Kivgraph` reads.                          |
-| `0960`–`0990` | `0060`–`0090` | Hold. Nothing moves. The frame is settled for the hard cut.   |
+| `0880`      | `0000`      | Match cut lands. Prompt layer is back, question still on screen. |
+| `0890`–`0905` | `0010`–`0025` | Block 1: `Changing withRetry() affects:`                      |
+| `0905`–`0925` | `0025`–`0045` | Block 2: `7 symbols` / `across 2 repositories.`               |
+| `0920`–`0940` | `0040`–`0060` | Block 3: the `checkout-service` path sentence                 |
+| `0940`      | `0060`      | Label `Answered with Kivgraph` reads.                          |
+| `0940`–`0970` | `0060`–`0090` | Hold. Nothing moves. The frame is settled for the hard cut.   |
 
-Only `0900` and `0960` are fixed by the storyboard. The three block windows are
+Only `0880` and `0940` are fixed by the storyboard. The three block windows are
 the documented rhythm, not a requirement; they may shift as long as the blocks
-remain three distinct beats and the scene is fully settled by `0960`.
+remain three distinct beats and the scene is fully settled by `0940`.
 
 ## Initial state
 
-At `0900` the frame is the agent prompt layer from `02-agent.md`, in the same
+At `0880` the frame is the agent prompt layer from `02-agent.md`, in the same
 position and at the same scale it had there:
 
 - **no terminal panel.** Scene 02 never draws one, and neither does this scene:
@@ -97,7 +97,7 @@ The first frame must look like the prompt was always there and simply waited.
 
 ## Final state
 
-At `0989` the prompt layer holds the complete answer:
+At `0969` the prompt layer holds the complete answer:
 
 - the three answer blocks, all fully legible;
 - the quantities `7` and `2` carrying the only accent in the block;
@@ -172,14 +172,14 @@ happens to have internal structure.
 
 Storyboard frame numbers mark the frame at which a beat **reads**, not the frame
 at which its opacity ramp starts. The `Answered with Kivgraph` label is therefore
-centred on `0960` rather than beginning there, so the reviewed frame `0960` shows
+centred on `0940` rather than beginning there, so the reviewed frame `0940` shows
 it legible.
 
 The caret may rest after the question. It must not blink and must not retype
 anything: the human is done, and a blinking caret during the hold would break the
 settled final frame.
 
-Nothing moves between `0960` and `0990`.
+Nothing moves between `0940` and `0970`.
 
 ## Three.js
 
@@ -202,7 +202,7 @@ match cut into prompt text
 The contraction converges on the `withRetry()` node, and this scene inherits **a
 position and an apparent size**, not the token rect. `SemanticScene` leaves the
 node where its right column drew it — 152 master pixels per world unit — and the
-cut at `0900` lands on a shape that is already exactly there. Carrying that shape
+cut at `0880` lands on a shape that is already exactly there. Carrying that shape
 back onto the `withRetry()` token inside the prompt row is *this* scene's beat,
 made over its own ninety frames: `graphOffset` in `src/three/graphFrame.ts` is
 derived from `selectedTokenRect`, so the graph began on that rect and the film
@@ -211,12 +211,12 @@ document had the previous scene deliver the node pre-placed on the token, which
 had it backwards — that would be ten frames doing this scene's work, and a match
 cut needs the shape in the same place on both sides of the cut, not already moved.
 
-Because Remotion `Sequence` boundaries at `0900` do not overlap, the contraction
-is authored as the **tail of `SemanticScene`**, settled at frame `0899`. A match
+Because Remotion `Sequence` boundaries at `0880` do not overlap, the contraction
+is authored as the **tail of `SemanticScene`**, settled at frame `0879`. A match
 cut requires the outgoing shape to be settled at the cut; if the contraction were
-still running at `0900` there would be nothing to match. Agreed division with
-`05-semantic-resolution.md`: the hold owns roughly `0880`–`0889`, the contraction
-`0889`–`0899`. See `## Current compromises` for the storyboard tension this
+still running at `0880` there would be nothing to match. Agreed division with
+`05-semantic-resolution.md`: the hold owns roughly `0860`–`0869`, the contraction
+`0869`–`0879`. See `## Current compromises` for the storyboard tension this
 resolves.
 
 No wipe, no flash, no zoom blur (`STORYBOARD.md` §27). The transition is the
@@ -225,7 +225,7 @@ not be hidden behind an effect: if the positions do not match, fix the positions
 
 ## Transition out
 
-Hard cut at `0990` into `07-benchmark.md`.
+Hard cut at `0970` into `07-benchmark.md`.
 
 The answer is on screen, static, fully readable, and then it is simply gone,
 replaced by typography on bare background. The cut is unsoftened on purpose: the
@@ -253,7 +253,7 @@ payments-api/paymentService.
 Answered with Kivgraph
 ```
 
-Carried over from `02-agent.md` and visible from frame `0900`, not new copy:
+Carried over from `02-agent.md` and visible from frame `0880`, not new copy:
 
 ```text
 ❯ What breaks if I change withRetry()?
@@ -281,14 +281,14 @@ scene communicates through the result, not around it.
 ## Key frames
 
 ```text
-frame 0900 — match cut lands; prompt restored, question still on screen, no answer yet
-frame 0960 — full answer plus the "Answered with Kivgraph" label; the resolved frame
-frame 0989 — settled final frame immediately before the hard cut
+frame 0880 — match cut lands; prompt restored, question still on screen, no answer yet
+frame 0940 — full answer plus the "Answered with Kivgraph" label; the resolved frame
+frame 0969 — settled final frame immediately before the hard cut
 ```
 
-`0900` and `0960` are on the manual review list in `STORYBOARD.md` §28. Neither
+`0880` and `0940` are on the manual review list in `STORYBOARD.md` §28. Neither
 is a designated still-image key frame (`AGENTS.md`'s still-image key frame list
-is `0080`, `0620`, `0710`, `0860`, `1030`, `1190`), but `0960` is the frame that
+is `0080`, `0620`, `0710`, `0840`, `1010`, `1170`), but `0940` is the frame that
 proves the loop closed and should be inspected as if it were one.
 
 ## Invariants
@@ -310,7 +310,7 @@ proves the loop closed and should be inspected as if it were one.
   sound, or colour alone to be understood.
 - Accent marks only the result and the Kivgraph invocation. The scene stays
   ≥ 85 % neutral.
-- The frame is static from `0960` to `0990`.
+- The frame is static from `0940` to `0970`.
 - No 3D in this scene. The contraction belongs to the previous scene.
 
 ## Flexible elements
@@ -342,7 +342,7 @@ proves the loop closed and should be inspected as if it were one.
   drift the moment either is touched, and the invariant above is exactly what
   drifts.
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="06 Agent Answer" from={900} durationInFrames={90}>`
+  `<Sequence name="06 Agent Answer" from={880} durationInFrames={90}>`
   literals, because Remotion Studio can only trim inline literals. There is no
   timing module. The component animates in scene-local frames:
   `useCurrentFrame()` inside the Sequence starts at `0`.
@@ -367,12 +367,12 @@ proves the loop closed and should be inspected as if it were one.
   scene states, and `AgentPrompt.tsx` is implemented by `02-agent.md`; this
   scene consumes both rather than rebuilding either.
 - **Storyboard tension, resolved.** `STORYBOARD.md` places the graph contraction
-  at frame `0900` while also giving storyboard SCENE 07 a hold through
-  `0880`–`0900`. Both cannot be true at a non-overlapping Sequence boundary, and
-  a contraction that begins at `0900` is unreachable inside `AgentAnswerScene`
+  at frame `0880` while also giving storyboard SCENE 07 a hold through
+  `0860`–`0880`. Both cannot be true at a non-overlapping Sequence boundary, and
+  a contraction that begins at `0880` is unreachable inside `AgentAnswerScene`
   without making this a 3D scene. Resolution agreed with
   `05-semantic-resolution.md`: `SemanticScene` owns the contraction, hold
-  `0880`–`0889`, contraction `0889`–`0899`, settled at `0899`. Both documents
+  `0860`–`0869`, contraction `0869`–`0879`, settled at `0879`. Both documents
   record the same division. Do not let a future agent re-split it in only one of
   them.
 - **Selection treatment, now decided.** `02-agent.md` owns how the selected
@@ -380,7 +380,7 @@ proves the loop closed and should be inspected as if it were one.
   field with the glyphs in `brand.accentText` `#bfdbfe`, scaled 1.08. This scene
   inherits that unchanged.
 - **Open decision — the code world behind the prompt.** Scene 02 keeps the
-  dimmed code faintly visible under the prompt. Whether the match cut at `0900`
+  dimmed code faintly visible under the prompt. Whether the match cut at `0880`
   restores that texture or lands on bare background has not been decided; it
   must be, together with `05-semantic-resolution.md`, before either scene is
   built.
@@ -440,4 +440,22 @@ proves the loop closed and should be inspected as if it were one.
   match cut now names the settled split view itself instead of a sentence they
   were told. The previous scene's hold and contraction keep the same shape,
   renumbered to `0880`–`0889` and `0889`–`0899`, settled at `0899`.
+```
+
+```text
+2026-08-25
+- The blast radius was trimmed from 120 to 100 frames, so every master frame in
+  this document moved −20: the scene now spans `0880`–`0970`, its last rendered
+  frame is `0969`, and the master is now 1300 frames (21.7 s). It still realises
+  storyboard SCENE 08 — RETURN TO AGENT at a two-scene offset. Beats, durations
+  and scene-local frames are unchanged.
+- Nothing about this scene caused the trim. The blast radius lost its claim line
+  and veil, which left 41 pixel-identical frames in its tail; twenty came off and
+  everything downstream of 0730 followed. The previous scene's hold and
+  contraction keep the same shape, renumbered to `0860`–`0869` and
+  `0869`–`0879`, settled at `0879` — a settle frame that was also corrected from
+  the stale `0899` this document used to quote.
+- The match cut is still a cut onto a settled shape: 880 mounted frames render
+  with no black frame and no single-frame anomaly. The inherited position and
+  apparent size, the answer copy and every quantity in it are unchanged.
 ```

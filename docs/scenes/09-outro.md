@@ -25,7 +25,7 @@ is moving does not get read.
 ## Narrative context
 
 Immediately before: `08-brand.md` resolved the convergence into the Kivgraph
-lockup and its tagline, and settled completely by `1190`.
+lockup and its tagline, and settled completely by `1170`.
 
 This scene prepares for nothing. It is the end of the piece. Its only obligations
 are to name the integrations, present one destination, and then stop moving so
@@ -41,9 +41,9 @@ implemented as a single component and storyboard SCENE 05 — CROSS-REPOSITORY w
 cut from the film. Storyboard SCENE 11 is document 09. See
 `docs/scenes/README.md`.
 
-- Global frames: `1200`–`1320`
-- Scene-local frames: `0000`–`0120` (last rendered frame `0119` / master `1319`)
-- Time: 20 s – 22 s
+- Global frames: `1180`–`1300`
+- Scene-local frames: `0000`–`0120` (last rendered frame `0119` / master `1299`)
+- Time: 19.67 s – 21.67 s
 - Duration: 120 frames / 2.0 s at 60 fps
 - Remotion component: `src/scenes/OutroScene.tsx`
 
@@ -51,17 +51,17 @@ Beats, all fixed by the storyboard:
 
 | Master        | Local         | Beat                                                       |
 | ------------- | ------------- | ---------------------------------------------------------- |
-| `1200`–`1230` | `0000`–`0030` | Integrations: `Claude Code · Codex · OpenCode`.              |
-| `1230`        | `0030`        | CTA reads.                                                  |
-| `1250`        | `0050`        | Install line, **only if** it stays short (see below).        |
-| `1260`–`1320` | `0060`–`0120` | Full hold. Nothing animates. Roughly the final second is pure reading time. |
+| `1180`–`1210` | `0000`–`0030` | Integrations: `Claude Code · Codex · OpenCode`.              |
+| `1210`        | `0030`        | CTA reads.                                                  |
+| `1230`        | `0050`        | Install line, **only if** it stays short (see below).        |
+| `1240`–`1300` | `0060`–`0120` | Full hold. Nothing animates. Roughly the final second is pure reading time. |
 
 The hold is 60 frames — exactly one second at 60 fps — and it is the largest
 single uninterrupted block in the video.
 
 ## Initial state
 
-At `1200` the frame is what `08-brand.md` left at `1199`: the Kivgraph lockup and
+At `1180` the frame is what `08-brand.md` left at `1179`: the Kivgraph lockup and
 the tagline `Exact code intelligence for coding agents.`, settled, on
 `background` `#0a0b0d`, with the lockup in the position both scenes share.
 
@@ -71,7 +71,7 @@ simply stops animating and this one starts adding beneath it. See
 
 ## Final state
 
-At `1319` the frame holds, static:
+At `1299` the frame holds, static:
 
 - the Kivgraph lockup;
 - the tagline;
@@ -79,7 +79,7 @@ At `1319` the frame holds, static:
 - one destination URL;
 - the install line, if the decision was to show it.
 
-`1319` is the last frame of the master and is the natural poster frame for the
+`1299` is the last frame of the master and is the natural poster frame for the
 piece (`STORYBOARD.md` §34). It must be a legitimate standalone image: name,
 claim, compatibility, address.
 
@@ -128,18 +128,18 @@ Content stays centred so 1:1, 4:5, and 9:16 variants remain possible
 
 Two entrances, then stillness.
 
-**Integrations (`1200`–`1230`).** Opacity `0 → 1` with a small upward settle.
+**Integrations (`1180`–`1210`).** Opacity `0 → 1` with a small upward settle.
 A slight per-name stagger is acceptable and makes the line read as an enumeration;
 a large one turns it into a bullet list animation.
 
-**CTA (`1230`).** Opacity `0 → 1` with a minimal settle, concluding promptly.
+**CTA (`1210`).** Opacity `0 → 1` with a minimal settle, concluding promptly.
 Storyboard frame numbers mark when a beat **reads**, not when its ramp starts, so
-the URL is legible at `1230` rather than starting to appear there.
+the URL is legible at `1210` rather than starting to appear there.
 
-**Install line (`1250`), if shown.** The quietest entrance in the video. Opacity
+**Install line (`1230`), if shown.** The quietest entrance in the video. Opacity
 only, no travel. It must not pull attention off the URL.
 
-**Hold (`1260`–`1320`).** Nothing animates. This is a hard requirement, not a
+**Hold (`1240`–`1300`).** Nothing animates. This is a hard requirement, not a
 pacing preference — the viewer is reading a URL, and any motion anywhere in the
 frame steals the fixation. In particular:
 
@@ -148,9 +148,9 @@ frame steals the fixation. In particular:
 - no pulsing, breathing, or glowing mark;
 - no slow drift, zoom, or parallax on anything;
 - no looping shimmer on the URL;
-- no residual easing still resolving into `1261`.
+- no residual easing still resolving into `1241`.
 
-Every element must have reached its final value by `1260`.
+Every element must have reached its final value by `1240`.
 
 ## Three.js
 
@@ -158,9 +158,9 @@ Not used.
 
 ## Transition in
 
-There is no transition at `1200`. The frame continues.
+There is no transition at `1180`. The frame continues.
 
-`08-brand.md` settles at `1190` and holds through `1199`; this scene inherits that
+`08-brand.md` settles at `1170` and holds through `1179`; this scene inherits that
 exact frame and adds to it. The lockup and tagline do not move, re-enter, fade, or
 re-scale — a mark that repositions itself between two adjacent scenes reads as a
 rendering fault.
@@ -178,12 +178,12 @@ the frame, and `08-brand.md` must be authored to that position from the start.
 
 ## Transition out
 
-None. `1319` is the last frame of the master.
+None. `1299` is the last frame of the master.
 
 The video ends on a static frame rather than fading to black. Fading out would
 remove the URL at exactly the moment a viewer who decided to act reaches for it,
 and it would also destroy the poster frame. If the piece is looped by a player,
-the cut from `1319` back to `0000` is acceptable — `STORYBOARD.md` §34 requires
+the cut from `1299` back to `0000` is acceptable — `STORYBOARD.md` §34 requires
 the master to play correctly with looping disabled, and the outro is authored for
 that case.
 
@@ -234,21 +234,21 @@ where marketing copy is most tempting.
 ## Key frames
 
 ```text
-frame 1200 — inherited brand frame; integrations begin to arrive
-frame 1260 — everything present and settled; the hold begins
-frame 1319 — final frame of the master; poster frame candidate
+frame 1180 — inherited brand frame; integrations begin to arrive
+frame 1240 — everything present and settled; the hold begins
+frame 1299 — final frame of the master; poster frame candidate
 ```
 
 All three are on the manual review list in `STORYBOARD.md` §28. None is a
-designated still-image key frame in `AGENTS.md`, but `1319` will be used as a
+designated still-image key frame in `AGENTS.md`, but `1299` will be used as a
 poster frame in practice and should be inspected as an exported image.
 
-Check `1261` specifically: it is the frame that proves nothing is still easing
+Check `1241` specifically: it is the frame that proves nothing is still easing
 into place after the hold begins.
 
 ## Invariants
 
-- **Nothing animates during the hold `1260`–`1320`.** No exceptions, including
+- **Nothing animates during the hold `1240`–`1300`.** No exceptions, including
   carets, pulses, and slow drifts.
 - **The URL is the last thing standing** and the strongest element below the
   tagline. Everything else in the lower half is subordinate to it.
@@ -257,7 +257,7 @@ into place after the hold begins.
   scene exists to present one.
 - **No marketing copy is added.** The scene's text is the integrations line, one
   URL, and optionally the install command. Nothing else.
-- The lockup and tagline do not move at the `1200` boundary.
+- The lockup and tagline do not move at the `1180` boundary.
 - The install line is shown only if it stays short enough not to look noisy. If in
   doubt, omit it — `STORYBOARD.md` is explicit that the URL takes priority.
 - If an install command is shown, it is the real, working, complete command. A
@@ -266,7 +266,7 @@ into place after the hold begins.
 - No button, no card, no accent on the URL, no link styling.
 - Readable in a small embedded player without audio (`AGENTS.md` §37). The URL is
   the single most important string in the video to survive compression.
-- The video does not fade out. `1319` is a usable still.
+- The video does not fade out. `1299` is a usable still.
 
 ## Flexible elements
 
@@ -288,7 +288,7 @@ into place after the hold begins.
   lockup's screen position must come from one shared constant consumed by both
   scenes, not from two independent layouts.
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="09 Outro" from={1200} durationInFrames={120}>` literals, because
+  `<Sequence name="09 Outro" from={1180} durationInFrames={120}>` literals, because
   Remotion Studio can only trim inline literals. There is no timing module. The
   component animates in scene-local frames: `useCurrentFrame()` inside the
   Sequence starts at `0`.
@@ -338,7 +338,7 @@ into place after the hold begins.
   visually noisy, do not show it") is not met by an 89-character line placed next
   to the URL it is meant to support. Revisit only if a genuinely short published
   alias exists; never shorten the command by hand to make it fit.
-- **Open decision — lockup persistence across `1200`.** This document assumes the
+- **Open decision — lockup persistence across `1180`.** This document assumes the
   lockup and tagline carry over from `08-brand.md` unchanged. The storyboard
   neither states nor forbids it. Mirrored in `08-brand.md`
   `## Transition out`; if it is rejected, both documents change together and this
@@ -391,4 +391,16 @@ into place after the hold begins.
   scene-local frames are unchanged.
 - Cross-references to the brand document retargeted to `08-brand.md`, which was
   renumbered from 09 to 08 in the same task.
+```
+
+```text
+2026-08-25
+- The blast radius scene was trimmed from 120 to 100 frames, so every master frame
+  in this document moved −20: the scene now spans `1180`–`1300`, its final frame is
+  `1299`, and it closes a 1300-frame, 21.7 s master. Beats, durations and
+  scene-local frames are unchanged, including the 60-frame hold.
+- The trim was upstream and measured. Cutting `Exact symbols. Not name matches.`
+  and its veil left the blast radius with nothing animating in its tail: 41 of its
+  last frames were pixel-identical, so twenty came off and everything after 0730
+  followed. The poster frame is now `1299`.
 ```

@@ -17,7 +17,7 @@ import { brand } from "../brand/tokens";
 import { fontMono } from "../brand/fonts";
 
 /**
- * Scene 05 - semantic resolution (master 0750-0900, scene-local 0000-0150).
+ * Scene 05 - semantic resolution (master 0730-0880, scene-local 0000-0150).
  *
  * The scene that makes everything before it credible. Without it the blast
  * radius could plausibly be a fancy text search. Here the two mechanisms are
@@ -41,8 +41,8 @@ import { fontMono } from "../brand/fonts";
 
 /**
  * The code bed, held at scene 03's final values - the same literals scene 04
- * freezes. The code world never leaves, and master 0750 has to be
- * indistinguishable from 0749.
+ * freezes. The code world never leaves, and master 0730 has to be
+ * indistinguishable from 0729.
  */
 const bedCamera: Camera = { x: 0, y: 0, zoom: 0.34, screenX: 960, screenY: 540 };
 
@@ -92,7 +92,7 @@ export const SemanticScene: React.FC = () => {
       {/**
        * Scene 04's report, still on screen at the cut and leaving with the
        * depth. It is drawn from the same component scene 04 draws it from, so
-       * the two frames either side of 0750 cannot disagree about it.
+       * the two frames either side of 0730 cannot disagree about it.
        */}
       <ImpactReport card={report} cardOffsetX={0} />
 
