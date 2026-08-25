@@ -7,7 +7,7 @@ import type { Look } from "./projection";
 /**
  * Scene 06's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-90 (master 0880-0970).
+ * Scene-local frames 0-90 (master 0910-1000).
  *
  * The scene closes the loop scene 02 opened. Its one piece of 3D work is the
  * inverse of the film's most important transition: scene 03 grew the prompt's
@@ -47,15 +47,14 @@ const linear = (frame: number, from: number, to: number) =>
   });
 
 /**
- * The frame scene 05 hands over: the split view settled, its right column
- * contracted to one node, everything else already gone.
+ * The frame scene 05 hands over: the split view gone, one node left.
  *
- * 150 is that scene's last frame and every ramp in it clamps, so this is the
+ * 180 is that scene's last frame and every ramp in it clamps, so this is the
  * image the cut arrives on. Sampled rather than restated for the same reason
  * every other scene samples its predecessor: a copy goes stale the first time
- * the scene before it is retuned.
+ * the scene before it is retuned - which it now has been, three times.
  */
-const inherited = getSemanticState(150);
+const inherited = getSemanticState(180);
 
 /**
  * Where the anchor has to end up: the pose at which `graphOffset` puts it on the
@@ -161,7 +160,7 @@ export const selectSettle = (frame: number) => lerp(1, 0.85, ramp(frame, arrival
  * prose, which is a chat gesture. This is a result being returned.
  *
  * The last of them settles at local 56 and the label at 60, which is master
- * 0940 - the frame the storyboard reviews and the frame the scene must be
+ * 0970 - the frame the storyboard reviews and the frame the scene must be
  * finished by.
  */
 const block = (frame: number, from: number) => {
@@ -176,7 +175,7 @@ export const answerBlocks = (frame: number) => ({
   path: block(frame, 42),
 });
 
-/** Attribution, centred on 0940 so that reviewed frame shows it legible. */
+/** Attribution, centred on 0970 so that reviewed frame shows it legible. */
 export const labelOpacity = (frame: number) => ramp(frame, 48, 60);
 
 
@@ -185,7 +184,7 @@ export const labelOpacity = (frame: number) => ramp(frame, 48, 60);
  *
  * This is the open decision `06-agent-answer.md` recorded, and the two frames
  * either side of the cut settle it. The bed has to *start* at the values scene
- * 05 holds, or the background steps at 0880 and the cut stops being a match. It
+ * 05 holds, or the background steps at 0910 and the cut stops being a match. It
  * cannot *stay* there: those levels were dimmed for a split view that filled the
  * frame, and under a single prompt in the lower third they leave the top half of
  * the image dead for ninety frames.

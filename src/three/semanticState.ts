@@ -9,7 +9,7 @@ import type { Look } from "./projection";
 /**
  * Scene 05's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-150 (master 0730-0880).
+ * Scene-local frames 0-180 (master 0730-0910).
  *
  * The scene retires the 3D graph by flattening it, not by cutting away from it.
  * Its argument is a difference in count rather than a spatial claim, so depth
@@ -89,7 +89,7 @@ export const resolution = {
  * of the Body scale and the two callers just under it, which is what the column
  * needs - the right side is read, not glanced at. It also lands the anchor's
  * glyph run at 216 px against the prompt token's 213.8, which is what lets the
- * match cut at 0880 be a match of size as well as of shape.
+ * match cut at 0910 be a match of size as well as of shape.
  */
 const flatPxPerUnit = 135;
 
@@ -188,43 +188,36 @@ const leaving = (frame: number, from: number, to: number) =>
   });
 
 /**
- * The window every piece of comparison chrome leaves on: the left column, the
- * divider and the right column's label.
+ * The one window everything leaves on: local 145-173.
  *
- * Six frames behind the withdrawal and ending two frames after it, so the whole
- * frame clears as one movement rather than as four separate exits. What is left
- * at 0879 is the symbol and the code bed underneath it - and the bed stays
- * because it has been there since frame 0 and carries on into scene 06, which
- * is what makes the cut a change of context rather than a change of world.
+ * Two directions produced this. Things were leaving on three different windows -
+ * the counters at 112-130, the nodes and tubes at 112-140, the chrome at 118-142
+ * - so the frame emptied in three waves and read as pieces being switched off
+ * one after another. And the whole exit began 27 frames after the comparison
+ * finished building, which is not long enough to read two columns.
+ *
+ * One window fixes the first. Starting it at 145 fixes the second: the
+ * comparison is complete at local 85, so it now stands for sixty frames - a full
+ * second - before anything moves. That is what took the scene from 150 frames to
+ * 180, and it is the only reason it grew.
+ *
+ * Twenty-eight frames wide, ending 7 frames before the cut so the shape the
+ * match cut needs is at rest.
  */
-const chromeOut = (frame: number) => leaving(frame, 118, 142);
+const exit = (frame: number) => leaving(frame, 145, 173);
 
 export const getSemanticState = (frame: number): GraphVisualState => {
   const flatten = ramp(frame, 0, 40);
   /**
-   * The withdrawal at the tail: the two relationships and their callers leave,
-   * so the scene hands over one settled symbol.
+   * The withdrawal, on the one exit window above.
    *
-   * It used to be a single ten-frame fade at 139-149, and that was wrong twice
-   * over. Ten frames is not long enough to read two relationships leaving, and
-   * everything before it held the settled comparison for sixty frames - so the
-   * scene sat on its least interesting image and then snapped out of it. The
-   * withdrawal now begins as the left column finishes dimming and has
-   * twenty-eight frames instead of ten, inside the same 150.
-   *
-   * Tube and plate leave on one window. Staggering them - the tubes first, the
-   * plates six frames later - left both callers at full strength with no tube
-   * reaching them, which reads worse than what it replaced: a node with a
-   * severed relationship rather than a relationship being withdrawn.
-   *
-   * The easing is not the project's usual `bezier(0.22, 1, 0.36, 1)`. That curve
-   * is front-loaded, which is right for an arrival and wrong for a departure: it
-   * had the fade 85% done in the first six of the window's twenty-eight frames,
-   * so the withdrawal was over before the viewer could see it happen. This curve
-   * is symmetric - it starts and stops gently and spends its middle actually
-   * moving.
+   * The tubes fade rather than retract. Retracting was built and abandoned:
+   * `edges` is the drawn fraction of a run and it does shorten the tube, but the
+   * half it removes is the half nearest the caller, which on this layout sits
+   * against the caller's own plate - so the shortening is not legible until the
+   * plate has already gone.
    */
-  const withdraw = 1 - leaving(frame, 112, 140);
+  const withdraw = 1 - exit(frame);
 
   const keep = (id: string) => (resolvedIds[id] ? 1 - withdraw : 0);
 
@@ -308,7 +301,7 @@ export const getSemanticState = (frame: number): GraphVisualState => {
  * it.
  */
 export const dividerOpacity = (frame: number) =>
-  ramp(frame, 12, 44) * chromeOut(frame);
+  ramp(frame, 12, 44) * exit(frame);
 
 /**
  * The report scene 05 hands over, leaving with the depth.
@@ -347,7 +340,7 @@ export const leftColumn = (frame: number) => ({
    * things at once. The comparison has been made and read by local 112 - what
    * the next frame needs is the symbol, alone.
    */
-  dim: (1 - 0.82 * ramp(frame, 84, 112)) * chromeOut(frame),
+  dim: (1 - 0.82 * ramp(frame, 84, 112)) * exit(frame),
 });
 
 /**
@@ -360,7 +353,7 @@ export const leftColumn = (frame: number) => ({
  * makes "the counters agree with what is on screen" an invariant.
  */
 export const rightColumn = (frame: number) => ({
-  label: ramp(frame, 55, 71) * chromeOut(frame),
-  counter: ramp(frame, 65, 85) * leaving(frame, 112, 130),
+  label: ramp(frame, 55, 71) * exit(frame),
+  counter: ramp(frame, 65, 85) * exit(frame),
 });
 

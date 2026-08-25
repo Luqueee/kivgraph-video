@@ -17,7 +17,7 @@ import { brand } from "../brand/tokens";
 import { fontMono } from "../brand/fonts";
 
 /**
- * Scene 05 - semantic resolution (master 0730-0880, scene-local 0000-0150).
+ * Scene 05 - semantic resolution (master 0730-0910, scene-local 0000-0180).
  *
  * The scene that makes everything before it credible. Without it the blast
  * radius could plausibly be a fancy text search. Here the two mechanisms are
