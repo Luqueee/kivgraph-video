@@ -226,19 +226,27 @@ if they are still moving, it is wallpaper.
 
 ### Librerías: qué se usa y qué se rechazó
 
-El stack es `@react-three/fiber` + `three` + `@react-three/drei` +
-`@react-three/postprocessing`, con datos propios. No hay librería de grafos.
-
-Se evaluó una propuesta externa completa y esto es lo que quedó dentro:
+El stack es `@react-three/fiber` + `three` + `@react-three/drei`, con datos
+propios. No hay librería de grafos, y no hay postprocesado: se probó y se
+desinstaló.
 
 | Se usa                          | Para qué                                             |
 | ------------------------------- | ---------------------------------------------------- |
 | `drei` `<Text>` (troika SDF)    | etiquetas de nodo y de repositorio, dentro de escena  |
 | geometría propia extruida       | las placas; nunca un componente prehecho             |
 | `TubeGeometry` Catmull-Rom      | las aristas, con radio en unidades de mundo          |
-| `postprocessing` `DepthOfField` | sólo muy sutil, y sólo donde `STORYBOARD.md` §15 lo permite |
 
-Y esto es lo que se rechazó, con el motivo, para que no vuelva a proponerse:
+Y esto se rechazó **después de construirlo y medirlo**, que es distinto de
+rechazarlo de entrada:
+
+- **`postprocessing` `DepthOfField`**: el composer vacío es un no-op (`PSNR =
+  inf`), pero con un solo efecto los grises del grafo se van — placa del ancla de
+  `33 35 37` a `112 128 149`, cuadro completo a 26,4 dB. Su pase final re-codifica
+  un render que ya está en sRGB. Y aunque se arreglara el color, las
+  restricciones sólo le dejan desenfocar dos nodos que ya están a `0.22`. Detalle
+  completo en `STORYBOARD.md` §15.
+
+Y esto se rechazó de entrada, con el motivo, para que no vuelva a proponerse:
 
 - **`react-force-graph-3d`** y cualquier renderer de grafos: no dan control
   artístico, y las posiciones aquí están buscadas contra métricas de tipografía

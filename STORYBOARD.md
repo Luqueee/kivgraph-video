@@ -648,6 +648,41 @@ DOF máximo muy sutil.
 
 ---
 
+## Estado: implementado, medido y retirado
+
+Se construyó en la escena 04 con `@react-three/postprocessing` y se quitó por dos
+razones, en este orden.
+
+**Rompe el pipeline de color.** El composer montado sin efectos es un no-op —
+idéntico píxel a píxel, `PSNR = inf`. Con un solo efecto, los grises del grafo se
+desplazan brutalmente: la placa iluminada del ancla pasa de `33 35 37` a
+`112 128 149`, la lejana de `20 21 24` a `72 81 95`, y el cuadro completo mide
+26,4 dB. No es desenfoque: un `bokehScale` de 2 no triplica la luminancia de una
+placa. El pase final del composer se queda con el tone mapping y la codificación
+de salida, y trata un render ya en sRGB como si fuera lineal. Es el mismo tipo de
+fallo que el de ACES, que renderizaba una placa `#171a1f` como `#080a0d`, y es
+justo lo que `NoToneMapping` + `SRGBColorSpace` están puestos para evitar. La card
+DOM del cuadro mantiene su valor de token en todo momento — prueba de que el
+desplazamiento es del composer y no del render.
+
+Arreglable en principio, dándole al composer un render lineal y dejando que él
+haga la conversión a sRGB. Eso significa reconstruir el pipeline de color que el
+proyecto ya arregló midiendo, y volver a verificar cada gris de token y cada
+costura en 990 frames.
+
+**Y las restricciones no le dejan nada que desenfocar.** «Nunca desenfocar
+información importante» significa aquí: ni el símbolo cambiado, ni las crossings,
+ni sus extremos. Las crossings van de hop 2 a hop 3, así que `Client.Charge()`,
+`Client.Refund()` y los tres nodos de `checkout-service` quedan fuera también. Eso
+es todo el grafo menos `Policy.Do()` y `Once()`, que la escena 04 ya baja a
+`0.22`.
+
+El coste es reconstruir el color; el beneficio, ablandar dos nodos que ya están
+apagados a propósito. Este es el argumento que hay que responder antes de volver a
+proponerlo.
+
+---
+
 # 16. Storyboard completo
 
 ---

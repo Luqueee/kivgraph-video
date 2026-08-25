@@ -400,12 +400,41 @@ camera is a better one, because it does not have to hide anything.
 settles on 0719 with zero velocity, so nothing on screen is moving at the
 handoff.
 
-**Depth of field.** `STORYBOARD.md` §15 permits very subtle DOF in exactly two
-places, one of which is the cross-repo reveal — this scene. Scene 03 spends none
-of that budget: it ships with no DOF pass at all, and frame 0629 lands sharp, so
-the whole allowance is still here. Any DOF used must be barely perceptible, must
-not deepen as the isolation runs, and must never soften the source symbol or the
-crossings. P1 polish, not a requirement.
+**Depth of field: tried, measured, and not shipped.** `STORYBOARD.md` §15 permits
+very subtle DOF in exactly two places, one of which is this scene, and scene 03
+spends none of that budget, so the whole allowance was available. It was
+implemented — `@react-three/postprocessing`'s `EffectComposer` with a
+`DepthOfField` focused on the anchor — and then removed on two findings, in this
+order.
+
+**It breaks the colour pipeline.** Mounted with no effects the composer is a
+no-op: pixel-identical to the reference, `PSNR = inf`. Add one effect and the
+graph's greys move catastrophically — the anchor's lit plate goes from
+`33 35 37` to `112 128 149`, the far plate from `20 21 24` to `72 81 95`, whole
+frame 26.4 dB. That is not blur; a `bokehScale` of 2 cannot triple a plate's
+luminance. The composer's final pass owns tone mapping and output encoding and
+treats an already-sRGB render as linear, so it re-encodes what was already
+encoded — the exact failure this canvas's `NoToneMapping` / `SRGBColorSpace`
+comment exists to prevent, and the same class of bug as the ACES problem that
+once rendered a `#171a1f` plate at `#080a0d`. The card at `(100, 100)` holds its
+token value throughout, because it is DOM above the canvas: proof the shift is
+the composer and not the render.
+
+Fixable in principle, by handing the composer a linear render and letting it own
+the sRGB conversion. That means rebuilding the colour pipeline the project
+deliberately fixed by measurement, and re-verifying every token grey and every
+seam across 990 frames.
+
+**And the constraints leave it nothing to do.** DOF must never soften the source
+symbol or the crossings. The crossings run hop 2 → hop 3, so their endpoints —
+`Client.Charge()`, `Client.Refund()` and all three `checkout-service` nodes — are
+off limits too. That is every node in the graph except `Policy.Do()` and
+`Once()`, which this scene already suppresses to `0.22`. The legal blur target is
+two nodes that are deliberately dim.
+
+So the cost is a colour-pipeline rebuild and the benefit is softening two nodes
+nobody is looking at. Not shipped, and this is the argument to answer before
+proposing it again — not taste.
 
 ## Three.js
 
