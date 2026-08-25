@@ -6,14 +6,14 @@ import {
   interpolate,
   useCurrentFrame,
 } from "remotion";
-import { AgentPrompt, settledGrow } from "../components/AgentPrompt";
+import { AgentPrompt, promptScrim, settledGrow } from "../components/AgentPrompt";
 import { CodeWorld } from "../components/CodeWorld";
 import { fontMono } from "../brand/fonts";
 import { brand } from "../brand/tokens";
 import type { Camera } from "../world/camera";
 
 /**
- * Scene 02 — Agent (master frames 0210-0420, scene-local 0000-0210).
+ * Scene 02 — Agent (master frames 0120-0330, scene-local 0000-0210).
  *
  * The scene the opening has been walking toward: the question gets said out
  * loud. It is said by a developer to an agent, as a prompt, not by the video to
@@ -198,7 +198,7 @@ export const AgentFrame: React.FC<{ frame: number }> = ({ frame }) => {
       */}
       <AbsoluteFill
         style={{
-          background: `linear-gradient(180deg, rgba(${brand.backgroundRgb}, 0) 0%, rgba(${brand.backgroundRgb}, 0) 28%, rgba(${brand.backgroundRgb}, 0.44) 47%, rgba(${brand.backgroundRgb}, 0.66) 63%, rgba(${brand.backgroundRgb}, 0.72) 100%)`,
+          background: promptScrim,
           opacity: interpolate(frame, [16, 50], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
@@ -236,6 +236,7 @@ export const AgentFrame: React.FC<{ frame: number }> = ({ frame }) => {
           extrapolateRight: "clamp",
           easing: Easing.bezier(0.22, 1, 0.36, 1),
         })}
+        tokenOpacity={1}
       />
     </AbsoluteFill>
   );

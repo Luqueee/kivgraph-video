@@ -106,12 +106,15 @@ const flatDistance = pxPerUnit(FOV, 1) / flatPxPerUnit;
  *
  * A look-at rig always projects its target to the centre of the frame, so
  * putting the graph off-centre means aiming at a point beside it. The offsets
- * below are screen pixels, converted to world units at `flatDistance` - the
- * cluster lands 472 px right of centre and 80 px above it, which is the right
- * half's optical centre once the copy band across the middle-lower frame and the
- * counter line under the cluster are both reserved.
+ * below are screen pixels, converted to world units at `flatDistance`.
+ *
+ * `x` was 472 and a render is why it is not. At that offset `Policy.Do()`'s
+ * plate reached x 1869, which is 50 px from the frame edge - not clipped, but
+ * well inside the 96 px margin the rest of the film keeps, and it read as the
+ * cluster being pressed against the edge. 425 puts that plate's right edge at
+ * 1822 and the margin back to 98 px.
  */
-const columnOffsetPx = { x: 472, y: -80 } as const;
+const columnOffsetPx = { x: 425, y: -80 } as const;
 
 /**
  * Centre of the resolved cluster in graph-local coordinates.
@@ -171,13 +174,35 @@ export const getSemanticState = (frame: number): GraphVisualState => {
   const flatten = ramp(frame, 0, 40);
 
   /**
-   * The contraction at the tail: the two callers and their tubes leave, so 0879
-   * hands the next scene a single settled symbol to match-cut on. The camera
-   * does not move for it - a shape that is still moving cannot be cut on.
+   * The withdrawal at the tail: the two relationships and their callers leave,
+   * so the scene hands over one settled symbol.
+   *
+   * It used to be a single ten-frame fade at 139-149, and that was wrong twice
+   * over. Ten frames is not long enough to read two relationships leaving, and
+   * everything before it held the settled comparison for sixty frames - so the
+   * scene sat on its least interesting image and then snapped out of it. The
+   * withdrawal now begins as the left column finishes dimming and has
+   * twenty-eight frames instead of ten, inside the same 150.
+   *
+   * Tube and plate leave on one window. Staggering them - the tubes first, the
+   * plates six frames later - left both callers at full strength with no tube
+   * reaching them, which reads worse than what it replaced: a node with a
+   * severed relationship rather than a relationship being withdrawn.
+   *
+   * The easing is not the project's usual `bezier(0.22, 1, 0.36, 1)`. That curve
+   * is front-loaded, which is right for an arrival and wrong for a departure: it
+   * had the fade 85% done in the first six of the window's twenty-eight frames,
+   * so the withdrawal was over before the viewer could see it happen. This curve
+   * is symmetric - it starts and stops gently and spends its middle actually
+   * moving.
    */
-  const contract = ramp(frame, 139, 149);
+  const withdraw = interpolate(frame, [112, 140], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.4, 0, 0.6, 1),
+  });
 
-  const keep = (id: string) => (resolvedIds[id] ? 1 - contract : 0);
+  const keep = (id: string) => (resolvedIds[id] ? 1 - withdraw : 0);
 
   return {
     look: lookAt(frame),
@@ -211,12 +236,25 @@ export const getSemanticState = (frame: number): GraphVisualState => {
 
     pulse: 0,
 
+    /** Full length throughout. The withdrawal is carried by opacity. */
     edges: Object.fromEntries(edges.map((edge) => [edge.id, 1])),
 
+    /**
+     * The relationships leaving, on the withdrawal's own window.
+     *
+     * Retracting the tubes was tried first and abandoned. `edges` is the drawn
+     * fraction of a run and it does shorten the tube, but the part it removes is
+     * the half nearest the caller - which on this layout is the half visually
+     * against the caller's own plate, so the shortening is not legible until the
+     * plate has already gone. What read on screen was still a fade, with the
+     * added risk that the tube and its plate could disagree about where the
+     * relationship ended. One channel doing one thing is worth more here than a
+     * cleverer gesture that the frame cannot show.
+     */
     edgeGain: Object.fromEntries(
       edges.map((edge) => {
         const from = inherited.edgeGain[edge.id] ?? 1;
-        const to = resolvedEdgeIds[edge.id] ? 1 - contract : 0;
+        const to = resolvedEdgeIds[edge.id] ? 1 - withdraw : 0;
 
         return [edge.id, lerp(from, to, flatten)];
       }),
@@ -275,7 +313,7 @@ export const leftColumn = (frame: number) => ({
   rows: [ramp(frame, 36, 54), ramp(frame, 46, 64)],
   counter: ramp(frame, 60, 78),
   /** Never to zero: the comparison has to still be a comparison at 0879. */
-  dim: 1 - 0.82 * ramp(frame, 90, 130),
+  dim: 1 - 0.82 * ramp(frame, 84, 112),
 });
 
 /**
@@ -289,6 +327,6 @@ export const leftColumn = (frame: number) => ({
  */
 export const rightColumn = (frame: number) => ({
   label: ramp(frame, 55, 71),
-  counter: ramp(frame, 65, 85) * (1 - ramp(frame, 139, 149)),
+  counter: ramp(frame, 65, 85) * (1 - ramp(frame, 112, 130)),
 });
 

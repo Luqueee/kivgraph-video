@@ -591,9 +591,11 @@ Máximo aproximado, **medido como obliquidad total respecto a `-Z`**:
 
 Fue 15–31° mientras existió la escena CROSS-REPOSITORY, cuyo giro compraba
 ángulo hasta aterrizar fuera del bracket. Cortada esa escena (SCENE 05), el
-techo vuelve a ser el que era antes de ella, y la última pose del vídeo — la que
-hereda todo lo que sigue al reveal — se queda en 15,1° fuera de `-Z`. No hay
-movimiento de cámara después de 0598.
+techo vuelve a ser el que era antes de ella, y la pose en la que termina el
+reveal — la que hereda todo lo que sigue — se queda en 15,1° fuera de `-Z`.
+Después de 0598 el rig se mueve dos veces, y ninguna de las dos compra ángulo: la
+07 lo endereza a frontal dentro de su aplanado, y la 08 lo devuelve en veinte
+frames a la pose del match cut, que es la del primer frame del reveal.
 
 Lo que **no** cambia son las dos restricciones duras que encierran cualquier
 movimiento de cámara sobre este layout:
@@ -612,9 +614,12 @@ movimiento. Se resolvió dejando los 16 px completos en la pose de llegada —do
 viven el blast radius y la comparación semántica, y donde el still clave 0710
 tiene que leerse reducido a ancho de README— y bajando a 15 px en los frames *de
 paso*, que se veían una fracción de segundo. Ese compromiso se va con la escena:
-los 15 px los producía su giro y no queda ningún movimiento de cámara después de
-0598 que los reproduzca. Quien vuelva a proponer un movimiento aquí se encuentra
-otra vez con la rejilla.
+los 15 px los producía su giro, y el único movimiento que queda sobre el grafo
+después de 0598 —el retorno de veinte frames de la 08— no llega a tocar la
+rejilla: cuando arranca ya no queda en el cuadro más que el ancla, así que no hay
+etiqueta de clúster que contener ni suelo de 16 px que respetar. Quien vuelva a
+proponer un movimiento sobre el grafo completo se encuentra otra vez con la
+rejilla.
 
 `up` es el vertical del mundo en todos los frames: el horizonte nunca gira, y no
 hay roll en ninguna escena.
@@ -686,7 +691,7 @@ desplazamiento es del composer y no del render.
 Arreglable en principio, dándole al composer un render lineal y dejando que él
 haga la conversión a sRGB. Eso significa reconstruir el pipeline de color que el
 proyecto ya arregló midiendo, y volver a verificar cada gris de token y cada
-costura en los 880 frames montados.
+costura en los 970 frames montados.
 
 **Y las restricciones no le dejan nada que desenfocar.** «Nunca desenfocar
 información importante» significa aquí: ni el símbolo cambiado, ni las crossings,
@@ -1396,7 +1401,9 @@ Consecuencias sobre el resto de la película:
 - la 06 ya no hereda un grafo aislado ni una pose movida: hereda el estado
   asentado completo con el que termina la 04, en el encuadre con el que la 04
   termina — ojo en `(7.0, 3.2, 10.0)` mirando a `(8.0, 0.0, -2.4)`, 15,1° fuera
-  de `-Z` — y no hay ningún movimiento de cámara en el vídeo después de 0598;
+  de `-Z` — y ese encuadre se mantiene hasta el aplanado de la 07: después de
+  0598 nadie explora el grafo, sólo se endereza el rig y, en la 08, se devuelve a
+  la pose del match cut;
 - la regla de la que venía esta escena sigue en pie y ahora se cumple sola:
 
 ```text
@@ -1409,9 +1416,13 @@ oscurecía a `0.86` y se leía `Cross-repository.` sobre el velo, centrado, entr
 0658 y 0708. Aterrizaba como un subtítulo quemado sobre un plano y no como parte
 de la película.
 
-Medido tras el corte y tras el recorte de la 06: las costuras 0330 y 0730 son
-idénticas píxel a píxel, la 0630 mide 62,93 dB — sólo antialiasing — y los 880
-frames montados no tienen frame negro ni una sola anomalía de un frame.
+Medido tras el corte, tras el recorte de la 06 y tras montarse la 08: las
+costuras 0330 y 0730 son idénticas píxel a píxel, la 0630 mide 62,93 dB — sólo
+antialiasing — y los 970 frames montados no tienen ni un frame negro. El barrido
+marca un único frame, el 0880, y ese es el corte mismo: un escalón, no un pico.
+La costura 0879 → 0880 es un match cut y no una costura invisible, así que no
+mide como las otras — 27,9 dB de cuadro completo, 42,2 dB sobre la región del
+símbolo, que es la que el corte sostiene.
 
 El número 05 se queda ocupado por este registro y las escenas siguientes
 conservan su numeración de storyboard.
@@ -2771,4 +2782,31 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   still clave 0710 no se mueve — es el frame local 80 — y los posteriores pasan a
   0840, 1010 y 1170. Afecta a las secciones 2, 15, 26, 28, 29 y 34 y a los rangos
   de las escenas 06–11.
+
+2026-08-25
+- SCENE 08 — RETURN TO AGENT implementada (`AgentAnswerScene` y
+  `src/three/answerState.ts`). Sus frames, sus beats y su copy no cambian: la
+  implementación cumple el timeline de este documento tal cual. `mountedFrames`
+  pasa de 880 a 970 frames (16,17 s), así que de los 1300 del master quedan 330
+  en negro (5,5 s).
+- La escena mantiene canvas sus primeros 26 frames: devuelve al token
+  `withRetry()` del prompt el único nodo que le queda al grafo, rehaciendo hacia
+  atrás los dos parámetros del propio reveal — `cutDistance` y el `grow` del
+  ancla — en veinte frames, así que es exacta en los dos extremos por
+  construcción y no por ajuste. Con eso se corrige el hecho de que no hubiera
+  movimiento de cámara después de 0598. La regla no cambia — un movimiento tiene
+  que responder a una pregunta que el espectador se esté haciendo — y este
+  responde a la de toda la película: volver al sitio donde la vio empezar. No es
+  exploración: son veinte frames de retorno del rig a la pose del match cut.
+- Medido tras montarse: las costuras 0330 y 0730 siguen idénticas píxel a píxel,
+  la 0630 sigue en 62,93 dB (sólo antialiasing) y los 970 frames montados no
+  tienen ni un frame negro. La costura nueva 0879 → 0880 es un match cut y no una
+  costura invisible: 27,9 dB de cuadro completo, porque se van la columna
+  izquierda y el divisor del split view y entra la capa de prompt, y 42,2 dB
+  sobre la región del símbolo, que está en el mismo sitio y al mismo tamaño. El
+  barrido de la película marca un solo frame, el 0880, y ese es el corte: un
+  escalón, no un pico.
+- El cuadro de la escena deja de cambiar en 0939 y es idéntico byte a byte hasta
+  0969, un frame antes de lo que pide su frame 0940.
+- Afecta a las secciones 13, 15 y 16. La §29 sigue sin entrada para el 0940.
 ```

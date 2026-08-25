@@ -15,10 +15,10 @@
 Master: 1920 × 1080, 60 fps, **1300 frames, 21.7 s**. Global frame boundaries
 live only in `src/Composition.tsx`.
 
-That 1300 is the plan, not what renders today. Scenes 01–05 exist, so
-`KivgraphPromo` is registered at `mountedFrames` — currently **880 frames,
-14.67 s** — and Studio and `remotion render` produce the film that exists instead
-of just under fifteen seconds of video followed by seven of black. Raise
+That 1300 is the plan, not what renders today. Scenes 01–06 exist, so
+`KivgraphPromo` is registered at `mountedFrames` — currently **970 frames,
+16.17 s** — and Studio and `remotion render` produce the film that exists instead
+of just over sixteen seconds of video followed by five and a half of black. Raise
 `mountedFrames` in `src/Composition.tsx` as each scene lands, and delete it once
 it reaches 1300.
 
@@ -42,7 +42,7 @@ only offsets have moved.
 | 03  | Graph Reveal        | implemented, key frames inspected         |
 | 04  | Blast Radius        | implemented, key frames inspected         |
 | 05  | Semantic Resolution | implemented, key frames inspected         |
-| 06  | Agent Answer        | specified only                            |
+| 06  | Agent Answer        | implemented, key frames inspected         |
 | 07  | Benchmark           | specified only                            |
 | 08  | Brand               | specified only                            |
 | 09  | Outro               | specified only                            |
@@ -131,8 +131,10 @@ Scene 03 inherits all of it and adds the graph's own grammar:
 - the camera is a **rig** — an eye and a point it looks at — not a position with
   a fixed direction. It holds still through the match cut, steps off the axis,
   travels with the impact and rises above the chain, and then stops: scene 03's
-  move completes at 0598 and no frame after it moves the camera, apart from scene
-  05 straightening the rig to frontal as part of its flatten. It never orbits
+  move completes at 0598 and no frame after it explores, though two later scenes
+  do move the rig — scene 05 straightening it to frontal as part of its flatten,
+  and scene 06 running the reveal's own travel backwards over twenty frames to
+  put the anchor back where the match cut found it. It never orbits
   continuously, never rolls, and `up` is world up on every frame;
 - a node is an extruded plate with a hairline contour, standing **upright in
   world space**. It carries no rotation of its own: every degree of obliquity
@@ -283,15 +285,25 @@ re-lighting of something held back for it.
 
 Everything after 0630 moved 90 frames earlier and the master went from 1410 to
 1320. The camera pose the deleted scene landed on was scene 03's own returned to,
-so nothing about the graph's geometry changed with it: there is no camera movement
-anywhere in the film after 0598 except scene 05 straightening the rig into its
-flatten. `src/three/crossRepoState.ts` and its `restLook` export went with the
-scene; scene 05 reads the pose off the state it inherits instead.
+so nothing about the graph's geometry changed with it: the only rig moves after
+0598 are scene 05 straightening into its flatten and scene 06's twenty-frame
+return of the graph to the match cut's pose. `src/three/crossRepoState.ts` and its
+`restLook` export went with the scene; scene 05 reads the pose off the state it
+inherits instead.
 
-Measured after the cut, and re-measured after the blast radius was trimmed: the
-0330 and 0730 seams are pixel-identical, 0630 is 62.93 dB (glyph antialiasing
-only), and 880 mounted frames render with no black frame and no single-frame
-anomaly.
+Measured after the cut, re-measured after the blast radius was trimmed, and
+re-measured again once scene 06 landed: the 0330 and 0730 seams are
+pixel-identical, 0630 is 62.93 dB (glyph antialiasing only), and 970 mounted
+frames render with no black frame.
+
+The 0880 boundary does not measure like those, and it is not supposed to. It is a
+match cut, not an invisible cut: whole-frame PSNR across 0879/0880 is 27.9 dB,
+because the split view's left column and divider leave and the prompt layer
+arrives, while the symbol region measures 42.2 dB, because the symbol itself is in
+the same place at the same size. The whole-film scan over 970 frames flags 0880
+and nothing else, and 0880 is the cut — a step, not a spike, confirmed by the
+frames either side. Anyone measuring 27.9 dB at that boundary later should read
+the symbol region before calling it a regression.
 
 ### The problem scene
 
@@ -316,12 +328,13 @@ find it is in the length of the two scenes that remain.
 
 ## Key frames
 
-Frames that must hold up as still images: `0080`, `0629`, `0710`, `0840`,
-`1010`, `1170`. Each is documented in the scene that owns it. The four after
-`0629` each moved −90 with the cross-repository cut, and the last three moved a
-further −20 when the blast radius was trimmed. `0710` did not move with the trim:
-it is scene-local 80, so it still sits inside the shorter scene, and the hold
-behind it is now twenty-one frames rather than forty.
+Frames that must hold up as still images: `0080`, `0629`, `0710`, `0840`, `0940`,
+`1010`, `1170`. Each is documented in the scene that owns it. `0940` joined the
+list when scene 06 landed; of the six that predate it, the four after `0629` each
+moved −90 with the cross-repository cut, and the last three moved a further −20
+when the blast radius was trimmed. `0710` did not move with the trim: it is
+scene-local 80, so it still sits inside the shorter scene, and the hold behind it
+is now twenty-one frames rather than forty.
 
 Scene 03's entry moved from `0620` to `0629`. Both frames sit inside the held
 final camera pose, but at 0620 the last crossing is still handing its accent back
@@ -334,6 +347,11 @@ and have not been reconciled.
 `A name is not a symbol.` across the middle of the split view; with that sentence
 cut, the still carries the two-column asymmetry on its own and has to be
 unmistakable without a caption telling the viewer what to conclude.
+
+`0940` is scene 06's label frame, and it sits inside a hold rather than on the
+last frame that moves: measured on the render, the scene stops changing at 0939
+and every frame from there to 0969 is byte-identical, so the still is one frame
+clear of the last thing that moves rather than balanced on it.
 
 ## Rendering
 
@@ -355,8 +373,9 @@ where ACES compresses hardest, and a plate authored `#171a1f` rendered `#080a0d`
 — darker than the background it was supposed to sit on. The video is authored in
 sRGB from `src/brand/tokens.ts` and every other scene is DOM, so a film curve
 between the tokens and the frame would mean the graph's greys are not the site's
-greys. Scenes 04 and 05 inherit both by drawing through the same
-`GraphWorld`; scene 06 onward must carry them too.
+greys. Scenes 04 to 06 inherit both by drawing through the same `GraphWorld` —
+scene 06 only for the 26 frames it keeps a canvas at all; scene 07 onward must
+carry them too.
 
 Every graph sequence also carries `premountFor={30}`, and that is a preview fix
 rather than a creative one. A `<Sequence>` renders its children only inside its
@@ -373,10 +392,12 @@ before it is seen. Scenes 03 and 04 also carry `postmountFor={30}`, because
 scrubbing back across 0630 or 0730 remounts them and the timeline has to
 survive being walked backwards as well as forwards. None of this touches the
 film: `premountingActive` is gated on `!isRendering`, so no rendered frame
-changes — the render never had the blink, only the preview did. Repeat both props
-on the graph sequences from scene 06 onward as they land; scene 05 needs its
-`postmountFor` at the same time, once there is a scene after it to scrub back
-from.
+changes — the render never had the blink, only the preview did. Scene 06 carries
+`premountFor={30}` and no `postmountFor`, which is right while it is the last
+mounted scene: nothing scrubs back across 0970 yet. Scene 05's `postmountFor`,
+though, is now due and still missing — since 0880 became a boundary there is a
+scene after it to scrub back from. Repeat both props on any sequence from scene 07
+onward that mounts a canvas.
 
 The mechanism survived the cross-repository cut unchanged, but the seam it was
 found at is now a different pair of scenes: it was `GraphRevealScene` handing over
@@ -390,5 +411,36 @@ The scene documents cite `AGENTS.md` by section number (`§14`, `§17`, `§26`, 
 `AGENTS.md` was rewritten without numbered sections, so those citations no longer
 resolve. Several documents also attribute the still-image key-frame list to
 `AGENTS.md`; that list lives here and in `STORYBOARD.md` §28, and `AGENTS.md`
-contains no frame numbers at all. Replacing both kinds of citation with section
-titles is a mechanical pass across all nine documents and has not been done yet.
+carries no still-image frame numbers — the only frames it names are the ones its
+camera rule turns on. Replacing both kinds of citation with section titles is a
+mechanical pass across all nine documents and has not been done yet.
+
+## Modification history
+
+```text
+2026-08-25
+- Scene 06 (Agent Answer) implemented: src/scenes/AgentAnswerScene.tsx and
+  src/three/answerState.ts. mountedFrames 880 -> 970, so the film that renders
+  is 16.17 s and 330 frames — 5.5 s — of the 1300-frame master are still black.
+  Frame ranges, beats and copy unchanged: the implementation matches the
+  storyboard's timeline exactly.
+- The scene holds a canvas for its first 26 frames. It returns the graph's last
+  surviving node to the prompt's withRetry() token by running the reveal's own
+  two parameters backwards — cutDistance and the anchor's grow — over 20 frames,
+  so it is exact at both ends by construction rather than by tuning, and the
+  canvas is unmounted for the remaining 64 frames. The claim corrected for it,
+  here and in AGENTS.md, is that no frame after 0598 moves the camera. The rule
+  behind that claim is untouched — a camera move has to answer a
+  question the viewer is currently asking, and this one is the whole film's
+  question, returning to where the viewer first saw the symbol.
+- Key frame 0940 added to the still list. Measured: the frame stops changing at
+  0939 and every frame from there to 0969 is byte-identical, one frame earlier
+  than the storyboard's 0940 requires.
+- Measured after the scene landed: the 0330 and 0730 seams are pixel-identical,
+  0630 is 62.93 dB, and 970 mounted frames render with no black frame. The new
+  0879/0880 boundary is a match cut rather than an invisible cut — 27.9 dB
+  whole-frame, 42.2 dB over the symbol region — and the whole-film scan flags
+  0880 alone, which is the cut itself, a step rather than a spike.
+- Scene 05's postmountFor is now due and still missing: there is a scene after
+  it to scrub back from.
+```

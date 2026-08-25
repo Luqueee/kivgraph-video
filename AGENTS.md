@@ -234,7 +234,14 @@ the rise that opens the second repository into frame. Each arrives while the
 viewer wants to know what is next. A move that admires a structure already
 understood is wallpaper whether or not it stops.
 
-There is no camera movement anywhere after frame 0598, and that is deliberate.
+Nothing after frame 0598 explores the graph, and that is deliberate. The rig does
+move twice after it, and both moves are the rule rather than exceptions to it:
+scene 05 straightens it to frontal as part of its flatten, and scene 06 spends
+twenty frames returning the graph to the pose the match cut was built on, so the
+last surviving node lands back on the prompt's `withRetry()` token. That second
+one is not a new exploration — it is the shape the whole film has been about,
+putting the symbol back where the viewer first saw it, and it answers the
+question the viewer has been carrying since scene 02.
 
 ### Librerías: qué se usa y qué se rechazó
 

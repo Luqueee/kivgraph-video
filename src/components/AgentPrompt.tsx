@@ -17,6 +17,18 @@ import { brand } from "../brand/tokens";
  * out of the `withRetry()` token in this row and scene 08 rebuilds this row
  * around the same token; all three must agree on where it is.
  */
+/**
+ * The scrim the prompt layer is read on.
+ *
+ * A vertical gradient, transparent through the top quarter so the code above
+ * keeps its texture, reaching 0.72 at the bottom so the prompt row and anything
+ * below it sit on near-background. Exported because scene 06 restores the same
+ * surface: two copies of this gradient would drift the first time either is
+ * touched, and the prompt would then be read on two different backgrounds in
+ * one film.
+ */
+export const promptScrim = `linear-gradient(180deg, rgba(${brand.backgroundRgb}, 0) 0%, rgba(${brand.backgroundRgb}, 0) 28%, rgba(${brand.backgroundRgb}, 0.44) 47%, rgba(${brand.backgroundRgb}, 0.66) 63%, rgba(${brand.backgroundRgb}, 0.72) 100%)`;
+
 export const promptLayout = {
   rule: { x: 440, y: 604, width: 900 },
   row: { x: 500, y: 632, fontSize: 30, lineHeight: 44 },
@@ -111,9 +123,18 @@ type Props = {
   /**
    * Scale of the `withRetry()` token. It grows about its own centre, so its left
    * edge and everything before it stay put — which is what the match cut into
-   * scene 04 depends on. Only the trailing `?` yields.
+   * scene 03 depends on. Only the trailing `?` yields.
    */
   grow: number;
+  /**
+   * 0 -> 1 presence of the token's glyphs and its selection field.
+   *
+   * Scene 06 needs the row complete while the symbol is still travelling back
+   * to it; without this the word would be on screen twice for twenty frames.
+   * The span keeps its layout box at `0`, so the trailing `?` never moves and
+   * the line does not reflow when the token arrives.
+   */
+  tokenOpacity: number;
 };
 
 export const AgentPrompt: React.FC<Props> = ({
@@ -124,6 +145,7 @@ export const AgentPrompt: React.FC<Props> = ({
   tool,
   select,
   grow,
+  tokenOpacity,
 }) => {
   const typed = question.slice(0, chars);
   const visibleHead = typed.slice(0, head.length);
@@ -171,6 +193,7 @@ export const AgentPrompt: React.FC<Props> = ({
             scale: grow,
             transformOrigin: "50% 55%",
             color: select > 0 ? brand.accentText : undefined,
+            opacity: tokenOpacity,
           }}
         >
           {select > 0 ? (

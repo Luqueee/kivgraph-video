@@ -1,5 +1,6 @@
 import React from "react";
 import { Sequence } from "remotion";
+import { AgentAnswerScene } from "./scenes/AgentAnswerScene";
 import { AgentScene } from "./scenes/AgentScene";
 import { BlastRadiusScene } from "./scenes/BlastRadiusScene";
 import { GraphRevealScene } from "./scenes/GraphRevealScene";
@@ -46,7 +47,7 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * film that exists rather than fifteen seconds of video followed by seven of
  * black. Raise it as each scene lands; delete it once it reaches 1300.
  */
-export const mountedFrames = 880;
+export const mountedFrames = 970;
 
 export const KivgraphVideo: React.FC = () => {
   return (
@@ -106,6 +107,14 @@ export const KivgraphVideo: React.FC = () => {
         premountFor={30}
       >
         <SemanticScene />
+      </Sequence>
+      <Sequence
+        name="06 Agent Answer"
+        from={880}
+        durationInFrames={90}
+        premountFor={30}
+      >
+        <AgentAnswerScene />
       </Sequence>
     </>
   );

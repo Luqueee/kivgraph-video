@@ -80,20 +80,29 @@ position and at the same scale it had there:
   row and one tool line, over `background` `#0a0b0d`. Its geometry is exported
   from `src/components/AgentPrompt.tsx` as `promptLayout`; read it rather than
   re-laying the row out;
-- the prompt row `❯ What breaks if I change withRetry()?` complete, in
-  `JetBrains Mono` at 30 px, `textPrimary` `#f5f5f5`;
-- the token `withRetry()` still carrying the selection treatment it received at
-  `0300`–`0330` in `02-agent.md` — `brand.selection` field, `accentText` glyphs,
-  scaled 1.08 — because that token is the anchor the match cut lands on;
+- the prompt row `❯ What breaks if I change …?` in place, in `JetBrains Mono` at
+  30 px, `textPrimary` `#f5f5f5` — every glyph of it except the token;
+- the token slot `withRetry()` **empty**, its span holding its layout box at
+  `tokenOpacity` `0`. The symbol that belongs there is still on its way: it
+  arrives from the previous scene 201 px to the right and 74 px above, and a row
+  drawn complete would put the same word on screen twice for twenty frames. The
+  box is held rather than collapsed so the trailing `?` never moves and the line
+  does not reflow when the token lands;
 - the tool invocation line `kivgraph / get_blast_radius` present, its 7 px square
   marker in `accent` `#2563eb`, the text in `textSecondary` / `textMuted`;
 - no answer text yet;
-- no graph, no 3D, no residue of the split view.
+- the graph reduced to that single travelling symbol, drawn by the same renderer
+  that drew it at `0879` so the cut matches; no other residue of the split view,
+  and no divider or left column.
 
-Whether the dimmed code world of scenes 01–02 returns behind the prompt is an
-open decision — see `## Current compromises`.
+The code world behind the prompt returns. It starts at the exact levels scene 05
+holds — anything else steps the background at the cut — and rises to the levels
+scene 02 held while it asked the question, over the same twenty frames as the
+symbol's travel. This was an open decision and the two frames either side of the
+cut settled it; see `## Current compromises`.
 
-The first frame must look like the prompt was always there and simply waited.
+The first frame must look like the prompt was always there and simply waited for
+its symbol to come back.
 
 ## Final state
 
@@ -183,7 +192,22 @@ Nothing moves between `0940` and `0970`.
 
 ## Three.js
 
-Not used.
+Used for 26 of the scene's 90 frames, and only to finish the return trip.
+
+`## Transition in` is the reason: this scene inherits a position and an apparent
+size, *not* the token rect, so the symbol arrives 201 px right and 74 px below
+where it belongs, on a plate carrying a node's padding rather than the prompt's
+line box. Moving a shape the 3D renderer drew is work
+for that renderer — a DOM reproduction of a lit plate would be an approximation
+of a continuity match, and `AGENTS.md` §23 forbids covering a continuity failure
+with an effect.
+
+It is not new geometry. `graphFrame.ts` already defines the pose that lands the
+anchor on `selectedTokenRect` and already defines `grow`, which at `0` makes the
+plate exactly that rectangle; `answerState.ts` lerps the rig to that pose and
+`grow` to `0`. The reveal in scene 03 ran those same two parameters the other
+way. The canvas is unmounted once the DOM token has taken over, so the remaining
+64 frames pay nothing for it.
 
 ## Transition in
 
@@ -458,4 +482,65 @@ proves the loop closed and should be inspected as if it were one.
 - The match cut is still a cut onto a settled shape: 880 mounted frames render
   with no black frame and no single-frame anomaly. The inherited position and
   apparent size, the answer copy and every quantity in it are unchanged.
+```
+
+```text
+2026-08-25
+- Implemented. `src/scenes/AgentAnswerScene.tsx` and `src/three/answerState.ts`
+  exist; `mountedFrames` is 970 and the scene renders. Five things this document
+  left open or stated wrongly are now settled by the implementation, and the
+  sections above have been rewritten to match.
+- **The scene uses Three.js, for 26 of its 90 frames.** `## Three.js` used to say
+  "Not used" and `## Invariants` used to say "No 3D in this scene". Both were
+  wrong, and the reason is in this document's own `## Transition in`: it inherits
+  a position and an apparent size, *not* the token rect, so the shape has to
+  travel 201 px left and 74 px up, and lose the plate's padding, to reach the
+  token. The only
+  exact way to move a shape the 3D renderer drew is that renderer. Reproducing a
+  lit plate in DOM would be an approximation of a continuity match, which
+  `AGENTS.md` §23 forbids. The canvas is unmounted once it has handed over.
+- **The travel is the reveal run backwards, not new geometry.** `graphFrame.ts`
+  already defines the pose at which `graphOffset` lands the anchor on
+  `selectedTokenRect` — `cutDistance`, stated through that constant rather than
+  the literal `9` — and already defines `grow`, which at `0` makes the anchor's
+  plate exactly that rectangle. So `answerState.ts` lerps the rig to that pose
+  and `grow` to `0` over 20 frames, and the landing is exact by construction
+  rather than by tuning.
+- **`## Initial state` contradicted `## Transition in` and has been corrected.**
+  It claimed the prompt row was complete at `0880` with the token carrying its
+  selection. It cannot be: the incoming symbol is 201 px away, so a complete row
+  would put the word on screen twice for twenty frames. `AgentPrompt` gained a
+  `tokenOpacity` prop; the row is complete except for the token, whose span keeps
+  its layout box at `0` so the trailing `?` never moves and the line does not
+  reflow when the symbol arrives. Measured: the symbol region across the cut is
+  42.2 dB while the whole frame is 27.9 dB — the shape matches, the context
+  swaps, which is what a match cut is.
+- **The open decision about the code world is settled: it comes back.** The bed
+  starts at the exact levels scene 05 holds, or the background steps at `0880`
+  and the cut stops being a match; it then rises over the same twenty frames as
+  the travel to the levels scene 02 held while it asked the question. Those
+  levels were dimmed for a split view that filled the frame, and under a single
+  prompt in the lower third they left the top half of the image dead for ninety
+  frames. `symbol` tracks `signature` rather than scene 02's `1`: there the lit
+  token was the subject, here it would compete with the answer.
+- **Two cross-fades, both uneased.** Two eased ramps do not sum to one, so a
+  cross-fade between two renderings of the same rectangle would dip or double
+  halfway. The symbol hands over to the DOM token linearly over six frames, and
+  the selection field settles from `1` to scene 02's `0.85` over twelve —
+  `GraphWorld` draws that field at full opacity when `grow` is `0`, because scene
+  03 needed it to cover the field the DOM was still drawing underneath, so
+  running it backwards would step 15% darker in one frame on a 214 × 47 px block.
+- Two `## Flexible elements` were exercised. The counts are **one line**, not
+  two: at 32 px mono `7 symbols across 2 repositories.` is 576 px wide, so the
+  break was a wrap point that is no longer needed, and one line makes the two
+  quantities read as one fact. The path sentence is also one line at 22 px. The
+  numerals are **`accentText` #bfdbfe, not `accent` #2563eb**: measured, `accent`
+  on `background` is 3.83:1, which passes WCAG only as large text, and these two
+  numerals are the payload of the entire film.
+- Verified: 970 frames render with no black frame; the only frame the anomaly
+  scan flags is `0880`, which is the cut itself — a step, not a spike. The frame
+  is byte-identical from `0939`, one frame earlier than the `0940` the storyboard
+  requires. Every earlier seam is unchanged despite `AgentPrompt` gaining a prop:
+  `0329/0330` is still pixel-identical, `0629/0630` is 62.93 dB, `0729/0730` is
+  pixel-identical.
 ```
