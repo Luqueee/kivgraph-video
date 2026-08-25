@@ -85,9 +85,11 @@ export const resolution = {
  * How large the flattened subgraph is drawn, in master pixels per world unit.
  *
  * Set from the type, not from the layout: the graph's base em is a world length,
- * so pixels per unit *is* the type scale. 152 puts the anchor's label at the top
+ * so pixels per unit *is* the type scale. 135 puts the anchor's label at the top
  * of the Body scale and the two callers just under it, which is what the column
- * needs - the right side is read, not glanced at.
+ * needs - the right side is read, not glanced at. It also lands the anchor's
+ * glyph run at 216 px against the prompt token's 213.8, which is what lets the
+ * match cut at 0880 be a match of size as well as of shape.
  */
 const flatPxPerUnit = 135;
 
@@ -170,9 +172,35 @@ const lookAt = (frame: number): Look => {
   };
 };
 
+/**
+ * A departure: `1 -> 0` on a symmetric curve.
+ *
+ * Separate from `ramp` because the project's `bezier(0.22, 1, 0.36, 1)` is
+ * front-loaded. That is right for an arrival - it lands fast and settles - and
+ * wrong for anything leaving, where it spends most of the window already gone.
+ * Every exit in this scene's tail uses this instead, so they leave at one rate.
+ */
+const leaving = (frame: number, from: number, to: number) =>
+  interpolate(frame, [from, to], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.4, 0, 0.6, 1),
+  });
+
+/**
+ * The window every piece of comparison chrome leaves on: the left column, the
+ * divider and the right column's label.
+ *
+ * Six frames behind the withdrawal and ending two frames after it, so the whole
+ * frame clears as one movement rather than as four separate exits. What is left
+ * at 0879 is the symbol and the code bed underneath it - and the bed stays
+ * because it has been there since frame 0 and carries on into scene 06, which
+ * is what makes the cut a change of context rather than a change of world.
+ */
+const chromeOut = (frame: number) => leaving(frame, 118, 142);
+
 export const getSemanticState = (frame: number): GraphVisualState => {
   const flatten = ramp(frame, 0, 40);
-
   /**
    * The withdrawal at the tail: the two relationships and their callers leave,
    * so the scene hands over one settled symbol.
@@ -196,11 +224,7 @@ export const getSemanticState = (frame: number): GraphVisualState => {
    * is symmetric - it starts and stops gently and spends its middle actually
    * moving.
    */
-  const withdraw = interpolate(frame, [112, 140], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.bezier(0.4, 0, 0.6, 1),
-  });
+  const withdraw = 1 - leaving(frame, 112, 140);
 
   const keep = (id: string) => (resolvedIds[id] ? 1 - withdraw : 0);
 
@@ -283,7 +307,8 @@ export const getSemanticState = (frame: number): GraphVisualState => {
  * panel: two columns on one background, divided, not two surfaces floating over
  * it.
  */
-export const dividerOpacity = (frame: number) => ramp(frame, 12, 44);
+export const dividerOpacity = (frame: number) =>
+  ramp(frame, 12, 44) * chromeOut(frame);
 
 /**
  * The report scene 05 hands over, leaving with the depth.
@@ -312,8 +337,17 @@ export const leftColumn = (frame: number) => ({
   label: ramp(frame, 30, 46),
   rows: [ramp(frame, 36, 54), ramp(frame, 46, 64)],
   counter: ramp(frame, 60, 78),
-  /** Never to zero: the comparison has to still be a comparison at 0879. */
-  dim: 1 - 0.82 * ramp(frame, 84, 112),
+  /**
+   * Dimmed to 0.18 once the comparison has been read, then gone.
+   *
+   * This used to be held above zero on the rule that a frame without the left
+   * column has lost the comparison. That rule was written when the scene ended
+   * on the comparison; it now ends by handing a shape to a match cut, and
+   * holding four pieces of chrome to the last frame made the cut remove four
+   * things at once. The comparison has been made and read by local 112 - what
+   * the next frame needs is the symbol, alone.
+   */
+  dim: (1 - 0.82 * ramp(frame, 84, 112)) * chromeOut(frame),
 });
 
 /**
@@ -326,7 +360,7 @@ export const leftColumn = (frame: number) => ({
  * makes "the counters agree with what is on screen" an invariant.
  */
 export const rightColumn = (frame: number) => ({
-  label: ramp(frame, 55, 71),
-  counter: ramp(frame, 65, 85) * (1 - ramp(frame, 112, 130)),
+  label: ramp(frame, 55, 71) * chromeOut(frame),
+  counter: ramp(frame, 65, 85) * leaving(frame, 112, 130),
 });
 

@@ -117,21 +117,30 @@ comparison.
 
 At master frame 0880 (local 0150, the frame after this scene's last):
 
-By 0879 the frame holds:
+By 0879 the frame holds **one symbol and the code bed underneath it**, and
+nothing else:
 
-- the right side only, at full clarity: one symbol, the two relationships that
-  reach it, `Semantic resolution`, `1 symbol`, `2 real relationships`;
-- the left side reduced to a clearly subordinate presence — visible enough that the
-  two-versus-one comparison still reads as a comparison, faint enough that it is
-  no longer the subject;
-- no centre copy and no veil; the comparison is the whole of the argument;
-- the two callers and their tubes gone, leaving the single `withRetry()` node
-  settled and still at the centre of the right column, at the apparent size the
-  column drew it at — 152 master pixels per world unit — which is the position and
-  the size `AgentAnswerScene.tsx` opens on at 0880.
+- `withRetry()` settled and still, at the apparent size the right column drew it
+  at — 135 master pixels per world unit, which puts its glyph run at 216 px
+  against the prompt token's 213.8 — and at the position `AgentAnswerScene.tsx`
+  opens on at 0880;
+- the code bed, dim, exactly as scene 04 left it. It has been under every frame
+  since 0000 and it carries on into scene 06, which is what makes the cut a
+  change of context rather than a change of world;
+- the two callers and their tubes gone;
+- the left column, the divider, `Semantic resolution` and both counters gone.
 
-Nothing is mid-animation at 0879. A match cut requires the outgoing shape to be at
-rest at the cut.
+That last point reverses what this document used to require. It asked for the
+left side to stay faintly visible so "the two-versus-one comparison still reads
+as a comparison" at 0879. That was written when the scene ended *on* the
+comparison. It ends by handing a shape to a match cut, and holding four pieces
+of chrome to the last frame made the cut remove four things and add a prompt in
+one frame - which reads as a scene change, not as a match. The comparison has
+been made and read by local 112; what the next frame needs is the symbol, alone.
+Every exit runs on one window, local 118-142.
+
+Nothing is mid-animation at 0879: the frame is pixel-identical from 0872. A match
+cut requires the outgoing shape to be at rest at the cut.
 
 ## Visual composition
 
@@ -918,4 +927,35 @@ Safe to change without altering the scene's purpose:
 - Every counted figure is untouched: `2 matches`, `1 symbol`,
   `2 real relationships`, the 152 px per world unit, the 11 px whole-cascade
   measurement and the 35–45 px surviving labels.
+```
+
+```text
+2026-08-25
+- The tail was retimed twice in one pass, both on direct art direction, and both
+  changes fit inside the same 150 frames.
+- The withdrawal was too fast and sat too long on its least interesting image.
+  Measured before: 61 frames holding the settled comparison, then a 10-frame
+  fade. It now begins at local 112, as the left column finishes dimming, and
+  runs 28 frames. The dead 13-frame hold at master 857-869 is gone.
+- The cause was the curve, not the duration. The project's
+  `bezier(0.22, 1, 0.36, 1)` is front-loaded - right for an arrival, wrong for a
+  departure - and had the fade 85% done in six frames. Everything that leaves in
+  this scene's tail now runs on a symmetric `bezier(0.4, 0, 0.6, 1)`, defined
+  once as `leaving`. Measured: the tube's blue falls 120 to 0 over 24 frames
+  instead of 6.
+- Retracting the tubes into the anchor was built and abandoned. `edges` is the
+  drawn fraction of a run and it does shorten the tube, but the half it removes
+  is the half nearest the caller, which on this layout sits against the caller's
+  own plate - so the shortening is not legible until the plate has already gone.
+  One channel doing one thing beat a cleverer gesture the frame cannot show.
+- The comparison chrome now leaves before the cut, on one window at local
+  118-142: left column, divider, `Semantic resolution`, both counters. This
+  reverses the old "never to zero" requirement, and `## Final state` records why.
+- `columnOffsetPx.x` 472 -> 425. At 472 `Policy.Do()`'s plate reached x 1869,
+  50 px from the frame edge and well inside the 96 px margin the rest of the film
+  keeps. It now reaches 1822, margin 98 px.
+- Verified: 970 frames, no black frame. The 0729/0730 seam is still
+  pixel-identical, the frame is pixel-identical from 0872, and 0879/0880 measures
+  28.7 dB whole-frame with 41.4 dB on the symbol region - the shape holds, the
+  context arrives.
 ```
