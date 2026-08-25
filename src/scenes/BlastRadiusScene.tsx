@@ -3,47 +3,42 @@ import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { GraphWorld } from "../components/GraphWorld";
 import { CodeWorld } from "../components/CodeWorld";
 import { ImpactReport } from "../components/ImpactReport";
-import {
-  cardEntry,
-  claimOpacity,
-  getBlastState,
-  veilOpacity,
-} from "../three/blastState";
+import { cardEntry, getBlastState } from "../three/blastState";
 import type { Camera } from "../world/camera";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 05 - blast radius (master 0720-0840, scene-local 0000-0120).
+ * Scene 04 - blast radius (master 0630-0750, scene-local 0000-0120).
  *
  * The scene that turns structure into consequence. Everything before it has
  * shown that relationships exist and that they leave the repository; this one
  * answers the question the agent asked in scene 02 by letting a change happen
  * at one symbol and be seen to travel, stop and be counted.
  *
- * Four events, in this order and never overlapping in meaning: `withRetry()`
- * pulses once, the impact propagates hop by hop into the depth of the frame, a
- * card states the result in three numbers, and one line qualifies it. The
- * camera does not move at all - scene 04 returned the rig to rest, and the
- * whole motion budget is spent on the graph.
+ * Three events, in this order and never overlapping in meaning: `withRetry()`
+ * pulses once, the impact propagates hop by hop into the depth of the frame,
+ * and a card states the result in three numbers. The camera does not move at
+ * all - it inherits scene 03's settled pose and the whole motion budget is
+ * spent on the graph.
+ *
+ * There is no sentence addressed to the viewer. One was written and cut: the
+ * propagation and the three counted values are the argument, and a line
+ * asserting what they mean read as narration over evidence the viewer had
+ * already been given.
  *
  * The propagation lives in `src/three/blastState.ts`, so the hop order can be
- * checked without reading render code. This file owns the code bed underneath,
- * the card's placement and the claim line.
+ * checked without reading render code. This file owns the code bed underneath
+ * and the card's placement.
  *
- * See `docs/scenes/05-blast-radius.md` for intent, beats and invariants.
+ * See `docs/scenes/04-blast-radius.md` for intent, beats and invariants.
  */
 
 /**
- * The code bed, held at scene 03's final values - the same literals scene 04
- * freezes. The file the graph came out of stays underneath it for the whole
- * graph sequence; it never resumes travelling.
+ * The code bed, held at scene 03's final values. The file the graph came out of
+ * stays underneath it for the whole graph sequence; it never resumes
+ * travelling.
  */
 const bedCamera: Camera = { x: 0, y: 0, zoom: 0.34, screenX: 960, screenY: 540 };
-
-/**
- * Where the report sits is `ImpactReport`'s own decision, because scene 06
- * inherits the block and has to draw it identically.
- */
 
 export const BlastRadiusScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -69,30 +64,7 @@ export const BlastRadiusScene: React.FC = () => {
 
       <GraphWorld state={state} />
 
-      {/**
-       * The veil the claim line is read on.
-       *
-       * The film's rule for viewer-addressed copy, established by scene 04: a
-       * sentence to the viewer gets the frame to itself. It rises six frames
-       * ahead of the text and holds to 0840, so the graph is dimmed but never
-       * gone - the propagation is still the evidence for the card above it, and
-       * scene 06 flattens this image rather than a black one.
-       *
-       * Above the graph and below the report, which is the whole point: the
-       * card gains contrast from it instead of being dimmed by it.
-       */}
-      <AbsoluteFill
-        style={{
-          backgroundColor: brand.background,
-          opacity: veilOpacity(frame),
-        }}
-      />
-
-      <ImpactReport
-        card={card.opacity}
-        cardOffsetX={card.offsetX}
-        claim={claimOpacity(frame)}
-      />
+      <ImpactReport card={card.opacity} cardOffsetX={card.offsetX} />
     </AbsoluteFill>
   );
 };

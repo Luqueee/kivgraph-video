@@ -198,7 +198,7 @@ withRetry is selected
 ```
 
 `CHANGE IMPACT` still exists in the video, but only once: as the heading of the
-impact card in `05-blast-radius.md`. It is no longer a callback to this scene.
+impact card in `04-blast-radius.md`. It is no longer a callback to this scene.
 
 ## Key frames
 
@@ -212,7 +212,7 @@ frame 0119 — byte-identical to 0080. The handoff frame.
 ```
 
 The still-image key frame is `0080`. The project's still-image list reads `0080`,
-`0620`, `0800`, `0950`, `1120`, `1280`.
+`0620`, `0710`, `0860`, `1030`, `1190`.
 
 ## Invariants
 
@@ -321,9 +321,9 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
 - **Demo content.** `payments-api/internal/retry/retry.go` and its neighbours are
   written for the video, chosen to agree with the repository and symbol names of
   later scenes. Nothing is read from a real Kivgraph index.
-- Scenes 01–03 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
-  (630) rather than the planned 1410. Frames `0630–1410` do not render at all
-  yet, which is preferred over thirteen seconds of black.
+- Scenes 01–05 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
+  (900) rather than the planned 1320. Frames `0900–1320` do not render at all
+  yet, which is preferred over seven seconds of black.
 
 ## Modification history
 

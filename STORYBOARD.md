@@ -35,8 +35,8 @@ Three.js debe utilizarse para visualizar el concepto que hace especial a Kivgrap
 ```text
 Resolution: 1920 × 1080
 FPS: 60
-Duration: 23.5 s
-Frames: 1410
+Duration: 22.0 s
+Frames: 1320
 Aspect ratio: 16:9
 ```
 
@@ -258,6 +258,20 @@ No aplica al texto pegado al grafo — etiquetas de símbolo, nombres de
 repositorio, rutas de fichero — ni a los valores de una card de métricas. Esos
 existen precisamente para leerse *contra* lo que hay detrás: oscurecer el grafo
 debajo de `7 affected symbols` le quitaría a la cifra su prueba.
+
+**Hoy la regla no gobierna nada implementado.** De las cuatro frases, tres están
+cortadas: `Cross-repository.` se fue con la escena que la sostenía (§16 SCENE
+05), `Exact symbols. Not name matches.` bajo la card de la 06 y `A name is not a
+symbol.` en el centro de la 07. Ninguna de las tres se leía como un resultado ni
+se explicaba sola, y con ellas se fueron los velos: las escenas de grafo no
+contienen ninguna frase dirigida al espectador y no oscurecen el cuadro en
+ningún frame.
+
+La regla se queda escrita, no derogada, porque las escenas 08–11 todavía no están
+construidas y sí tienen algo que decirle al espectador: `Exact code intelligence
+for coding agents.` sigue en la lista y entra bajo esta regla el día que se
+implemente. Lo que la experiencia añade es el umbral: una frase que nombra lo que
+el cuadro ya está demostrando no necesita un velo, necesita cortarse.
 
 ---
 
@@ -572,18 +586,17 @@ label a medio salir del frame se lee como un fallo, no como un descubrimiento.
 Máximo aproximado, **medido como obliquidad total respecto a `-Z`**:
 
 ```text
-15–31°
+15–20°
 ```
 
-Era 15–20° y lo sube la escena 04, que aterriza en 30,3°. El límite anterior se
-escribió cuando esa escena sólo tenía que sostener una palabra sobre un velo y la
-cámara no debía competir con ella; sin la palabra, esos noventa frames son el
-único sitio del vídeo donde el grafo se ve desde una cámara en movimiento el
-tiempo suficiente para leerse como un objeto en el espacio.
+Fue 15–31° mientras existió la escena CROSS-REPOSITORY, cuyo giro compraba
+ángulo hasta aterrizar fuera del bracket. Cortada esa escena (SCENE 05), el
+techo vuelve a ser el que era antes de ella, y la última pose del vídeo — la que
+hereda todo lo que sigue al reveal — se queda en 15,1° fuera de `-Z`. No hay
+movimiento de cámara después de 0598.
 
-Lo que **no** cambia, y ahora está medido: **se compra ángulo, no distancia.** El
-giro es una órbita de radio constante — 12,845 → 12,842 unidades — porque el
-layout no admite otra cosa. Dos restricciones duras lo encierran:
+Lo que **no** cambia son las dos restricciones duras que encierran cualquier
+movimiento de cámara sobre este layout:
 
 - ninguna etiqueta se corta nunca (§13). El objeto que manda no es un nodo, es la
   etiqueta de clúster `checkout-service` arriba a la derecha;
@@ -591,12 +604,17 @@ layout no admite otra cosa. Dos restricciones duras lo encierran:
   Handle()` mide exactamente 16,0 px en reposo, así que el layout está afinado
   contra ese suelo y un movimiento de cámara no tiene nada que gastar.
 
-Una rejilla sobre azimut, elevación y desplazamiento del target no encontró
-**ninguna** pose que cumpliera las dos en todos los frames del movimiento. La
-resolución: la pose de llegada cumple los 16 px completos, porque ahí viven las
-escenas 05 y 06 y el still clave 0800 tiene que leerse reducido a ancho de
-README; los frames *de paso* bajan hasta 15 px, que se ven una fracción de
-segundo y en los que nadie se detiene.
+Se compra ángulo, no distancia: el giro cortado era una órbita de radio constante
+porque el layout no admite otra cosa. Cuando tuvo que cumplir las dos
+restricciones a la vez, una rejilla sobre azimut, elevación y desplazamiento del
+target no encontró **ninguna** pose que lo consiguiera en todos los frames del
+movimiento. Se resolvió dejando los 16 px completos en la pose de llegada —donde
+viven el blast radius y la comparación semántica, y donde el still clave 0710
+tiene que leerse reducido a ancho de README— y bajando a 15 px en los frames *de
+paso*, que se veían una fracción de segundo. Ese compromiso se va con la escena:
+los 15 px los producía su giro y no queda ningún movimiento de cámara después de
+0598 que los reproduzca. Quien vuelva a proponer un movimiento aquí se encuentra
+otra vez con la rejilla.
 
 `up` es el vertical del mundo en todos los frames: el horizonte nunca gira, y no
 hay roll en ninguna escena.
@@ -650,8 +668,8 @@ DOF máximo muy sutil.
 
 ## Estado: implementado, medido y retirado
 
-Se construyó en la escena 04 con `@react-three/postprocessing` y se quitó por dos
-razones, en este orden.
+Se construyó en la escena CROSS-REPOSITORY — hoy cortada, §16 SCENE 05 — con
+`@react-three/postprocessing` y se quitó por dos razones, en este orden.
 
 **Rompe el pipeline de color.** El composer montado sin efectos es un no-op —
 idéntico píxel a píxel, `PSNR = inf`. Con un solo efecto, los grises del grafo se
@@ -668,18 +686,19 @@ desplazamiento es del composer y no del render.
 Arreglable en principio, dándole al composer un render lineal y dejando que él
 haga la conversión a sRGB. Eso significa reconstruir el pipeline de color que el
 proyecto ya arregló midiendo, y volver a verificar cada gris de token y cada
-costura en 990 frames.
+costura en los 900 frames montados.
 
 **Y las restricciones no le dejan nada que desenfocar.** «Nunca desenfocar
 información importante» significa aquí: ni el símbolo cambiado, ni las crossings,
 ni sus extremos. Las crossings van de hop 2 a hop 3, así que `Client.Charge()`,
 `Client.Refund()` y los tres nodos de `checkout-service` quedan fuera también. Eso
-es todo el grafo menos `Policy.Do()` y `Once()`, que la escena 04 ya baja a
-`0.22`.
+es todo el grafo menos `Policy.Do()` y `Once()`, que la escena cortada bajaba a
+`0.22` y que hoy nadie apaga: son hop 1, y la propagación del blast radius es lo
+primero que los enciende.
 
-El coste es reconstruir el color; el beneficio, ablandar dos nodos que ya están
-apagados a propósito. Este es el argumento que hay que responder antes de volver a
-proponerlo.
+El coste es reconstruir el color; el beneficio, ablandar dos nodos que ya no están
+apagados y que el beat siguiente enciende primero. Este es el argumento que hay
+que responder antes de volver a proponerlo.
 
 ---
 
@@ -1350,99 +1369,52 @@ Dejar que el espectador lo vea primero.
 
 ---
 
-# SCENE 05 — CROSS-REPOSITORY
+# SCENE 05 — CROSS-REPOSITORY (cortada)
 
-### Frames
+Esta escena existió. Ocupaba 90 frames — 0630–0720 del master anterior — y hacía
+dos cosas: giraba la cámara alrededor de la cascada (el ojo se desplazaba 4,2
+unidades de mundo, la dirección de vista rotaba 15,5° en yaw y la obliquidad
+total pasaba de 15,1° a 22,1° respecto a `-Z`) y, a la vez, restaba, dejando en
+cuadro sólo el símbolo, las crossings y los consumidores remotos, con
+`Policy.Do()` y `Once()` bajados a `0.22`.
 
-```text
-0630–0720
-14.0–15.5 s
-```
+Se cortó por dos razones, y las dos merecen quedar escritas.
 
----
+**El giro no comunicaba.** El espectador ya había leído la estructura en la 03 y
+la 04; moverse alrededor de ella no le añadía nada que pudiera nombrar. Noventa
+frames de cámara en movimiento sobre un grafo que ya está entendido son noventa
+frames que el vídeo gasta sin decir nada nuevo.
 
-### Frame 0630
+**Y la resta apagaba justo lo que venía después.** `Policy.Do()` y `Once()` son
+hop 1: son los dos primeros nodos que enciende la propagación de la 06. Esta
+escena los bajaba a `0.22` y el frame siguiente volvía a encenderlos.
 
-No aparece nada. El cuadro es exactamente el que deja la escena anterior:
-misma cámara, mismos ocho nodos, mismas siete aristas, mismas dos etiquetas de
-repositorio. El corte no se ve.
+Consecuencias sobre el resto de la película:
 
----
-
-### Frames 0630–0719
-
-La cámara gira alrededor de la cascada.
-
-El ojo se desplaza 4,2 unidades de mundo hacia el lado mientras el punto al que
-mira se queda casi quieto: la dirección de vista rota 15,5° en yaw y la
-obliquidad total pasa de 15,1° a 22,1° respecto a `-Z`. Cada placa gira contra
-la cámara, su canto entra en cuadro, y el extremo cercano de la cadena cruza el
-frame *contra* el grupo del fondo en vez de deslizarse con él.
-
-Eso es lo único que hace esta escena, y es su razón de existir: es el único
-sitio del vídeo donde el grafo se ve desde una cámara en movimiento el tiempo
-suficiente para leerse como un objeto en el espacio y no como un diagrama bien
-dibujado.
-
-Se compra ángulo, no distancia. La distancia de vista se mantiene dentro del 1%
-(12,85 → 12,96 unidades), así que ninguna etiqueta cambia de tamaño y el layout
-sigue siendo el que se buscó contra las métricas reales.
-
-No vuelve. Un movimiento que regresa a donde empezó es un temblor, no un gesto;
-la 06 hereda la pose de llegada y la sostiene quieta 120 frames.
-
----
-
-### Frames 0648–0700
-
-A la vez, la escena resta.
-
-Se quedan:
-
-```text
-source symbol
-crossings
-remote consumers
-```
-
-El resto baja de opacidad, y las dos etiquetas de repositorio suben un poco.
-Nada se dibuja: el límite entre los dos repositorios es el escalón en
-profundidad, no una forma.
-
-La resta es lo que hace legible el giro. La escena 04 no admite una cámara más
-oblicua mientras ocho etiquetas tengan que leerse; ésta tiene seis, y el ángulo
-se compra en el sitio que eso deja.
-
----
-
-### No hay texto
-
-Aquí había una palabra. El cuadro entero se oscurecía a `0.86` y se leía
-`Cross-repository.` sobre el velo, centrado, entre 0658 y 0708.
-
-Se implementó, se renderizó y se cortó: aterrizaba como un subtítulo quemado
-sobre un plano y no como parte de la película. Con ella se fue el velo, que no
-tenía por qué oscurecer un cuadro que ya nadie estaba leyendo.
-
-La regla de la que venía sigue en pie y ahora se cumple sola:
+- todo lo posterior a 0630 se adelanta 90 frames y el master pasa de 1410 a 1320
+  frames (22 s);
+- la 06 ya no hereda un grafo aislado ni una pose movida: hereda el estado
+  asentado completo con el que termina la 04, en el encuadre con el que la 04
+  termina — ojo en `(7.0, 3.2, 10.0)` mirando a `(8.0, 0.0, -2.4)`, 15,1° fuera
+  de `-Z` — y no hay ningún movimiento de cámara en el vídeo después de 0598;
+- la regla de la que venía esta escena sigue en pie y ahora se cumple sola:
 
 ```text
 No mostrar todavía texto explicando cross-repo.
 Dejar que el espectador lo vea primero.
 ```
 
-El primer velo del vídeo es el de la escena 06, bajo su claim line.
+Antes de cortarse la escena ya se había cortado su palabra: el cuadro entero se
+oscurecía a `0.86` y se leía `Cross-repository.` sobre el velo, centrado, entre
+0658 y 0708. Aterrizaba como un subtítulo quemado sobre un plano y no como parte
+de la película.
 
----
+Medido tras el corte: las costuras 0330 y 0750 son idénticas píxel a píxel, la
+0630 mide 62,93 dB — sólo antialiasing — y los 900 frames montados no tienen
+frame negro ni una sola anomalía de un frame.
 
-### Cámara
-
-La cámara hereda el encuadre con el que termina la escena anterior: la cadena
-entera en cuadro, vista desde algo por encima de ella, con `withRetry()` en su
-extremo cercano y `checkout-service` al fondo. Desde ahí gira.
-
-`up` sigue siendo el vertical del mundo en todos los frames: no hay roll, no hay
-órbita completa, y el horizonte no gira.
+El número 05 se queda ocupado por este registro y las escenas siguientes
+conservan su numeración de storyboard.
 
 ---
 
@@ -1451,13 +1423,13 @@ extremo cercano y `checkout-service` al fondo. Desde ahí gira.
 ### Frames
 
 ```text
-0720–0840
-15.5–17.5 s
+0630–0750
+14.0–16.0 s
 ```
 
 ---
 
-### Frame 0720
+### Frame 0630
 
 El nodo `withRetry()` pulsa una única vez.
 
@@ -1465,7 +1437,7 @@ No loop.
 
 ---
 
-### Frames 0730–0800
+### Frames 0640–0710
 
 El cambio se propaga.
 
@@ -1525,11 +1497,19 @@ Sin rebotes.
 
 ---
 
-### Frame 0820
+### No hay claim line
 
-Debajo:
+Aquí había una frase. Debajo de la card se leía `Exact symbols. Not name
+matches.`, y el cuadro se oscurecía con un velo para dejársela.
 
-# Exact symbols. Not name matches.
+Se cortó: no se leía como un resultado y no se explicaba sola. Con ella se fue
+el velo, que existía únicamente para oscurecer el cuadro bajo esa frase, y con
+el velo se fue el `0.72` que la escena 07 heredaba de él — el único que le
+quedaba.
+
+La card se queda sola. Sus tres valores se leen contra el grafo sin oscurecer,
+que es exactamente lo que §7 pide para los valores de una card de métricas: el
+grafo debajo de `7 affected symbols` es la prueba de la cifra.
 
 ---
 
@@ -1538,8 +1518,8 @@ Debajo:
 ### Frames
 
 ```text
-0840–0990
-17.5–20.0 s
+0750–0900
+16.0–18.5 s
 ```
 
 ---
@@ -1629,7 +1609,7 @@ etiqueta caería a unos 11 px.
 
 ---
 
-### Frames 0930–0970
+### Frames 0840–0880
 
 El lado izquierdo pierde opacidad.
 
@@ -1637,15 +1617,24 @@ El derecho permanece claro.
 
 ---
 
-### Frame 0950
+### No hay frase en el centro
 
-Texto grande en el centro:
+Aquí había una frase. `A name is not a symbol.` entraba centrada y grande sobre
+un velo, con el grafo ya aplanado detrás.
 
-# A name is not a symbol.
+Se cortó por lo mismo que la claim line de la 06: nombraba lo que las dos
+columnas ya estaban demostrando, y una frase que repite el cuadro se lee como un
+subtítulo quemado sobre un plano.
+
+Con ella se fue su velo. La escena pasó un tiempo heredando el `0.72` de la 06 y
+gastándolo a lo largo del aplanado; cortada también esa claim line, no queda
+nada que heredar y la escena no lleva velo en ningún frame. El argumento lo
+sostienen las dos columnas: la izquierda pierde opacidad, la derecha permanece
+clara, y esa asimetría es la frase.
 
 ---
 
-### Frames 0970–0990
+### Frames 0880–0900
 
 Hold.
 
@@ -1656,13 +1645,13 @@ Hold.
 ### Frames
 
 ```text
-0990–1080
-20.0–21.5 s
+0900–0990
+18.5–20.0 s
 ```
 
 ---
 
-### Frame 0990
+### Frame 0900
 
 El grafo se contrae hacia el nodo seleccionado.
 
@@ -1691,7 +1680,7 @@ Entrar por bloques.
 
 ---
 
-### Frame 1050
+### Frame 0960
 
 Pequeño label:
 
@@ -1706,13 +1695,13 @@ Answered with Kivgraph
 ### Frames
 
 ```text
-1080–1200
-21.5–23.5 s
+0990–1110
+20.0–22.0 s
 ```
 
 ---
 
-### Frame 1080
+### Frame 0990
 
 Hard cut limpio.
 
@@ -1726,7 +1715,7 @@ Sólo tipografía.
 
 ---
 
-### Frames 1080–1120
+### Frames 0990–1030
 
 Aparece:
 
@@ -1742,7 +1731,7 @@ tokens
 
 ---
 
-### Frames 1100–1140
+### Frames 1010–1050
 
 A la derecha:
 
@@ -1755,7 +1744,7 @@ Mucho menos protagonista.
 
 ---
 
-### Frames 1130–1170
+### Frames 1040–1080
 
 Aparece:
 
@@ -1765,7 +1754,7 @@ Aparece:
 
 ---
 
-### Frames 1150–1190
+### Frames 1060–1100
 
 Aparece:
 
@@ -1797,13 +1786,13 @@ Los números deben hablar solos.
 ### Frames
 
 ```text
-1200–1290
-23.5–25.0 s
+1110–1200
+22.0–23.5 s
 ```
 
 ---
 
-### Frame 1200
+### Frame 1110
 
 Todo desaparece.
 
@@ -1811,13 +1800,13 @@ Negro.
 
 ---
 
-### Frame 1210
+### Frame 1120
 
 Aparece un único nodo.
 
 ---
 
-### Frames 1210–1250
+### Frames 1120–1160
 
 Pequeñas líneas empiezan a llegar desde fuera del frame hacia ese nodo.
 
@@ -1829,7 +1818,7 @@ Pequeñas líneas empiezan a llegar desde fuera del frame hacia ese nodo.
 
 ---
 
-### Frames 1240–1270
+### Frames 1150–1180
 
 Las relaciones convergen formando una composición inspirada en el lenguaje visual de Kivgraph.
 
@@ -1839,7 +1828,7 @@ La animación simplemente sirve como transición.
 
 ---
 
-### Frame 1270
+### Frame 1180
 
 Aparece:
 
@@ -1847,7 +1836,7 @@ Aparece:
 
 ---
 
-### Frame 1280
+### Frame 1190
 
 Debajo:
 
@@ -1860,13 +1849,13 @@ Debajo:
 ### Frames
 
 ```text
-1290–1410
-25.0–27.0 s
+1200–1320
+23.5–25.5 s
 ```
 
 ---
 
-### Frames 1290–1320
+### Frames 1200–1230
 
 Aparecen integrations:
 
@@ -1878,7 +1867,7 @@ Opcionalmente otras compatibles si hay espacio.
 
 ---
 
-### Frame 1320
+### Frame 1230
 
 CTA:
 
@@ -1894,7 +1883,7 @@ kivgraph.dev
 
 ---
 
-### Frame 1340
+### Frame 1250
 
 Instalación, si se decide mostrarla:
 
@@ -1916,7 +1905,7 @@ kivgraph.dev
 
 ---
 
-### Frames 1350–1410
+### Frames 1260–1320
 
 Hold completo.
 
@@ -2245,7 +2234,6 @@ scenes/
 ├── SymbolScene.tsx
 ├── AgentScene.tsx
 ├── GraphRevealScene.tsx
-├── CrossRepoScene.tsx
 ├── BlastRadiusScene.tsx
 ├── SemanticScene.tsx
 ├── AgentAnswerScene.tsx
@@ -2272,31 +2260,27 @@ scenes/
     <GraphRevealScene />
   </Sequence>
 
-  <Sequence from={630} durationInFrames={90}>
-    <CrossRepoScene />
-  </Sequence>
-
-  <Sequence from={720} durationInFrames={120}>
+  <Sequence from={630} durationInFrames={120}>
     <BlastRadiusScene />
   </Sequence>
 
-  <Sequence from={840} durationInFrames={150}>
+  <Sequence from={750} durationInFrames={150}>
     <SemanticScene />
   </Sequence>
 
-  <Sequence from={990} durationInFrames={90}>
+  <Sequence from={900} durationInFrames={90}>
     <AgentAnswerScene />
   </Sequence>
 
-  <Sequence from={1080} durationInFrames={120}>
+  <Sequence from={990} durationInFrames={120}>
     <BenchmarkScene />
   </Sequence>
 
-  <Sequence from={1200} durationInFrames={90}>
+  <Sequence from={1110} durationInFrames={90}>
     <BrandScene />
   </Sequence>
 
-  <Sequence from={1290} durationInFrames={120}>
+  <Sequence from={1200} durationInFrames={120}>
     <OutroScene />
   </Sequence>
 </>
@@ -2391,33 +2375,30 @@ Durante desarrollo revisar específicamente:
 0620
 
 0630
-0690
+0670
+0710
+0740
 
-0720
-0760
-0800
-0830
+0750
+0810
+0860
+0899
 
-0840
 0900
-0950
-0989
+0960
 
 0990
-1050
+1030
+1070
+1109
 
-1080
-1120
+1110
 1160
-1199
+1190
 
 1200
-1250
-1280
-
-1290
-1350
-1409
+1260
+1319
 ```
 
 Los frames:
@@ -2425,10 +2406,10 @@ Los frames:
 ```text
 0080
 0620
-0800
-0950
-1120
-1280
+0710
+0860
+1030
+1190
 ```
 
 deben funcionar incluso como capturas estáticas.
@@ -2462,29 +2443,34 @@ Usable para social.
 
 ---
 
-## Frame ~0800
+## Frame ~0710
 
 ```text
 Blast radius +
 impact card.
 ```
 
+La card va sola. No hay claim line debajo ni velo detrás: sus tres valores se
+leen contra el grafo sin oscurecer.
+
 Usable en README.
 
 ---
 
-## Frame ~0950
+## Frame ~0860
 
 ```text
 Name matching vs Semantic resolution
-"A name is not a symbol."
 ```
+
+Sin frase en el centro. El still es la asimetría de las dos columnas, y es lo
+único que tiene que sostener.
 
 Usable para marketing técnico.
 
 ---
 
-## Frame ~1120
+## Frame ~1030
 
 ```text
 6.2k vs 63.5k
@@ -2610,7 +2596,7 @@ Give coding agents structural context.
 La primera versión debe entregar:
 
 ```text
-23.5 s master
+22.0 s master
 1920×1080
 60 FPS
 H.264
@@ -2728,4 +2714,29 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   cámara ya le ha hecho sitio. Afecta a las secciones 11, 12, 13, 20, 23 y 29 y a
   los beats de las escenas 03–05. Narrativa, frames, copy y benchmarks sin
   cambios.
+
+2026-08-25
+- Escena CROSS-REPOSITORY (SCENE 05, 90 frames) cortada. El giro de cámara no
+  comunicaba: el espectador ya había leído la estructura y moverse alrededor de
+  ella no añadía nada que pudiera nombrar. Su otro beat bajaba `Policy.Do()` y
+  `Once()` a `0.22` — son hop 1, justo los dos nodos que la propagación de la
+  escena siguiente enciende primero, así que el corte apagaba lo que el frame
+  siguiente volvía a encender. Todo lo posterior a 0630 se adelanta 90 frames y
+  el master pasa de 1410 a 1320 frames (22 s). La 06 hereda el encuadre asentado
+  con el que termina la 04 y no hay movimiento de cámara después de 0598.
+  Medido tras el corte: costuras 0330 y 0750 idénticas píxel a píxel, 0630 a
+  62,93 dB (sólo antialiasing), 900 frames montados sin frame negro ni anomalía
+  de un solo frame. Afecta a las secciones 2, 13, 15, 25, 26, 28, 29 y 34 y a
+  los rangos de las escenas 06–11.
+
+2026-08-25
+- Cortadas las dos frases dirigidas al espectador de las escenas de grafo:
+  `Exact symbols. Not name matches.` (06) y `A name is not a symbol.` (07).
+  Ninguna de las dos se leía como un resultado ni se explicaba sola. Con ellas
+  se van los dos velos: el de la 06 existía sólo para oscurecer el cuadro bajo
+  su claim line, y el único que le quedaba a la 07 era el `0.72` que heredaba de
+  él. Las escenas de grafo quedan sin ninguna frase dirigida al espectador y la
+  card de impacto queda sola sobre un grafo sin oscurecer. La regla §7 sigue en
+  pie, pero de momento no gobierna nada implementado. Afecta a las secciones 7,
+  28 y 29 y a los beats de las escenas 06 y 07.
 ```

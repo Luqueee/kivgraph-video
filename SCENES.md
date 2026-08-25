@@ -390,16 +390,15 @@ It should contain the scene order and links:
 
 | #   | Scene               |    Frames | Component              | Documentation                                            |
 | --- | ------------------- | --------: | ---------------------- | -------------------------------------------------------- |
-| 01  | Symbol              |     0–120 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                            |
-| 02  | Agent               |   120–330 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                              |
-| 03  | Graph Reveal        |   330–630 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
-| 04  | Cross Repository    |   630–720 | `CrossRepoScene.tsx`   | [04-cross-repo.md](./04-cross-repo.md)                    |
-| 05  | Blast Radius        |   720–840 | `BlastRadiusScene.tsx` | [05-blast-radius.md](./05-blast-radius.md)                |
-| 06  | Semantic Resolution |   840–990 | `SemanticScene.tsx`    | [06-semantic-resolution.md](./06-semantic-resolution.md)  |
-| 07  | Agent Answer        |  990–1080 | `AgentAnswerScene.tsx` | [07-agent-answer.md](./07-agent-answer.md)                |
-| 08  | Benchmark           | 1080–1200 | `BenchmarkScene.tsx`   | [08-benchmark.md](./08-benchmark.md)                      |
-| 09  | Brand               | 1200–1290 | `BrandScene.tsx`       | [09-brand.md](./09-brand.md)                              |
-| 10  | Outro               | 1290–1410 | `OutroScene.tsx`       | [10-outro.md](./10-outro.md)                              |
+| 01  | Symbol              |     0–120 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                           |
+| 02  | Agent               |   120–330 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                             |
+| 03  | Graph Reveal        |   330–630 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)               |
+| 04  | Blast Radius        |   630–750 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)               |
+| 05  | Semantic Resolution |   750–900 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md) |
+| 06  | Agent Answer        |  900–990 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)               |
+| 07  | Benchmark           |  990–1110 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                     |
+| 08  | Brand               | 1110–1200 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
+| 09  | Outro               | 1200–1320 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
 ```
 
 Keep this index synchronized when scenes are added, removed, renamed, split, merged, or retimed.

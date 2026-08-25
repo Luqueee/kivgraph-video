@@ -52,10 +52,10 @@ nothing has been said about it.
 this frame: `withRetry()` stops being HTML text and becomes the central node of a
 Three.js graph.
 
-**Later.** Scene 07 (`07-agent-answer.md`, frames 0990–1080) match-cuts _back_
+**Later.** Scene 06 (`06-agent-answer.md`, frames 0900–0990) match-cuts _back_
 into this prompt row to deliver the answer. This scene therefore defines a
 reusable geometry, not a one-off layout: the rule, the row and the token positions
-established here must be reproducible 660 frames later, which is why they are
+established here must be reproducible 570 frames later, which is why they are
 exported constants rather than inline numbers.
 
 ## Why this scene absorbed its predecessor
@@ -74,7 +74,7 @@ early, the reveal that scenes 03 to 05 exist to deliver.
 
 The limitation it was meant to establish is now carried by the question itself. If
 a developer has to ask what breaks, they cannot see it; the cost of not seeing it
-is paid in numbers in `08-benchmark.md`. Nothing needs to say it out loud.
+is paid in numbers in `07-benchmark.md`. Nothing needs to say it out loud.
 
 What survives is the movement: the widen-and-dim is now the first 70 frames of
 this scene, where it is a transition rather than a statement.
@@ -84,7 +84,7 @@ this scene, where it is a transition rather than a statement.
 - Storyboard scene: `STORYBOARD.md` — SCENE 02 ASK THE AGENT
 - Global frames: 0120–0330
 - Scene-local frames: 0000–0210
-- Time: 3.5 s – 7.0 s
+- Time: 2.0 s – 5.5 s
 - Duration: 210 frames (3.5 s at 60 fps)
 - Remotion component: `src/scenes/AgentScene.tsx`
 - Registration: `<Sequence name="02 Agent" from={120} durationInFrames={210}>`
@@ -359,7 +359,7 @@ same symbol as graph node
   03's first frame, automatically and by construction.
 
 Changing `promptLayout`, the token's scale or the push-in curve **requires
-updating `03-graph-reveal.md` and `07-agent-answer.md` in the same task.**
+updating `03-graph-reveal.md` and `06-agent-answer.md` in the same task.**
 
 ## Copy
 
@@ -425,8 +425,8 @@ the video.
 - **Do not visually imitate Claude Code** or any other specific agent product. No
   cloned chrome, no cloned colour scheme, no cloned status line, no cloned
   tool-result formatting.
-- **The prompt geometry is a shared constant.** `07-agent-answer.md` rebuilds this
-  row at frame 0990 and `03-graph-reveal.md` matches the token at 0330. All three
+- **The prompt geometry is a shared constant.** `06-agent-answer.md` rebuilds this
+  row at frame 0900 and `03-graph-reveal.md` matches the token at 0330. All three
   read `promptLayout` / `tokenRect`; none of them re-derives the numbers.
 - **Typing is grouped and irregular**, never a uniform per-character stream.
 - **The tool invocation stays discreet.** One line, small, one accent square. It

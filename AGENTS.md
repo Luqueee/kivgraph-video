@@ -216,13 +216,25 @@ Avoid unnecessary:
 - dramatic spins;
 - cyberpunk effects.
 
-"Continuous orbiting" rather than "orbiting": a **bounded** turn is not only
-allowed, it is the point of scene 04. A camera that moves once, from one settled
-pose to another, and stops, is what makes a plate read as a surface in space
-instead of a card. What is banned is the camera that never stops — the slow
-perpetual drift that says "3D scene" and explains nothing. The test is whether
-the move ends: if the last frames of the scene are a photograph, it is a gesture;
-if they are still moving, it is wallpaper.
+"Continuous orbiting" rather than "orbiting", but read the rest of this before
+building one.
+
+A **bounded** turn — one move, from one settled pose to another, that stops — was
+built as an entire scene and then cut. It was geometrically correct and well
+measured: 20.6° on an orbit of constant radius, settling to a photograph, with
+every label contained and no roll. It still did not communicate. By the time it
+ran, the viewer had already read the structure, and moving around a thing they had
+finished reading gave them nothing they could name. The scene was deleted and the
+film is better for it.
+
+So the rule is stronger than "don't orbit continuously": **a camera move has to
+answer a question the viewer is currently asking.** The moves that survive in this
+film all do — the step in toward the symbol, the travel that follows the impact,
+the rise that opens the second repository into frame. Each arrives while the
+viewer wants to know what is next. A move that admires a structure already
+understood is wallpaper whether or not it stops.
+
+There is no camera movement anywhere after frame 0598, and that is deliberate.
 
 ### Librerías: qué se usa y qué se rechazó
 

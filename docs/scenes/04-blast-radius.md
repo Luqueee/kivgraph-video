@@ -1,4 +1,4 @@
-# Scene 05 — Blast Radius
+# Scene 04 — Blast Radius
 
 ## Purpose
 
@@ -35,8 +35,11 @@ Three things must land, in this order:
    the change and at the far end of the sixteen world units the graph spans;
 3. impact is **countable** — a card states the result as three numbers.
 
-The scene also carries the video's first explicit product claim,
-`Exact symbols. Not name matches.`, which Scene 06 then proves.
+Those three are the whole of the scene's speech. It makes no claim to the viewer
+in words: the card states measurements about the graph, and nothing in the frame
+addresses the viewer directly. The product claim
+`Exact symbols. Not name matches.` used to sit under the card here, and it was
+cut — see `## Modification history`.
 
 ## Viewer takeaway
 
@@ -45,20 +48,22 @@ The scene also carries the video's first explicit product claim,
 
 ## Narrative context
 
-**Immediately before.** Scene 04 (`04-cross-repo.md`, frames 0630–0720) named the
-cross-repository relationship and then subtracted everything else, leaving the
-three crossings at full presence — the two hop-2 nodes `Client.Charge()` and
-`Client.Refund()`, the three `checkout-service` consumers at hop 3, and
-`withRetry()` at the head of the cascade as the subject — with hop 1, the
-`internal/retry` pair `Policy.Do()` and `Once()`, and every local edge dimmed.
+**Immediately before.** Scene 03 (`03-graph-reveal.md`, frames 0330–0630) finished
+building the graph and settled: eight nodes and seven edges present, the cascade
+laid out in depth, the three crossings drawn at 0554–0569, `withRetry()` accent-lit
+at its head, and the camera at rest on the pose it arrived at. There used to be a
+scene between the two — `CrossRepoScene`, frames 0630–0720 — and it was cut; see
+`## Modification history`. What its removal changes here is the inheritance: this
+scene no longer receives an isolated frame with hop 1 held down, it receives scene
+03's whole settled graph, evenly present, at scene 03's pose.
 
-**This scene.** Uses that clean frame. A single pulse establishes cause; the
+**This scene.** Uses that whole frame. A single pulse establishes cause; the
 propagation establishes reach; the card establishes measurement.
 
-**What it prepares.** Scene 06 (`06-semantic-resolution.md`) proves why these
-numbers can be trusted — because they are symbols, not name matches. Scene 07
-(`07-agent-answer.md`) hands the same numbers back to the agent in prose
-(`7 symbols`, `across 2 repositories.`). Scene 08 then quantifies the cost of
+**What it prepares.** Scene 05 (`05-semantic-resolution.md`) proves why these
+numbers can be trusted — because they are symbols, not name matches. Scene 06
+(`06-agent-answer.md`) hands the same numbers back to the agent in prose
+(`7 symbols`, `across 2 repositories.`). Scene 07 then quantifies the cost of
 obtaining them. This scene is the hinge: the numbers on this card are the numbers
 the rest of the video refers to.
 
@@ -66,29 +71,29 @@ the rest of the video refers to.
 
 - Storyboard coverage: **`STORYBOARD.md` SCENE 06 — BLAST RADIUS**.
   Note the numbering offset: storyboard scenes 03 and 04 collapse into the single
-  component `GraphRevealScene`, so every document number from 03 onward is one
-  lower than its storyboard scene number.
-- Global frames: **0720–0840**
+  component `GraphRevealScene`, and storyboard SCENE 05 — CROSS-REPOSITORY was
+  cut, so every document number from this one onward is **two** lower than its
+  storyboard scene number. `docs/scenes/README.md` § Scene numbering holds the
+  whole mapping.
+- Global frames: **0630–0750**
 - Scene-local frames: **0000–0120**
-- Time: **12.0 s – 14.0 s**
+- Time: **10.5 s – 12.5 s**
 - Duration: **120 frames / 2.0 s** at 60 fps
 - Remotion component: `src/scenes/BlastRadiusScene.tsx`
-- Boundary source: the inline `<Sequence name="05 Blast Radius" from={720} durationInFrames={120}>`
+- Boundary source: the inline `<Sequence name="04 Blast Radius" from={630} durationInFrames={120}>`
   literal in `src/Composition.tsx`
 
-Beats (scene-local = master − 720):
+Beats (scene-local = master − 630):
 
 | Master      | Local       | Beat                                                                                     |
 | ----------- | ----------- | ---------------------------------------------------------------------------------------- |
-| `0720–0740` | `0000–0020` | `withRetry()` pulses **once**: seven frames up, thirteen down, back to zero.              |
-| `0728–0752` | `0008–0032` | Hop 1. The relation lifts at 0008, `Policy.Do()` and `Once()` are marked from 0014.       |
-| `0748–0772` | `0028–0052` | Hop 2, the public bridge: `Client.Charge()` and `Client.Refund()`.                        |
-| `0768–0800` | `0048–0080` | Hop 3, the three `checkout-service` consumers, four frames apart.                         |
-| `0775–0795` | `0055–0075` | The impact card: `opacity 0 → 1`, `x +24 → 0`, no overshoot.                              |
-| `0800`      | `0080`      | Propagation complete, card settled. **Key visual frame.**                                 |
-| `0814–0830` | `0094–0110` | The veil rises to `0.72` over the whole frame and holds.                                  |
-| `0820–0832` | `0100–0112` | `Exact symbols. Not name matches.` fades in on it, below the card.                        |
-| `0832–0840` | `0112–0120` | Hold. Nothing moves; the frame exists to be read.                                         |
+| `0630–0650` | `0000–0020` | `withRetry()` pulses **once**: seven frames up, thirteen down, back to zero.              |
+| `0638–0662` | `0008–0032` | Hop 1. The relation lifts at 0008, `Policy.Do()` and `Once()` are marked from 0014.       |
+| `0658–0682` | `0028–0052` | Hop 2, the public bridge: `Client.Charge()` and `Client.Refund()`.                        |
+| `0678–0710` | `0048–0080` | Hop 3, the three `checkout-service` consumers, four frames apart.                         |
+| `0685–0705` | `0055–0075` | The impact card: `opacity 0 → 1`, `x +24 → 0`, no overshoot.                              |
+| `0710`      | `0080`      | Propagation complete, card settled. **Key visual frame.**                                 |
+| `0710–0750` | `0080–0120` | Hold. Nothing moves; the frame exists to be read.                                         |
 
 Every relation lifts six frames before the node it reaches, for the reason scene
 03 drew an edge before the plate at its end: the shot travels a relationship and
@@ -99,51 +104,50 @@ events, overlapped they read as one thing moving.
 
 ## Initial state
 
-At master frame 0720 (local 0000) the frame is **visually identical** to master
-frame 0719, inheriting Scene 04's camera and graph exactly:
+At master frame 0630 (local 0000) the frame is **visually identical** to master
+frame 0629, inheriting Scene 03's camera and graph exactly:
 
 - The settled cascade in depth: `withRetry()` nearest the camera at `z 0.0`,
   hop 1 at `-0.8`, hop 2 at `-1.9`, hop 3 at `-3.4`, every hop stepping `+x` as
-  well. The camera is at rest on the pose the graph sequence ends on — the
-  `lookAt` rig at eye `(7.0, 3.2, 10.0)` looking at `(8.0, 0.0, -2.4)`, its view
-  direction 15° off `-Z`. Scene 04's small drift translates the whole rig and
-  eases back into rest before 0720, so this scene inherits that exact pose with
-  zero velocity.
+  well. The camera is at rest on the pose scene 03 ends on — the `lookAt` rig at
+  eye `(7.0, 3.2, 10.0)` looking at `(8.0, 0.0, -2.4)`, its view direction 15° off
+  `-Z`. Scene 03's camera move completes at 0598 and nothing in the film moves the
+  camera after it, so this scene inherits that exact pose with zero velocity.
 - `withRetry()` accent-lit at the head of the cascade: the largest label, the
   brightest plate and the only accent in the frame.
-- The three crossings, `Client.Charge()` and `Client.Refund()` at hop 2, and the
-  three `checkout-service` consumers at hop 3, at full presence.
-- Hop 1 — the `internal/retry` pair, `Policy.Do()` and `Once()` — dimmed, along
-  with the local edges that reach them. The propagation's first step is what
-  lifts them.
+- Every other node at the presence Scene 03 settled it at: the `internal/retry`
+  pair `Policy.Do()` and `Once()` at hop 1, `Client.Charge()` and
+  `Client.Refund()` at hop 2, and the three `checkout-service` consumers at hop 3.
+  Nothing arrives pre-dimmed and nothing arrives pre-selected — the graph is
+  whole. That is what lets the propagation read as travel rather than as the
+  re-lighting of something that had been held back for it.
 - Cluster labels visible: `payments-api` below the near group,
   `checkout-service` above the far one.
-- No caption. Scene 04 no longer hands one over: its word is read on a veil over
-  local 28–78 and is gone by master 0708, and the veil itself is back to zero by
-  0718. This scene therefore inherits an undimmed, textless frame, and the card
-  it introduces is the only caption in it.
+- No caption. Scene 03 carries no explanatory text at all, so this scene inherits
+  an undimmed, textless frame, and the card it introduces is the first and only
+  caption in the graph passage.
 - No card. No new copy.
 
 The pulse on `withRetry()` begins on this frame.
 
 ## Final state
 
-At master frame 0840 (local 0120, the boundary frame handed to
+At master frame 0750 (local 0120, the boundary frame handed to
 `SemanticScene.tsx`):
 
 - Every affected node carries the Kivgraph accent, all the way back to the last
   hop. Unaffected structure stays neutral and suppressed.
 - The 2D impact card sits in the frame's top-left, fully settled, reading
   `CHANGE IMPACT`, `7 affected symbols`, `3 dependency paths`, `2 repositories`.
-- `Exact symbols. Not name matches.` sits below the card on its left edge.
+- No veil and no sentence. The graph is at full presence under the card.
 - The camera has not moved at all; the graph is still, propagation finished.
 
-Nothing is mid-animation at 0840. The next scene begins by flattening this exact
+Nothing is mid-animation at 0750. The next scene begins by flattening this exact
 frame.
 
 ## Visual composition
 
-**Layout.** One graph and one flat report block, and the block is **top-left**.
+**Layout.** One graph and one flat card, and the card is **top-left**.
 
 The storyboard puts the card on the right, and the first render is why it is not
 there. The graph runs from `withRetry()` at the front of the frame back and to
@@ -153,21 +157,21 @@ the card covered `ReconciliationJob.Run()` and the crossing arriving at
 `CheckoutService.PlaceOrder()`: the two objects that are the evidence for the
 numbers printed on it, in the one still that has to show the count and the
 evidence together. Measured on that render, the frame has exactly one free
-rectangle large enough for the card, a gap and the claim line — the top-left,
+rectangle large enough for the card — the top-left,
 which the cascade leaves empty because it starts low and travels up and away. It
-is also the `payments-api` side and the reading corner, so the report sits with
+is also the `payments-api` side and the reading corner, so the card sits with
 the change it is about rather than over the consumers it counts. The `x +24`
 settle is kept: it is a settle, not an entrance from a frame edge. Recorded as a
 deviation in `## Current compromises`.
 
-Card at `left: 96, top: 72`; the claim line at `left: 96, top: 400`, on the
-card's own left edge.
+Card at `left: 96, top: 72`. It is the only flat surface in the frame; the claim
+line that used to sit under it at `left: 96, top: 400` was cut with the sentence.
 
 **The card.** A flat surface panel, not a floating glass object: `surfaceElevated`
 `#171a1f` fill, 1px `border` `#22262b` hairline, radius 0, no shadow. Depth comes
 from the surface step against the `background` `#0a0b0d` scene behind it, exactly
 as the Kivgraph web does it. It lives in `src/components/MetricCard.tsx` so scene
-08 can report the benchmark in the same surface language.
+07 can report the benchmark in the same surface language.
 
 **Card typography.** All monospace (JetBrains Mono) — these are technical values.
 `CHANGE IMPACT` as a small uppercase, letter-spaced heading in `textMuted`
@@ -192,16 +196,16 @@ step, and *not* through a scale step. A node's apparent size is a consequence of
 its depth, so scaling an affected node would state that it had moved to a
 different hop.
 
-**The claim line.** `Exact symbols. Not name matches.` is a narrative statement
-addressed to the viewer, so it is Geist sans (the project rule: graph-attached
-text is mono, viewer-addressed narrative is sans). Colour `textPrimary`
-`#f5f5f5`, weight 500. It sits below the card, aligned to the card's left edge. It
-may break across two lines between the two sentences to fit the column. Sized as
-large as the column allows — 40 px on one line as shipped, which clears
-`Client.Charge()` by 160 px, and never below the Body scale (26 px)
-(`STORYBOARD.md` §7, `AGENTS.md` §37).
+**No viewer-addressed copy.** There is none in this scene, and none anywhere else
+in the graph passage. The claim `Exact symbols. Not name matches.` was set here in
+Geist sans at 40 px below the card, on a veil, and both the line and the veil were
+cut: the sentence did not read as a result of the count above it and did not
+explain itself. What remains is the project rule it was an instance of —
+graph-attached text is mono, viewer-addressed narrative is sans
+(`STORYBOARD.md` §7, `AGENTS.md` §37) — which now governs nothing in this scene,
+because every string in it is a symbol name, a cluster name or a measured value.
 
-**Hierarchy** at 0800, strongest first:
+**Hierarchy** at 0710, strongest first:
 
 1. the accent-marked propagation, from `withRetry()` at the front back to the
    `checkout-service` consumers;
@@ -212,10 +216,10 @@ large as the column allows — 40 px on one line as shipped, which clears
 
 ## Motion
 
-**Rhythm.** Cause, spread, count, claim. Four events in two seconds, each
-distinctly separated. No two events compete for attention.
+**Rhythm.** Cause, spread, count. Three events in two seconds, each distinctly
+separated, and then a forty-frame hold. No two events compete for attention.
 
-**The pulse.** `withRetry()` pulses exactly **once** at 0720 — a single short
+**The pulse.** `withRetry()` pulses exactly **once** at 0630 — a single short
 brightness swell that returns to rest. Brightness and not scale: apparent size in
 this layout is depth, and a node that swells reads for a moment as having come
 closer than the change itself. It is not a loop, not a heartbeat and not an
@@ -242,7 +246,7 @@ the hops:
 Each step begins after the previous one is legible. The ordering is the argument:
 it shows that impact was *derived*, not merely highlighted. If all affected nodes
 lit at once, the scene would look like a search result — which is precisely the
-thing Scene 06 exists to discredit.
+thing Scene 05 exists to discredit.
 
 The layout makes that argument self-evidencing, which is why this scene can be
 brief about it. Because depth already is hop distance, lighting one hop after
@@ -265,32 +269,29 @@ The card arrives while the propagation is reaching the remote consumers, so the
 numbers read as the *result* of what the viewer just watched, not as a caption
 placed in advance.
 
-**The veil, and then the claim line.** `STORYBOARD.md` § Frase sobre el cuadro is
-a project rule: a sentence addressed to the viewer is read on a darkened frame.
-So the frame darkens to `0.72` over local 94–110 and the line fades in six frames
-later, at 0820, after the count, because it qualifies the count. No movement on
-either.
+**No veil.** There was one, rising to `0.72` over local 94–110 to darken the frame
+under the claim line, and it was cut when the sentence was. `STORYBOARD.md`
+§ Frase sobre el cuadro — a sentence addressed to the viewer is read on a darkened
+frame — is still a project rule and scenes 06 to 09 may still need it, but it
+governs nothing implemented: with no viewer-addressed sentence anywhere in the
+graph passage there is nothing for a veil to carry, and a scene that dims for no
+sentence is just a scene that dims.
 
-`0.72` and not scene 04's `0.86` because two things have to survive it. The
-propagation is the evidence for the numbers still on screen, and the card sits
-*above* the veil — it gains contrast from it instead of being dimmed by it, which
-is the whole reason the veil goes between the graph and the report rather than
-over everything.
+The graph therefore stays at full presence for all 120 frames. That is the right
+outcome for the card rather than a concession: its three lines are graph-attached
+technical values whose job is to be read *against* the structure behind them, and
+key frame 0710 has to hold the count and the evidence in one image. Darkening the
+graph there would have taken away the reason to keep the receipt.
 
-The rule does not reach the card. Its three lines are graph-attached technical
-values whose job is to be read against the structure behind them, and key frame
-0800 has to hold the count and the evidence in one image; darkening the graph
-there would take away the reason to keep the receipt. So the veil arrives 14
-frames *after* that still is safely rendered.
-
-**Camera.** Static. Scene 04 returns the rig to rest before 0720, so this scene
-holds the camera exactly where it inherits it and spends its whole motion budget
-on the graph. It stays the `lookAt` rig at eye `(7.0, 3.2, 10.0)` looking at
+**Camera.** Static. Scene 03 leaves the rig at rest at 0630, so this scene holds
+the camera exactly where it inherits it and spends its whole motion budget on the
+graph. It stays the `lookAt` rig at eye `(7.0, 3.2, 10.0)` looking at
 `(8.0, 0.0, -2.4)`, 15° off `-Z`, `up` world up on every frame. No orbit, no roll,
 no rotation, no shake, no dolly.
 
-**Holds.** 0800 must be still enough to export as an image. 0820–0840 is a true
-hold — the frame's job there is to be read.
+**Holds.** 0710 must be still enough to export as an image. 0710–0750 is a true
+hold — nothing changes after the card settles, and the frame's job there is to be
+read.
 
 ## Three.js
 
@@ -302,7 +303,7 @@ further from the viewer as well as roughly eight units along `x`, and it lands o
 plates that are visibly smaller, dimmer and more foreshortened than the ones it
 left. A drawn distance is reproducible in SVG; this one is not.
 
-**Topology.** Unchanged from Scene 04. Eight nodes and seven edges from
+**Topology.** Unchanged from Scene 03. Eight nodes and seven edges from
 `src/data/graphDemo.ts` across four hops, with the repository split falling
 exactly on the boundary between hop 2 and hop 3; three crossings, every other
 edge inside `payments-api`. No node is added, moved or removed by this scene; only
@@ -329,7 +330,7 @@ order given above; edges outside the blast radius stay neutral and low.
 
 The two groups do not land on the same value, and the first render is why. Taking
 every edge to full accent marked all seven at one weight, so the three crossings
-— which arrive already lifted from scene 04, and which are the most important
+— which arrive already lifted from scene 03, and which are the most important
 edges in the video — became indistinguishable from the four local ones, and most
 of the frame's width turned blue. A local edge therefore stops at `edgeSettle`
 `0.34`: unmistakably inside the blast radius, still visibly its quieter half. A
@@ -338,12 +339,12 @@ luminance falloff sits over the geometry and under the labels, so a lit crossing
 near the frame edge is crushed while its node label is not. Accent at hop 3 is
 therefore carried by the labels at least as much as by the tubes — `nodeAccent`
 lifts an affected label out of its shell's luminance step toward full presence,
-which is what makes the far group legible at 0800.
+which is what makes the far group legible at 0710.
 
 **Repository presence.** There are no cluster meshes, no base surfaces and nothing
 drawn around a group. A repository is carried by depth, by distance and by one
 floating label each: `payments-api` below the near group, `checkout-service` above
-the far one. Both labels carry over from Scene 04 at the presence it left them at.
+the far one. Both labels carry over from Scene 03 at the presence it left them at.
 A base plane was built, rendered once and deleted — correctly exposed it is a
 rectangle with four corners around each cluster, which is a container, and a
 repository must not be one here. Never a box (`STORYBOARD.md` §11).
@@ -362,7 +363,7 @@ result about the graph, and keeping it flat preserves that distinction.
 
 **Deterministic animation.** All of it is `state = f(frame)` — pulse, per-node
 `active`, per-edge `progress`, card `opacity`/`x` (`AGENTS.md` §17, §18, §21;
-`STORYBOARD.md` §21, §22). The inherited layout comes from `getGraphState` in
+`STORYBOARD.md` §21, §22). The inherited layout comes from `getGraphState(300)` in
 `src/three/graphState.ts` over the spatial contract in
 `src/three/graphFrame.ts`, sampled past the end of Scene 03's local range so it
 returns the settled state and the held camera pose. The propagation is this
@@ -373,39 +374,46 @@ at render time.
 
 ## Transition in
 
-Hard sequence boundary at 0720, and it is **pixel-identical**: frames 0719 and
-0720 render at PSNR = inf, not merely "visually continuous". Getting there found
-an off-by-one in scene 04 — its camera drift returned to rest on scene-local 90,
-a frame that scene never renders, so the last rendered frame was still 0.022 of
-the way out of rest and the handoff measured 47.9 dB. Scene 04's drift now lands
-on local 89 and this scene reads the settled value, so the camera is provably
-still for all 120 frames.
+Hard sequence boundary at 0630, and it is **visually continuous rather than
+byte-identical**: frames 0629 and 0630 measure **62.93 dB** PSNR, and the
+difference is glyph antialiasing and nothing else. Scene 03's camera move
+completes at 0598 and nothing in the film moves the camera after it, so the pose
+is provably still for all 120 frames of this scene.
 
-Scene 04 handed over a frame in which the crossing was already at full presence
-and everything else dimmed, which is exactly the frame this scene needs in order
-to make one pulse readable. Hop 1 arrives *suppressed* — scene 04 pushed
-`Policy.Do()` and `Once()` down to 0.22 to make room for the claim — so the
-first step of the propagation is what brings it back. That is the one place where
-presence and the affected mark move together; for every other node the mark is
-carried by `nodeAccent` alone, because six of the eight are already at full
-presence by the time the blast radius runs.
+Scene 03 hands over its whole settled graph: eight nodes and seven edges at the
+presence it finished on, `withRetry()` accent-lit at the head of the cascade, and
+the three crossings drawn and already handed back to the structure. Every node
+arrives at full presence, so the affected mark is carried by `nodeAccent` alone
+for all of them and presence is not touched at all.
+
+That is a simplification the cut bought, and it is worth recording why. The
+deleted scene pulled `Policy.Do()` and `Once()` — hop 1, the very first thing
+this propagation lights — down to `0.22`, to leave room for a caption that no
+longer exists. Hop 1 therefore used to arrive *suppressed*, and the first step of
+the propagation had to do two jobs at once: raise presence and apply the mark.
+The old cut dimmed exactly what the next frame re-lit. The propagation now starts
+from a whole, evenly present graph, which is what makes "the change travels"
+legible: nothing was pre-selected for it.
 
 The first thing that changes after the cut is the pulse. Nothing enters, nothing
 re-frames.
 
-The inherited layout comes from the curve shared with Scenes 03 and 04, and that
-curve is parameterised on **Scene 03's** local frame with every ramp clamped at
-both ends. This scene therefore samples it at `localFrame + 390`, which is past
-300 for every frame of the scene and returns exactly the settled state, while
-animating the pulse, the propagation, the card and the copy in its own
-scene-local frames.
+The inherited layout is read from Scene 03 rather than restated: `blastState.ts`
+samples `getGraphState(300)`, and because every ramp in that curve clamps, 300 and
+anything past it return the values Scene 03 renders on its last frame. It used to
+sample `getCrossRepoState(90)`; the principle did not change with the cut. Copying
+the twenty-three numbers out instead — eight node presences, seven edge gains,
+seven settle values and a cluster gain — is not a check, it is a second source of
+truth that goes stale the first time the scene before this one is retuned. This
+scene animates the pulse, the propagation and the card in its own scene-local
+frames.
 
-Nothing trails in from Scene 04. Its caption and its veil are both back to zero
-before 0719, so the pulse lands on a clean frame.
+Nothing trails in. Scene 03 carries no caption and raises no veil, so the pulse
+lands on a clean frame.
 
 ## Transition out
 
-At 0840 `SemanticScene.tsx` takes over and the transition comes from the content
+At 0750 `SemanticScene.tsx` takes over and the transition comes from the content
 (`STORYBOARD.md` §27, *Graph → Semantic comparison*): the graph flattens and the
 frame becomes a split view. The camera does not straighten up first, and it should
 not: the graph sequence ends 15° off `-Z`, and the flatten resolves that oblique
@@ -414,18 +422,15 @@ rather than a camera move.
 
 Consequences this scene must respect:
 
-- the graph must be **at rest** at 0840 — a flatten applied to a still frame reads
+- the graph must be **at rest** at 0750 — a flatten applied to a still frame reads
   as a deliberate change of representation; applied to a moving frame it reads as a
   glitch;
 - the accent state produced here carries into the right-hand side of the split, so
   the flatten feels like the same graph being re-presented rather than a new
   graphic appearing;
-- the card and the claim line leave during the flatten as a short fade, not a wipe
-  or a slide-out, and the veil under them leaves with them.
-  `Exact symbols. Not name matches.` and Scene 06's `A name is not a symbol.` are
-  the same argument, so the first must clear before the second lands. Exact fade
-  frames are flexible; both must be gone before
-  0950.
+- the card leaves during the flatten as a short fade, not a wipe or a slide-out.
+  There is nothing else to clear: this scene ends with no claim line and no veil,
+  and the next one raises neither. The exact fade frames are flexible.
 
 ## Copy
 
@@ -451,11 +456,7 @@ removed when scene 01 dropped all explanatory text, so the callback no longer
 exists and this label now has to work on its own. It does: the card is the first
 and only place the video quantifies impact.
 
-Below the card, from 0820:
-
-```text
-Exact symbols. Not name matches.
-```
+Nothing else. The card's four lines are the only copy this scene introduces.
 
 Inherited and still visible from earlier scenes:
 
@@ -472,18 +473,19 @@ No other text. No explanatory sentence, no legend, no sub-caption.
 Frames to inspect manually (`STORYBOARD.md` §28):
 
 ```text
-0720 — single pulse on withRetry(); frame otherwise identical to 0719
-0760 — propagation mid-flight, ordering clearly readable
-0800 — KEY VISUAL: full blast radius plus impact card
-0830 — hold with the claim line on its veil, the graph dimmed behind it
+0630 — single pulse on withRetry(); frame otherwise identical to 0629
+0670 — propagation mid-flight, ordering clearly readable
+0710 — KEY VISUAL: full blast radius plus impact card
+0740 — hold on the settled frame; card and propagation, nothing dimmed
 ```
 
-**Frame 0800 is a key visual frame** (`STORYBOARD.md` §29, and `AGENTS.md`'s list
-of frames that must remain intentional as stills: 0080, 0620, 0800, 0950, 1120, 1280),
-earmarked for the README. It must work as a still image, which means at 0800:
+**Frame 0710 is a key visual frame** (`STORYBOARD.md` §29, and `AGENTS.md`'s list
+of frames that must remain intentional as stills: 0080, 0620, 0710, 0860, 1030, 1190),
+earmarked for the README. It must work as a still image, which means at 0710:
 
 - the propagation is complete and every affected node is unambiguously marked;
-- the card is fully settled, not mid-entry, and all four of its lines are legible;
+- the card is fully settled, not mid-entry, and all four of its own lines — the
+  `CHANGE IMPACT` heading and the three values — are legible;
 - the card occludes nothing: not `withRetry()`, not a crossing, not one of the
   three `checkout-service` consumers. This is why it is top-left and not in the
   right column the storyboard asks for;
@@ -500,7 +502,7 @@ Inspect it as an exported still, not only by scrubbing.
 
 Preserve unless the creative direction is explicitly changed:
 
-- **One pulse, not a loop.** `withRetry()` pulses exactly once at 0720. No
+- **One pulse, not a loop.** `withRetry()` pulses exactly once at 0630. No
   repeating pulse, no heartbeat, no expanding ring.
 - **Strict propagation order.** Hop 0 → hop 1 → hop 2 → hop 3; that is
   `withRetry` → its direct callers → the public bridge → the remote consumers.
@@ -521,41 +523,39 @@ Preserve unless the creative direction is explicitly changed:
   (`STORYBOARD.md` §19, `AGENTS.md` §29) and must be read from it rather than
   hardcoded in the card. Metrics are never adjusted for visual convenience and
   never fabricated.
-- **The numbers stay consistent across scenes.** `07-agent-answer.md` states
+- **The numbers stay consistent across scenes.** `06-agent-answer.md` states
   `7 symbols` and `across 2 repositories.` from the same dataset. If the demo graph
-  changes, every reference changes together: this card, Scene 07's answer text,
+  changes, every reference changes together: this card, Scene 06's answer text,
   and the propagation actually drawn on screen. A number on the card that the
   viewer cannot count in the graph is a defect.
-- **`3 dependency paths` and Scene 06's `3 real relationships` are different
+- **`3 dependency paths` and Scene 05's `3 real relationships` are different
   quantities.** They must not be conflated, unified or "corrected" into each
   other by a future edit.
 - **Accent marks only affected nodes and the edges the change travels.** Never
   decoration, never the card's numbers, never unaffected structure.
 - **No bounce on the card.** `opacity 0 → 1`, `x +24 → 0`, no overshoot,
   no elastic easing.
-- **The claim line is exact.** `Exact symbols. Not name matches.` — two sentences,
-  that punctuation. It is one of the video's five allowed phrases
-  (`STORYBOARD.md` §32).
+- **No viewer-addressed sentence.** This scene says nothing to the viewer in
+  words, and neither does any other scene in the graph passage. Every string in
+  the frame is a symbol name, a cluster name or a measured value. Re-adding a
+  claim line means re-adding a veil under it, and the two lines that were tried
+  here and in Scene 05 were both cut for not reading as results.
 - **Readable without audio and in a small embedded player.** The tick sequence
   suggested in `STORYBOARD.md` §18 may reinforce the propagation steps but must
   never be required to understand them.
-- **Frame 0800 works as a still image.**
+- **Frame 0710 works as a still image.**
 
 ## Flexible elements
 
 Safe to change without altering the scene's purpose:
 
 - exact frames of the card's entry, provided it begins no earlier than the
-  propagation being visibly under way and is fully settled before 0799;
+  propagation being visibly under way and is fully settled before 0709;
 - exact card dimensions, padding and line spacing;
-- exact card position within the right side of the frame, subject to not
-  occluding the three evidence objects and to sitting over the far end of the
-  cascade quietly;
-- exact scale of `Exact symbols. Not name matches.` and whether it sets on one or
-  two lines;
+- exact card position, subject to not occluding the three evidence objects;
 - exact easing, as long as it stays non-elastic;
 - exact per-step propagation durations and the small gaps between steps, as long
-  as the order stays unambiguous and the propagation completes by 0800;
+  as the order stays unambiguous and the propagation completes by 0710;
 - exact opacity floor for unaffected structure;
 - whether a subtle energy point travels each activating edge;
 - whether the card's entry overlaps the last hop of the propagation.
@@ -564,19 +564,19 @@ Safe to change without altering the scene's purpose:
 
 - Component: `src/scenes/BlastRadiusScene.tsx`.
 - Global scene boundaries live only as inline `<Sequence>` literals in
-  `src/Composition.tsx` (`from={720}`, `durationInFrames={120}`), so Remotion
+  `src/Composition.tsx` (`from={630}`, `durationInFrames={120}`), so Remotion
   Studio can trim them. There is no timing module; do not introduce one and do not
-  restate 720/840 inside the scene. The scene animates in scene-local frames, and
-  offsets to absolute frames only where it samples the graph curve shared with
-  Scenes 03 and 04.
+  restate 630/750 inside the scene. The scene animates in scene-local frames, and
+  offsets to absolute frames only where it samples Scene 03's graph curve.
 - The card belongs in `src/components/MetricCard.tsx` (`AGENTS.md` §4, §31) so
-  Scene 08 can reuse the same surface language for benchmark values, and the card
-  plus the claim line under it are composed by
-  `src/components/ImpactReport.tsx`, which this scene and Scene 06 both draw.
-  Scene 06 inherits the whole block at 0840 and fades it out during the flatten,
-  so the two scenes have to render it identically; the first version had this
-  scene own the markup, Scene 06 simply not draw it, and the 0839/0840 seam
-  measured 22 dB PSNR. It is now pixel-identical.
+  Scene 07 can reuse the same surface language for benchmark values, and it is
+  composed by `src/components/ImpactReport.tsx`, which this scene and Scene 05
+  both draw. `ImpactReport` is now the card alone: it used to compose the card
+  with the claim line under it, and the claim line was cut. Scene 05 inherits the
+  block at 0750 and fades it out during the flatten, so the two scenes have to
+  render it identically; the first version had this scene own the markup, Scene 05
+  simply not draw it, and the 0749/0750 seam measured 22 dB PSNR. It is now
+  pixel-identical.
 - Rendering pieces involved: `src/scenes/GraphRevealScene.tsx` is the reference
   implementation of this graph — extruded plates from `src/three/GraphNode.tsx`,
   Catmull-Rom tubes from `src/three/GraphEdge.tsx`, the camera pose written by
@@ -603,8 +603,8 @@ Safe to change without altering the scene's purpose:
   tubes are real geometry rebuilt per frame, which is cheap at this count, and
   per-edge accent means each tube carries its own material. Avoid stacked
   postprocessing (`AGENTS.md` §35, §36).
-- Iterate with Remotion Studio plus a small range render over roughly 0710–0850;
-  scrub forward, backward, forward and confirm 0800 renders identically each time
+- Iterate with Remotion Studio plus a small range render over roughly 0620–0760;
+  scrub forward, backward, forward and confirm 0710 renders identically each time
   (`AGENTS.md` §40).
 
 ## Current compromises
@@ -616,13 +616,8 @@ Safe to change without altering the scene's purpose:
   `## Visual composition`. The storyboard has been reconciled rather than
   contradicted, but the position is the storyboard's to overrule: if the card
   must be on the right, the honest resolution is to move the *graph*, which is a
-  layout-search change in `graphDemo.ts` affecting scenes 03 to 06, not to shrink
+  layout-search change in `graphDemo.ts` affecting scenes 03 to 05, not to shrink
   the card until it fits between two labels.
-- **The claim line is one line, not two.** `STORYBOARD.md` renders it as a large
-  heading; at 40 px it fits on one line here and clears `Client.Charge()` by 160
-  px and `Policy.Do()` by ninety. A two-line version was tried first and put its
-  second line against `Policy.Do()`'s plate. It carries `nowrap`, because a late
-  font load that widened the line by 5% would otherwise reflow it into the graph.
 - **The dataset exists and the count is settled at seven.** This used to be the
   scene's most important open item. `STORYBOARD.md` illustrated the propagation
   with symbol names that could not compile — `withRetry` is unexported, so nothing
@@ -642,7 +637,7 @@ Safe to change without altering the scene's purpose:
   `withRetry → Policy.Do → Client.Charge → CheckoutService.PlaceOrder`,
   `withRetry → Policy.Do → Client.Charge → ReconciliationJob.Run` and
   `withRetry → Once → Client.Refund → RefundHandler.Handle`. Scenes 03, 04, 05
-  and 07 share these labels; none of them may reintroduce an unlabelled node.
+  and 06 share these labels; none of them may reintroduce an unlabelled node.
 - **The digit `3` means three different things in this dataset**, which is why
   the card's line is worded `3 dependency paths` and nothing else. Re-checked
   against `impactSummary` in `src/data/graphDemo.ts`: `affected` is 7 (the eight
@@ -651,20 +646,15 @@ Safe to change without altering the scene's purpose:
   `repositories` is 2 — so all three printed values are exact and derived. But
   only **two** edges touch `withRetry()` directly, and exactly **three** edges
   cross between repositories, so a future edit reading "3" off the picture can
-  land on the wrong quantity. Scene 06's `3 real relationships` is the counter
+  land on the wrong quantity. Scene 05's `3 real relationships` is the counter
   the fixture does not support; that discrepancy is recorded in
-  `06-semantic-resolution.md` and is not resolved here.
+  `05-semantic-resolution.md` and is not resolved here.
 - **Card entry frames are not specified by the storyboard.** It gives the motion
   (`opacity 0 → 1`, `x +24 → 0`) and the position (right) but no timing. The
-  0775–0795 window in `## Timeline` is this document's proposal, constrained only
-  by the invariant that the card is settled before key frame 0800.
-- **The size of `Exact symbols. Not name matches.` is an unresolved tension.**
-  `STORYBOARD.md` renders it as a large heading, but it is specified to sit below a
-  right-side card, where Heading scale may not fit. Resolution here: as large as
-  the column allows, never below Body scale, two lines permitted. Revisit once the
-  card's real dimensions exist.
+  0685–0705 window in `## Timeline` is this document's proposal, constrained only
+  by the invariant that the card is settled before key frame 0710.
 - **Node-kind colour is a narrower open decision than it was**, shared with
-  `03-graph-reveal.md` and `04-cross-repo.md`: `tokens.ts` ships four graph kind
+  `03-graph-reveal.md`: `tokens.ts` ships four graph kind
   colours while `STORYBOARD.md` §10 refuses a five-colour node palette and asks
   for shape and scale differentiation instead. Shape exists again now that nodes
   are plates, but it is deliberately not spent on kind: every plate shares one
@@ -679,10 +669,9 @@ Safe to change without altering the scene's purpose:
   exactly where the storyboard puts the card. Rendered there it covered
   `ReconciliationJob.Run()` and the crossing into `CheckoutService.PlaceOrder()`,
   so the card moved to the top-left — the frame's only free rectangle large
-  enough for the card, a gap and the claim line. The occlusion constraint won
-  over the position, which is the order this document already put them in, but
-  the position was the storyboard's and overruling it is recorded above rather
-  than absorbed.
+  enough for it. The occlusion constraint won over the position, which is the
+  order this document already put them in, but the position was the storyboard's
+  and overruling it is recorded above rather than absorbed.
 
 ## Modification history
 
@@ -803,4 +792,42 @@ Safe to change without altering the scene's purpose:
   of the frame blue.
 - Found and fixed an off-by-one in scene 04: its drift returned to rest on local
   90, a frame it never renders. 0719 and 0720 are now pixel-identical.
+```
+
+```text
+2026-08-25
+- The cross-repository scene was cut from the film. This document is renumbered
+  05 → 04 and now realises storyboard SCENE 06 at a two-scene offset rather than
+  one. Every master frame moved −90: the scene spans 0630–0750 (10.5 s – 12.5 s)
+  and its key visual frame is 0710. The master is now 1320 frames (22 s). Beats,
+  durations and scene-local frames are unchanged.
+- The inheritance genuinely changed, and it is a simplification. This scene used
+  to receive an isolated frame — the crossings lit, the local structure dimmed and
+  `Policy.Do()` and `Once()` pushed to 0.22 to make room for a caption. It now
+  receives scene 03's whole settled graph, evenly present, at scene 03's pose:
+  `blastState.ts` samples `getGraphState(300)` where it used to sample
+  `getCrossRepoState(90)`. Hop 1 no longer arrives suppressed, so presence is not
+  touched anywhere and the affected mark is carried by `nodeAccent` alone for all
+  eight nodes. The old cut dimmed exactly the two nodes this scene's first
+  propagation step re-lit.
+- The camera section lost its off-by-one story with the scene that caused it.
+  There is no camera movement anywhere in the film after 0598, so the held pose is
+  inherited rather than settled into. The 0630 seam is 62.93 dB — glyph
+  antialiasing only — where the old 0720 seam was pixel-identical.
+- `Exact symbols. Not name matches.` was cut, and the veil under it went with it.
+  The line did not read as a result of the count above it and did not explain
+  itself. `claimOpacity` and `veilOpacity` are gone from `blastState.ts` and
+  `ImpactReport` is the card alone. Consequently the graph passage now contains no
+  viewer-addressed sentence at all: every string in this scene is a symbol name, a
+  cluster name or a measured value, the graph stays at full presence for all 120
+  frames, and the hold runs 0710–0750 instead of splitting into a veil rise, a
+  fade-in and a shorter hold. `STORYBOARD.md` § Frase sobre el cuadro survives as
+  a rule and currently governs nothing implemented.
+- Three compromises were retired rather than renumbered, because the thing they
+  compromised over is gone: the claim line's one-line-not-two `nowrap` finding, the
+  unresolved tension about its size, and the card's clear-space rectangle no longer
+  having to hold a gap and a second line. The 40 px / 160 px / ninety-px clearance
+  measurements went with them.
+- Frame numbers aside, the three card values, the propagation order, the hop
+  geometry, the dataset reasoning and every other measurement are unchanged.
 ```

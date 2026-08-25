@@ -116,8 +116,8 @@ export type GraphVisualState = {
    *
    * Separate from `edges` because that value is the tube's *length*: dimming an
    * edge through it would retract the tube instead of quietening it. Scene 03
-   * leaves every entry at 1; scene 04 uses it to suppress the local edges while
-   * the crossings are the subject.
+   * leaves every entry at 1 and scene 04 inherits that; scene 05 uses it during
+   * the flatten to drop the edges that do not survive into the right column.
    */
   readonly edgeGain: Readonly<Record<string, number>>;
   /** 0 -> 1 from "just drawn, accented" to "settled structure", by edge id. */
@@ -125,7 +125,7 @@ export type GraphVisualState = {
   /**
    * How affected a node reads, 0 -> 1, by node id.
    *
-   * Scene 05's only new information channel. Presence says whether a node is
+   * Scene 04's only new information channel. Presence says whether a node is
    * on screen and how far away it is; this says whether the change reaches it.
    * They have to be separate: by the time the blast radius runs, six of the
    * eight nodes are already at full presence, so the propagation would have
@@ -147,9 +147,9 @@ export type GraphVisualState = {
    */
   readonly pulse: number;
   /**
-   * 0 -> 1 as the cascade's depth collapses onto one plane, for scene 06.
+   * 0 -> 1 as the cascade's depth collapses onto one plane, for scene 05.
    *
-   * Scene 06 retires the 3D representation by flattening it rather than by
+   * Scene 05 retires the 3D representation by flattening it rather than by
    * cutting away, because the argument it makes is a difference in count and
    * not a spatial one. Cutting would throw away the continuity the film has
    * held since 0330; flattening the real graph is what proves the comparison's
@@ -162,14 +162,6 @@ export type GraphVisualState = {
   readonly flatten: number;
   /** 0 -> 1 presence, by repository id. */
   readonly labels: Readonly<Record<string, number>>;
-  /**
-   * Multiplies the resting luminance of every cluster label.
-   *
-   * 1 for the whole of scene 03. Scene 04 raises it while it makes the two
-   * repositories read as two places, which it has to do with luminance because
-   * there is no boundary object to strengthen.
-   */
-  readonly clusterGain: number;
   /**
    * 0 -> 1 as the anchor's inherited selection field becomes a plate. The DOM
    * field fades out over the same window, so the two cross-fade in place.
@@ -289,7 +281,6 @@ export const getGraphState = (frame: number): GraphVisualState => {
 
     /** Nothing is suppressed in this scene: every relation is still arriving. */
     edgeGain: Object.fromEntries(edges.map((edge) => [edge.id, 1])),
-    clusterGain: 1,
     edgeSettle: Object.fromEntries(
       edges.map((edge) => {
         const landed = window(edge.id)[1];
@@ -297,6 +288,7 @@ export const getGraphState = (frame: number): GraphVisualState => {
         return [edge.id, ramp(frame, landed, landed + edgeSettleFrames)];
       }),
     ),
+
     labels: Object.fromEntries(
       repositories.map((repository) => {
         const found = labelSchedule[repository.id];

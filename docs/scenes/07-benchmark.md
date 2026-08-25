@@ -1,13 +1,13 @@
-# Scene 08 — Benchmark
+# Scene 07 — Benchmark
 
 ## Purpose
 
 This scene replaces the claim with evidence.
 
-Everything up to `1080` was demonstration: a graph, a cross-repository edge, an
-impact, an answer. A demonstration can be staged. This scene says that the thing
-the viewer just watched was measured, published, and cheap — and it says it in
-numbers rather than in adjectives.
+Everything up to `0990` was demonstration: a graph, its cross-repository edges,
+an impact, an answer. A demonstration can be staged. This scene says that the
+thing the viewer just watched was measured, published, and cheap — and it says
+it in numbers rather than in adjectives.
 
 It exists because `STORYBOARD.md` §30 forbids the alternative. Kivgraph is not
 allowed to assert authority (`Revolutionize your codebase`, `10x your
@@ -28,7 +28,7 @@ checkable. Someone can go and read them.
 
 ## Narrative context
 
-Immediately before: `07-agent-answer.md` closed the loop. The agent answered the
+Immediately before: `06-agent-answer.md` closed the loop. The agent answered the
 opening question with concrete quantities and a named dependency path. The viewer
 knows what Kivgraph produces.
 
@@ -37,7 +37,7 @@ cost, and is it actually right?* — and it answers both at once. `6.2k` versus
 `63.5k` is the cost. `7 / 7 exact answers` is the correctness. `37 repositories`
 is the scale at which both hold.
 
-Immediately after: `09-brand.md` attaches all of it to the name. Per
+Immediately after: `08-brand.md` attaches all of it to the name. Per
 `STORYBOARD.md` §27 the path from metrics to logo is `fade → silence → brand
 reveal`, so this scene is also the last full frame before the piece deliberately
 empties out.
@@ -46,14 +46,14 @@ empties out.
 
 Storyboard source: `STORYBOARD.md` SCENE 09 — BENCHMARK.
 
-The storyboard scene number is one ahead of the document number from
-`GraphRevealScene` onward, because storyboard SCENE 03 and SCENE 04 are
-implemented as a single component. Storyboard SCENE 09 is document 08. See
-`docs/scenes/README.md`.
+The storyboard scene number is two ahead of the document number from
+`04-blast-radius.md` onward: storyboard SCENE 03 and SCENE 04 are implemented as
+a single component, and storyboard SCENE 05 is a record of a cut scene.
+Storyboard SCENE 09 is document 07. See `docs/scenes/README.md`.
 
-- Global frames: `1080`–`1200`
-- Scene-local frames: `0000`–`0120` (last rendered frame `0119` / master `1199`)
-- Time: 18.0 s – 20.0 s
+- Global frames: `0990`–`1110`
+- Scene-local frames: `0000`–`0120` (last rendered frame `0119` / master `1109`)
+- Time: 16.5 s – 18.5 s
 - Duration: 120 frames / 2.0 s at 60 fps
 - Remotion component: `src/scenes/BenchmarkScene.tsx`
 
@@ -61,19 +61,19 @@ Beats, all four fixed by the storyboard:
 
 | Master        | Local         | Beat                                          |
 | ------------- | ------------- | --------------------------------------------- |
-| `1080`        | `0000`        | Hard cut. Empty background.                    |
-| `1080`–`1120` | `0000`–`0040` | `6.2k`, very large, with `tokens` beneath.     |
-| `1100`–`1140` | `0020`–`0060` | `63.5k` with `grep + read`, to the right, much less prominent. |
-| `1130`–`1170` | `0050`–`0090` | `7 / 7 exact answers`.                         |
-| `1150`–`1190` | `0070`–`0110` | `37 repositories` and `published benchmark`.   |
-| `1190`–`1200` | `0110`–`0120` | Settled. Nothing moves before the fade out.    |
+| `0990`        | `0000`        | Hard cut. Empty background.                    |
+| `0990`–`1030` | `0000`–`0040` | `6.2k`, very large, with `tokens` beneath.     |
+| `1010`–`1050` | `0020`–`0060` | `63.5k` with `grep + read`, to the right, much less prominent. |
+| `1040`–`1080` | `0050`–`0090` | `7 / 7 exact answers`.                         |
+| `1060`–`1100` | `0070`–`0110` | `37 repositories` and `published benchmark`.   |
+| `1100`–`1110` | `0110`–`0120` | Settled. Nothing moves before the fade out.    |
 
 The windows overlap by design. They are one continuous cascade of four
 statements, not four separate cards.
 
 ## Initial state
 
-At `1080` the frame is empty: `background` `#0a0b0d`, edge to edge. No panel, no
+At `0990` the frame is empty: `background` `#0a0b0d`, edge to edge. No panel, no
 hairline, no residue of the prompt layer, no graph, no logo.
 
 The emptiness is the hard cut's whole effect. Cutting from a dense frame of agent
@@ -81,7 +81,7 @@ output to bare background is what signals that the register has changed.
 
 ## Final state
 
-At `1199` all four statements are on screen simultaneously, static:
+At `1109` all four statements are on screen simultaneously, static:
 
 - `6.2k` dominant, `tokens` beneath it;
 - `63.5k` with `grep + read`, clearly subordinate, to the right;
@@ -89,7 +89,7 @@ At `1199` all four statements are on screen simultaneously, static:
 - `37 repositories` with `published benchmark` beneath it.
 
 The full set must read as one composition, not as a list that happened to
-accumulate. A viewer landing on `1199` alone should be able to reconstruct the
+accumulate. A viewer landing on `1109` alone should be able to reconstruct the
 entire argument of the scene.
 
 ## Visual composition
@@ -139,10 +139,10 @@ mechanical, no bounce, no scale-up, no blur, no slide from off-frame. The motion
 language here is `STORYBOARD.md` §8: *precisas, rápidas, controladas*.
 
 Storyboard frame numbers mark when a beat **reads**, not when its ramp begins.
-This matters concretely here: frame `1120` is a designated still-image key frame
+This matters concretely here: frame `1030` is a designated still-image key frame
 whose content is `6.2k vs 63.5k` (`STORYBOARD.md` §29), but the `63.5k` window is
-`1100`–`1140`. Its opacity ramp must therefore front-load and be complete by
-`1120`, using the rest of the window as settle. A half-faded `63.5k` at `1120`
+`1010`–`1050`. Its opacity ramp must therefore front-load and be complete by
+`1030`, using the rest of the window as settle. A half-faded `63.5k` at `1030`
 would ruin the one frame from this scene that gets used outside the video.
 
 **No count-up, no odometer, no ticking numerals.** Numbers appear at their final
@@ -152,7 +152,7 @@ that is not the published benchmark, which is a benchmark-integrity problem
 this is" gesture the storyboard rules out. The numbers speak for themselves only
 if they are allowed to simply be there.
 
-The scene is fully static from `1190`, so the fade toward `09-brand.md` begins
+The scene is fully static from `1100`, so the fade toward `08-brand.md` begins
 from a settled frame.
 
 ## Three.js
@@ -161,13 +161,13 @@ Not used.
 
 ## Transition in
 
-Hard clean cut at `1080` (`STORYBOARD.md`: *hard cut limpio*).
+Hard clean cut at `0990` (`STORYBOARD.md`: *hard cut limpio*).
 
 No crossfade, no dissolve, no motion carried over from the terminal. The previous
-scene is fully settled at `1079` and this one is empty at `1080`. The abruptness
+scene is fully settled at `0989` and this one is empty at `0990`. The abruptness
 is the point: the video steps out of the demonstration and states a measurement.
 
-Nothing from `07-agent-answer.md` persists — not the panel, not the prompt, not
+Nothing from `06-agent-answer.md` persists — not the panel, not the prompt, not
 the label.
 
 ## Transition out
@@ -182,11 +182,11 @@ silence
 brand reveal
 ```
 
-The four statements fade out together, ending on black at `1200`. They fade as
+The four statements fade out together, ending on black at `1110`. They fade as
 one composition; fading them out in sequence would restate the cascade backwards
 and cost the brand reveal its silence.
 
-The `1200`–`1210` gap that follows belongs to `09-brand.md` and is intentionally
+The `1110`–`1120` gap that follows belongs to `08-brand.md` and is intentionally
 empty. It is not a hole to be filled.
 
 ## Copy
@@ -222,19 +222,19 @@ scale. If it needs a word to be understood, the layout is wrong.
 ## Key frames
 
 ```text
-frame 1080 — hard cut; empty frame, nothing yet
-frame 1120 — "6.2k" and "63.5k" both fully legible; STILL-IMAGE KEY FRAME
-frame 1160 — comparison plus "7 / 7 exact answers"
-frame 1199 — all four statements settled, immediately before the fade
+frame 0990 — hard cut; empty frame, nothing yet
+frame 1030 — "6.2k" and "63.5k" both fully legible; STILL-IMAGE KEY FRAME
+frame 1070 — comparison plus "7 / 7 exact answers"
+frame 1109 — all four statements settled, immediately before the fade
 ```
 
-`1120` is on both `AGENTS.md`'s still-image key frame list and
+`1030` is on both `AGENTS.md`'s still-image key frame list and
 `STORYBOARD.md` §29: it is designated for the benchmark launch and must work as
 a standalone image for landing page, README, and social use. It is a hard
 requirement on this scene, not a nicety. Inspect it as an exported PNG, not only
 in the Studio scrubber.
 
-`1080`, `1120`, `1160`, and `1199` are all on the manual review list in
+`0990`, `1030`, `1070`, and `1109` are all on the manual review list in
 `STORYBOARD.md` §28.
 
 ## Invariants
@@ -243,7 +243,7 @@ in the Studio scrubber.
   convenience** (`AGENTS.md` §29). `6.2k`, `63.5k`, `7 / 7 exact answers`,
   `37 repositories`. Not rounded to look neater, not inflated, not re-derived.
   If the published benchmark changes, then `STORYBOARD.md`, this document,
-  `05-blast-radius.md`, and `07-agent-answer.md` are updated together in the same
+  `04-blast-radius.md`, and `06-agent-answer.md` are updated together in the same
   task, along with every visual reference.
 - No giant bar charts. No pie charts. No gauges. No animated graphs.
 - No confetti, no bursts, no shine sweep, no celebration of any kind.
@@ -254,10 +254,10 @@ in the Studio scrubber.
   frame, no background texture.
 - `6.2k` dominates by scale, and the comparison survives in greyscale
   (`AGENTS.md` §37).
-- Frame `1120` works as a still image with both numbers fully legible.
+- Frame `1030` works as a still image with both numbers fully legible.
 - Numbers render at their final value on every frame on which they are visible.
-- The hard cut at `1080` stays hard.
-- The scene is static from `1190` to `1200`.
+- The hard cut at `0990` stays hard.
+- The scene is static from `1100` to `1110`.
 
 ## Flexible elements
 
@@ -282,7 +282,7 @@ in the Studio scrubber.
   blast-radius impact card and is a different component; do not reuse it here,
   because this scene must have no card in it.
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="08 Benchmark" from={1080} durationInFrames={120}>` literals, because
+  `<Sequence name="07 Benchmark" from={990} durationInFrames={120}>` literals, because
   Remotion Studio can only trim inline literals. There is no timing module. The
   component animates in scene-local frames: `useCurrentFrame()` inside the
   Sequence starts at `0`.
@@ -315,7 +315,7 @@ in the Studio scrubber.
 - **Open decision — accent.** Whether this scene uses any brand accent at all is
   deliberately left open. The global 10–15 % accent budget (`AGENTS.md` §26) is
   satisfied elsewhere in the video, so a fully neutral benchmark frame is
-  acceptable and possibly better. Decide it against the rendered frame `1120`,
+  acceptable and possibly better. Decide it against the rendered frame `1030`,
   not in the abstract.
 - **Sound absent.** `STORYBOARD.md` §18 lists no sound for this scene, and §17
   requires the piece to work muted. The silence before the brand reveal is a
@@ -348,4 +348,14 @@ in the Studio scrubber.
 - Scene 01 was shortened from 210 to 120 frames, so every master frame in this
   document moved -90; the master timeline is now 1410 frames (23.5 s). Beats,
   durations, scene-local frames and all benchmark values are unchanged.
+```
+
+```text
+2026-08-25
+- Scene 04 (Cross Repository) was cut, so this document was renumbered from 08
+  to 07. It still realises storyboard SCENE 09; the storyboard number is now two
+  ahead of the document number. Every master frame moved -90; the master
+  timeline is now 1320 frames (22.0 s). The still-image key frame moved from
+  `1120` to `1030`. Beats, durations, scene-local frames and all benchmark
+  values are unchanged.
 ```

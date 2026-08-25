@@ -482,9 +482,7 @@ export const GraphWorld: React.FC<{ state: GraphVisualState }> = ({ state }) => 
           */}
         {repositories.map((repository) => {
           const opacity =
-            (state.labels[repository.id] ?? 0) *
-            clusterLabelOpacity *
-            state.clusterGain;
+            (state.labels[repository.id] ?? 0) * clusterLabelOpacity;
 
           if (opacity < 0.004) {
             return null;

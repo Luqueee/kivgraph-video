@@ -7,9 +7,9 @@ import { pxPerUnit } from "./projection";
 import type { Look } from "./projection";
 
 /**
- * Scene 06's visual state, derived from the scene-local frame and nothing else.
+ * Scene 05's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-150 (master 0840-0990).
+ * Scene-local frames 0-150 (master 0750-0900).
  *
  * The scene retires the 3D graph by flattening it, not by cutting away from it.
  * Its argument is a difference in count rather than a spatial claim, so depth
@@ -36,7 +36,7 @@ const ramp = (frame: number, from: number, to: number) =>
     easing: ease,
   });
 
-/** The frame scene 05 hands over: accent-marked, at rest, under its veil. */
+/** The frame scene 04 hands over: accent-marked, at rest, on a clear frame. */
 const inherited = getBlastState(120);
 
 /**
@@ -227,35 +227,10 @@ export const getSemanticState = (frame: number): GraphVisualState => {
       repositories.map((repository) => [repository.id, 1 - flatten]),
     ),
 
-    clusterGain: inherited.clusterGain,
     grow: 1,
     residual: 0,
   };
 };
-
-/**
- * The veil, twice.
- *
- * Scene 05 hands one over at 0.72 and this scene spends it: it lifts across the
- * flatten, because a comparison has to be read at full clarity and both columns
- * have to be lit identically for the asymmetry between them to read as data
- * rather than as emphasis.
- *
- * It comes back for `A name is not a symbol.` - `STORYBOARD.md` § Frase sobre el
- * cuadro is a project rule and this is the film's largest sentence. Two veils in
- * one scene needs justifying rather than assuming: between them sit ninety
- * frames of legible comparison, which is a scene and not a flicker. The rule to
- * keep is one veil per sentence, never two inside twenty frames.
- *
- * The second rises to 0.58 rather than scene 04's 0.86 because the comparison is
- * the evidence for the sentence and has to survive underneath it - and the right
- * column's accent, which is the brightest thing left, survives it easily.
- */
-const inheritedVeil = 0.72;
-const copyVeil = 0.58;
-
-export const veilOpacity = (frame: number) =>
-  inheritedVeil * (1 - ramp(frame, 0, 40)) + copyVeil * ramp(frame, 96, 112);
 
 /**
  * The split's hairline: one pixel, arriving with the flatten.
@@ -310,12 +285,4 @@ export const rightColumn = (frame: number) => ({
   label: ramp(frame, 55, 71),
   counter: ramp(frame, 65, 85) * (1 - ramp(frame, 139, 149)),
 });
-/**
- * `A name is not a symbol.` - the video's secondary brand message.
- *
- * In at local 98-112, so it is complete at 0950, the key visual frame, and held
- * to the end. It arrives after both counters are settled because it is the
- * conclusion drawn from them, and it belongs to neither column: centred across
- * the whole frame.
- */
-export const copyOpacity = (frame: number) => ramp(frame, 98, 112);
+

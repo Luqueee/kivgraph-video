@@ -27,7 +27,7 @@ Not "here is a graph". The graph is the evidence; the space is the argument.
 arrive, and it answers spatially before it answers semantically — the viewer understands that
 `withRetry()` is connected to things several seconds before they could read every label.
 
-`04-cross-repo.md` inherits this scene's final frame exactly and labels what it already shows.
+`04-blast-radius.md` inherits this scene's final frame exactly and counts what it already shows.
 
 ## Timeline
 
@@ -35,9 +35,10 @@ arrive, and it answers spatially before it answers semantically — the viewer u
 SCENE 03 — FROM CODE TO GRAPH (0330–0480) and SCENE 04 — THE GRAPH EXPANDS (0480–0630). Both are
 implemented by the single component `src/scenes/GraphRevealScene.tsx`, per `AGENTS.md` §7 and the
 timeline in `STORYBOARD.md` §26, which already assigns one 300-frame `GraphRevealScene` sequence at
-`from={330}`. Because of that merge, every documentation number after this scene is offset by one
-from its storyboard scene number: storyboard SCENE 05 is documented in `04-cross-repo.md`, and so
-on.
+`from={330}`. Because of that merge this document sits one behind its storyboard numbers, and
+because `STORYBOARD.md` SCENE 05 — CROSS-REPOSITORY is now a record of a cut scene rather than a
+scene, every document after this one sits two behind: storyboard SCENE 06 is documented in
+`04-blast-radius.md`, and so on. `docs/scenes/README.md` holds the canonical statement of this.
 
 - Storyboard scenes: `STORYBOARD.md` — SCENE 03 FROM CODE TO GRAPH **and** SCENE 04 THE GRAPH
   EXPANDS
@@ -91,7 +92,7 @@ its right and the impact is seen leaving for a second codebase.
 |   0583 |  0253 | `CheckoutService.PlaceOrder()` begins                                  |
 |   0598 |  0268 | the camera reaches its final pose and holds                            |
 |   0617 |  0287 | the last node settles, and the `checkout-service` label with it; hold  |
-|   0630 |  0300 | scene ends; `04-cross-repo.md` continues the same graph                |
+|   0630 |  0300 | scene ends; `04-blast-radius.md` continues the same graph              |
 
 The phase boundary at 0480 is a label on this document, not an event in the shot. The camera has
 been moving since 0360 and does not pause, change direction or change rate there. The viewer must
@@ -208,7 +209,9 @@ At master frame 0630 (local 0300):
 - **no explanatory text of any kind.** Every string on screen is a symbol name or a repository name,
   read verbatim from `src/data/graphDemo.ts`.
 
-This is the state `04-cross-repo.md` inherits and immediately labels `Cross-repository.`
+This is the state `04-blast-radius.md` inherits. It does not re-derive it: `src/three/blastState.ts`
+reads this scene's settled values through `getGraphState(300)`, because every ramp in this scene
+clamps and 300 therefore returns what frame 0629 renders.
 
 ## Visual composition
 
@@ -386,8 +389,8 @@ anchor's highlight comes from roughness against a real light.
 
 Carried by perspective, by the plate orientation, by the parallax of the move, and by scene 01's
 radial falloff on the periphery. There is no depth-of-field pass. `STORYBOARD.md` §15 permits one at
-graph entry and at the cross-repository reveal; it is not implemented, and frame 0629 lands without
-it.
+graph entry and at the cross-repository reveal; that reveal has since been cut, and §15 now records
+the pass itself as built, measured and retired. Frame 0629 lands without it.
 
 ### Deterministic animation rules
 
@@ -417,10 +420,10 @@ updated in the same task. Frames 0329 and 0330 are always inspected as a pair.
 
 ## Transition out
 
-Hard boundary at 0630 into `04-cross-repo.md`, but **not a visual cut**. The next scene continues
-this exact graph: same camera pose, same node states, same edge states, same labels. The only thing
-that changes is that scene 04 adds the label `Cross-repository.` and then begins reducing the
-opacity of everything that is not the source symbol, the crossings or their endpoints.
+Hard boundary at 0630 into `04-blast-radius.md`, but **not a visual cut**. The next scene continues
+this exact graph: same camera pose, same node states, same edge states, same labels. Nothing is
+added at the seam — no caption, no label, no veil — and scene 04 works by reducing the opacity of
+everything that is not the source symbol, the crossings or their endpoints.
 
 The graph state at frame 0629 must therefore equal the graph state scene 04 assumes at 0630. The
 practical consequence is that graph state must be a pure function of the **global** frame, or the
@@ -429,9 +432,11 @@ read as a mistake, since nothing in the image is supposed to have changed.
 
 ## Copy
 
-**No explanatory text appears in this scene.** Not `Cross-repository.`, not `2 repositories`, not
-`7 affected symbols`. Every string on screen is a symbol name or a repository name, read verbatim
-from the dataset. The next scene owns the first label; introducing one here would spoil it.
+**No explanatory text appears in this scene.** Not `2 repositories`, not `7 affected symbols`, not a
+caption naming what the crossings are. Every string on screen is a symbol name or a repository name,
+read verbatim from the dataset. Nor does any later scene supply one: the graph scenes carry no
+viewer-addressed sentence at all now, so what this scene does not say is not being saved for
+somewhere else.
 
 ## Key frames
 
@@ -455,8 +460,9 @@ structure receding from it in depth, and three relations leaving the near codeba
 
 ## Invariants
 
-- **No explanatory cross-repository text appears in this scene.** The viewer must *see* it here and
-  be *told* in the next one.
+- **No explanatory cross-repository text appears in this scene.** The viewer must *see* it here.
+  The caption that once told them in the next scene has been cut, so the crossing into a second
+  repository is carried by the image alone, in this scene and in every scene after it.
 - **The camera never rotates about its view axis and never orbits.** It rises and travels; `up` is
   world up on all 300 frames.
 - **There are no rings, circles, containers or walls.** Nothing is drawn *around* anything. If a
@@ -565,4 +571,13 @@ structure receding from it in depth, and three relations leaving the near codeba
   as a fade.
 - checkout-service extended to 236-287 (was 236-278) so the name settles on
   the same frame as the last plate inside it, checkout.placeOrder.
+
+2026-08-25
+- Nothing in this scene moves; 0330-0630 and the 0629 key visual are as they
+  were. What changed is the other half of its contract: the next scene's
+  `Cross-repository.` was cut with its veil, and `Exact symbols. Not name
+  matches.` after it, so the graph scenes now carry no viewer-addressed
+  sentence at all. This scene no longer withholds a label for a later one to
+  pay off - the crossing into a second repository is carried by the image, and
+  by nothing else, for the rest of the film.
 ```

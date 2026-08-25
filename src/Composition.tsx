@@ -2,7 +2,6 @@ import React from "react";
 import { Sequence } from "remotion";
 import { AgentScene } from "./scenes/AgentScene";
 import { BlastRadiusScene } from "./scenes/BlastRadiusScene";
-import { CrossRepoScene } from "./scenes/CrossRepoScene";
 import { GraphRevealScene } from "./scenes/GraphRevealScene";
 import { SemanticScene } from "./scenes/SemanticScene";
 import { SymbolScene } from "./scenes/SymbolScene";
@@ -17,9 +16,14 @@ import { SymbolScene } from "./scenes/SymbolScene";
  *
  * Planned timeline (STORYBOARD.md 26, docs/scenes/README.md):
  *   0000-0120 Symbol         0120-0330 Agent         0330-0630 Graph Reveal
- *   0630-0720 Cross Repo     0720-0840 Blast Radius  0840-0990 Semantic
- *   0990-1080 Agent Answer   1080-1200 Benchmark     1200-1290 Brand
- *   1290-1410 Outro
+ *   0630-0750 Blast Radius   0750-0900 Semantic      0900-0990 Agent Answer
+ *   0990-1110 Benchmark      1110-1200 Brand         1200-1320 Outro
+ *
+ * The master is 1320 frames, not the 1410 it was: the cross-repository scene
+ * was cut. It spent ninety frames turning the camera around a structure that
+ * had already been read, which did not communicate, and its one other beat
+ * suppressed exactly the two hop-1 nodes the next scene immediately lights
+ * again. Everything after 0630 moved ninety frames earlier.
  *
  * Scenes 01 and 02 are one continuous camera move through one code environment
  * and have no cut between them; the boundary at 0120 is where the camera changes
@@ -38,7 +42,7 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * film that exists rather than fourteen seconds of video followed by nine and a
  * half of black. Raise it as each scene lands; delete it once it reaches 1410.
  */
-export const mountedFrames = 990;
+export const mountedFrames = 900;
 
 export const KivgraphVideo: React.FC = () => {
   return (
@@ -54,12 +58,12 @@ export const KivgraphVideo: React.FC = () => {
        * creative one.
        *
        * A `<Sequence>` renders its children only inside its range, so at the
-       * 0630 boundary `GraphRevealScene` unmounts and `CrossRepoScene` mounts.
+       * 0630 boundary `GraphRevealScene` unmounts and `BlastRadiusScene` mounts.
        * Sharing the `GraphWorld` component does not share its instance: the
        * `ThreeCanvas` is destroyed and a new WebGL context is created at the
        * seam. Measured in Studio by counting `getContext` calls while stepping
        * 0629 <-> 0632: four crossings, four new `webgl2` contexts. For the
-       * first displayed frame after the cut the DOM labels are painted and the
+       * first displayed frame after the cut the labels are painted and the
        * plates and tubes are not - the graph blinks at the one seam the design
        * spends everything to hide.
        *
@@ -83,17 +87,8 @@ export const KivgraphVideo: React.FC = () => {
         <GraphRevealScene />
       </Sequence>
       <Sequence
-        name="04 Cross Repository"
+        name="04 Blast Radius"
         from={630}
-        durationInFrames={90}
-        premountFor={30}
-        postmountFor={30}
-      >
-        <CrossRepoScene />
-      </Sequence>
-      <Sequence
-        name="05 Blast Radius"
-        from={720}
         durationInFrames={120}
         premountFor={30}
         postmountFor={30}
@@ -101,8 +96,8 @@ export const KivgraphVideo: React.FC = () => {
         <BlastRadiusScene />
       </Sequence>
       <Sequence
-        name="06 Semantic Resolution"
-        from={840}
+        name="05 Semantic Resolution"
+        from={750}
         durationInFrames={150}
         premountFor={30}
       >

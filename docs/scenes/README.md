@@ -5,29 +5,29 @@
 | 01  | Symbol              |     0–120 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                            |
 | 02  | Agent               |   120–330 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                              |
 | 03  | Graph Reveal        |   330–630 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
-| 04  | Cross Repository    |   630–720 | `CrossRepoScene.tsx`   | [04-cross-repo.md](./04-cross-repo.md)                    |
-| 05  | Blast Radius        |   720–840 | `BlastRadiusScene.tsx` | [05-blast-radius.md](./05-blast-radius.md)                |
-| 06  | Semantic Resolution |   840–990 | `SemanticScene.tsx`    | [06-semantic-resolution.md](./06-semantic-resolution.md)  |
-| 07  | Agent Answer        |  990–1080 | `AgentAnswerScene.tsx` | [07-agent-answer.md](./07-agent-answer.md)                |
-| 08  | Benchmark           | 1080–1200 | `BenchmarkScene.tsx`   | [08-benchmark.md](./08-benchmark.md)                      |
-| 09  | Brand               | 1200–1290 | `BrandScene.tsx`       | [09-brand.md](./09-brand.md)                              |
-| 10  | Outro               | 1290–1410 | `OutroScene.tsx`       | [10-outro.md](./10-outro.md)                              |
+| 04  | Blast Radius        |   630–750 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
+| 05  | Semantic Resolution |   750–900 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
+| 06  | Agent Answer        |   900–990 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
+| 07  | Benchmark           |  990–1110 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
+| 08  | Brand               | 1110–1200 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
+| 09  | Outro               | 1200–1320 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
 
-Master: 1920 × 1080, 60 fps, **1410 frames, 23.5 s**. Global frame boundaries
+Master: 1920 × 1080, 60 fps, **1320 frames, 22 s**. Global frame boundaries
 live only in `src/Composition.tsx`.
 
-That 1410 is the plan, not what renders today. Scenes 01–06 exist, so
-`KivgraphPromo` is registered at `mountedFrames` — currently **990 frames,
-16.5 s** — and Studio and `remotion render` produce the film that exists instead
-of sixteen and a half seconds of video followed by seven of black. Raise
+That 1320 is the plan, not what renders today. Scenes 01–05 exist, so
+`KivgraphPromo` is registered at `mountedFrames` — currently **900 frames,
+15 s** — and Studio and `remotion render` produce the film that exists instead
+of fifteen seconds of video followed by seven of black. Raise
 `mountedFrames` in `src/Composition.tsx` as each scene lands, and delete it once
-it reaches 1410.
+it reaches 1320.
 
-The master length has moved three times, always because the opening changed and
-never because a later scene did. It was 1500, grew to 1620 when scene 01 was
-extended from 90 to 210 frames, returned to 1500 when the old scene 02 was
-deleted, and is now 1410 because scene 01 was cut from 210 to 120. Scenes 03–10
-have kept their durations throughout; only their offsets moved.
+The master length has moved four times. Three were because the opening changed:
+it was 1500, grew to 1620 when scene 01 was extended from 90 to 210 frames,
+returned to 1500 when the old scene 02 was deleted, and fell to 1410 when scene
+01 was cut from 210 to 120. The fourth was the first one a later scene caused —
+1410 to 1320, when the cross-repository scene was cut. Every other scene has kept
+its duration throughout; only offsets moved.
 
 ## Implementation status
 
@@ -36,20 +36,19 @@ have kept their durations throughout; only their offsets moved.
 | 01  | Symbol              | implemented, key frames inspected         |
 | 02  | Agent               | implemented, key frames inspected         |
 | 03  | Graph Reveal        | implemented, key frames inspected         |
-| 04  | Cross Repository    | implemented, rendered frames inspected    |
-| 05  | Blast Radius        | implemented, key frames inspected         |
-| 06  | Semantic Resolution | implemented, key frames inspected         |
-| 07  | Agent Answer        | specified only                            |
-| 08  | Benchmark           | specified only                            |
-| 09  | Brand               | specified only                            |
-| 10  | Outro               | specified only                            |
+| 04  | Blast Radius        | implemented, key frames inspected         |
+| 05  | Semantic Resolution | implemented, key frames inspected         |
+| 06  | Agent Answer        | specified only                            |
+| 07  | Benchmark           | specified only                            |
+| 08  | Brand               | specified only                            |
+| 09  | Outro               | specified only                            |
 
-`src/data/graphDemo.ts` exists and is the graph truth all four graph scenes read:
+`src/data/graphDemo.ts` exists and is the graph truth all three graph scenes read:
 eight nodes, seven `caller → callee` edges, two repositories, a derived
 `impactSummary` of **1 selected / 7 affected / 3 dependency paths / 2
-repositories**, and `nameMatches`, the two real benchmark declarations scene 06's
-left column lists. Those figures are counted from the data, so scene 05's card
-and scene 06's counters cannot outlive the graph they describe — scene 06 prints
+repositories**, and `nameMatches`, the two real benchmark declarations scene 05's
+left column lists. Those figures are counted from the data, so scene 04's card
+and scene 05's counters cannot outlive the graph they describe — scene 05 prints
 `2 real relationships` because that is how many edges reach `withRetry`, not
 because the storyboard's `3` was corrected by hand.
 
@@ -68,14 +67,15 @@ master is still black.
 Scenes 01 and 02 establish the grammar the rest of the video inherits:
 
 - the camera lives inside the material; the world is never covered by a surface
-  that explains it. Scene 05 spends the one exception: its impact card is a flat
+  that explains it. Scene 04 spends the one exception: its impact card is a flat
   DOM panel composited above the canvas, because three counted numbers are a
   claim about the graph rather than a thing standing in it, and
-  `src/components/MetricCard.tsx` holds that surface language for scene 08 too.
-  `src/components/ImpactReport.tsx` composes that card with the claim line under
-  it, and it exists because scene 06 inherits the whole block on its first frame
-  and fades it out during the flatten: two scenes drawing the same thing from two
-  places is how a seam that must be invisible ends up measuring 22 dB;
+  `src/components/MetricCard.tsx` holds that surface language for scene 07 too.
+  `src/components/ImpactReport.tsx` composes it, and it exists because scene 05
+  inherits the card on its first frame and fades it out during the flatten: two
+  scenes drawing the same thing from two places is how a seam that must be
+  invisible ends up measuring 22 dB. `ImpactReport` is the card alone — it used to
+  carry a claim line under it, and that line was cut;
 - the opening is **one continuous shot** through **one world**. There is no cut
   anywhere before frame 0330. `src/world/camera.ts` projects it and
   `src/components/CodeWorld.tsx` holds the only spatial layout; a scene animates
@@ -87,21 +87,28 @@ Scenes 01 and 02 establish the grammar the rest of the video inherits:
   border;
 - brand accent marks meaning only: the selected symbol, an active relationship,
   propagation, a Kivgraph invocation, an important result;
-- **the opening explains nothing in words.** Scene 01 carries no sentence at all
-  — only a file path caption. The only sentence anywhere before the graph is
-  finished is the agent's prompt in scene 02, and the viewer is ready for it
-  because the camera built the question without stating it;
-- **a sentence to the viewer is read on a darkened frame.** When viewer-addressed
-  copy enters, a veil in `brand.background` rises over the whole frame, the text
-  arrives a few frames later, and both leave the way they came. The rule is
-  `STORYBOARD.md` § Frase sobre el cuadro; scene 04 established it for
-  `Cross-repository.` and scene 05 follows it for
-  `Exact symbols. Not name matches.` Two constraints travel with it: the veil
-  never reaches black — 0.7 to 0.9, so whatever the sentence is about stays
-  visible behind it — and it is zero at both ends of the scene that raises it,
-  unless the next scene's document says it inherits one. It does **not** apply
-  to graph-attached text or to a metric card's values: those exist to be read
-  against the structure behind them, and dimming the graph under
+- **the graph passage explains nothing in words.** The only sentence addressed to
+  the viewer anywhere in the film as it stands is the agent's prompt in scene 02,
+  and the viewer is ready for it because the camera built the question without
+  stating it. Everything else on screen is a symbol name, a file path, a cluster
+  name or a measured value. That is why the passage reads as evidence rather than
+  as narration, and it is worth stating for its own sake rather than as what is
+  left over after three deletions;
+- **a sentence to the viewer is read on a darkened frame** — a rule that currently
+  governs nothing implemented. When viewer-addressed copy enters, a veil in
+  `brand.background` rises over the whole frame, the text arrives a few frames
+  later, and both leave the way they came. The rule is `STORYBOARD.md`
+  § Frase sobre el cuadro, and it is kept because scenes 06 to 09 may still need
+  it. Every instance of it has been cut: scene 04's `Cross-repository.` at `0.86`
+  went with the cross-repository scene itself, the blast radius' `Exact symbols.
+  Not name matches.` at `0.72` and the semantic scene's `A name is not a symbol.`
+  at `0.58` were both cut for not reading as results of what they sat over. No
+  frame of the film raises a veil today. Two constraints travel with the rule if
+  it is ever spent again: the veil never reaches black — 0.7 to 0.9, so whatever
+  the sentence is about stays visible behind it — and it is zero at both ends of
+  the scene that raises it, unless the next scene's document says it inherits one.
+  It does **not** apply to graph-attached text or to a metric card's values: those
+  exist to be read against the structure behind them, and dimming the graph under
   `7 affected symbols` would take away the evidence for the number;
 - chrome appears only when it carries narrative meaning, and even then it is the
   smallest thing that works: the agent is a rule, a glyph and a line, not a
@@ -119,9 +126,10 @@ Scene 03 inherits all of it and adds the graph's own grammar:
   repositories read apart through depth, distance and one floating label each;
 - the camera is a **rig** — an eye and a point it looks at — not a position with
   a fixed direction. It holds still through the match cut, steps off the axis,
-  travels with the impact and rises above the chain, and in scene 04 it turns
-  once, 20.6°, and stops. It never orbits continuously, never rolls, and `up` is
-  world up on every frame;
+  travels with the impact and rises above the chain, and then stops: scene 03's
+  move completes at 0598 and no frame after it moves the camera, apart from scene
+  05 straightening the rig to frontal as part of its flatten. It never orbits
+  continuously, never rolls, and `up` is world up on every frame;
 - a node is an extruded plate with a hairline contour, standing **upright in
   world space**. It carries no rotation of its own: every degree of obliquity
   comes from the camera, and because each plate sits somewhere different in a
@@ -159,15 +167,23 @@ drift the cut breaks and nothing in the build will say so.
 Two measurements from that migration are worth keeping, because both correct
 something the project believed.
 
-**The DOM labels were never straight on their plates.** At the scene 04 landing
-pose a world vertical projects with a lean running from `-10.4°` at the anchor to
-`+9.0°` at the far cluster label — measured on the render, the anchor plate's own
-edges come out at `-11.6°` and `-8.7°`, bracketing the model. The DOM type was
-dead vertical against plates sheared by that much, and nobody had noticed because
-the camera never moved far enough to make it obvious. In-scene text shares the
-lean, so a far label now looks faintly italic: that is not a defect, it is the
-perspective the plate always had, and the flat overlay was the thing that was
-lying about it.
+**The DOM labels were never straight on their plates.** At the pose the graph
+holds from 0598 onward — the `lookAt` rig at eye `(7.0, 3.2, 10.0)` looking at
+`(8.0, 0.0, -2.4)`, 15° off `-Z` — a world vertical projects with a lean running
+from `-10.4°` at the anchor to `+9.0°` at the far cluster label; measured on the
+render, the anchor plate's own edges come out at `-11.6°` and `-8.7°`, bracketing
+the model. The DOM type was dead vertical against plates sheared by that much, and
+nobody had noticed because the camera never moved far enough to make it obvious.
+In-scene text shares the lean, so a far label now looks faintly italic: that is
+not a defect, it is the perspective the plate always had, and the flat overlay was
+the thing that was lying about it.
+
+Those figures were measured while the cross-repository scene still existed, on the
+pose it landed on. That scene translated its eye and target together, so it never
+changed the view direction and returned to the pose above; the pose the numbers
+describe is therefore the one that survives the cut, and it is now scene 03's
+settled pose held to the end of the graph passage. They have not been re-measured
+since.
 
 **troika laid down 20.8% less ink than Chrome, and now does not.** Both render
 JetBrains Mono at 400; the deficit was the blend model — troika's SDF coverage is
@@ -206,27 +222,72 @@ wide, and the field and fill are byte-exact `#1e3a8a` and `#bfdbfe`.
 
 ## Scene numbering
 
-Document numbers follow the ten Remotion components, not the eleven storyboard
-scenes. `STORYBOARD.md` splits the graph into
-`SCENE 03 — FROM CODE TO GRAPH` (0330–0480) and
-`SCENE 04 — THE GRAPH EXPANDS` (0480–0630); both are realised by the single
-`GraphRevealScene` component, so every document from `04-cross-repo.md` onward is
-offset by one relative to the storyboard.
+Document numbers follow the nine Remotion components, not the eleven storyboard
+scenes, and two storyboard scenes have no document of their own. `STORYBOARD.md`
+splits the graph into `SCENE 03 — FROM CODE TO GRAPH` (0330–0480) and
+`SCENE 04 — THE GRAPH EXPANDS` (0480–0630), both realised by the single
+`GraphRevealScene` component, and its `SCENE 05 — CROSS-REPOSITORY` is now a
+record of a cut scene rather than a scene. Documents are therefore offset by one
+across the graph reveal and by **two** from `04-blast-radius.md` onward.
+
+The storyboard keeps its own numbering: SCENE 05 stays in place as the cut
+record, and SCENE 06 to SCENE 11 keep their numbers and only shifted their frame
+ranges by −90.
 
 | Document | Storyboard scene |
 | --- | --- |
 | `01-symbol.md` | SCENE 01 — THE SYMBOL |
 | `02-agent.md` | SCENE 02 — ASK THE AGENT |
 | `03-graph-reveal.md` | SCENE 03 + SCENE 04 |
-| `04-cross-repo.md` | SCENE 05 — CROSS-REPOSITORY |
-| `05-blast-radius.md` | SCENE 06 — BLAST RADIUS |
-| `06-semantic-resolution.md` | SCENE 07 — NAME ≠ SYMBOL |
-| `07-agent-answer.md` | SCENE 08 — RETURN TO AGENT |
-| `08-benchmark.md` | SCENE 09 — BENCHMARK |
-| `09-brand.md` | SCENE 10 — BRAND REVEAL |
-| `10-outro.md` | SCENE 11 — CTA |
+| — (cut) | SCENE 05 — CROSS-REPOSITORY |
+| `04-blast-radius.md` | SCENE 06 — BLAST RADIUS |
+| `05-semantic-resolution.md` | SCENE 07 — NAME ≠ SYMBOL |
+| `06-agent-answer.md` | SCENE 08 — RETURN TO AGENT |
+| `07-benchmark.md` | SCENE 09 — BENCHMARK |
+| `08-brand.md` | SCENE 10 — BRAND REVEAL |
+| `09-outro.md` | SCENE 11 — CTA |
 
 ## Deleted scenes
+
+Two scenes have been cut. Neither should come back.
+
+### The cross-repository scene
+
+`CrossRepoScene.tsx` / `04-cross-repo.md`, storyboard `SCENE 05 —
+CROSS-REPOSITORY`, 90 frames at master 0630–0720 under the numbering of the time.
+It turned the camera around the finished graph — one turn, 20.6°, and stop — and
+labelled the crossings `Cross-repository.` on a veil at `0.86`, then suppressed
+the local chain to leave the crossings alone on screen.
+
+It was cut for two reasons, and both are worth keeping.
+
+**The camera turn did not communicate.** The viewer had already read the
+structure by the time it started, and moving around it added nothing they could
+name. The crossings themselves were never the problem: scene 03 still draws them,
+at 0554–0569, and the propagation still leaves one repository and arrives in
+another. What went was a shot *about* that fact, laid over a frame that had
+already shown it.
+
+**Its other beat fought the scene after it.** To make room for the caption it
+pulled `Policy.Do()` and `Once()` back to `0.22` — and those two are hop 1,
+exactly the two nodes the blast radius' propagation lights first. The old cut
+dimmed what the next frame re-lit. The blast radius now inherits scene 03's whole
+settled graph, evenly present, via `getGraphState(300)` where it used to sample
+`getCrossRepoState(90)`, and its propagation reads as travel rather than as the
+re-lighting of something held back for it.
+
+Everything after 0630 moved 90 frames earlier and the master went from 1410 to
+1320. The camera pose the deleted scene landed on was scene 03's own returned to,
+so nothing about the graph's geometry changed with it: there is no camera movement
+anywhere in the film after 0598 except scene 05 straightening the rig into its
+flatten. `src/three/crossRepoState.ts` and its `restLook` export went with the
+scene; scene 05 reads the pose off the state it inherits instead.
+
+Measured after the cut: the 0330 and 0750 seams are pixel-identical, 0630 is
+62.93 dB (glyph antialiasing only), and 900 mounted frames render with no black
+frame and no single-frame anomaly.
+
+### The problem scene
 
 There used to be a scene between the symbol and the agent: `ProblemScene.tsx` /
 `02-problem.md`, storyboard `SCENE 02 — THE LIMITATION`, later `NOT ALONE`,
@@ -249,15 +310,21 @@ find it is in the length of the two scenes that remain.
 
 ## Key frames
 
-Frames that must hold up as still images: `0080`, `0629`, `0800`, `0950`,
-`1120`, `1280`. Each is documented in the scene that owns it.
+Frames that must hold up as still images: `0080`, `0629`, `0710`, `0860`,
+`1030`, `1190`. Each is documented in the scene that owns it. The four after
+`0629` each moved −90 with the cross-repository cut.
 
 Scene 03's entry moved from `0620` to `0629`. Both frames sit inside the held
 final camera pose, but at 0620 the last crossing is still handing its accent back
 to the structure; `0629` is the last frame the scene owns, the nearest thing to
-settled, and the image `04-cross-repo.md` inherits one frame later — so the still
+settled, and the image `04-blast-radius.md` inherits one frame later — so the still
 and the handoff are the same picture. `STORYBOARD.md` §28-§29 still list `0620`
 and have not been reconciled.
+
+`0860` lost its headline rather than just its number. It used to hold
+`A name is not a symbol.` across the middle of the split view; with that sentence
+cut, the still carries the two-column asymmetry on its own and has to be
+unmistakable without a caption telling the viewer what to conclude.
 
 ## Rendering
 
@@ -279,12 +346,12 @@ where ACES compresses hardest, and a plate authored `#171a1f` rendered `#080a0d`
 — darker than the background it was supposed to sit on. The video is authored in
 sRGB from `src/brand/tokens.ts` and every other scene is DOM, so a film curve
 between the tokens and the frame would mean the graph's greys are not the site's
-greys. Scenes 04, 05 and 06 inherit both by drawing through the same
-`GraphWorld`; scene 07 onward must carry them too.
+greys. Scenes 04 and 05 inherit both by drawing through the same
+`GraphWorld`; scene 06 onward must carry them too.
 
 Every graph sequence also carries `premountFor={30}`, and that is a preview fix
 rather than a creative one. A `<Sequence>` renders its children only inside its
-range, so at the 0630 boundary `GraphRevealScene` unmounts and `CrossRepoScene`
+range, so at the 0630 boundary `GraphRevealScene` unmounts and `BlastRadiusScene`
 mounts; sharing the `GraphWorld` component does not share its instance, and the
 `ThreeCanvas` loses its WebGL context at the seam. Measured in Studio by patching
 `HTMLCanvasElement.prototype.getContext` and stepping 0629 <-> 0632 four times:
@@ -293,14 +360,20 @@ labels are painted and the plates and tubes are not, so the whole graph blinks a
 the one seam the design spends everything to hide. Premounting mounts the scene
 thirty frames early while `<Sequence>`'s hardcoded `hideWhilePremounted:
 "opacity"` keeps it invisible, so the canvas paints and the context is warm
-before it is seen. Scenes 03, 04 and 05 also carry `postmountFor={30}`, because
-scrubbing back across 0630, 0720 or 0840 remounts them and the timeline has to
+before it is seen. Scenes 03 and 04 also carry `postmountFor={30}`, because
+scrubbing back across 0630 or 0750 remounts them and the timeline has to
 survive being walked backwards as well as forwards. None of this touches the
 film: `premountingActive` is gated on `!isRendering`, so no rendered frame
 changes — the render never had the blink, only the preview did. Repeat both props
-on the graph sequences from scene 07 onward as they land; scene 06 needs its
+on the graph sequences from scene 06 onward as they land; scene 05 needs its
 `postmountFor` at the same time, once there is a scene after it to scrub back
 from.
+
+The mechanism survived the cross-repository cut unchanged, but the seam it was
+found at is now a different pair of scenes: it was `GraphRevealScene` handing over
+to `CrossRepoScene`, and the `getContext` measurement was taken there. The
+boundary frame is still 0630 and the count is still four, because what is being
+counted is a `<Sequence>` remount rather than anything specific to either scene.
 
 ## Known documentation debt
 
@@ -309,4 +382,4 @@ The scene documents cite `AGENTS.md` by section number (`§14`, `§17`, `§26`, 
 resolve. Several documents also attribute the still-image key-frame list to
 `AGENTS.md`; that list lives here and in `STORYBOARD.md` §28, and `AGENTS.md`
 contains no frame numbers at all. Replacing both kinds of citation with section
-titles is a mechanical pass across all ten documents and has not been done yet.
+titles is a mechanical pass across all nine documents and has not been done yet.

@@ -4,43 +4,45 @@ import { GraphWorld } from "../components/GraphWorld";
 import { CodeWorld } from "../components/CodeWorld";
 import { NameMatchColumn } from "../components/NameMatchColumn";
 import {
-  copyOpacity,
   dividerOpacity,
   getSemanticState,
   leftColumn,
   reportFade,
   resolution,
   rightColumn,
-  veilOpacity,
 } from "../three/semanticState";
 import { ImpactReport } from "../components/ImpactReport";
 import type { Camera } from "../world/camera";
 import { brand } from "../brand/tokens";
-import { fontMono, fontSans } from "../brand/fonts";
+import { fontMono } from "../brand/fonts";
 
 /**
- * Scene 06 - semantic resolution (master 0840-0990, scene-local 0000-0150).
+ * Scene 05 - semantic resolution (master 0750-0900, scene-local 0000-0150).
  *
- * The scene that makes everything before it credible. Scene 05 asserted
- * `Exact symbols. Not name matches.`; an assertion is not evidence, and without
- * this scene the blast radius could plausibly be a fancy text search. Here the
- * two mechanisms are put side by side and the viewer sees the difference without
- * being told: searching a name returns whatever happens to be spelled that way,
- * resolving a symbol returns one thing and what genuinely touches it.
+ * The scene that makes everything before it credible. Without it the blast
+ * radius could plausibly be a fancy text search. Here the two mechanisms are
+ * put side by side and the viewer sees the difference without being told:
+ * searching a name returns whatever happens to be spelled that way, resolving
+ * a symbol returns one thing and what genuinely touches it.
+ *
+ * Nothing in the scene says that in words. Two sentences were written for this
+ * passage and both were cut - the film's own argument is that a count is
+ * evidence and a claim is not, so a claim printed over the evidence undoes it.
+ * The two columns and their counters are the whole statement.
  *
  * The 3D graph is retired by flattening it into the right column rather than by
  * cutting away, so that column is visibly the same structure re-presented. The
  * flatten, the camera's straightening and the collapse of the cascade all live
- * in `src/three/semanticState.ts`; this file owns the split, the two columns'
- * chrome and the sentence.
+ * in `src/three/semanticState.ts`; this file owns the split and the two
+ * columns' chrome.
  *
- * See `docs/scenes/06-semantic-resolution.md` for intent, beats and invariants.
+ * See `docs/scenes/05-semantic-resolution.md` for intent, beats and invariants.
  */
 
 /**
- * The code bed, held at scene 03's final values - the same literals scenes 04
- * and 05 freeze. The code world never leaves, and master 0840 has to be
- * indistinguishable from 0839.
+ * The code bed, held at scene 03's final values - the same literals scene 04
+ * freezes. The code world never leaves, and master 0750 has to be
+ * indistinguishable from 0749.
  */
 const bedCamera: Camera = { x: 0, y: 0, zoom: 0.34, screenX: 960, screenY: 540 };
 
@@ -60,9 +62,6 @@ const grid = {
   counterTop: 742,
   labelTop: 208,
 } as const;
-
-/** The band reserved for the sentence, kept clear from the first frame. */
-const copyTop = 906;
 
 export const SemanticScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -90,19 +89,12 @@ export const SemanticScene: React.FC = () => {
 
       <GraphWorld state={state} />
 
-      <AbsoluteFill
-        style={{
-          backgroundColor: brand.background,
-          opacity: veilOpacity(frame),
-        }}
-      />
-
       {/**
-       * Scene 05's report, still on screen at the cut and leaving with the
-       * depth. It is drawn from the same component scene 05 draws it from, so
-       * the two frames either side of 0840 cannot disagree about it.
+       * Scene 04's report, still on screen at the cut and leaving with the
+       * depth. It is drawn from the same component scene 04 draws it from, so
+       * the two frames either side of 0750 cannot disagree about it.
        */}
-      <ImpactReport card={report} cardOffsetX={0} claim={report} />
+      <ImpactReport card={report} cardOffsetX={0} />
 
       {/**
        * The divider: one hairline, not two panels.
@@ -182,33 +174,6 @@ export const SemanticScene: React.FC = () => {
         {`${resolution.symbols} symbol\n${resolution.relationships} real relationships`}
       </div>
 
-      {/**
-       * `A name is not a symbol.` - the video's secondary brand message, and the
-       * conclusion drawn from both columns, so it belongs to neither: centred
-       * across the whole frame, over the divider.
-       *
-       * Geist sans, because the project rule is that graph-attached text is
-       * monospace and a sentence addressed to the viewer is not. It is read on a
-       * veil, which is the rule for every such sentence in the film.
-       */}
-      <AbsoluteFill
-        style={{
-          top: copyTop,
-          height: 120,
-          alignItems: "center",
-          justifyContent: "flex-start",
-          fontFamily: fontSans,
-          fontSize: 78,
-          fontWeight: 500,
-          lineHeight: 1,
-          letterSpacing: "-0.02em",
-          whiteSpace: "pre",
-          color: brand.textPrimary,
-          opacity: copyOpacity(frame),
-        }}
-      >
-        A name is not a symbol.
-      </AbsoluteFill>
     </AbsoluteFill>
   );
 };

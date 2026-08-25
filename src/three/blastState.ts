@@ -1,17 +1,17 @@
 import { Easing, interpolate } from "remotion";
 import { edges, nodes, selectedSymbolId, shellOf } from "../data/graphDemo";
-import { getCrossRepoState } from "./crossRepoState";
+import { getGraphState } from "./graphState";
 import type { GraphVisualState } from "./graphState";
 
 /**
- * Scene 05's visual state, derived from the scene-local frame and nothing else.
+ * Scene 04's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-120 (master 0720-0840).
+ * Scene-local frames 0-120 (master 0630-0750).
  *
  * The scene has one argument and it is made by ordering: a change happens at
  * one symbol, and then it is seen to *travel* - hop 1, hop 2, hop 3, never two
  * at once. If every affected node lit together the frame would read as a search
- * result, which is the thing scene 06 exists to discredit.
+ * result, which is the thing scene 05 exists to discredit.
  *
  * Nothing here is choreography for its own sake. Because the layout already
  * encodes hop distance as depth, lighting one hop after another *is* the impact
@@ -30,23 +30,28 @@ const ramp = (frame: number, from: number, to: number) =>
   });
 
 /**
- * The frame scene 04 hands over, read from scene 04 rather than restated.
+ * The frame scene 03 hands over, read from scene 03 rather than restated.
  *
- * Scene 04 wrote its own inherited pose as literals so that its agreement with
- * scene 03 was a checked fact. That was the right call for a camera pose the
- * two scenes must share exactly. It is the wrong call for this state, which is
- * eight node presences, seven edge gains, seven settle values and a cluster
- * gain: copying twenty-three numbers out of another module is not a check, it
- * is a second source of truth that goes stale the first time scene 04's
- * isolation is retuned. `getCrossRepoState` is a pure function of a frame, so
- * sampling its last frame is exact and cannot drift.
+ * This used to sample `getCrossRepoState(90)`, and it changed when the
+ * cross-repository scene was cut. The principle did not: copying twenty-three
+ * numbers - eight node presences, seven edge gains, seven settle values and a
+ * cluster gain - out of another module is not a check, it is a second source of
+ * truth that goes stale the first time the scene before this one is retuned.
+ * Sampling a pure function of a frame is exact and cannot drift.
  *
- * Frame 90 rather than 89: 89 is the last frame scene 04 owns and its drift is
- * still 0.022 of the way out of rest, while 90 is the boundary value the curve
- * settles on. The difference is a hundredth of a world unit, and taking the
- * settled one means this scene's camera is provably still.
+ * `getGraphState(300)` is scene 03's settled state: every ramp inside it clamps,
+ * so 300 and anything past it return the values that scene renders on its last
+ * frame.
+ *
+ * What the deleted scene took with it is its isolation, and losing it is a
+ * simplification rather than a hole. That beat pulled `Policy.Do()` and `Once()`
+ * back to `0.22` to leave a "claim" on screen for a caption that no longer
+ * exists - and those two nodes are hop 1, the first thing this scene's
+ * propagation lights. The old cut therefore dimmed exactly what the next frame
+ * re-lit. The propagation now starts from a whole, evenly present graph, which
+ * is what makes "the change travels" legible: nothing was pre-selected for it.
  */
-const inherited = getCrossRepoState(90);
+const inherited = getGraphState(300);
 
 /**
  * Which hop an edge delivers to.
@@ -157,7 +162,7 @@ export const getBlastState = (frame: number): GraphVisualState => {
   };
 
   return {
-    /** Held. Scene 04 returned the rig to rest and this scene never moves it. */
+    /** Held. This scene inherits scene 03's pose and never moves the rig. */
     look: inherited.look,
 
     nodes: Object.fromEntries(
@@ -165,10 +170,12 @@ export const getBlastState = (frame: number): GraphVisualState => {
         const from = inherited.nodes[node.id] ?? 1;
 
         /**
-         * Hop 1 arrives suppressed - scene 04 pushed `Policy.Do()` and
-         * `Once()` down to make room for the claim - so being reached is what
-         * brings it back. Everything else is already present, and for those
-         * nodes the mark is carried by `nodeAccent` alone.
+         * Every node arrives already present, so this resolves to `from` and
+         * the mark is carried by `nodeAccent` alone. The expression is kept
+         * rather than simplified to `from`: it is the general form, it is
+         * degenerate-safe at `from = 1`, and if a future scene hands over a
+         * suppressed graph again being reached is what should bring a node
+         * back.
          */
         return [node.id, from + (1 - from) * marked(node.id)];
       }),
@@ -180,13 +187,19 @@ export const getBlastState = (frame: number): GraphVisualState => {
 
     /**
      * Depth is the whole argument here - it is what makes the propagation read
-     * as travelling away rather than as lighting up. Scene 06 collapses it.
+     * as travelling away rather than as lighting up. Scene 05 collapses it.
      */
     flatten: 0,
 
     /** Nothing is drawn in this scene. Every edge is already complete. */
     edges: Object.fromEntries(edges.map((edge) => [edge.id, 1])),
 
+    /**
+     * Inherited unchanged. Scene 03 leaves every gain at 1, so this resolves to
+     * 1 throughout and the propagation is carried by `nodeAccent` and
+     * `edgeSettle` alone. Kept in the general form for the same reason as the
+     * node presences above.
+     */
     edgeGain: Object.fromEntries(
       edges.map((edge) => {
         const from = inherited.edgeGain[edge.id] ?? 1;
@@ -203,7 +216,7 @@ export const getBlastState = (frame: number): GraphVisualState => {
      *
      * The two groups do not land on the same value, and the first render is why.
      * Taking every edge to 0 marks all seven at one weight, and the three
-     * crossings - which arrived already lifted from scene 04, and which are the
+     * crossings - which arrived already lifted from scene 03, and which are the
      * most important edges in the video - became indistinguishable from the four
      * local ones. It also turned most of the frame's width blue, well past the
      * accent budget. So a local edge stops at `localCarry`: unmistakably part of
@@ -220,7 +233,6 @@ export const getBlastState = (frame: number): GraphVisualState => {
     ),
 
     labels: inherited.labels,
-    clusterGain: inherited.clusterGain,
     grow: 1,
     residual: 0,
   };
@@ -232,7 +244,7 @@ export const getBlastState = (frame: number): GraphVisualState => {
  * Local 55-75, which puts it on screen while the propagation is still reaching
  * the remote consumers, so the numbers read as the result of what the viewer
  * is watching rather than as a caption placed in advance. Settled by local 80,
- * which is key frame 0800.
+ * which is key frame 0710.
  *
  * No spring and no overshoot. This is a statement of measurement; elasticity
  * would make it playful and therefore less credible.
@@ -242,39 +254,3 @@ export const cardEntry = (frame: number) => {
 
   return { opacity: progress, offsetX: 24 * (1 - progress) };
 };
-
-/**
- * The veil under the claim line.
- *
- * Project rule: a sentence addressed to the viewer is read on a darkened frame,
- * never over a live one - see `STORYBOARD.md` § Frase sobre el cuadro and
- * `docs/scenes/README.md` § Visual grammar.
- *
- * The rule was first written for scene 04's `Cross-repository.`, which has since
- * been cut along with its veil. It survived the deletion of the shot that
- * motivated it, which is the evidence that it was a rule about the film rather
- * than about one scene: this veil, at 0814-0830, is now the first in the video.
- *
- * It applies to the claim line and not to the card. The card's three lines are
- * graph-attached technical values whose whole job is to be read *against* the
- * evidence behind them: key frame 0800 has to show the count and the structure
- * it counts in one still, and darkening the graph there would take away the
- * reason to keep the receipt. The claim is the opposite - a sentence about the
- * product, not about anything visible - so it gets the frame to itself.
- *
- * Rises local 94-110, six frames ahead of the text, and holds to the end. 0.72
- * rather than scene 04's 0.86 because two things have to survive it: the
- * propagation, which is the evidence for the card still on screen, and the card
- * itself, which sits above the veil and gains contrast from it.
- */
-const veilPeak = 0.72;
-
-export const veilOpacity = (frame: number) => veilPeak * ramp(frame, 94, 110);
-
-/**
- * `Exact symbols. Not name matches.` - a fade at local 100, no movement.
- *
- * After the count, because it qualifies the count. Nothing moves during the
- * hold: 0820-0840 exists to be read.
- */
-export const claimOpacity = (frame: number) => ramp(frame, 100, 112);
