@@ -4,7 +4,7 @@ import { Attribution } from "../components/Attribution";
 import { BenchmarkMetric, tableGrid } from "../components/BenchmarkMetric";
 import { arms, rows, sourceNote } from "../data/benchmark";
 import { brand } from "../brand/tokens";
-import { fontMono } from "../brand/fonts";
+import { fontMono, fontSans } from "../brand/fonts";
 
 /**
  * Scene 07 - benchmark (master 1150-1360, scene-local 0000-0210).
@@ -52,6 +52,32 @@ const ramp = (frame: number, from: number, to: number) =>
  * `35,961` is 76 px against `267,980`'s 36. Both ratios are the argument, which
  * is why nothing in the frame is coloured to make it.
  */
+/**
+ * The bridge, and the whole of scene 07's answer to "why is there a table now".
+ *
+ * Until this line existed the film went from an agent answering a question to a
+ * benchmark, and the benchmark read as a new section rather than as the
+ * consequence of the thing just watched - *«ahora hemos pasado a otra slide»*.
+ * One sentence fixes the join: the answer the viewer just read was the same
+ * answer, and what the table is about to measure is what it cost to get there.
+ *
+ * It is a claim about a measurement rather than a claim about the product, which
+ * is what `STORYBOARD.md` §30 requires - Kivgraph may not assert authority, it
+ * has to earn it - and it is answered by the four rows underneath it two seconds
+ * later.
+ *
+ * It never shares a frame with the table. The attribution retires into it and it
+ * retires into the column heads, so the scene opens as a relay of three single
+ * things rather than as a slide that fills up. `STORYBOARD.md`'s rule that the
+ * frame darkens for a sentence addressed to the viewer is satisfied by there
+ * being nothing else in the frame at all.
+ *
+ * Sans, because it is prose addressed to the viewer rather than a value read off
+ * the graph. 52 px is the floor of §7's heading tier: it is the largest type in
+ * the scene and the only sentence in it.
+ */
+const bridge = { text: "Same answer. Less context.", y: 498, fontSize: 52 };
+
 const layout = {
   headerTop: 342,
   ruleY: 388,
@@ -83,10 +109,10 @@ const layout = {
  * final value on every frame they are visible on.
  */
 const rowEntry = [
-  [14, 38],
-  [42, 62],
-  [66, 86],
-  [90, 110],
+  [54, 78],
+  [82, 102],
+  [106, 126],
+  [130, 150],
 ] as const;
 
 const entry = (frame: number, from: number, to: number) => {
@@ -110,11 +136,11 @@ const entry = (frame: number, from: number, to: number) => {
  * characters per second against a 25-40 budget for on-screen technical text. At
  * 120 frames a four-row table could not finish arriving at all.
  */
-const fadeOut = (frame: number) => 1 - ramp(frame, 198, 210);
+const fadeOut = (frame: number) => 1 - ramp(frame, 238, 250);
 
 export const BenchmarkScene: React.FC = () => {
   const frame = useCurrentFrame();
-  const header = entry(frame, 2, 22);
+  const header = entry(frame, 42, 62);
 
   /**
    * The one thing that survives the cut, retiring as the heads that replace it
@@ -123,7 +149,8 @@ export const BenchmarkScene: React.FC = () => {
    * 1149 in that region. `Attribution` owns the geometry - see it for why.
    */
   const handoff = 1 - ramp(frame, 2, 18);
-  const note = entry(frame, 116, 136);
+  const note = entry(frame, 156, 176);
+  const bridgeIn = entry(frame, 6, 30);
 
   return (
     <AbsoluteFill style={{ backgroundColor: brand.background }}>
@@ -147,6 +174,30 @@ export const BenchmarkScene: React.FC = () => {
        */}
       <AbsoluteFill style={{ opacity: fadeOut(frame) }}>
         <Attribution opacity={handoff} />
+
+        {/**
+         * Reads at local 30 and is gone by 62, as the column heads land. The
+         * ramps conclude on their beats rather than starting there, which is the
+         * same rule the rest of the film is timed by.
+         */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: bridge.y,
+            width: "100%",
+            textAlign: "center",
+            fontFamily: fontSans,
+            fontSize: bridge.fontSize,
+            lineHeight: 1,
+            color: brand.textPrimary,
+            whiteSpace: "pre",
+            opacity: bridgeIn.opacity * (1 - ramp(frame, 46, 62)),
+            translate: `0px ${bridgeIn.offsetY}px`,
+          }}
+        >
+          {bridge.text}
+        </div>
 
         {/**
          * The column heads. Both are `textMuted`, the same treatment the row
@@ -192,7 +243,7 @@ export const BenchmarkScene: React.FC = () => {
             width: tableGrid.columnRight[1] - tableGrid.labelLeft,
             height: 1,
             backgroundColor: brand.border,
-            opacity: ramp(frame, 10, 30) * 0.9,
+            opacity: ramp(frame, 50, 70) * 0.9,
           }}
         />
 

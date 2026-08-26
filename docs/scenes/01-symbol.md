@@ -212,7 +212,7 @@ frame 0119 — byte-identical to 0080. The handoff frame.
 ```
 
 The still-image key frame is `0080`. The project's still-image list reads `0080`,
-`0629`, `0718`, `0864`, `1064`, `1190`, `1400`.
+`0689`, `0778`, `0924`, `1124`, `1290`, `1500`.
 
 ## Invariants
 
@@ -322,7 +322,7 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
   written for the video, chosen to agree with the repository and symbol names of
   later scenes. Nothing is read from a real Kivgraph index.
 - Scenes 01–07 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
-  (1320) rather than the planned 1530. Frames `1320–1530` do not render at all
+  (1420) rather than the planned 1630. Frames `1320–1530` do not render at all
   yet, which is preferred over three and a half seconds of black.
 
 ## Modification history

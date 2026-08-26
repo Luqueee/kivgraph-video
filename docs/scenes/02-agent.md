@@ -48,11 +48,11 @@ caption `payments-api/internal/retry/retry.go` in the upper right. What is
 unresolved there is the claim, not the camera — a symbol has been marked and
 nothing has been said about it.
 
-**After.** Scene 03 (`03-graph-reveal.md`, frames 0330–0630) match-cuts out of
+**After.** Scene 03 (`03-graph-reveal.md`, frames 0330–0690) match-cuts out of
 this frame: `withRetry()` stops being HTML text and becomes the central node of a
 Three.js graph.
 
-**Later.** Scene 06 (`06-agent-answer.md`, frames 0970–1150) match-cuts _back_
+**Later.** Scene 06 (`06-agent-answer.md`, frames 1030–1210) match-cuts _back_
 into this prompt row to deliver the answer. This scene therefore defines a
 reusable geometry, not a one-off layout: the rule, the row and the token positions
 established here must be reproducible 640 frames later, which is why they are
@@ -178,13 +178,13 @@ tool   x 500,  y 712,  20 px
 ```
 
 The `withRetry()` token therefore sits at `x 968–1166`, centred at
-`x 1067, y 654` — inside the 9:16 safe crop with room to spare, close enough to
+`x 1127, y 654` — inside the 9:16 safe crop with room to spare, close enough to
 the optical centre for scene 03 to grow a graph out of it.
 
 At the match-cut frame the token is scaled by `settledGrow` (1.08) about
 `growOrigin`, which is 55% down the line box rather than its centre, so the
 scaled rectangle is not simply the one above times 1.08. Scene 03 reads
-`selectedTokenRect` — `213.84 × 47.52 px` centred on `(1067, 653.82)` — and does
+`selectedTokenRect` — `213.84 × 47.52 px` centred on `(1127, 653.82)` — and does
 not apply the scale itself. That rectangle has been measured against a render:
 the selection field in frame `0329` agrees with it to within half a pixel.
 
@@ -339,7 +339,7 @@ same symbol as graph node
 
 **The contract.** At 0329 this scene owes scene 03:
 
-- the token's screen rectangle: `x 968–1166`, centre `x 1067, y 654`, scaled 1.08
+- the token's screen rectangle: `x 968–1166`, centre `x 1127, y 654`, scaled 1.08
   about that centre — available programmatically as `tokenRect` and
   `promptLayout` from `src/components/AgentPrompt.tsx`, so neither scene has to
   hard-code it;
@@ -426,7 +426,7 @@ the video.
   cloned chrome, no cloned colour scheme, no cloned status line, no cloned
   tool-result formatting.
 - **The prompt geometry is a shared constant.** `06-agent-answer.md` rebuilds this
-  row at frame 0970 and `03-graph-reveal.md` matches the token at 0330. All three
+  row at frame 1030 and `03-graph-reveal.md` matches the token at 0330. All three
   read `promptLayout` / `tokenRect`; none of them re-derives the numbers.
 - **Typing is grouped and irregular**, never a uniform per-character stream.
 - **The tool invocation stays discreet.** One line, small, one accent square. It
@@ -475,8 +475,8 @@ applied by `AgentAnswerScene` — rather than by moving `promptLayout`. The reas
 is the one this line already gives, and it is stronger than it looks:
 `graphFrame.ts` derives `graphOffset`, the world position of the entire graph for
 scenes 03 to 06, from `selectedTokenRect`. Moving the row would have carried the
-graph, the camera path and the key stills `0629`, `0718` and `0864` with it.
-Nothing in this scene changed; `0969` renders byte-identical.
+graph, the camera path and the key stills `0689`, `0778` and `0924` with it.
+Nothing in this scene changed; `1029` renders byte-identical.
 
 ## Technical notes
 

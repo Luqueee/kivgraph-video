@@ -14,7 +14,7 @@ import type { Camera } from "../world/camera";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 03 - from code to graph (master 0330-0630, scene-local 0000-0300).
+ * Scene 03 - from code to graph (master 0330-0690, scene-local 0000-0360).
  *
  * The video's first Three.js scene and its hinge: the token `withRetry()` stops
  * being HTML text and becomes a node, in the same screen rectangle, at the same
@@ -133,4 +133,4 @@ export const GraphRevealScene: React.FC = () => {
  * Scene 03's final image, held. Scene 04 opens on it and must be able to
  * reproduce it exactly, so it is exported rather than described.
  */
-export const graphRevealEndFrame = 300;
+export const graphRevealEndFrame = 360;

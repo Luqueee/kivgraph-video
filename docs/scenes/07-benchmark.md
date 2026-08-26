@@ -4,7 +4,7 @@
 
 This scene replaces the claim with evidence.
 
-Everything up to `1150` was demonstration: a graph, its cross-repository edges,
+Everything up to `1210` was demonstration: a graph, its cross-repository edges,
 an impact, an answer. A demonstration can be staged. This scene says that the
 thing the viewer just watched was measured, published, and cheap — and it says
 it in numbers rather than in adjectives.
@@ -173,10 +173,10 @@ The storyboard scene number is two ahead of the document number from
 a single component, and storyboard SCENE 05 is a record of a cut scene.
 Storyboard SCENE 09 is document 07. See `docs/scenes/README.md`.
 
-- Global frames: `1150`–`1360`
-- Scene-local frames: `0000`–`0210` (last rendered frame `0209` / master `1359`)
-- Time: 19.17 s – 22.67 s
-- Duration: 210 frames / 3.5 s at 60 fps
+- Global frames: `1210`–`1460`
+- Scene-local frames: `0000`–`0250` (last rendered frame `0249` / master `1459`)
+- Time: 20.17 s – 24.33 s
+- Duration: 250 frames / 4.17 s at 60 fps
 - Remotion component: `src/scenes/BenchmarkScene.tsx`
 
 The storyboard drafted 120 frames. The scene is 210, because a two-column table
@@ -187,16 +187,16 @@ Beats, as built:
 
 | Master        | Local         | Beat                                                                     |
 | ------------- | ------------- | ------------------------------------------------------------------------ |
-| `1150`        | `0000`        | Hard cut. Empty background.                                              |
-| `1152`–`1172` | `0002`–`0022` | The two column heads, `kivgraph` and `grep + read`, arrive together.     |
-| `1160`–`1180` | `0010`–`0030` | The hairline rule under the heads, to `0.9` opacity.                     |
-| `1164`–`1188` | `0014`–`0038` | The cost row, `tokens`: `35,961` at 76 px, `267,980` at 36 px and faint. |
-| `1192`–`1212` | `0042`–`0062` | The `exact answers` row: `28 / 29` in both columns.                      |
-| `1216`–`1236` | `0066`–`0086` | The `precision` row: `1.000` in both columns.                            |
-| `1240`–`1260` | `0090`–`0110` | The `recall` row: `0.996` against `0.989`.                               |
-| `1266`–`1286` | `0116`–`0136` | The source note, `37 repositories · published benchmark`, lands last.    |
-| `1286`–`1348` | `0136`–`0198` | Settled. The render measures 63 byte-identical frames.                   |
-| `1348`–`1360` | `0198`–`0210` | The whole table fades out together.                                      |
+| `1210`        | `0000`        | Hard cut. Empty background.                                              |
+| `1212`–`1272` | `0002`–`0022` | The two column heads, `kivgraph` and `grep + read`, arrive together.     |
+| `1220`–`1280` | `0010`–`0030` | The hairline rule under the heads, to `0.9` opacity.                     |
+| `1224`–`1288` | `0014`–`0038` | The cost row, `tokens`: `35,961` at 76 px, `267,980` at 36 px and faint. |
+| `1292`–`1312` | `0042`–`0062` | The `exact answers` row: `28 / 29` in both columns.                      |
+| `1316`–`1336` | `0066`–`0086` | The `precision` row: `1.000` in both columns.                            |
+| `1340`–`1360` | `0090`–`0110` | The `recall` row: `0.996` against `0.989`.                               |
+| `1366`–`1386` | `0116`–`0136` | The source note, `37 repositories · published benchmark`, lands last.    |
+| `1386`–`1448` | `0136`–`0198` | Settled. The render measures 63 byte-identical frames.                   |
+| `1448`–`1460` | `0198`–`0210` | The whole table fades out together.                                      |
 
 The table is built before it is filled: the heads and their rule arrive first,
 because a figure landing in an unheaded column is a number with no claim
@@ -204,17 +204,17 @@ attached. The three correctness rows then arrive on a 24-frame pitch — the sam
 number as the 24 px between their tops — so the table fills at one speed and
 reads as one object being completed rather than as four statements being made.
 
-Only the hard cut at `1150` and the still-image key frame at `1190` are fixed by
+Only the hard cut at `1210` and the still-image key frame at `1290` are fixed by
 the storyboard. The rest is the built rhythm and may shift, provided no element
 loses dwell against the table in `## Motion` and the cost row is still complete
-at `1190`.
+at `1290`.
 
-Master timeline: **1570 frames, 26.17 s**. Nothing before `1150` moved: scenes
-01–06 are untouched. Scene 08 is `1360`–`1450` and scene 09 is `1450`–`1570`.
+Master timeline: **1670 frames, 26.17 s**. Nothing before `1210` moved: scenes
+01–06 are untouched. Scene 08 is `1460`–`1550` and scene 09 is `1550`–`1670`.
 
 ## Initial state
 
-At `1150` the frame is empty: `background` `#0a0b0d`, edge to edge. No panel, no
+At `1210` the frame is empty: `background` `#0a0b0d`, edge to edge. No panel, no
 hairline, no residue of the prompt layer, no graph, no logo.
 
 The emptiness is the hard cut's whole effect. Cutting from a dense frame of agent
@@ -222,7 +222,7 @@ output to bare background is what signals that the register has changed.
 
 ## Final state
 
-At master `1347`, the last frame before the fade, the table is complete and
+At master `1447`, the last frame before the fade, the table is complete and
 static:
 
 - two column heads, `kivgraph` and `grep + read`, 18 px `textMuted`, each
@@ -245,8 +245,8 @@ which is a report of the measurement and not a design choice. See
 `## Provenance` → **The discrepancy that put every figure on hold, and how it
 resolved**.
 
-The render measures this frame byte-identical for **63 frames**, master `1286`–
-`1348`. A viewer landing on any one of those 63 frames should be able to
+The render measures this frame byte-identical for **63 frames**, master `1386`–
+`1448`. A viewer landing on any one of those 63 frames should be able to
 reconstruct the entire argument of the scene without having seen it fill.
 
 ## Visual composition
@@ -279,7 +279,7 @@ this scene is one object.
 Columns, in master pixels, exported as `tableGrid` from
 `src/components/BenchmarkMetric.tsx`:
 
-- `labelLeft: 560`, `columnRight: [1060, 1360]` — 800 px wide, centred in the
+- `labelLeft: 560`, `columnRight: [1120, 1460]` — 800 px wide, centred in the
   1920 frame.
 
 Two proportions were measured off the render and then fixed. The gap from a label
@@ -301,16 +301,16 @@ Vertical positions, in master pixels:
 | the hairline rule | `388` |
 | row 1 (cost)      | `416` |
 | row 2             | `516` |
-| row 3             | `576` |
-| row 4             | `636` |
-| the source note   | `716` |
+| row 3             | `636` |
+| row 4             | `696` |
+| the source note   | `776` |
 
 Vertical rhythm: 24 px between rows, 28 px either side of the rule, and **44 px
 above the source note**. The note gets nearly double a row's gap because at a
 row's spacing it read as a fifth measure that had lost its figures; a source note
 has to sit outside the body it vouches for.
 
-The block runs `342`–`734` and is centred on **538**, not 540: mono digits sit
+The block runs `342`–`794` and is centred on **538**, not 540: mono digits sit
 high in their em, so a geometrically centred box of numerals reads low. Within a
 row, everything sits on the tallest figure's optical centre
 (`top + size * 0.375`), not on its top edge — in the cost row the two figures
@@ -318,10 +318,10 @@ differ by 40 px of size, and aligning tops would leave the smaller one floating
 above its own baseline. The table is centred within the frame so future
 1:1 / 4:5 / 9:16 variants remain possible (`STORYBOARD.md` §2, `AGENTS.md` §38).
 
-Measured on the render at settled frame `1345`: column A right-aligns at exactly
+Measured on the render at settled frame `1445`: column A right-aligns at exactly
 `x 1057` and column B at `x 1357` — 3 px of mono side bearing inside the declared
-column edges — the block's ink spans `x 560`–`1359` for a centre of **959.5**
-against a frame centre of 960, and the rule spans `x 560`–`1359` at `y 388`,
+column edges — the block's ink spans `x 560`–`1459` for a centre of **959.5**
+against a frame centre of 960, and the rule spans `x 560`–`1459` at `y 388`,
 1 px tall and exactly 800 px wide.
 
 Type, all `JetBrains Mono`, weights 400 and 500 only:
@@ -385,14 +385,14 @@ Windows as built:
 
 | Element                   | Local       | Master        |
 | ------------------------- | ----------- | ------------- |
-| the two column heads      | `002`–`022` | `1152`–`1172` |
-| the hairline rule         | `010`–`030` | `1160`–`1180` |
-| the cost row, `tokens`    | `014`–`038` | `1164`–`1188` |
-| the `exact answers` row   | `042`–`062` | `1192`–`1212` |
-| the `precision` row       | `066`–`086` | `1216`–`1236` |
-| the `recall` row          | `090`–`110` | `1240`–`1260` |
-| the source note           | `116`–`136` | `1266`–`1286` |
-| fade out, the whole table | `198`–`210` | `1348`–`1360` |
+| the two column heads      | `002`–`022` | `1212`–`1272` |
+| the hairline rule         | `010`–`030` | `1220`–`1280` |
+| the cost row, `tokens`    | `014`–`038` | `1224`–`1288` |
+| the `exact answers` row   | `042`–`062` | `1292`–`1312` |
+| the `precision` row       | `066`–`086` | `1316`–`1336` |
+| the `recall` row          | `090`–`110` | `1340`–`1360` |
+| the source note           | `116`–`136` | `1366`–`1386` |
+| fade out, the whole table | `198`–`210` | `1448`–`1460` |
 
 The heads and the rule arrive first and almost together: the table has to exist
 before it can be filled. The rule fades to `0.9`, not to `1` — it separates the
@@ -407,11 +407,11 @@ read as separate assertions being made one after another, which is the opposite
 of what a table is for.
 
 Storyboard frame numbers mark when a beat **reads**, not when its ramp begins,
-and frame `1190` is the case where that matters. It is a designated still-image
+and frame `1290` is the case where that matters. It is a designated still-image
 key frame (`STORYBOARD.md` §29). The cost row therefore completes at local `038`
-/ master `1188`, and the `exact answers` row does not begin until `1192`, so
-`1190` carries `35,961` and `267,980` settled under their two named arms with
-nothing half-arrived beneath them. A half-faded figure at `1190` would ruin the
+/ master `1288`, and the `exact answers` row does not begin until `1292`, so
+`1290` carries `35,961` and `267,980` settled under their two named arms with
+nothing half-arrived beneath them. A half-faded figure at `1290` would ruin the
 one frame from this scene that gets used outside the video.
 
 **No count-up, no odometer, no ticking numerals.** Numbers appear at their final
@@ -427,16 +427,16 @@ after it has finished arriving — the same measurement that repaced scenes 04, 
 and 06. At 120 frames a two-column table of four measures could not finish
 arriving at all.
 
-Measured on the 210-frame cut, with the fade beginning at master `1348`:
+Measured on the 210-frame cut, with the fade beginning at master `1448`:
 
 | Element                 | Settles at master |               Dwell | Chars/s |
 | ----------------------- | ----------------: | ------------------: | ------: |
-| column heads            |            `1172` | 176 frames / 2.93 s |     6.5 |
-| the `tokens` row        |            `1188` | 160 frames / 2.67 s |     7.1 |
-| the `exact answers` row |            `1212` | 136 frames / 2.27 s |    11.9 |
-| the `precision` row     |            `1236` | 112 frames / 1.87 s |    10.2 |
-| the `recall` row        |            `1260` |  88 frames / 1.47 s |    10.9 |
-| the source note         |            `1286` |  62 frames / 1.03 s |    35.8 |
+| column heads            |            `1272` | 176 frames / 2.93 s |     6.5 |
+| the `tokens` row        |            `1288` | 160 frames / 2.67 s |     7.1 |
+| the `exact answers` row |            `1312` | 136 frames / 2.27 s |    11.9 |
+| the `precision` row     |            `1336` | 112 frames / 1.87 s |    10.2 |
+| the `recall` row        |            `1360` |  88 frames / 1.47 s |    10.9 |
+| the source note         |            `1386` |  62 frames / 1.03 s |    35.8 |
 
 The binding element is the source note, at 1.03 s and **35.8 characters per
 second**: 37 characters in 62 frames. It is the longest quiet string in the scene
@@ -446,13 +446,13 @@ sits between 6.5 and 11.9, so nothing else is close. 35.8 is inside this
 project's 25–40 budget for on-screen technical text, with nothing to spare — if
 the note ever gets longer, the scene has to get longer with it.
 
-The hold from master `1286` to `1348` is not padding and it is not a settled
+The hold from master `1386` to `1448` is not padding and it is not a settled
 frame waiting for a cut. Four measures across two columns can only be read as one
 composition while they are all on screen together, and this is the only place in
 the scene where that is true. The render measures **63 byte-identical frames**
 there.
 
-The scene is fully static from `1286`, so the fade toward `08-brand.md` begins
+The scene is fully static from `1386`, so the fade toward `08-brand.md` begins
 from a settled frame.
 
 ## Three.js
@@ -461,7 +461,7 @@ Not used.
 
 ## Transition in
 
-Hard clean cut at `1150` (`STORYBOARD.md`: *hard cut limpio*).
+Hard clean cut at `1210` (`STORYBOARD.md`: *hard cut limpio*).
 
 No crossfade, no dissolve, no motion carried over from the terminal. The
 abruptness is the point: the video steps out of the demonstration and states a
@@ -469,7 +469,7 @@ measurement. The whole frame measures 24.25 dB across the boundary, which is wha
 a hard cut measures.
 
 It is a match cut on one element. The attribution line `Answered with Kivgraph`
-arrives already on screen at `1150`, at exactly the position, size, colour and
+arrives already on screen at `1210`, at exactly the position, size, colour and
 letter-spacing scene 06 left it — that region measures `inf` PSNR across the cut
 — and retires over local `2`–`18` as the column heads arrive. The word
 `Kivgraph` is handed from a signature at 17 px to a column head at 18 px, which
@@ -477,22 +477,22 @@ states the pivot from "Kivgraph produced this answer" to "and here is what the
 answer cost" without a sentence.
 
 Nothing else from `06-agent-answer.md` persists — not the panel, not the prompt,
-not the three answer blocks. `STORYBOARD.md`'s frame spec for `1150` still holds
+not the three answer blocks. `STORYBOARD.md`'s frame spec for `1210` still holds
 exactly as written: background, *sin grafo*, *sin terminal*, *sin chrome de
 producto*, *sólo tipografía*. The carried line is typography.
 
 ### Why anything is carried at all
 
-Scene 06 is byte-identical for its last 87 frames, `1063`–`1149`, and that
+Scene 06 is byte-identical for its last 87 frames, `1123`–`1209`, and that
 stillness is the only place in that scene where the answer is read, so it cannot
 be trimmed. This scene used to open on a frame holding 34% of its settled ink,
 reaching 38% by local 6. A hard cut out of a frozen frame and into an almost
 empty one reads as the film stalling rather than as a change of register: the
 viewer's eye is parked at the answer's last line around `y 956` and the table
-builds at `y 342`–`734`, so for a third of a second there was nothing to look at
+builds at `y 342`–`794`, so for a third of a second there was nothing to look at
 anywhere.
 
-Carrying the attribution puts something at `1150` in the place the eye already
+Carrying the attribution puts something at `1210` in the place the eye already
 is, and then moves the eye up by taking it away. The alternative considered and
 rejected was a crossfade, which both this document and `06-agent-answer.md`
 rejected independently for the same reason: it blends two claims into one. A
@@ -516,33 +516,33 @@ silence
 brand reveal
 ```
 
-The whole **table** fades out together over `1348`–`1360`, ending on the empty
-brand background at `1360`. It fades as one composition; fading the rows out in
+The whole **table** fades out together over `1448`–`1460`, ending on the empty
+brand background at `1460`. It fades as one composition; fading the rows out in
 sequence would restate the cascade backwards and cost the brand reveal its
 silence.
 
 **The table fades. The background does not.** That distinction was a real defect
 until 2026-08-26: the `opacity` sat on the same `AbsoluteFill` that painted
 `brand.background`, so the background left with the table and there was nothing
-behind it. The frame reached pure `#000000` at `1356` and held it to `1359`, and
-scene 08 then restored `#0a0b0d` at `1360` — a ten-level step on a flat frame,
+behind it. The frame reached pure `#000000` at `1456` and held it to `1459`, and
+scene 08 then restored `#0a0b0d` at `1460` — a ten-level step on a flat frame,
 at the one boundary in the film that is meant to be invisible, and precisely the
 levels change `08-brand.md` forbids by name. It had been invisible only because
-`mountedFrames` was 1360 and the film ended here.
+`mountedFrames` was 1460 and the film ended here.
 
-The fade now lives on an inner fill under an opaque one. Only `1348`–`1359`
-changed: `fadeOut` is 1 for every frame before local `198`, so `1190`, `1300` and
-`1347` are byte-identical to the render before the fix, and nothing about the
-`1150` cut or the 63-frame settled run moved. **Never put this scene's fade back
+The fade now lives on an inner fill under an opaque one. Only `1448`–`1459`
+changed: `fadeOut` is 1 for every frame before local `198`, so `1290`, `1400` and
+`1447` are byte-identical to the render before the fix, and nothing about the
+`1210` cut or the 63-frame settled run moved. **Never put this scene's fade back
 on the element that carries `backgroundColor`.**
 
-Measured after the fix: `1359` and `1360` are pixel-identical, `PSNR = inf`, and
+Measured after the fix: `1459` and `1460` are pixel-identical, `PSNR = inf`, and
 the corner holds `10 11 13` across the boundary. The fade actually lands two
-frames early, at `1358`, because the project's easing is within one 255th of its
+frames early, at `1458`, because the project's easing is within one 255th of its
 final value before its ramp ends — so the scene's own tail and scene 08's ten
-frames of silence form one twelve-frame identical run, `1358`–`1369`.
+frames of silence form one twelve-frame identical run, `1458`–`1469`.
 
-`1360`–`1370` is that silence, and it is not a hole in the timeline: it is scene
+`1460`–`1470` is that silence, and it is not a hole in the timeline: it is scene
 08's own opening beat, its scene-local `0000`–`0010`, and `08-brand.md` owns it.
 It is `#0a0b0d`, not `#000000`. That silence is the `silence` in the §27 path,
 and it separates this scene's evidence from the logo so the reveal is not read as
@@ -620,17 +620,17 @@ the layout is wrong.
 ## Key frames
 
 ```text
-frame 1150 — hard cut; empty frame, nothing yet
-frame 1190 — column heads, rule and the cost row all complete; `35,961` and
+frame 1210 — hard cut; empty frame, nothing yet
+frame 1290 — column heads, rule and the cost row all complete; `35,961` and
              `267,980` legible under `kivgraph` and `grep + read`, the three
              correctness rows not yet arrived; STILL-IMAGE KEY FRAME
-frame 1250 — heads, rule, `tokens`, `exact answers` and `precision` complete,
+frame 1350 — heads, rule, `tokens`, `exact answers` and `precision` complete,
              `recall` mid-arrival
-frame 1300 — the settled table, inside the 63-frame identical run 1286-1348
-frame 1347 — the last frame before the fade
+frame 1400 — the settled table, inside the 63-frame identical run 1386-1348
+frame 1447 — the last frame before the fade
 ```
 
-`1190` is on both `AGENTS.md`'s still-image key frame list and `STORYBOARD.md`
+`1290` is on both `AGENTS.md`'s still-image key frame list and `STORYBOARD.md`
 §29: it is designated for the benchmark launch and must work as a standalone
 image for landing page, README, and social use. It is a hard requirement on this
 scene, not a nicety. Inspect it as an exported PNG, not only in the Studio
@@ -689,8 +689,8 @@ compromise is vertical; see `## Current compromises`.
   subject column with accent or `textPrimary` would contradict the equal-weight
   correctness rows in the same frame that states them.
 - **The shared right edge, per column.** Column A right-aligns on
-  `tableGrid.columnRight[0]` `1060` (measured ink at `x 1057`) and column B on
-  `columnRight[1]` `1360` (measured at `x 1357`). The comparison is made by the
+  `tableGrid.columnRight[0]` `1120` (measured ink at `x 1057`) and column B on
+  `columnRight[1]` `1460` (measured at `x 1357`). The comparison is made by the
   composition, not by the viewer. A row that centres itself, or a figure that
   opts out of its column, destroys the scene's mechanism.
 - **The 76/36 pair.** In the cost row the subject figure is 76 px against the
@@ -718,10 +718,10 @@ compromise is vertical; see `## Current compromises`.
 - The figures speak for themselves. Nothing is added to help them.
 - Typography only. No graph, no terminal, no product UI, no logo, no device
   frame, no background texture.
-- Frame `1190` works as a still image, with `35,961` and `267,980` fully legible
+- Frame `1290` works as a still image, with `35,961` and `267,980` fully legible
   and both arms named above them.
-- The hard cut at `1150` stays hard.
-- The scene is static from `1286` to `1348`, and the whole table leaves together.
+- The hard cut at `1210` stays hard.
+- The scene is static from `1386` to `1448`, and the whole table leaves together.
 - **The background does not fade.** The scene's `opacity` never goes on the
   element that carries `backgroundColor`; the frame never reaches `#000000`.
 
@@ -742,7 +742,7 @@ compromise is vertical; see `## Current compromises`.
 - The 24-frame pitch of the correctness rows, provided it stays constant across
   all of them: the table has to fill at one speed.
 - The exact window starts, provided no element loses dwell against the table in
-  `## Motion` and the cost row is complete at `1190`.
+  `## Motion` and the cost row is complete at `1290`.
 
 Not flexible, and stated in `## Invariants`: the four-row equal-weight shape and
 the row set that carries it, the three decimals on both ratio rows, the 76/36
@@ -753,7 +753,7 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
 
 - Component: `src/scenes/BenchmarkScene.tsx`. It owns the layout — four entries
   in one `layout` constant (`headerTop` `342`, `ruleY` `388`, `rowTops`
-  `[416, 516, 576, 636]`, `noteTop` `716`) — and the timing: the header `entry`,
+  `[416, 516, 576, 636]`, `noteTop` `776`) — and the timing: the header `entry`,
   the rule's `ramp`, the `rowEntry` windows, the note's `entry`, and `fadeOut`.
 - **There is deliberately no state module.** Scenes 05 and 06 have
   `src/three/semanticState.ts` and `src/three/answerState.ts` because they have
@@ -771,7 +771,7 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
   `[36, 36]` at `[400, 400]` in `[textPrimary, textPrimary]`. That second entry
   encodes the equal pair once, so there is no way for a caller to dim one side of
   a correctness row — and no way to do it accidentally while adding a row.
-- `tableGrid` is `{ labelLeft: 560, columnRight: [1060, 1360] }`, exported
+- `tableGrid` is `{ labelLeft: 560, columnRight: [1120, 1460] }`, exported
   because both the column heads and the rule under them span exactly these
   columns. A rule that misses the table it divides by a few pixels is the kind of
   detail that makes a frame look assembled rather than designed.
@@ -787,11 +787,11 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
   a component are eight places to forget. That file holds the confirmed
   29-question set — see `## Provenance`.
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="07 Benchmark" from={1150} durationInFrames={210} premountFor={30}>`
+  `<Sequence name="07 Benchmark" from={1210} durationInFrames={210} premountFor={30}>`
   literals, because Remotion Studio can only trim inline literals. There is no
   timing module. The component animates in scene-local frames:
   `useCurrentFrame()` inside the Sequence starts at `0`. The composition's
-  `mountedFrames` is `1360`, this scene's end boundary.
+  `mountedFrames` is `1460`, this scene's end boundary.
 - Fonts from `src/brand/fonts.ts` (`"JetBrains Mono"`, local `.woff2` via
   `@remotion/fonts`, loaded deterministically). Large numerals are where a late
   font swap is most visible, so no fallback family here.
@@ -806,13 +806,13 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
   accent.
 - The cheapest scene in the video: two heads, four rows, a rule and a note, all
   absolutely positioned. No 3D, no images.
-- Measured on the render: **1360 frames with no black frame**, the settled table
-  byte-identical for 63 frames (`1286`–`1348`), and the only single-frame
-  anomalies at the two hard cuts, `0969`/`0970` and `1149`/`1150`. Seams:
-  `0629`/`0630` at **62.93 dB** and `0769`/`0770` pixel-identical, both unchanged
-  by this figures pass; `0969`/`0970` at **30.44 dB whole frame**, a match cut,
+- Measured on the render: **1460 frames with no black frame**, the settled table
+  byte-identical for 63 frames (`1386`–`1448`), and the only single-frame
+  anomalies at the two hard cuts, `1029`/`1030` and `1209`/`1210`. Seams:
+  `0689`/`0690` at **62.93 dB** and `0829`/`0830` pixel-identical, both unchanged
+  by this figures pass; `1029`/`1030` at **30.44 dB whole frame**, a match cut,
   and a whole-frame figure is not comparable to a symbol-region one so always
-  say which is quoted; `1149`/`1150` at **24.25 dB**, where a hard cut is
+  say which is quoted; `1209`/`1210` at **24.25 dB**, where a hard cut is
   supposed to measure low. That number moved twice: from 22.30 to 24.21 dB when
   the figure set was resolved, because the content on the right of the cut *is*
   the figures and a cut's PSNR is a property of both frames; then to 24.25 dB
@@ -836,12 +836,12 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
   re-authored twice in one day: if a future agent finds a sentence describing a
   single value column, or a `label → value` pair, or a mid-table rule, that
   sentence is a leftover and the two-column table wins.
-- **The `1190` still names both arms now, but still sits above frame centre.**
+- **The `1290` still names both arms now, but still sits above frame centre.**
   The frame delivers what `STORYBOARD.md` §29 asks — `35,961` and `267,980`
   complete and legible — and it delivers it better than the previous build did,
   because `kivgraph` and `grep + read` are named above the figures, so the still
   is self-explanatory as a standalone image. The pair still sits high, because
-  the block is laid out for four rows and the lower three are empty at `1190`.
+  the block is laid out for four rows and the lower three are empty at `1290`.
   That is a **crop question, not a layout one**: centring the pair would decentre
   the settled table, and the settled table is the image the film actually shows,
   byte-identical, for 63 frames. A still that needs the pair optically centred
@@ -1229,4 +1229,30 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
 - In this frame the line now sits below the source note rather than between the
   last row and it. They still never share a frame, and the still at 1190 is
   unaffected.
+```
+
+```text
+2026-08-27
+- A bridge line was added and the scene grew 210 -> 250 frames to carry it. On
+  direct art direction: until now the film went from an agent answering a
+  question to a benchmark, and the benchmark read as a new section rather than as
+  the consequence of what had just been watched.
+- Verbatim, and new copy in STORYBOARD.md §32 in the same task:
+      Same answer. Less context.
+  Geist, 52 px - the floor of §7's heading tier - centred, `textPrimary`. Sans
+  because it is prose addressed to the viewer rather than a value read off the
+  graph, and it is the only sentence in the scene.
+- It never shares a frame with the table. The attribution retires into it at local
+  18, it reads at 30, and it is gone by 62 as the column heads land. The scene now
+  opens as a relay of three single things rather than as a slide filling up, and
+  §17's rule that the frame darkens for a sentence addressed to the viewer is
+  satisfied by there being nothing else in the frame at all.
+- It is a claim about a measurement, not about the product, which is what §30
+  requires - Kivgraph may not assert authority, it has to earn it - and the four
+  rows answer it two seconds later.
+- The table's whole schedule shifted +40 local and its dwell is unchanged: the
+  62-frame settled hold is still 62 frames. The fade is 238-250.
+- The still-image key frame moved with it, and by its own structural definition
+  rather than by being dragged: the first frame on which the cost row is complete
+  with both arms named above it is now local 78, master 1288.
 ```

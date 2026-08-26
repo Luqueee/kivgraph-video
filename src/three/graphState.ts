@@ -59,13 +59,40 @@ const schedule: Readonly<Record<string, readonly [number, number]>> = {
   "payments.clientRefund->payments.once": [158, 190],
   "payments.clientRefund": [168, 206],
 
-  // The other repository, once the camera has made room for it (0224-0287).
-  "checkout.refundHandle->payments.clientRefund": [224, 260],
-  "checkout.refundHandle": [238, 272],
-  "checkout.reconciliationRun->payments.clientCharge": [237, 273],
-  "checkout.reconciliationRun": [251, 285],
-  "checkout.placeOrder->payments.clientCharge": [239, 275],
-  "checkout.placeOrder": [253, 287],
+  /**
+   * The other repository, and it is now three beats rather than one (0238-0348).
+   *
+   * It used to be one: the three crossings started at 224 and the three nodes
+   * followed, while the camera was already opening. Everything new happened at
+   * once and the shot said *and there is more over here* instead of *this
+   * relationship leaves the repository*. The cross-repository reach is the
+   * single most sellable thing Kivgraph does and it was the least marked moment
+   * in the film.
+   *
+   * So: the local graph completes and its repository label lands, and then
+   * **nothing happens for eighteen frames**. `payments-api` is finished and the
+   * viewer is allowed to believe it.
+   *
+   * Then one crossing draws, alone, for forty-four frames, and the camera has
+   * not moved yet - it is still at the `payments-api` pose it settled into at
+   * 195. The edge therefore leaves the frame toward space the viewer cannot
+   * see, and for those forty-four frames it is the only new thing in the shot.
+   * That is the whole beat, and it costs nothing but order.
+   *
+   * Only then does the camera open, following where the edge already went, and
+   * `checkout-service` arrives to explain it. The other two crossings come after
+   * it rather than with it: they are confirmation, not the discovery.
+   *
+   * `placeOrder` is the one that goes first because `CheckoutService.PlaceOrder`
+   * is the consumer a reader can place without being told - an order being
+   * placed, reaching a retry policy four hops away in another repository.
+   */
+  "checkout.placeOrder->payments.clientCharge": [256, 300],
+  "checkout.placeOrder": [300, 334],
+  "checkout.reconciliationRun->payments.clientCharge": [306, 340],
+  "checkout.refundHandle->payments.clientRefund": [308, 342],
+  "checkout.reconciliationRun": [314, 346],
+  "checkout.refundHandle": [316, 348],
 };
 
 /**
@@ -95,7 +122,7 @@ const labelEasing = Easing.bezier(0.16, 1, 0.3, 1);
 
 const labelSchedule: Readonly<Record<string, readonly [number, number]>> = {
   "payments-api": [200, 238],
-  "checkout-service": [236, 287],
+  "checkout-service": [296, 334],
 };
 
 /**
@@ -226,8 +253,20 @@ const poses: readonly (readonly [number, Look])[] = [
   [30, { eye: [0, 0, 9], target: [0, 0, 0] }],
   [100, { eye: [0.6, 0.4, 7.4], target: [1.3, -0.4, -0.4] }],
   [195, { eye: [2.6, 0.2, 6.2], target: [3.8, -0.6, -1.0] }],
-  [268, { eye: [7.0, 3.2, 10.0], target: [8.0, 0.0, -2.4] }],
-  [300, { eye: [7.0, 3.2, 10.0], target: [8.0, 0.0, -2.4] }],
+  /**
+   * The hold that makes the crossing a beat.
+   *
+   * The rig stops where it settled on `payments-api` and stays there for sixty
+   * frames while the first crossing draws off the right of the frame. Without
+   * it the camera was already opening as the edge drew, so the viewer met the
+   * new space and the edge that reaches it in the same instant and read neither.
+   * A move that arrives before its reason is wallpaper; this one now answers a
+   * question the viewer is already asking, which is the only thing `AGENTS.md`
+   * lets a camera move do.
+   */
+  [255, { eye: [2.6, 0.2, 6.2], target: [3.8, -0.6, -1.0] }],
+  [328, { eye: [7.0, 3.2, 10.0], target: [8.0, 0.0, -2.4] }],
+  [360, { eye: [7.0, 3.2, 10.0], target: [8.0, 0.0, -2.4] }],
 ];
 
 /**
@@ -238,6 +277,7 @@ const easings = [
   Easing.linear,
   Easing.bezier(0.4, 0, 0.25, 1),
   Easing.bezier(0.4, 0, 0.4, 1),
+  Easing.linear,
   Easing.bezier(0.35, 0, 0.2, 1),
   Easing.linear,
 ];

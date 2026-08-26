@@ -33,7 +33,7 @@ which is the entire reason a coding agent would want Kivgraph.
 
 ## Narrative context
 
-**Immediately before.** Scene 04 (`04-blast-radius.md`, frames 0630–0770)
+**Immediately before.** Scene 04 (`04-blast-radius.md`, frames 0690–0830)
 propagated a change through the graph and counted it on a card
 (`7 affected symbols`, `3 dependency paths`, `2 repositories`). The graph is
 accent-marked, at rest and at full presence, and the card is the only flat
@@ -44,14 +44,14 @@ representation is retired here — deliberately, and by flattening rather than b
 cutting away — because the argument being made is not spatial. It is a difference
 in count.
 
-**What it prepares.** Scene 06 (`06-agent-answer.md`, frames 0970–1150) returns
+**What it prepares.** Scene 06 (`06-agent-answer.md`, frames 1030–1210) returns
 to the agent prompt, where the agent states the answer in prose. That return is a
 match cut on a symbol that does not move across it: this scene ends with
 `withRetry()` alone in the right column, settled and still, and Scene 06 opens on
 it in that same place at that same apparent size. Carrying it back to the prompt's
 token — closing the loop the 0330 cut opened — is Scene 06's move, made in its own
 hundred and eighty frames. This scene owns the contraction that leaves the
-symbol alone and must have it fully settled at 0969.
+symbol alone and must have it fully settled at 1029.
 
 ## Timeline
 
@@ -61,9 +61,9 @@ symbol alone and must have it fully settled at 0969.
   cut, so every document number from `04-blast-radius.md` onward is **two** lower
   than its storyboard scene number. `docs/scenes/README.md` § Scene numbering
   holds the whole mapping.
-- Global frames: **0770–0970**
+- Global frames: **0830–1030**
 - Scene-local frames: **0000–0200**
-- Time: **12.83 s – 16.17 s**
+- Time: **13.83 s – 17.17 s**
 - Duration: **200 frames / 3.33 s** at 60 fps
 - Remotion component: `src/scenes/SemanticScene.tsx`
 - Boundary source: the inline `<Sequence name="05 Semantic Resolution" from={770} durationInFrames={200}>`
@@ -76,10 +76,10 @@ Beats (scene-local = master − 770):
 | `0770–0818` | `0000–0048` | The rig straightens, depth collapses, the graph flattens into the right half, split view forms. The divider draws over local 14–52; the impact card fades out over local 0–36. |
 | `0804–0860` | `0034–0090` | Left side builds: label `Name matching` (local 34–54), the two `withRetry()` entries under two languages (42–62 and 54–74), both highlighted, then the counter (70–90). |
 | `0834–0868` | `0064–0098` | Right side resolves: label `Semantic resolution` (local 64–84), the symbol and the two relationships that reach it, then the counter (78–98). |
-| `0868`      | `0098`      | Both counters settled: `2 matches` left, `1 symbol` and `2 real relationships` right. The comparison is complete, and nothing leaves it for sixty frames. |
-| `0864–0928` | `0094–0158` | The stand: 65 frames byte-identical, both halves at full presence. `0864` is the key visual frame and is the first frame of this run. |
+| `0928`      | `0098`      | Both counters settled: `2 matches` left, `1 symbol` and `2 real relationships` right. The comparison is complete, and nothing leaves it for sixty frames. |
+| `0864–0928` | `0094–0158` | The stand: 65 frames byte-identical, both halves at full presence. `0924` is the key visual frame and is the first frame of this run. |
 | `0928–0956` | `0158–0186` | One exit window, twenty-eight frames: the two callers and their tubes, the left column, the divider, `Semantic resolution` and both counters leave together. |
-| `0956–0969` | `0186–0199` | `withRetry()` alone, pixel-identical through to 0969 for the match cut. |
+| `0956–0969` | `0186–0199` | `withRetry()` alone, pixel-identical through to 1029 for the match cut. |
 
 Every build window above is **twenty frames wide and spaced twelve apart**. They
 were eighteen and ten, which put the label, the two rows and the counter of the
@@ -87,17 +87,17 @@ left column inside 48 frames: a comparison whose whole subject is *counting*
 cannot deliver its terms faster than they can be counted. The measured cost of the
 old spacing is in `## Motion` → **The build**.
 
-The internal beat frames between 0770 and 0868 are this document's proposal; the
+The internal beat frames between 0830 and 0928 are this document's proposal; the
 storyboard fixes the transition, the build completing before the stand, the
 sixty-frame stand, the single exit window and the settle to the cut. Its centred
-copy at what is now 0864 was cut, so the key visual frame is the comparison itself
+copy at what is now 0924 was cut, so the key visual frame is the comparison itself
 rather than a sentence over it. See `## Flexible elements` and
 `## Current compromises`.
 
 ## Initial state
 
-At master frame 0770 (local 0000) the frame is **visually identical** to master
-frame 0769: the 3D graph as Scene 04 left it, at rest and accent-marked, at full
+At master frame 0830 (local 0000) the frame is **visually identical** to master
+frame 0829: the 3D graph as Scene 04 left it, at rest and accent-marked, at full
 presence, with the impact card in the **top-left**.
 
 There is no veil to inherit and none to raise. Scene 04 used to hand one over at
@@ -122,15 +122,15 @@ comparison.
 
 ## Final state
 
-At master frame 0970 (local 0200, the frame after this scene's last):
+At master frame 1030 (local 0200, the frame after this scene's last):
 
-By 0969 the frame holds **one symbol and the code bed underneath it**, and
+By 1029 the frame holds **one symbol and the code bed underneath it**, and
 nothing else:
 
 - `withRetry()` settled and still, at the apparent size the right column drew it
   at — 135 master pixels per world unit, which puts its glyph run at 216 px
   against the prompt token's 213.8 — and at the position `AgentAnswerScene.tsx`
-  opens on at 0970;
+  opens on at 1030;
 - the code bed, dim, exactly as scene 04 left it. It has been under every frame
   since 0000 and it carries on into scene 06, which is what makes the cut a
   change of context rather than a change of world;
@@ -139,7 +139,7 @@ nothing else:
 
 That last point reverses what this document used to require. It asked for the
 left side to stay faintly visible so "the two-versus-one comparison still reads
-as a comparison" at 0969. That was written when the scene ended *on* the
+as a comparison" at 1029. That was written when the scene ended *on* the
 comparison. It ends by handing a shape to a match cut, and holding four pieces
 of chrome to the last frame made the cut remove four things and add a prompt in
 one frame - which reads as a scene change, not as a match. The comparison has
@@ -147,7 +147,7 @@ been made and read by local 158; what the next frame needs is the symbol, alone.
 Every exit runs on one window, local 158-186, and the comparison stands complete
 and untouched for the sixty frames before it.
 
-Nothing is mid-animation at 0969: the frame is pixel-identical from 0956, fourteen
+Nothing is mid-animation at 1029: the frame is pixel-identical from 1016, fourteen
 frames before the cut. A match cut requires the outgoing shape to be at rest at
 the cut.
 
@@ -245,7 +245,7 @@ right side's single symbol and the two relationships that reach it; `selection`
 carries the left side's highlight. Well inside the 85–90% / 10–15% split
 (`AGENTS.md` §26).
 
-**Hierarchy** at 0864, strongest first:
+**Hierarchy** at 0924, strongest first:
 
 1. the right side's single resolved symbol;
 2. the left side's two matches, at full presence — nothing dims in this scene;
@@ -309,7 +309,7 @@ mistakes stacked.
 
 It was written so the left side would recede under the centred sentence. That
 sentence was cut, so the dim outlived its reason — and then acquired a new one
-after the fact: that the still at 0864 needed the asymmetry to carry it. It does
+after the fact: that the still at 0924 needed the asymmetry to carry it. It does
 not. The asymmetry is `2 matches` against `1 symbol` and `2 real relationships`,
 which is content, and the right side is already dominant through its plates and
 its accent.
@@ -320,21 +320,21 @@ broke the single exit window. Leaving from `0.18` while the right side left from
 appeared to go separately — which is exactly the "not together" the single window
 existed to fix. **Two things cannot read as leaving together if they start from
 different opacities.** Measured across the exit, peak luminance as a percentage
-of frame 0928: left `87 / 53 / 18 / 8`, the right column's label
+of frame 0988: left `87 / 53 / 18 / 8`, the right column's label
 `88 / 54 / 20 / 8`.
 
 What the removal also buys is the thing the stand is for: at `0.18` the left
 column was not comfortably readable, so the sixty frames of reading time were
 being spent on a column the viewer had to squint at.
 
-**The stand.** The comparison is complete at 0868 and nothing leaves it until
-0928 — sixty frames, a full second, which is the reading time two columns need and
+**The stand.** The comparison is complete at 0928 and nothing leaves it until
+0988 — sixty frames, a full second, which is the reading time two columns need and
 the counters' whole dwell. With no dim inside it the frame is byte-identical for 65
 frames, master `0864–0928`, and both halves are at full presence for all of them.
 The measured run starts four frames before the nominal one because the right
 counter's ramp is eased front-loaded, so its last four frames move less than one
-level of eight-bit grey; `0864` is the measured start, which is why it is the key
-frame rather than `0868`.
+level of eight-bit grey; `0924` is the measured start, which is why it is the key
+frame rather than `0928`.
 
 **The contraction.** Everything leaves on one window, local 158–186 (master
 `0928–0956`): the two callers and their tubes, and with them the left column, the
@@ -343,7 +343,7 @@ is a subtraction, not a move: the node holds its position, its apparent size and
 its accent, and the camera does not travel for it. That is what a match cut needs
 — the outgoing shape has to be in the same place on both sides of the cut, so the
 shape that survives is the one that never moved. The window ends fourteen frames
-before the cut, so the frame is pixel-identical from 0956 to 0969 and the shape is
+before the cut, so the frame is pixel-identical from 1016 to 1029 and the shape is
 at rest when the cut lands. Carrying the symbol back to the prompt's token belongs
 to Scene 06, which has a hundred and eighty frames for it; doing it here would mean
 two moves at once inside twenty-eight frames, one of them a snap.
@@ -458,17 +458,17 @@ proposed, would fight that pattern rather than follow it.
 
 ## Transition in
 
-Hard sequence boundary at 0770, and it is **pixel-identical**: at 0770 the frame
-equals 0769 — the accent-marked graph at rest at full presence, with the impact
+Hard sequence boundary at 0830, and it is **pixel-identical**: at 0830 the frame
+equals 0829 — the accent-marked graph at rest at full presence, with the impact
 card top-left and nothing else. Getting there mattered: the card and the claim
 line under it used to be drawn by this scene and by Scene 04 from two different
-places, and the 0769/0770 seam measured 22 dB. Both scenes now draw
+places, and the 0829/0830 seam measured 22 dB. Both scenes now draw
 `src/components/ImpactReport.tsx`, which since the claim line was cut is the card
 alone.
 
 The flatten then begins. Its preconditions, owed by Scene 04:
 
-- the graph must be **at rest** at 0770, otherwise the flatten reads as a glitch
+- the graph must be **at rest** at 0830, otherwise the flatten reads as a glitch
   rather than as a change of representation;
 - the accent state must carry over unchanged, so the right column is recognisably
   the same symbol;
@@ -480,18 +480,18 @@ it samples the graph curve shared with Scenes 03 and 04.
 
 ## Transition out
 
-At 0970 `AgentAnswerScene.tsx` takes over with a **match cut** into the agent
+At 1030 `AgentAnswerScene.tsx` takes over with a **match cut** into the agent
 prompt (`STORYBOARD.md` §27, *Graph → Agent*: graph contracts into selected
 symbol → match cut into prompt text).
 
 The contract with `06-agent-answer.md`:
 
 - this scene owns the contraction, which is everything leaving on one window over
-  local 158–186, and completes it at **0956**;
-- from 0956 to 0969 the frame is pixel-identical: `withRetry()` alone, settled and
+  local 158–186, and completes it at **1016**;
+- from 1016 to 1029 the frame is pixel-identical: `withRetry()` alone, settled and
   still, at the centre of the right column and at the apparent size the column
   drew it at;
-- at 0970 Scene 06 opens on the symbol in that same place at that same size, and
+- at 1030 Scene 06 opens on the symbol in that same place at that same size, and
   then carries it back to the prompt's token over its own duration.
 
 Scene 06 therefore inherits **a position and an apparent size**, not the token
@@ -502,7 +502,7 @@ the 0330 cut opened — `graphOffset` in `src/three/graphFrame.ts` is derived fr
 the symbol back on it — and that beat is Scene 06's to make.
 
 A match cut only works if the shape is in the same place on both sides of it,
-which is why nothing about the surviving node moves after 0928 and why the exit
+which is why nothing about the surviving node moves after 0988 and why the exit
 finishes fourteen frames before the cut rather than on it.
 
 ## Copy
@@ -537,7 +537,7 @@ Semantic resolution
 ```
 
 No centre copy. `A name is not a symbol.` used to be set across the middle of the
-frame from what is now 0864; it was cut, and nothing replaced it.
+frame from what is now 0924; it was cut, and nothing replaced it.
 
 The right-hand counter reads `2 real relationships` because two is how many the
 fixture has. `src/data/graphDemo.ts` gives `withRetry` exactly two edges whose
@@ -584,17 +584,17 @@ text appears in the scene.
 Frames to inspect manually (`STORYBOARD.md` §28):
 
 ```text
-0770 — frame identical to 0769; flatten begins
-0830 — split view established, both matches highlighted, right side resolving
-0864 — KEY VISUAL: name matching vs semantic resolution, the asymmetry alone
-0969 — contraction settled since 0956, ready for the match cut
+0830 — frame identical to 0829; flatten begins
+0890 — split view established, both matches highlighted, right side resolving
+0924 — KEY VISUAL: name matching vs semantic resolution, the asymmetry alone
+1029 — contraction settled since 1016, ready for the match cut
 ```
 
-**Frame 0864 is a key visual frame** (`STORYBOARD.md` §29 and `AGENTS.md`'s
+**Frame 0924 is a key visual frame** (`STORYBOARD.md` §29 and `AGENTS.md`'s
 still-image key frame list), earmarked for technical marketing. It is *defined* as
 the first frame of the stand's measured byte-identical run — the comparison
 complete, nothing arriving and nothing leaving — so a retime moves it to wherever
-that run now begins. It must work as a still image, which means at 0864:
+that run now begins. It must work as a still image, which means at 0924:
 
 - the two-versus-one asymmetry is countable at a glance;
 - both counters (`2 matches`, `1 symbol`, `2 real relationships`) are legible;
@@ -666,7 +666,7 @@ Preserve unless the creative direction is explicitly changed:
   of itself and the split forms around it; the rig straightens as part of that
   move, not in place of it. Never a wipe, spin, page curl or generic transition
   (`STORYBOARD.md` §27).
-- **The contraction is a subtraction and it is settled at 0956, fourteen frames
+- **The contraction is a subtraction and it is settled at 1016, fourteen frames
   before the cut.** The callers leave; the surviving node does not move, rescale
   or lose its accent. Scene 06 inherits its position and apparent size and moves
   it from there.
@@ -674,14 +674,14 @@ Preserve unless the creative direction is explicitly changed:
   twelve apart, and the sixty-frame stand behind them. Both exist so the counted
   terms can be counted; tightening either back to the old eighteen-and-ten takes
   the scene's reading time, not its slack.
-- **Frame 0864 works as a still image.**
+- **Frame 0924 works as a still image.**
 
 ## Flexible elements
 
 Safe to change without altering the scene's purpose:
 
 - exact frames of the left build and the right resolve, provided both are complete
-  and both counters are legible by roughly 0868, provided no build window is
+  and both counters are legible by roughly 0928, provided no build window is
   narrower than twenty frames or spaced closer than twelve, and provided the left
   side arrives as an unordered burst while the right arrives deliberately;
 - exact row height, column padding and list alignment on the left;
@@ -704,7 +704,7 @@ Safe to change without altering the scene's purpose:
 - Global scene boundaries live only as inline `<Sequence>` literals in
   `src/Composition.tsx` (`from={770}`, `durationInFrames={200}`), so Remotion
   Studio can trim them. There is no timing module; do not introduce one and do not
-  restate 0770/0970 inside the scene. The scene animates in scene-local frames.
+  restate 0830/1030 inside the scene. The scene animates in scene-local frames.
 - Pieces involved during the flatten, as the graph scenes ship them:
   `src/components/GraphWorld.tsx` draws the graph from a `GraphVisualState` and is
   shared by every graph scene; `src/three/GraphNode.tsx` is a node — an extruded
@@ -732,19 +732,19 @@ Safe to change without altering the scene's purpose:
   `"JetBrains Mono"`). Fonts load deterministically from `public/fonts/*.woff2`; late
   loading must not reflow the list, which would be visible on a key
   frame.
-- The hand-over at 0970 is a cross-component contract, and it is a position and an
+- The hand-over at 1030 is a cross-component contract, and it is a position and an
   apparent size rather than a rect. This scene leaves `withRetry()` where the
   right column drew it; Scene 06 reads that and animates from it to the prompt's
   token, which is exported from `src/components/AgentPrompt.tsx` as `tokenRect`
   and, once the prompt's grow has settled, as `selectedTokenRect` — the same rect
   `graphOffset` in `src/three/graphFrame.ts` was derived from at the 0330 cut, so
-  the return closes that loop rather than repeating it. Inspect 0969 and 0970 as a
+  the return closes that loop rather than repeating it. Inspect 1029 and 1030 as a
   pair on every change to either scene (`AGENTS.md` §9, §11).
 - Performance: the flatten animates camera plus per-node depth and opacity while a
   DOM list fades in. Reuse geometry and materials; avoid stacked postprocessing
   (`AGENTS.md` §35, §36).
-- Iterate with Remotion Studio plus small range renders over roughly 0760–0980.
-  Scrub forward, backward, forward across both seams (0769/0770 and 0969/0970) and
+- Iterate with Remotion Studio plus small range renders over roughly 0820–1040.
+  Scrub forward, backward, forward across both seams (0829/0830 and 1029/1030) and
   confirm identical rendering (`AGENTS.md` §40).
 
 ## Current compromises
@@ -773,7 +773,7 @@ Safe to change without altering the scene's purpose:
   about 11 px.
 - **Ownership of the contraction is an open decision resolved here.**
   `STORYBOARD.md` SCENE 07 now specifies the tail as this scene implements it —
-  the build completing at `0868`, the sixty-frame stand, one exit window
+  the build completing at `0928`, the sixty-frame stand, one exit window
   `0928–0956` and the settle to the cut — while SCENE 08 still places "el grafo se
   contrae hacia el nodo seleccionado" at the first frame of the agent answer, which
   is unreachable, because that frame is `AgentAnswerScene`'s first and the graph no
@@ -786,11 +786,11 @@ Safe to change without altering the scene's purpose:
   the hold is sixty frames and the exit twenty-eight, and the second grow left both
   alone and spent its frames on the build instead.
 - **Internal beat frames are this document's proposal.** The storyboard fixes the
-  transition, the build to `0868`, the stand, the exit window `0928–0956` and the
-  settle to the cut; its centred copy at what is now `0864` was cut, so that beat
+  transition, the build to `0928`, the stand, the exit window `0928–0956` and the
+  settle to the cut; its centred copy at what is now `0924` was cut, so that beat
   no longer constrains anything. The flatten window, the left build and the right
-  resolve windows in `## Timeline` are derived from the critical frames `0770`,
-  `0830`, `0864` and `0969`.
+  resolve windows in `## Timeline` are derived from the critical frames `0830`,
+  `0890`, `0924` and `1029`.
 - **The flatten technique is decided, and it is decided as an experiment.** The
   first implementation is a true R3F flatten with the canvas kept alive. It was
   not chosen for being the better renderer; it was chosen for being the cheaper
