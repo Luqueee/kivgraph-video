@@ -2975,7 +2975,7 @@ Same answer. Less context.
 ```
 
 ```text
-retry a failed request with exponential backoff
+Where do we retry failed requests?
 ```
 
 ```text
@@ -2984,7 +2984,7 @@ Not where it lives.
 ```
 
 ```text
-Finds where to start reading
+Tells your agent where to read
 ```
 
 ```text
@@ -3678,7 +3678,7 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   Normalmente no lo sabe. `find_by_intent` es la herramienta de ese paso previo.
 - Copy nuevo, literal del ejemplo documentado de la herramienta, y entra en la
   sección 32:
-      retry a failed request with exponential backoff
+      Where do we retry failed requests?
 - Invariantes semánticos de la escena, tomados de la documentación real y no de
   una descripción: `match` viaja visible en cada fila con el vocabulario del
   producto — `lexical`, `lexical+calls` —, no se muestra ningún score porque la

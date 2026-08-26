@@ -76,8 +76,7 @@ import { brand } from "../brand/tokens";
 const beat = {
   problem: [8, 44],
   problemPitch: 10,
-  describe: [68, 98],
-  intent: [76, 114],
+  intent: [72, 116],
   tool: [130, 154],
   result: [160, 192],
   ghosts: [168, 200],
@@ -109,22 +108,33 @@ const problem = [
 ] as const;
 
 /**
- * What the quoted line below it is, so it cannot be mistaken for a question.
+ * Beat 1. The question.
  *
- * Named `describeLine` and not `describe`: the bare name is a test-runner global
- * in this toolchain and TypeScript resolves it silently to that instead of
- * failing, which is the kind of error that compiles.
- */
-const describeLine = "So you describe it:";
-
-/**
- * Beat 1. The question, verbatim from the tool's own documented example.
+ * **This is not the tool's documented example, and the departure is deliberate.**
+ * The example is `retry a failed request with exponential backoff`, it was used
+ * verbatim for three builds, and it kept failing for one reason: *exponential
+ * backoff* is the jargon a viewer who needs this scene does not have, and the
+ * whole sentence reads as a specification rather than as something a person
+ * would say.
  *
- * Not a variant written for the film. Its documented top result is `withRetry`,
- * which is what makes this video demonstrable against the product rather than
- * merely plausible.
+ * What replaces it is still inside the tool's contract, and arguably closer to
+ * it. The documentation describes the argument as *«`intent` — The question, in
+ * plain language»*; the canonical example happens to be a noun phrase, so a real
+ * question honours the stated semantics even where it departs from the sample
+ * value. The matching terms survive intact: `retry` is in `withRetry`'s own name
+ * and in the `internal/retry` path all three candidates share, and `requests` is
+ * what its callees are about - which is exactly the `lexical` versus
+ * `lexical+calls` split the result still shows.
+ *
+ * **It is a demo phrasing and this comment is the record of that.** It is not a
+ * recorded tool response, and no frame of this scene claims it is.
+ *
+ * It also buys something the example could not: the film now has two agent
+ * questions and they bookend the discovery -
+ * *Where do we retry failed requests?* and then, four scenes later,
+ * *What breaks if I change withRetry()?*
  */
-export const intent = "retry a failed request with exponential backoff";
+export const intent = "Where do we retry failed requests?";
 
 /**
  * Beat 2. What the tool is called and, in plain language, what it does.
@@ -188,7 +198,6 @@ const columnX = 500;
 export const IntentScene: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const describeIn = entry(frame, beat.describe[0], beat.describe[1]);
   const intentIn = entry(frame, beat.intent[0], beat.intent[1]);
   const toolIn = entry(frame, beat.tool[0], beat.tool[1]);
   const resultIn = entry(frame, beat.result[0], beat.result[1]);
@@ -262,23 +271,6 @@ export const IntentScene: React.FC = () => {
         style={{
           position: "absolute",
           left: columnX,
-          top: 366,
-          fontFamily: fontSans,
-          fontSize: 20,
-          lineHeight: 1,
-          whiteSpace: "pre",
-          color: brand.textFaint,
-          opacity: describeIn.opacity * context,
-          translate: `0px ${describeIn.offsetY}px`,
-        }}
-      >
-        {describeLine}
-      </div>
-
-      <div
-        style={{
-          position: "absolute",
-          left: columnX,
           top: 408,
           fontFamily: fontMono,
           fontSize: 30,
@@ -289,7 +281,8 @@ export const IntentScene: React.FC = () => {
           translate: `0px ${intentIn.offsetY}px`,
         }}
       >
-        {`"${intent}"`}
+        <span style={{ color: brand.textFaint }}>{"❯  "}</span>
+        {intent}
       </div>
 
       {/** Beat 2 - the tool, and what it does. */}

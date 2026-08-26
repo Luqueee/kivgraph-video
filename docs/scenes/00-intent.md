@@ -30,7 +30,7 @@ Secondary: what it gets back is a place to start, not a proof.
 | ------------- | ------------- | ----------------------------------------------------------- |
 | `0000`–`0008` | `0000`–`0008` | Empty. The same opening silence discipline as `08-brand.md`. |
 | `0008`–`0054` | `0008`–`0054` | **Beat 1, the problem.** Two lines, the second the punch.    |
-| `0068`–`0114` | `0068`–`0114` | **Beat 1, the behaviour.** `So you describe it:` and the quoted phrase. |
+| `0072`–`0116` | `0072`–`0116` | **Beat 1, the question**, at the prompt glyph scene 02 also uses. |
 | `0130`–`0154` | `0130`–`0154` | **Beat 2, the tool**, and in plain language what it does.    |
 | `0160`–`0200` | `0160`–`0200` | **Beat 3, the result.** One dominant name; two quiet others. |
 | `0252`–`0282` | `0252`–`0282` | Everything except the name leaves.                           |
@@ -51,8 +51,7 @@ by, with everything leaving at `0252`:
 block                       chars   settles   dwell     char/s
 You know what the code does.   28      0044    3.47 s        8
 Not where it lives.            19      0054    3.30 s        6
-So you describe it:            19      0114    2.30 s        7
-the quoted behaviour           49      0114    2.30 s       21
+Where do we retry failed req?  34      0116    2.27 s       15
 find_by_intent + subtitle      47      0154    1.63 s       29
 name, path, match              72      0192    1.00 s       72
 ```
@@ -77,21 +76,16 @@ purpose from a ranking they had to parse first. Technically accurate and
 unreadable at a glance.
 
 **Beat 1 — the problem.** `You know what the code does.` / `Not where it lives.`
-Sans, because it is addressed to the viewer. Then `So you describe it:` and the
-behaviour itself, quoted, in mono.
+Sans, because it is addressed to the viewer. Then the question itself, in mono,
+at the `❯` scene 02 also uses.
 
-**Quoted, and with no `❯`.** The prompt glyph promises a command or a question
-typed at a shell and the phrase is neither — it is a description of what some
-code does, which is exactly what the tool's `intent` argument takes. With the
-glyph it read as a question that was not one. With nothing at all it read as a
-floating claim, which was worse: the glyph had at least said *you typed this*.
-
-Quotation marks say *someone said this* without promising an interrogative, and
-`So you describe it:` above them removes the rest of the ambiguity. **The phrase
-itself is untouched** — it is the tool's own documented example, its documented
-top result is `withRetry`, and that is what makes this film demonstrable against
-the product rather than merely plausible. What was wrong was the presentation,
-not the words.
+**The glyph took three builds to earn.** It promises a command or a question
+typed at a prompt. For three builds the line under it was the documented noun
+phrase, so the promise was false and the frame read wrong; removing the glyph was
+worse, because then nothing said the line was something a person had typed at
+all; quoting it and labelling it `So you describe it:` was scaffolding holding an
+ambiguity together. The line is a question now, so the glyph is simply true and
+all the scaffolding is gone.
 
 **Beat 2 — the tool.** `find_by_intent`, and under it `Tells your agent where to read`. Both that and *finds likely code entry points* are accurate; the second
 is the documentation's register and the first is a person's. "Entry point" is a
@@ -144,15 +138,32 @@ These are the ones that must survive future edits. They are not stylistic.
 
 ## Copy
 
-Verbatim, and it is the tool's own documented example rather than a variant
-written for the film:
-
 ```text
-retry a failed request with exponential backoff
+Where do we retry failed requests?
 ```
 
-That example's top result is `withRetry`, which is what makes this video
-demonstrable against the product instead of merely plausible.
+**This is not the tool's documented example, and the departure is deliberate.**
+The example is `retry a failed request with exponential backoff`; it was used
+verbatim for three builds and kept failing for one reason. *Exponential backoff*
+is exactly the jargon a viewer who needs this scene does not have, and the whole
+sentence reads as a specification rather than as something a person would say.
+
+What replaces it is still inside the tool's contract, and arguably closer to it.
+The documentation describes the argument as *«`intent` — The question, in plain
+language»*; the canonical example happens to be a noun phrase, so a real question
+honours the stated semantics even where it departs from the sample value. The
+matching terms survive: `retry` is in `withRetry`'s own name and in the
+`internal/retry` path all three candidates share, and `requests` is what its
+callees are about — which is the `lexical` versus `lexical+calls` split the
+result still shows.
+
+**It is a demo phrasing and this section is the record of that.** It is not a
+recorded tool response, and no frame of the scene claims it is.
+
+It also buys something the example could not: the film now has two agent
+questions and they bookend the discovery —
+`Where do we retry failed requests?` and then, four scenes later,
+`What breaks if I change withRetry()?`
 
 ```text
 kivgraph / find_by_intent
