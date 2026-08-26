@@ -12,16 +12,16 @@ import { SemanticScene } from "./scenes/SemanticScene";
 import { SymbolScene } from "./scenes/SymbolScene";
 
 /**
- * The 32.83 s master. This file is the only place that holds global frame
+ * The 34.17 s master. This file is the only place that holds global frame
  * boundaries; scenes animate in their own local frame space, because
  * `useCurrentFrame()` inside a `<Sequence>` starts at 0.
  *
  * `from` and `durationInFrames` stay inline literals so the sequences remain
  * trimmable in Remotion Studio.
  *
- * 0000-0220 Intent 0220-0340 Symbol 0340-0550 Agent
- * 0550-0910 Graph Reveal 0910-1050 Blast Radius 1050-1250 Semantic
- * 1250-1430 Agent Answer 1430-1680 Benchmark 1680-1850 Brand 1850-1970 Outro
+ * 0000-0300 Intent 0300-0420 Symbol 0420-0630 Agent
+ * 0630-0990 Graph Reveal 0990-1130 Blast Radius 1130-1330 Semantic
+ * 1330-1510 Agent Answer 1510-1760 Benchmark 1760-1930 Brand 1930-2050 Outro
  *
  * The master is 1750 frames, and eight retimes got it there from 1410. The
  * cross-repository scene was deleted (-90). The blast radius lost twenty frames
@@ -61,7 +61,7 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * reason it always was one: the length belongs to this file, which is the only
  * place that holds global frame boundaries.
  */
-export const masterFrames = 1970;
+export const masterFrames = 2050;
 
 export const KivgraphVideo: React.FC = () => {
   return (
@@ -71,13 +71,13 @@ export const KivgraphVideo: React.FC = () => {
        * structural consequence of the new opening: everything else moved by a
        * constant.
        */}
-      <Sequence name="00 Intent" durationInFrames={220}>
+      <Sequence name="00 Intent" durationInFrames={300}>
         <IntentScene />
       </Sequence>
-      <Sequence name="01 Symbol" from={220} durationInFrames={120}>
+      <Sequence name="01 Symbol" from={300} durationInFrames={120}>
         <SymbolScene />
       </Sequence>
-      <Sequence name="02 Agent" from={340} durationInFrames={210}>
+      <Sequence name="02 Agent" from={420} durationInFrames={210}>
         <AgentScene />
       </Sequence>
       {/**
@@ -106,7 +106,7 @@ export const KivgraphVideo: React.FC = () => {
        */}
       <Sequence
         name="03 Graph Reveal"
-        from={550}
+        from={630}
         durationInFrames={360}
         premountFor={30}
         postmountFor={30}
@@ -115,7 +115,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="04 Blast Radius"
-        from={910}
+        from={990}
         durationInFrames={140}
         premountFor={30}
         postmountFor={30}
@@ -124,7 +124,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="05 Semantic Resolution"
-        from={1050}
+        from={1130}
         durationInFrames={200}
         premountFor={30}
       >
@@ -132,7 +132,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="06 Agent Answer"
-        from={1250}
+        from={1330}
         durationInFrames={180}
         premountFor={30}
       >
@@ -140,7 +140,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="07 Benchmark"
-        from={1430}
+        from={1510}
         durationInFrames={250}
         premountFor={30}
       >
@@ -165,7 +165,7 @@ export const KivgraphVideo: React.FC = () => {
        */}
       <Sequence
         name="08 Brand"
-        from={1680}
+        from={1760}
         durationInFrames={170}
         premountFor={30}
         postmountFor={30}
@@ -182,7 +182,7 @@ export const KivgraphVideo: React.FC = () => {
        * over the frame scene 08 settled on - and there is nothing after it to
        * scrub back from.
        */}
-      <Sequence name="09 Outro" from={1850} durationInFrames={120}>
+      <Sequence name="09 Outro" from={1930} durationInFrames={120}>
         <OutroScene />
       </Sequence>
     </>

@@ -49,8 +49,8 @@ storyboard SCENE 03 and SCENE 04 are implemented as the single
 from the film, so storyboard SCENE 08 is document 06. Read the mapping table in
 `docs/scenes/README.md` before comparing frame numbers between the two files.
 
-- Global frames: `1250`–`1430`
-- Scene-local frames: `0220`–`0400` (last rendered frame `0399` / master `1429`)
+- Global frames: `1330`–`1510`
+- Scene-local frames: `0300`–`0480` (last rendered frame `0479` / master `1509`)
 - Time: 17.17 s – 20.17 s
 - Duration: 180 frames / 3.0 s at 60 fps
 - Remotion component: `src/scenes/AgentAnswerScene.tsx`
@@ -59,29 +59,29 @@ Beats:
 
 | Master        | Local         | Beat                                                             |
 | ------------- | ------------- | ---------------------------------------------------------------- |
-| `1250`        | `0000`        | Match cut lands. Prompt layer is back, question still on screen.  |
-| `1250`–`1274` | `0000`–`0024` | The symbol travels 201 px left and 74 px up to the token slot.    |
-| `1274`–`1280` | `0024`–`0030` | Cross-fade: the travelling symbol becomes the prompt's token.     |
-| `1280`–`1296` | `0030`–`0046` | Block 1: `Changing withRetry() affects:`                          |
-| `1296`–`1312` | `0046`–`0062` | Block 2: `7 symbols` / `across 2 repositories.`                   |
-| `1314`–`1330` | `0064`–`0080` | Block 3: the `checkout-service` path sentence                     |
-| `1330`–`1344` | `0080`–`0094` | Label `Answered with Kivgraph` arrives and reads.                 |
-| `1344`–`1470` | `0094`–`0220` | Hold. Nothing moves; the render measures 87 frames identical from `1343`. The frame is settled for the hard cut, and the hold is where the answer is read. |
+| `1330`        | `0000`        | Match cut lands. Prompt layer is back, question still on screen.  |
+| `1330`–`1354` | `0000`–`0024` | The symbol travels 201 px left and 74 px up to the token slot.    |
+| `1354`–`1360` | `0024`–`0030` | Cross-fade: the travelling symbol becomes the prompt's token.     |
+| `1360`–`1376` | `0030`–`0046` | Block 1: `Changing withRetry() affects:`                          |
+| `1376`–`1392` | `0046`–`0062` | Block 2: `7 symbols` / `across 2 repositories.`                   |
+| `1394`–`1410` | `0064`–`0080` | Block 3: the `checkout-service` path sentence                     |
+| `1410`–`1424` | `0080`–`0094` | Label `Answered with Kivgraph` arrives and reads.                 |
+| `1424`–`1630` | `0094`–`0300` | Hold. Nothing moves; the render measures 87 frames identical from `1423`. The frame is settled for the hard cut, and the hold is where the answer is read. |
 
-Only `1250` and `1344` are fixed. The three block windows are the documented
+Only `1330` and `1424` are fixed. The three block windows are the documented
 rhythm, not a requirement, but they are **late and measured**: they may shift as
 long as the blocks remain three distinct beats, the scene is fully settled by
-`1344`, and no block loses dwell time against the figures in `## Motion` →
+`1424`, and no block loses dwell time against the figures in `## Motion` →
 **The hold, and why the scene is 180 frames**.
 
 ## Initial state
 
-At `1250` the frame is the agent prompt layer from `02-agent.md`, at the same
-scale it had there and **260 px higher up the frame** — see
+At `1330` the frame is the agent prompt layer from `02-agent.md`, at the same
+scale it had there and **340 px higher up the frame** — see
 `## Visual composition`, `The lift`:
 
 - **no terminal panel.** Scene 02 never draws one, and neither does this scene:
-  the layer is a 1 px `borderStrong` `#333a42` rule, a `❯` glyph, one monospace
+  the layer is a 1 px `borderStrong` `#413a42` rule, a `❯` glyph, one monospace
   row and one tool line, over `background` `#0a0b0d`. Its geometry is exported
   from `src/components/AgentPrompt.tsx` as `promptLayout`; read it rather than
   re-laying the row out;
@@ -97,7 +97,7 @@ scale it had there and **260 px higher up the frame** — see
   marker in `accent` `#2563eb`, the text in `textSecondary` / `textMuted`;
 - no answer text yet;
 - the graph reduced to that single travelling symbol, drawn by the same renderer
-  that drew it at `1249` so the cut matches; no other residue of the split view,
+  that drew it at `1329` so the cut matches; no other residue of the split view,
   and no divider or left column.
 
 The code world behind the prompt returns. It starts at the exact levels scene 05
@@ -111,7 +111,7 @@ its symbol to come back.
 
 ## Final state
 
-At `1429` the prompt layer holds the complete answer:
+At `1509` the prompt layer holds the complete answer:
 
 - the three answer blocks, all fully legible;
 - the quantities `7` and `2` carrying the only accent in the block;
@@ -137,7 +137,7 @@ Hierarchy, strongest to weakest:
 5. the `Answered with Kivgraph` label — attribution, deliberately quiet.
 
 Typography follows `AGENTS.md` §27 and `STORYBOARD.md` §7. Everything in this
-scene is agent output, so everything is `JetBrains Mono`. Weights 400 and 500
+scene is agent output, so everything is `JetBrains Mono`. Weights 480 and 580
 only.
 
 The scale was raised on 2026-08-26 and the quantities now sit **above** the body
@@ -153,7 +153,7 @@ correct: this scene is the answer, not the asking. The prompt row stays at 30 px
 because that is `promptLayout`, which `02-agent.md` marks not flexible.
 
 The path sentence sets on **two lines**, broken before the package. The copy is
-unchanged; at 26 px on one line it measured 1413 px, 62 % of the frame, and would
+unchanged; at 26 px on one line it measured 1493 px, 62 % of the frame, and would
 be gone in the 1:1 and 9:16 crops `STORYBOARD.md` §2 requires to stay possible.
 The attribution label sits at the label scale (16–20 px). No text smaller than
 16 px.
@@ -182,7 +182,7 @@ Agent output that does not share the prompt's left edge stops reading as output.
 
 ### The lift
 
-The whole prompt layer sits **287 px above** where `promptLayout` puts it, and
+The whole prompt layer sits **367 px above** where `promptLayout` puts it, and
 the falloff behind it moves with it. `answerLift` in `AgentPrompt.tsx` is the
 constant; nothing in this scene writes the number itself. It is not a constant of
 the layout - it is the answer to a measurement, and it is re-measured whenever
@@ -192,20 +192,20 @@ It exists because `promptLayout`'s position is scene 02's answer to a question
 this scene no longer asks. There, the prompt sits in the lower half because it is
 a prompt *under the code it is about*: the camera opens to `0.66` specifically to
 clear that half for it, and `promptScrim` takes the light out of it so the
-question reads. By `1250` the code bed is down at `0.02` and the answer is the
+question reads. By `1330` the code bed is down at `0.02` and the answer is the
 whole frame, so the same position stops reading as a prompt under code and starts
 reading as a block that has slid off the bottom of the shot.
 
-Measured on the settled frame `1344`: the content ran `884` to `1256`, so its
-centre sat at `1070` against the frame's `760`. Lifted, it runs `537` to `1028`,
-centre `752` — deliberately a little above geometric centre, which is the
+Measured on the settled frame `1424`: the content ran `964` to `1336`, so its
+centre sat at `1150` against the frame's `840`. Lifted, it runs `617` to `1108`,
+centre `832` — deliberately a little above geometric centre, which is the
 correction `BenchmarkScene` makes for the same reason: a block of type centred
 geometrically reads low.
 
 **Horizontally nothing moved, and that was measured rather than assumed.** The
-content is left-aligned at `720` under a rule that starts at `660`, so its
+content is left-aligned at `800` under a rule that starts at `740`, so its
 horizontal centre is a property of the rule and the longest line rather than
-something to tune. It measures `1169` today, 71 px left of the frame's — 3.7 %,
+something to tune. It measures `1249` today, 71 px left of the frame's — 3.7 %,
 and structural. Moving it would break the one thing this document requires of
 the answer's `x`.
 
@@ -214,7 +214,7 @@ the row's position *not flexible* because scenes 03 and 07 depend on it, and the
 dependency is real rather than nominal: `graphFrame.ts` derives `graphOffset` —
 the world position of the entire graph for scenes 03 to 06 — from
 `selectedTokenRect`. Folding the lift into `promptLayout` would carry the graph,
-the camera path and the key stills `0909`, `0998` and `1144` with it. The lift is
+the camera path and the key stills `0989`, `1078` and `1224` with it. The lift is
 this scene's, and only this scene's.
 
 ## Motion
@@ -240,14 +240,14 @@ should feel returned in one motion.
 
 Storyboard frame numbers mark the frame at which a beat **reads**, not the frame
 at which its opacity ramp starts. The `Answered with Kivgraph` label therefore
-*finishes* on `1344` rather than beginning there, so the reviewed frame `1344`
+*finishes* on `1424` rather than beginning there, so the reviewed frame `1424`
 shows it legible.
 
 The caret may rest after the question. It must not blink and must not retype
 anything: the human is done, and a blinking caret during the hold would break the
 settled final frame.
 
-Nothing moves between `1344` and `1430`.
+Nothing moves between `1424` and `1510`.
 
 **The hold, and why the scene is 180 frames.** This scene ran 90 frames, and the
 number that doubled it is **dwell time**: how long a readable thing stays on
@@ -274,7 +274,7 @@ The path sentence now reads at **44 characters per second**, inside the band. Th
 hold from local 94 to 180 is not padding and it is not a settled frame waiting for
 a cut: it is the only place in the scene where the answer is read. All 86 of its
 frames sit inside the 87-frame run the render measures identical, which starts one
-frame earlier at `1343` because the label's easing is front-loaded and its last
+frame earlier at `1423` because the label's easing is front-loaded and its last
 frame moves less than one level of eight-bit grey.
 
 The order of the dwell figures is deliberate and it is the reverse of the arrival
@@ -319,7 +319,7 @@ match cut into prompt text
 The contraction converges on the `withRetry()` node, and this scene inherits **a
 position and an apparent size**, not the token rect. `SemanticScene` leaves the
 node where its right column drew it — 152 master pixels per world unit — and the
-cut at `1250` lands on a shape that is already exactly there. Carrying that shape
+cut at `1330` lands on a shape that is already exactly there. Carrying that shape
 back onto the `withRetry()` token inside the prompt row is *this* scene's beat,
 made over its own hundred and eighty frames: `graphOffset` in
 `src/three/graphFrame.ts` is
@@ -330,13 +330,13 @@ had it backwards — that would be the previous scene doing this scene's work, a
 match cut needs the shape in the same place on both sides of the cut, not already
 moved.
 
-Because Remotion `Sequence` boundaries at `1250` do not overlap, the contraction
-is authored as the **tail of `SemanticScene`**, complete at frame `1236` and at
-rest through `1249`. A match cut requires the outgoing shape to be settled at the
-cut; if the contraction were still running at `1250` there would be nothing to
+Because Remotion `Sequence` boundaries at `1330` do not overlap, the contraction
+is authored as the **tail of `SemanticScene`**, complete at frame `1316` and at
+rest through `1329`. A match cut requires the outgoing shape to be settled at the
+cut; if the contraction were still running at `1330` there would be nothing to
 match. Agreed division with `05-semantic-resolution.md`: the comparison stands
-`1148`–`1208`, everything leaves on one window `1208`–`1236`, and the frame is
-pixel-identical from `1236` to `1249`. See `## Current compromises` for the
+`1228`–`1288`, everything leaves on one window `1288`–`1316`, and the frame is
+pixel-identical from `1316` to `1329`. See `## Current compromises` for the
 storyboard tension this resolves.
 
 No wipe, no flash, no zoom blur (`STORYBOARD.md` §27). The transition is the
@@ -345,7 +345,7 @@ not be hidden behind an effect: if the positions do not match, fix the positions
 
 ## Transition out
 
-Hard cut at `1430` into `07-benchmark.md`.
+Hard cut at `1510` into `07-benchmark.md`.
 
 The answer is on screen, static, fully readable, and then the block of it is
 simply gone, replaced by typography on bare background. The cut is unsoftened on
@@ -354,14 +354,14 @@ here is what it cost". A crossfade would blend the two into one continuous claim
 and weaken both.
 
 One element survives, and only one: the attribution line `Answered with
-Kivgraph`. It is on screen at `1430` at exactly the position, size, colour and
-letter-spacing it holds at `1429` — the region measures `inf` PSNR across the
+Kivgraph`. It is on screen at `1510` at exactly the position, size, colour and
+letter-spacing it holds at `1509` — the region measures `inf` PSNR across the
 cut — and scene 07 retires it over its local `2`–`18` while the table's column
 heads arrive. The word `Kivgraph` is handed from this scene's signature to that
 scene's column head, at 17 px and 18 px respectively.
 
 That is a match cut, not a softening. The panel, the prompt, the three answer
-blocks and every pixel of the terminal are gone at `1430`, and the whole frame
+blocks and every pixel of the terminal are gone at `1510`, and the whole frame
 still measures 24.25 dB across the boundary, which is what a hard cut measures.
 The carried line exists because this scene's last 87 frames are byte-identical —
 that stillness is the only place the answer is read, so it cannot be trimmed —
@@ -390,7 +390,7 @@ payments-api/paymentService.
 Answered with Kivgraph
 ```
 
-Carried over from `02-agent.md` and visible from frame `1250`, not new copy:
+Carried over from `02-agent.md` and visible from frame `1330`, not new copy:
 
 ```text
 ❯ What breaks if I change withRetry()?
@@ -418,40 +418,40 @@ scene communicates through the result, not around it.
 ## Key frames
 
 ```text
-frame 1250 — match cut lands; prompt restored, question still on screen, no answer yet
+frame 1330 — match cut lands; prompt restored, question still on screen, no answer yet
 frame 1000 — token landed, code bed back up, first block arriving
-frame 1344 — full answer plus the "Answered with Kivgraph" label; the resolved frame
-frame 1429 — settled final frame immediately before the hard cut
+frame 1424 — full answer plus the "Answered with Kivgraph" label; the resolved frame
+frame 1509 — settled final frame immediately before the hard cut
 ```
 
-`1250` and `1344` are on the manual review list in `STORYBOARD.md` §28. `1344` is
+`1330` and `1424` are on the manual review list in `STORYBOARD.md` §28. `1424` is
 *defined* as the frame the attribution label finishes on, which is also the frame
 the scene goes static, so a retime moves it to wherever `labelOpacity`'s window
 now ends. Neither is a designated still-image key frame (`AGENTS.md`'s
-still-image key frame list is `0300`, `0909`, `0998`, `1144`, `1344`, `1510`,
-`1670` — `1344` is on it because this retime put it there), but `1344` is the
+still-image key frame list is `0380`, `0989`, `1078`, `1224`, `1424`, `1590`,
+`1750` — `1424` is on it because this retime put it there), but `1424` is the
 frame that proves the loop closed and must be inspected as if it were a still.
 
 ## Invariants
 
 - The prompt layer reappears at the **same scale** it had in `02-agent.md`, read
-  from `promptLayout`, and 260 px higher — `answerLift`. The scale is what the
+  from `promptLayout`, and 340 px higher — `answerLift`. The scale is what the
   match cut depends on; the position is this scene's to compose, because the
-  prompt is not on screen at `1249` and there is nothing for it to match. If the
+  prompt is not on screen at `1329` and there is nothing for it to match. If the
   *scale* drifts, the match cut stops being a match cut and the scene becomes an
   unrelated shot of a prompt.
 - **The lift reaches the travelling symbol through the camera pose, never
   through a transform on the canvas.** `answerState.ts` offsets `tokenLook`;
   `AgentAnswerScene` puts no transform on the element holding `GraphWorld`. The
   first build did, at `answerLift * travelProgress`, which is zero at frame 0 and
-  should therefore have left `1250` untouched — and did not: a transform
-  resamples the WebGL texture whether or not it moves anything, and `1250` came
+  should therefore have left `1330` untouched — and did not: a transform
+  resamples the WebGL texture whether or not it moves anything, and `1330` came
   out 51 dB from the same frame without the wrapper. That is antialiasing noise
   rather than a visible shift, but it is noise on the one frame in the film whose
   whole job is to be identical to the frame before it.
 - **`Attribution` is rendered outside the lift wrapper.** Its `y` already carries
   the lift, as `956 + answerLift`, because scene 07 reads the same constant across
-  the cut at `1429`/`1430`. Applying the wrapper to it as well would offset it
+  the cut at `1509`/`1510`. Applying the wrapper to it as well would offset it
   twice here and not at all there.
 - The `withRetry()` token in the prompt is the anchor the incoming contraction
   converges on. Its position is a shared constant, not two independent layouts.
@@ -467,7 +467,7 @@ frame that proves the loop closed and must be inspected as if it were a still.
   sound, or colour alone to be understood.
 - Accent marks only the result and the Kivgraph invocation. The scene stays
   ≥ 85 % neutral.
-- The frame is static from `1344` to `1430`, and that hold is the answer's reading
+- The frame is static from `1424` to `1510`, and that hold is the answer's reading
   time rather than slack. The path sentence's dwell is 100 frames — 1.67 s, 44
   characters per second. Shortening the scene, or moving any block later, spends
   reading time on the payload of the entire film; the measurement that set these
@@ -504,7 +504,7 @@ frame that proves the loop closed and must be inspected as if it were a still.
   drift the moment either is touched, and the invariant above is exactly what
   drifts.
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="06 Agent Answer" from={970} durationInFrames={180}>`
+  `<Sequence name="06 Agent Answer" from={1050} durationInFrames={180}>`
   literals, because Remotion Studio can only trim inline literals. There is no
   timing module. The component animates in scene-local frames:
   `useCurrentFrame()` inside the Sequence starts at `0`. It reads the frame it
@@ -531,12 +531,12 @@ frame that proves the loop closed and must be inspected as if it were a still.
   This bullet used to read "Not implemented yet" long after the scene had landed.
 - **Storyboard tension, resolved.** `STORYBOARD.md` places the graph contraction
   at the agent answer's first frame while giving storyboard SCENE 07 a tail that
-  stands complete to `1208` and then leaves on one window `1208`–`1236`. Both
+  stands complete to `1288` and then leaves on one window `1288`–`1316`. Both
   cannot be true at a non-overlapping Sequence boundary, and a contraction that
-  begins at `1250` is unreachable inside `AgentAnswerScene` without making this a
+  begins at `1330` is unreachable inside `AgentAnswerScene` without making this a
   3D scene. Resolution agreed with `05-semantic-resolution.md`: `SemanticScene`
-  owns the contraction — the stand `1148`–`1208`, the exit `1208`–`1236`, and the
-  frame pixel-identical from `1236` to `1249`. Both documents record the same
+  owns the contraction — the stand `1228`–`1288`, the exit `1288`–`1316`, and the
+  frame pixel-identical from `1316` to `1329`. Both documents record the same
   division. Do not let a future agent re-split it in only one of them.
 - **Selection treatment, now decided.** `02-agent.md` owns how the selected
   `withRetry()` token looks and has settled on a `brand.selection` `#1e3a8a`

@@ -19,23 +19,52 @@ Secondary: what it gets back is a place to start, not a proof.
 
 ## Timeline
 
-- Global frames: `0000`–`0220`
-- Scene-local frames: `0000`–`0220` (they are master frames; the scene starts at 0)
-- Time: 0.0 s – 3.67 s
-- Duration: 220 frames / 3.67 s at 60 fps
+- Global frames: `0000`–`0300`
+- Scene-local frames: `0000`–`0300` (they are master frames; the scene starts at 0)
+- Time: 0.0 s – 5.0 s
+- Duration: 300 frames / 5.0 s at 60 fps
 - Remotion component: `src/scenes/IntentScene.tsx`
-- Registration: `<Sequence name="00 Intent" durationInFrames={220}>`
+- Registration: `<Sequence name="00 Intent" durationInFrames={300}>`
 
 | Master        | Local         | Beat                                                        |
 | ------------- | ------------- | ----------------------------------------------------------- |
 | `0000`–`0008` | `0000`–`0008` | Empty. The same opening silence discipline as `08-brand.md`. |
-| `0008`–`0048` | `0008`–`0048` | **Beat 1, the problem.** Two lines, the second the punch.    |
-| `0052`–`0084` | `0052`–`0084` | **Beat 1, the behaviour**, described.                        |
-| `0088`–`0110` | `0088`–`0110` | **Beat 2, the tool**, and in plain language what it does.    |
-| `0112`–`0142` | `0112`–`0142` | **Beat 3, the result.** One dominant name; two quiet others. |
-| `0186`–`0210` | `0186`–`0210` | Everything except the name leaves.                           |
-| `0190`–`0214` | `0190`–`0214` | The name scales onto the source symbol. It never travels.    |
-| `0220`        | `0220`        | Match cut into `01-symbol.md` frame 0.                        |
+| `0008`–`0054` | `0008`–`0054` | **Beat 1, the problem.** Two lines, the second the punch.    |
+| `0068`–`0114` | `0068`–`0114` | **Beat 1, the behaviour.** `So you describe it:` and the quoted phrase. |
+| `0130`–`0154` | `0130`–`0154` | **Beat 2, the tool**, and in plain language what it does.    |
+| `0160`–`0200` | `0160`–`0200` | **Beat 3, the result.** One dominant name; two quiet others. |
+| `0252`–`0282` | `0252`–`0282` | Everything except the name leaves.                           |
+| `0258`–`0294` | `0258`–`0294` | The name scales onto the source symbol. It never travels.    |
+| `0300`        | `0300`        | Match cut into `01-symbol.md` frame 0.                        |
+
+## Reading time is what the length is for
+
+The scene is 300 frames because it is the only one in the film that introduces a
+tool, a vocabulary and a result to a viewer holding none of them, and time is the
+only thing that buys that. Every window lives in one `beat` object in
+`IntentScene.tsx` so this table and the code cannot drift.
+
+Measured against the 25–40 characters per second the rest of the film is timed
+by, with everything leaving at `0252`:
+
+```text
+block                       chars   settles   dwell     char/s
+You know what the code does.   28      0044    3.47 s        8
+Not where it lives.            19      0054    3.30 s        6
+So you describe it:            19      0114    2.30 s        7
+the quoted behaviour           49      0114    2.30 s       21
+find_by_intent + subtitle      47      0154    1.63 s       29
+name, path, match              72      0192    1.00 s       72
+```
+
+The last row is the only one above the budget and it is meant to be. A path and a
+`match` value are scanned, not read; and the name in that row does not stop at
+`0252` — it survives the cut and is the anchor of the whole next scene.
+
+The first build of these three beats ran 180 frames, and the same table failed on
+three of five rows, the worst settling two frames before the scene began to
+leave. Structure was the fix for *hard to parse*; it could not also be the fix
+for *not on screen long enough*.
 
 ## Three beats, one idea
 
@@ -48,17 +77,23 @@ purpose from a ranking they had to parse first. Technically accurate and
 unreadable at a glance.
 
 **Beat 1 — the problem.** `You know what the code does.` / `Not where it lives.`
-Sans, because it is addressed to the viewer. Then the behaviour itself, in mono.
+Sans, because it is addressed to the viewer. Then `So you describe it:` and the
+behaviour itself, quoted, in mono.
 
-**There is no `❯` on it.** The prompt glyph promises a command or a question
-typed at a shell and this is neither — it is a description of what some code
-does, which is exactly what the tool's `intent` argument takes. The glyph was
-continuity with scene 02's question, and it was continuity bought against the one
-thing this scene has to make obvious: that you say what the code *does*, not what
-it is called.
+**Quoted, and with no `❯`.** The prompt glyph promises a command or a question
+typed at a shell and the phrase is neither — it is a description of what some
+code does, which is exactly what the tool's `intent` argument takes. With the
+glyph it read as a question that was not one. With nothing at all it read as a
+floating claim, which was worse: the glyph had at least said *you typed this*.
 
-**Beat 2 — the tool.** `find_by_intent`, and under it `Finds where to start
-reading`. Both that and *finds likely code entry points* are accurate; the second
+Quotation marks say *someone said this* without promising an interrogative, and
+`So you describe it:` above them removes the rest of the ambiguity. **The phrase
+itself is untouched** — it is the tool's own documented example, its documented
+top result is `withRetry`, and that is what makes this film demonstrable against
+the product rather than merely plausible. What was wrong was the presentation,
+not the words.
+
+**Beat 2 — the tool.** `find_by_intent`, and under it `Tells your agent where to read`. Both that and *finds likely code entry points* are accurate; the second
 is the documentation's register and the first is a person's. "Entry point" is a
 term you have to already hold, and the sentence exists precisely for a viewer who
 does not.
@@ -269,6 +304,24 @@ a DOM line box and the code plane's baseline, not to the anchor.
   Re-measured at the new boundary 0219/0220: dx +0.03, dy -0.01, ink mass ratio
   1.0005, zero residue outside the token, 45.0 dB across the seam.
 - Master 1930 -> 1970 frames, 32.83 s.
+- The presentation of the intent line was wrong twice before it was right. With
+  `❯` it read as a question that was not one; with nothing it read as a floating
+  claim, which was worse, because the glyph had at least said *you typed this*.
+  It is quoted now, under `So you describe it:`. The phrase itself is untouched -
+  it is the documented example and the reason the film is demonstrable against
+  the product; what was wrong was the presentation, not the words.
+- Subtitle: `Tells your agent where to read`. It names who benefits, which is the
+  film's subject, and it says *where to read* - a discovery claim, never a claim
+  about what depends on what.
+- 220 -> 300 frames, on direct art direction to be realistic about reading time.
+  Every window now lives in one `beat` object so the table above and the code
+  cannot drift. Every block a viewer must read to completion sits between 6 and
+  29 characters per second; the only row above budget is the name, path and match
+  at 72, which is correct because a path is scanned, and because that name does
+  not stop at 0252 - it survives the cut and anchors the whole next scene.
+- Match cut re-measured at its new boundary 0299/0300: dx +0.03, dy -0.01, ink
+  mass ratio 1.0005, zero residue outside the token, 45.0 dB across the seam.
+- Master 1970 -> 2050 frames, 34.17 s.
 - Two defects in the handover, both found by looking at a frame rather than at a
   number. The receding candidates were floored at 0.182 instead of reaching zero,
   so they read through `withRetry` as ghost type and the cut handed over three

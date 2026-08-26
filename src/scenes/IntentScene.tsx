@@ -7,7 +7,7 @@ import { fontMono, fontSans } from "../brand/fonts";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 00 - intent (master 0000-0220, scene-local 0000-0220).
+ * Scene 00 - intent (master 0000-0300, scene-local 0000-0300).
  *
  * The scene that stops the film assuming its own answer. Everything after it
  * opens on `withRetry` already singled out, which quietly claims the agent knew
@@ -63,6 +63,30 @@ import { brand } from "../brand/tokens";
  * whole next scene.
  */
 
+/**
+ * Every window in the scene, in scene-local frames, in one place.
+ *
+ * The scene is 300 frames because it is the only scene in the film that has to
+ * introduce a tool, a vocabulary and a result to a viewer holding none of them,
+ * and reading time is the only thing that buys that. The table in
+ * `00-intent.md` is the justification: each block's characters against the
+ * 25-40 per second the rest of the film is timed by, with the identifiers
+ * allowed to sit above it because a path is scanned rather than read.
+ */
+const beat = {
+  problem: [8, 44],
+  problemPitch: 10,
+  describe: [68, 98],
+  intent: [76, 114],
+  tool: [130, 154],
+  result: [160, 192],
+  ghosts: [168, 200],
+  ghostPitch: 10,
+  parens: [248, 272],
+  leave: [252, 282],
+  open: [258, 294],
+} as const;
+
 const ease = Easing.bezier(0.22, 1, 0.36, 1);
 
 const ramp = (frame: number, from: number, to: number) =>
@@ -85,6 +109,15 @@ const problem = [
 ] as const;
 
 /**
+ * What the quoted line below it is, so it cannot be mistaken for a question.
+ *
+ * Named `describeLine` and not `describe`: the bare name is a test-runner global
+ * in this toolchain and TypeScript resolves it silently to that instead of
+ * failing, which is the kind of error that compiles.
+ */
+const describeLine = "So you describe it:";
+
+/**
  * Beat 1. The question, verbatim from the tool's own documented example.
  *
  * Not a variant written for the film. Its documented top result is `withRetry`,
@@ -100,12 +133,13 @@ export const intent = "retry a failed request with exponential backoff";
  * to understand ranking to understand purpose. It is an explanation, not a
  * headline - sans, at the label scale, under the invocation rather than over it.
  *
- * *Finds where to start reading* rather than *Finds likely code entry points*.
- * Both are accurate; the second is the documentation's register and the first is
- * a person's. "Entry point" is a term you have to already hold, and the sentence
- * exists precisely for a viewer who does not yet hold any of them.
+ * *Tells your agent where to read* rather than *Finds likely code entry points*.
+ * All three drafts were accurate; the documentation's register is the one a
+ * viewer has to already hold, because "entry point" is a term rather than a
+ * thing. This one names who benefits, which is the film's subject, and it says
+ * *where to read* - a discovery claim, never a claim about what depends on what.
  */
-const tool = { name: "find_by_intent", does: "Finds where to start reading" };
+const tool = { name: "find_by_intent", does: "Tells your agent where to read" };
 
 /**
  * Beat 3. The selected candidate and the two it was selected from.
@@ -154,9 +188,10 @@ const columnX = 500;
 export const IntentScene: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const intentIn = entry(frame, 52, 84);
-  const toolIn = entry(frame, 88, 110);
-  const resultIn = entry(frame, 112, 138);
+  const describeIn = entry(frame, beat.describe[0], beat.describe[1]);
+  const intentIn = entry(frame, beat.intent[0], beat.intent[1]);
+  const toolIn = entry(frame, beat.tool[0], beat.tool[1]);
+  const resultIn = entry(frame, beat.result[0], beat.result[1]);
 
   /**
    * Everything that is not the selected name leaves, so the frame handed to the
@@ -168,7 +203,7 @@ export const IntentScene: React.FC = () => {
    * in it is a cut into a different image. Receding is what they do while they
    * are on screen; being absent at the cut is not a verdict on them.
    */
-  const context = 1 - ramp(frame, 186, 210);
+  const context = 1 - ramp(frame, beat.leave[0], beat.leave[1]);
 
   /**
    * The name becoming the source symbol.
@@ -178,7 +213,7 @@ export const IntentScene: React.FC = () => {
    * the candidate rather than a slide plus a zoom - which is also the clearest
    * possible reading of *we enter that source code*.
    */
-  const open = ramp(frame, 190, 214);
+  const open = ramp(frame, beat.open[0], beat.open[1]);
   const size = nameSize + (target.em - nameSize) * open;
   const width = target.glyphs * 0.6 * size;
 
@@ -186,7 +221,11 @@ export const IntentScene: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: brand.background }}>
       {/** Beat 1 - the problem. */}
       {problem.map((line, index) => {
-        const arrive = entry(frame, 8 + index * 8, 40 + index * 8);
+        const arrive = entry(
+          frame,
+          beat.problem[0] + index * beat.problemPitch,
+          beat.problem[1] + index * beat.problemPitch,
+        );
 
         return (
           <div
@@ -223,7 +262,24 @@ export const IntentScene: React.FC = () => {
         style={{
           position: "absolute",
           left: columnX,
-          top: 396,
+          top: 366,
+          fontFamily: fontSans,
+          fontSize: 20,
+          lineHeight: 1,
+          whiteSpace: "pre",
+          color: brand.textFaint,
+          opacity: describeIn.opacity * context,
+          translate: `0px ${describeIn.offsetY}px`,
+        }}
+      >
+        {describeLine}
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          left: columnX,
+          top: 408,
           fontFamily: fontMono,
           fontSize: 30,
           lineHeight: 1,
@@ -233,7 +289,7 @@ export const IntentScene: React.FC = () => {
           translate: `0px ${intentIn.offsetY}px`,
         }}
       >
-        {intent}
+        {`"${intent}"`}
       </div>
 
       {/** Beat 2 - the tool, and what it does. */}
@@ -303,7 +359,11 @@ export const IntentScene: React.FC = () => {
             whiteSpace: "pre",
             color: brand.textFaint,
             opacity:
-              entry(frame, 118 + index * 8, 142 + index * 8).opacity *
+              entry(
+                frame,
+                beat.ghosts[0] + index * beat.ghostPitch,
+                beat.ghosts[1] + index * beat.ghostPitch,
+              ).opacity *
               context *
               0.45,
           }}
@@ -337,7 +397,11 @@ export const IntentScene: React.FC = () => {
         }}
       >
         {selected.label.replace("()", "")}
-        <span style={{ opacity: 1 - ramp(frame, 182, 202) }}>()</span>
+        <span
+          style={{ opacity: 1 - ramp(frame, beat.parens[0], beat.parens[1]) }}
+        >
+          ()
+        </span>
       </div>
 
       {/** Beat 3 - where it lives, which is the caption scene 01 will print. */}

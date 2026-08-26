@@ -217,10 +217,10 @@ Document frames that should look especially intentional.
 Example:
 
 ```text
-frame 420 — initial graph node
-frame 570 — graph has expanded
-frame 680 — cross-repository edge begins
-frame 710 — remote consumer reveal
+frame 500 — initial graph node
+frame 650 — graph has expanded
+frame 760 — cross-repository edge begins
+frame 790 — remote consumer reveal
 ```
 
 ## Invariants
@@ -390,16 +390,16 @@ It should contain the scene order and links:
 
 | #   | Scene               |    Frames | Component              | Documentation                                            |
 | --- | ------------------- | --------: | ---------------------- | -------------------------------------------------------- |
-| 00  | Intent              |     0–220 | `IntentScene.tsx`      | [00-intent.md](./00-intent.md)                           |
-| 01  | Symbol              |   220–340 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                           |
-| 02  | Agent               |   340–550 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                             |
-| 03  | Graph Reveal        |   550–910 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
-| 04  | Blast Radius        |  910–1050 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
-| 05  | Semantic Resolution | 1050–1250 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
-| 06  | Agent Answer        | 1250–1430 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
-| 07  | Benchmark           | 1430–1680 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
-| 08  | Brand               | 1680–1850 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
-| 09  | Outro               | 1850–1970 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
+| 00  | Intent              |     0–300 | `IntentScene.tsx`      | [00-intent.md](./00-intent.md)                           |
+| 01  | Symbol              |   300–420 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                           |
+| 02  | Agent               |   420–630 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                             |
+| 03  | Graph Reveal        |   630–990 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
+| 04  | Blast Radius        |  990–1130 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
+| 05  | Semantic Resolution | 1130–1330 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
+| 06  | Agent Answer        | 1330–1510 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
+| 07  | Benchmark           | 1510–1760 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
+| 08  | Brand               | 1760–1930 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
+| 09  | Outro               | 1930–2050 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
 ```
 
 Keep this index synchronized when scenes are added, removed, renamed, split, merged, or retimed.
