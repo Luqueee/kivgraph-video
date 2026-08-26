@@ -8,21 +8,21 @@
 | 04  | Blast Radius        |   630–770 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
 | 05  | Semantic Resolution |   770–970 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
 | 06  | Agent Answer        |  970–1150 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
-| 07  | Benchmark           | 1150–1320 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
-| 08  | Brand               | 1320–1410 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
-| 09  | Outro               | 1410–1530 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
+| 07  | Benchmark           | 1150–1360 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
+| 08  | Brand               | 1360–1450 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
+| 09  | Outro               | 1450–1570 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
 
-Master: 1920 × 1080, 60 fps, **1530 frames, 25.5 s**. Global frame boundaries
+Master: 1920 × 1080, 60 fps, **1570 frames, 26.17 s**. Global frame boundaries
 live only in `src/Composition.tsx`.
 
-That 1530 is the plan, not what renders today. Scenes 01–07 exist, so
-`KivgraphPromo` is registered at `mountedFrames` — currently **1320 frames,
-22.0 s** — and Studio and `remotion render` produce the film that exists instead
-of twenty-two seconds of video followed by three and a half of black.
+That 1570 is the plan, not what renders today. Scenes 01–07 exist, so
+`KivgraphPromo` is registered at `mountedFrames` — currently **1360 frames,
+22.67 s** — and Studio and `remotion render` produce the film that exists instead
+of that film followed by three and a half seconds of black.
 Raise `mountedFrames` in `src/Composition.tsx` as each scene lands, and delete it
-once it reaches 1530.
+once it reaches 1570.
 
-The master length has moved eight times. Three were because the opening changed:
+The master length has moved nine times. Three were because the opening changed:
 it was 1500, grew to 1620 when scene 01 was extended from 90 to 210 frames,
 returned to 1500 when the old scene 02 was deleted, and fell to 1410 when scene
 01 was cut from 210 to 120. The fourth was the first one a later scene caused —
@@ -48,6 +48,16 @@ storyboard had guessed. Only scenes 08 and 09 moved, +50 each. Five scenes have
 ever changed duration — scene 01 once, the blast radius twice, the semantic scene
 twice, the agent answer once, and the benchmark once, at implementation. For every
 other scene, only offsets have moved.
+
+The ninth, the same day, is the second one the benchmark caused, and the first
+time any scene has changed duration twice at implementation: 1530 to **1570**,
+when scene 07 was rebuilt as a two-column comparison and went from 170 to 210
+frames. Only scenes 08 and 09 moved again, +40 each. The eighth entry's count
+takes one correction from here: five scenes have still ever changed duration, but
+the benchmark has now changed twice, both times at implementation rather than in a
+retime, so it is the only scene whose length has never been set by a plan. Why 210
+rather than 170 is a dwell figure, and dwell figures for this scene are on hold —
+see the note under **Pacing and dwell time**.
 
 ## Pacing and dwell time
 
@@ -99,6 +109,15 @@ scene 05's counters: `repositories`, `37` and `published benchmark` are 33
 characters between them, and 33 characters in 1.00 s is 33 per second, inside the
 same 25–40 the path sentence failed against.
 
+**On hold, 2026-08-26.** Scene 07's five rows in the table above, and the
+paragraph immediately above this one, both describe the **superseded** 170-frame
+build, whose table was one column of measured values. The scene was rebuilt the
+same day as a two-column comparison at 210 frames, and its dwell figures — and the
+row labels those figures are attached to — are withheld until the benchmark's
+figure set is confirmed. Do not read either as current, and do not carry the old
+values forward. What is settled is the timeline: 210 frames, master 1150–1360, and
+a settled stand of 63 frames before the fade.
+
 Two things follow for anyone retiming this film again. Dead frames and dwell are
 different quantities measured in the same units: the twenty frames trimmed off the
 blast radius in the fifth change were pixel-identical *and* its card was still
@@ -142,6 +161,13 @@ future edit change the precision, and changing the precision is changing the
 value. That is also why the scene has no count-up: a mid-count still frame
 displays a number that is not the published benchmark.
 
+**On hold, 2026-08-26.** Scene 07's rebuild changed which values this file holds,
+and the figure set itself is under verification, so the paragraph above still
+describes the superseded single-column build. Its two structural claims survive the
+rebuild — one place, each value with its provenance, and strings rather than
+numbers — but do not treat its account of *which* values, or of how many, as
+current.
+
 "Specified only" means the document is the contract the future implementation
 must satisfy; no component exists yet and the corresponding stretch of the
 master is still black.
@@ -161,9 +187,9 @@ Scenes 01 and 02 establish the grammar the rest of the video inherits:
   invisible ends up measuring 22 dB. `ImpactReport` is the card alone — it used to
   carry a claim line under it, and that line was cut. Scene 07 was expected to
   inherit the card and does not: it has no graph behind it to make a claim against,
-  so it is a table on the bare background — one hairline rule, no panel — and
-  `src/components/BenchmarkMetric.tsx` is its own surface language, one table row
-  rather than a card;
+  so it is a comparison table on the bare background — one hairline rule, no panel
+  — and `src/components/BenchmarkMetric.tsx` is its own surface language, one
+  comparison row rather than a card;
 - the opening is **one continuous shot** through **one world**. There is no cut
   anywhere before frame 0330. `src/world/camera.ts` projects it and
   `src/components/CodeWorld.tsx` holds the only spatial layout; a scene animates
@@ -326,7 +352,8 @@ record, and SCENE 06 to SCENE 11 keep their numbers. Their frame ranges moved
 SCENE 07 to SCENE 11 moved a further −20. The 2026-08-25 pacing pass then moved
 SCENE 06's end +40, SCENE 07's +70 and SCENE 08 to SCENE 11 a flat +150.
 The 2026-08-26 benchmark pass then moved SCENE 09's end +50 and SCENE 10 and
-SCENE 11 a flat +50.
+SCENE 11 a flat +50, and the same day's rebuild of SCENE 09 moved its end a
+further +40 and SCENE 10 and SCENE 11 a further +40.
 
 | Document | Storyboard scene |
 | --- | --- |
@@ -380,16 +407,16 @@ inherits instead.
 
 Measured after the cut, re-measured after the blast radius was trimmed,
 re-measured again once scene 06 landed, again after the semantic scene grew, again
-after the pacing pass, and again once scene 07 landed: the 0330 and 0770 seams are
-pixel-identical, 0630 is 62.93 dB (glyph antialiasing only), and 1320 mounted
-frames render with no black frame.
+after the pacing pass, once scene 07 landed, and again once scene 07 was rebuilt:
+the 0330 and 0770 seams are pixel-identical, 0630 is 62.93 dB (glyph antialiasing
+only), and 1360 mounted frames render with no black frame.
 
 The 0970 boundary does not measure like those, and it is not supposed to. It is a
 match cut, not an invisible cut: the symbol region across 0969/0970 measures
 41.35 dB, because the symbol itself is in the same place at the same size, while
 the whole frame measures far lower, because the split view's left column and
 divider have gone and the prompt layer arrives — 28.69 dB whole-frame. The
-whole-film scan over 1320 frames flags two pairs and nothing else: 0969/0970 and
+whole-film scan over 1360 frames flags two pairs and nothing else: 0969/0970 and
 1149/1150. Both are hard cuts, steps rather than spikes, confirmed by the frames
 either side, and 1149/1150 is scene 07's own cut at 22.30 dB, which is what a hard
 cut is supposed to measure. Anyone measuring a poor whole-frame figure at either
@@ -419,7 +446,7 @@ find it is in the length of the two scenes that remain.
 ## Key frames
 
 Frames that must hold up as still images: `0080`, `0629`, `0718`, `0864`, `1064`,
-`1190`, `1400`. Each is documented in the scene that owns it, and each is stated
+`1190`, `1440`. Each is documented in the scene that owns it, and each is stated
 there as a *definition* rather than as a number, so the next retime can recompute
 it instead of guessing:
 
@@ -431,7 +458,7 @@ it instead of guessing:
 | `0864` | the first frame of scene 05's measured byte-identical stand.             |
 | `1064` | the frame scene 06's attribution label finishes on; the scene goes static.|
 | `1190` | scene 07's `6.2k vs 63.5k` frame, both numbers fully legible.            |
-| `1400` | scene 08's settled lockup plus tagline.                                  |
+| `1440` | scene 08's settled lockup plus tagline.                                 |
 
 How they got here. `1064` joined the list as scene 06's label frame — it was
 `0940` when the scene landed and `0970` after the semantic scene grew. Of the six
@@ -441,9 +468,11 @@ then +30 when the semantic scene grew. The 2026-08-25 pacing pass moved five of
 them: `0710` → `0718`, `0840` → `0864`, `0970` → `1064`, `1040` → `1190` and
 `1200` → `1350`. Only `0080` and `0629` are untouched by it. The 2026-08-26
 benchmark pass moved one of them: `1350` → `1400`, carried by scene 08's +50
-offset. `1190` did not move, because scene 07 grew at its tail — its start is
-unchanged and the frame is scene-local 40 either way — and it is now measured on
-the render rather than planned.
+offset, and the same day's rebuild of scene 07 moved it again, `1400` → `1440`,
+carried by scene 08's further +40. `1190` has not moved through either pass,
+because scene 07 grew at its tail both times — its start is unchanged and the
+frame is scene-local 40 either way — and it is now measured on the render rather
+than planned.
 
 Two of those are not simple shifts and that is the reason the definitions are
 written down. `0718` is +8 rather than +40, because the card's entry window moved
@@ -478,6 +507,14 @@ out for the settled table and the lower rows are still empty; centring the pair
 would decentre the table, and the table is the image the film actually shows for 61
 static frames. A still that needs the pair optically centred should be cropped, not
 re-laid-out.
+
+**On hold, 2026-08-26.** The paragraph above describes the superseded
+single-column build; scene 07's rebuild changed what 1190 holds, and the frame's
+definition is being re-cut with the benchmark's figure set. Two things about it are
+already known and are not figures. The settled stand it is weighed against is now
+63 frames rather than 61. And the compromise survives the rebuild for the same
+reason it existed: the block is laid out for more rows than have arrived by 1190,
+so what is on screen there still sits above frame centre. Crop, do not re-lay-out.
 
 ## Rendering
 
