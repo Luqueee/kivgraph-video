@@ -6,8 +6,8 @@ import { impactSummary } from "../data/graphDemo";
  * The blast radius' report: the impact card, and where it sits.
  *
  * One component and not a block inside scene 04, because scene 05 inherits it on
- * its first frame and fades it out during the flatten. Master 0730 has to be
- * indistinguishable from 0729, so the two scenes have to draw this exactly alike
+ * its first frame and fades it out during the flatten. Master 0770 has to be
+ * indistinguishable from 0769, so the two scenes have to draw this exactly alike
  * - and the first version, which had scene 04 own the markup, simply dropped it
  * at the cut and measured 22 dB PSNR across a seam that is supposed to be
  * invisible.

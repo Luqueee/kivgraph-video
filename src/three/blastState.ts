@@ -6,7 +6,7 @@ import type { GraphVisualState } from "./graphState";
 /**
  * Scene 04's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-100 (master 0630-0730).
+ * Scene-local frames 0-140 (master 0630-0770).
  *
  * The scene has one argument and it is made by ordering: a change happens at
  * one symbol, and then it is seen to *travel* - hop 1, hop 2, hop 3, never two
@@ -78,9 +78,9 @@ const hopOf = (edgeFrom: string) => shellOf[edgeFrom] ?? 0;
  * thing moving, which is the claim.
  */
 const hopSchedule: Readonly<Record<number, readonly [number, number]>> = {
-  1: [8, 26],
-  2: [28, 46],
-  3: [48, 68],
+  1: [8, 30],
+  2: [32, 56],
+  3: [58, 82],
 };
 
 const nodeDelay = 6;
@@ -241,16 +241,19 @@ export const getBlastState = (frame: number): GraphVisualState => {
 /**
  * The card's entry: opacity `0 -> 1` and a 24 px slide in from the right.
  *
- * Local 55-75, which puts it on screen while the propagation is still reaching
- * the remote consumers, so the numbers read as the result of what the viewer
- * is watching rather than as a caption placed in advance. Settled by local 80,
- * which is key frame 0710.
+ * Local 66-88, which puts it on screen while the propagation is still reaching
+ * the remote consumers, so the numbers read as the result of what the viewer is
+ * watching rather than as a caption placed in advance.
+ *
+ * It then stands for 51 frames. Measured on the old 100-frame cut, the card
+ * settled with 25 frames left - 0.42 s to read three counted lines, which is the
+ * result the whole scene exists to deliver. That is what took the scene to 140.
  *
  * No spring and no overshoot. This is a statement of measurement; elasticity
  * would make it playful and therefore less credible.
  */
 export const cardEntry = (frame: number) => {
-  const progress = ramp(frame, 55, 75);
+  const progress = ramp(frame, 66, 88);
 
   return { opacity: progress, offsetX: 24 * (1 - progress) };
 };

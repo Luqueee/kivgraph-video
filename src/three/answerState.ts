@@ -7,7 +7,7 @@ import type { Look } from "./projection";
 /**
  * Scene 06's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-90 (master 0910-1000).
+ * Scene-local frames 0-180 (master 0970-1150).
  *
  * The scene closes the loop scene 02 opened. Its one piece of 3D work is the
  * inverse of the film's most important transition: scene 03 grew the prompt's
@@ -49,12 +49,12 @@ const linear = (frame: number, from: number, to: number) =>
 /**
  * The frame scene 05 hands over: the split view gone, one node left.
  *
- * 180 is that scene's last frame and every ramp in it clamps, so this is the
+ * 200 is that scene's last frame and every ramp in it clamps, so this is the
  * image the cut arrives on. Sampled rather than restated for the same reason
  * every other scene samples its predecessor: a copy goes stale the first time
- * the scene before it is retuned - which it now has been, three times.
+ * the scene before it is retuned - which it now has been, four times.
  */
-const inherited = getSemanticState(180);
+const inherited = getSemanticState(200);
 
 /**
  * Where the anchor has to end up: the pose at which `graphOffset` puts it on the
@@ -67,15 +67,15 @@ const inherited = getSemanticState(180);
 const tokenLook: Look = { eye: [0, 0, cutDistance], target: [0, 0, 0] };
 
 /**
- * The travel: 20 frames for 201 px left and 74 px up.
+ * The travel: 24 frames for 201 px left and 74 px up.
  *
- * The glyphs barely change size - 216 px wide at `0879` against the token's
- * 213.8 - because the right column's scale was set to the token's own type in
- * the first place. What actually changes is the plate: 261 x 72 px with a
- * node's padding at one end, 213.8 x 47.5 px with the prompt's line box and no
- * padding at the other.
+ * The glyphs barely change size - 216 px wide at the handover against the
+ * token's 213.8 - because the right column's scale was set to the token's own
+ * type in the first place. What actually changes is the plate: 261 x 72 px with
+ * a node's padding at one end, 213.8 x 47.5 px with the prompt's line box and
+ * no padding at the other.
  */
-const arrival = 20;
+const arrival = 24;
 
 const lerp = (from: number, to: number, t: number) => from + (to - from) * t;
 
@@ -154,29 +154,35 @@ export const selectSettle = (frame: number) => lerp(1, 0.85, ramp(frame, arrival
 /**
  * The three answer blocks.
  *
- * Opacity and an 8 px upward settle, 14 frames each, overlapping by six so the
+ * Opacity and an 8 px upward settle, 16 frames each, overlapping by four so the
  * three beats read as one cascade rather than three separate events. Blocks, not
  * characters: character-by-character typing would read as the agent composing
  * prose, which is a chat gesture. This is a result being returned.
  *
- * The last of them settles at local 56 and the label at 60, which is master
- * 0970 - the frame the storyboard reviews and the frame the scene must be
- * finished by.
+ * The windows are late and the hold behind them is long, and a measurement is
+ * why. On the old 90-frame cut the path sentence settled with 34 frames left:
+ * 73 characters in 0.57 s, which is 129 characters per second against the 25-40
+ * that on-screen technical text can actually be read at. The answer is the
+ * payload of the entire film and it was the fastest thing in it.
+ *
+ * Now: the lead settles at local 46, the counts at 62, the path at 80 and the
+ * label at 94, and the frame is static from there to 180. That leaves the path
+ * sentence 100 frames - 1.67 s, or 44 characters per second - and the label 86.
  */
 const block = (frame: number, from: number) => {
-  const progress = ramp(frame, from, from + 14);
+  const progress = ramp(frame, from, from + 16);
 
   return { opacity: progress, offsetY: 8 * (1 - progress) };
 };
 
 export const answerBlocks = (frame: number) => ({
-  lead: block(frame, 26),
-  counts: block(frame, 34),
-  path: block(frame, 42),
+  lead: block(frame, 30),
+  counts: block(frame, 46),
+  path: block(frame, 64),
 });
 
-/** Attribution, centred on 0970 so that reviewed frame shows it legible. */
-export const labelOpacity = (frame: number) => ramp(frame, 48, 60);
+/** Attribution, last and quietest. Settled at local 94. */
+export const labelOpacity = (frame: number) => ramp(frame, 80, 94);
 
 
 /**

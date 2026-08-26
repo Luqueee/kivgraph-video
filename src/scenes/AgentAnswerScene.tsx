@@ -24,7 +24,7 @@ import { brand } from "../brand/tokens";
 import type { Camera } from "../world/camera";
 
 /**
- * Scene 06 - agent answer (master 0910-1000, scene-local 0000-0090).
+ * Scene 06 - agent answer (master 0970-1150, scene-local 0000-0180).
  *
  * The scene that closes the loop. Scene 02 asked a question inside a coding
  * agent; everything since has been structure. This returns to the same prompt,
@@ -32,9 +32,15 @@ import type { Camera } from "../world/camera";
  *
  * Four things happen and then nothing does: the last graph node travels back
  * onto the `withRetry()` token it grew out of, the token takes over from it, the
- * answer arrives in three blocks, and an attribution line settles. From local 60
- * - master 0970 - the frame is static, because scene 07 opens on a hard cut and
+ * answer arrives in three blocks, and an attribution line settles. From local 94
+ * - master 1064 - the frame is static, because scene 07 opens on a hard cut and
  * a hard cut out of a moving frame reads as an editing accident.
+ *
+ * The scene is 180 frames, doubled from 90, and a measurement is why. The path
+ * sentence used to settle with 34 frames left: 73 characters in 0.57 s, or 129
+ * characters per second, against the 25-40 that on-screen technical text can be
+ * read at. It now has 100 frames, which is 44. The answer is the payload of the
+ * whole film and it was the fastest thing in it.
  *
  * The answer enters in blocks and never letter by letter. Character typing would
  * read as the agent composing prose, which is a chat-product gesture; scene 02's
@@ -52,7 +58,7 @@ import type { Camera } from "../world/camera";
  *
  * The film has kept this file underneath every graph scene, and the answer is
  * about that file, so it stays. Matching the previous scene exactly is also what
- * makes the cut at 0910 a change of context rather than a change of world.
+ * makes the cut at 0970 a change of context rather than a change of world.
  */
 const bedCamera: Camera = { x: 0, y: 0, zoom: 0.34, screenX: 960, screenY: 540 };
 

@@ -17,21 +17,23 @@ import { SymbolScene } from "./scenes/SymbolScene";
  *
  * Planned timeline (STORYBOARD.md 26, docs/scenes/README.md):
  *   0000-0120 Symbol         0120-0330 Agent         0330-0630 Graph Reveal
- *   0630-0730 Blast Radius   0730-0910 Semantic      0910-1000 Agent Answer
- *   1000-1120 Benchmark      1120-1210 Brand         1210-1330 Outro
+ *   0630-0770 Blast Radius   0770-0970 Semantic      0970-1150 Agent Answer
+ *   1150-1270 Benchmark      1270-1360 Brand         1360-1480 Outro
  *
- * The master is 1330 frames, and three retimes got it there from 1410. The
- * cross-repository scene was deleted: it spent ninety frames turning the camera
- * around a structure that had already been read, which did not communicate, and
- * its one other beat suppressed exactly the two hop-1 nodes the next scene
- * immediately lights again. Then the blast radius lost twenty frames, because
- * removing its claim line left the last thirty-five of its frames
- * pixel-identical. Then the semantic resolution gained thirty, because its
- * comparison was being taken off screen twenty-seven frames after it finished
- * building and nobody can read two columns in twenty-seven frames.
+ * The master is 1480 frames, and four retimes got it there from 1410. The
+ * cross-repository scene was deleted (-90). The blast radius lost twenty frames
+ * of pixel-identical tail, then got forty back. The semantic resolution gained
+ * thirty for reading time, then twenty more. The agent answer gained ninety.
  *
- * So: everything after 0630 moved ninety frames earlier, everything after 0730
- * another twenty, and everything after 0910 thirty later.
+ * The last three are one pacing pass, and it was measured rather than felt. Time
+ * on screen after a thing has finished arriving, at the old durations: the impact
+ * card, which is the blast radius' whole result, had 0.42 s. The answer's proof
+ * sentence - 73 characters naming the package the impact travels through - had
+ * 0.57 s, which is 129 characters per second against the 25-40 that on-screen
+ * technical text can be read at. The film was accelerating into its own payoff.
+ *
+ * So: everything after 0630 moved ninety earlier, then twenty, then thirty and
+ * twenty and ninety later.
  *
  * Scenes 01 and 02 are one continuous camera move through one code environment
  * and have no cut between them; the boundary at 0120 is where the camera changes
@@ -44,14 +46,13 @@ import { SymbolScene } from "./scenes/SymbolScene";
 /**
  * Frames of the master that are actually mounted.
  *
- * The finished piece is 1330 frames (22.2 s), and that is the number every
+ * The finished piece is 1480 frames (24.7 s), and that is the number every
  * document plans against. Until the remaining scenes exist, the composition is
  * registered at this length instead, so Studio and `remotion render` produce the
- * film that exists rather than sixteen and a half seconds of video followed by
- * five and a half of black. Raise it as each scene lands; delete it once it
- * reaches 1330.
+ * film that exists rather than nineteen seconds of video followed by five and a
+ * half of black. Raise it as each scene lands; delete it once it reaches 1480.
  */
-export const mountedFrames = 1000;
+export const mountedFrames = 1150;
 
 export const KivgraphVideo: React.FC = () => {
   return (
@@ -98,7 +99,7 @@ export const KivgraphVideo: React.FC = () => {
       <Sequence
         name="04 Blast Radius"
         from={630}
-        durationInFrames={100}
+        durationInFrames={140}
         premountFor={30}
         postmountFor={30}
       >
@@ -106,16 +107,16 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="05 Semantic Resolution"
-        from={730}
-        durationInFrames={180}
+        from={770}
+        durationInFrames={200}
         premountFor={30}
       >
         <SemanticScene />
       </Sequence>
       <Sequence
         name="06 Agent Answer"
-        from={910}
-        durationInFrames={90}
+        from={970}
+        durationInFrames={180}
         premountFor={30}
       >
         <AgentAnswerScene />

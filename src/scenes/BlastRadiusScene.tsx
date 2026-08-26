@@ -8,7 +8,7 @@ import type { Camera } from "../world/camera";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 04 - blast radius (master 0630-0730, scene-local 0000-0100).
+ * Scene 04 - blast radius (master 0630-0770, scene-local 0000-0140).
  *
  * The scene that turns structure into consequence. Everything before it has
  * shown that relationships exist and that they leave the repository; this one
@@ -26,13 +26,12 @@ import { brand } from "../brand/tokens";
  * asserting what they mean read as narration over evidence the viewer had
  * already been given.
  *
- * The scene is 100 frames rather than 120 because of that cut. With the
- * sentence and its veil gone, the frame stopped changing at local 78 and the
- * remaining forty-one frames rendered pixel-identical - a third of the scene
- * was a frozen image, and the veil and the sentence had been the only things
- * moving in it. Twenty came off, leaving a twenty-one frame hold: long enough
- * to read three lines and to let the cut land on a still frame, which is the
- * only reason to hold at all.
+ * The scene is 140 frames, and both of its retimes were measured. Removing the
+ * claim line and its veil left the frame unchanged after local 78, so twenty
+ * frames of pixel-identical tail came off. Then forty went back on, because the
+ * impact card - the three counted lines this whole scene exists to deliver - was
+ * settling with only 25 frames left, 0.42 s to read a result. It now stands for
+ * 51 frames inside the scene and keeps fading through the next one's flatten.
  *
  * The propagation lives in `src/three/blastState.ts`, so the hop order can be
  * checked without reading render code. This file owns the code bed underneath

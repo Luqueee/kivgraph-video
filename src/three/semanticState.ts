@@ -9,7 +9,7 @@ import type { Look } from "./projection";
 /**
  * Scene 05's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-180 (master 0730-0910).
+ * Scene-local frames 0-200 (master 0770-0970).
  *
  * The scene retires the 3D graph by flattening it, not by cutting away from it.
  * Its argument is a difference in count rather than a spatial claim, so depth
@@ -39,11 +39,10 @@ const ramp = (frame: number, from: number, to: number) =>
 /**
  * The frame scene 04 hands over: accent-marked, at rest, on a clear frame.
  *
- * 100 is that scene's last frame, not an arbitrary sample. Everything in it
- * settles by local 75 and every ramp clamps, so this is the image the cut
- * arrives on.
+ * 140 is that scene's last frame and every ramp in it clamps, so this is the
+ * image the cut arrives on.
  */
-const inherited = getBlastState(100);
+const inherited = getBlastState(140);
 
 /**
  * What survives into the right column: the resolved symbol and the relationships
@@ -188,26 +187,27 @@ const leaving = (frame: number, from: number, to: number) =>
   });
 
 /**
- * The one window everything leaves on: local 145-173.
+ * The one window everything leaves on: local 158-186.
  *
- * Two directions produced this. Things were leaving on three different windows -
+ * Two directions produced it. Things were leaving on three different windows -
  * the counters at 112-130, the nodes and tubes at 112-140, the chrome at 118-142
  * - so the frame emptied in three waves and read as pieces being switched off
- * one after another. And the whole exit began 27 frames after the comparison
- * finished building, which is not long enough to read two columns.
+ * one after another. And the exit began 27 frames after the comparison finished
+ * building, which is not long enough to read two columns.
  *
- * One window fixes the first. Starting it at 145 fixes the second: the
- * comparison is complete at local 85, so it now stands for sixty frames - a full
- * second - before anything moves. That is what took the scene from 150 frames to
- * 180, and it is the only reason it grew.
+ * One window fixes the first. Starting it after a stand fixes the second: the
+ * comparison is complete at local 98 and holds for sixty frames - a full second
+ * - before anything moves. Nothing may be pre-dimmed or given its own exit
+ * before this window: two things cannot read as leaving together if they start
+ * from different opacities.
  *
- * Twenty-eight frames wide, ending 7 frames before the cut so the shape the
+ * Twenty-eight frames wide, ending 14 frames before the cut so the shape the
  * match cut needs is at rest.
  */
-const exit = (frame: number) => leaving(frame, 145, 173);
+const exit = (frame: number) => leaving(frame, 158, 186);
 
 export const getSemanticState = (frame: number): GraphVisualState => {
-  const flatten = ramp(frame, 0, 40);
+  const flatten = ramp(frame, 0, 48);
   /**
    * The withdrawal, on the one exit window above.
    *
@@ -301,7 +301,7 @@ export const getSemanticState = (frame: number): GraphVisualState => {
  * it.
  */
 export const dividerOpacity = (frame: number) =>
-  ramp(frame, 12, 44) * exit(frame);
+  ramp(frame, 14, 52) * exit(frame);
 
 /**
  * The report scene 05 hands over, leaving with the depth.
@@ -318,18 +318,21 @@ export const dividerOpacity = (frame: number) =>
 export const reportFade = (frame: number) => 1 - ramp(frame, 0, 36);
 
 /**
- * The left column: label and rows in, then a long fade under the sentence.
+ * The left column: label, then two rows, then the count.
  *
- * Rows arrive one after the other for the same reason the hops did in scene 05 -
+ * Rows arrive one after the other for the same reason the hops do in scene 04 -
  * a list that appears at once is a picture, a list that fills in is a search
- * returning results. The fade at the tail is the storyboard's beat: the left
- * side loses presence so the sentence can land, but it never disappears. A frame
- * in which it has gone has lost the comparison and therefore the point.
+ * returning results.
+ *
+ * Every window here is twenty frames wide rather than eighteen, and they are
+ * spaced twelve apart rather than ten. The build used to put label, two rows and
+ * a counter inside 48 frames; a comparison whose whole subject is *counting*
+ * cannot deliver its terms faster than they can be counted.
  */
 export const leftColumn = (frame: number) => ({
-  label: ramp(frame, 30, 46),
-  rows: [ramp(frame, 36, 54), ramp(frame, 46, 64)],
-  counter: ramp(frame, 60, 78),
+  label: ramp(frame, 34, 54),
+  rows: [ramp(frame, 42, 62), ramp(frame, 54, 74)],
+  counter: ramp(frame, 70, 90),
   /**
    * Presence, and nothing else: the column stands at full strength until the
    * exit window takes it, on the same window and from the same opacity as
@@ -362,7 +365,7 @@ export const leftColumn = (frame: number) => ({
  * makes "the counters agree with what is on screen" an invariant.
  */
 export const rightColumn = (frame: number) => ({
-  label: ramp(frame, 55, 71) * exit(frame),
-  counter: ramp(frame, 65, 85) * exit(frame),
+  label: ramp(frame, 64, 84) * exit(frame),
+  counter: ramp(frame, 78, 98) * exit(frame),
 });
 
