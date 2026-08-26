@@ -394,11 +394,11 @@ It should contain the scene order and links:
 | 02  | Agent               |   120–330 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                             |
 | 03  | Graph Reveal        |   330–630 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)               |
 | 04  | Blast Radius        |   630–730 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)               |
-| 05  | Semantic Resolution |   730–880 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md) |
-| 06  | Agent Answer        |  880–970 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)               |
-| 07  | Benchmark           |  970–1090 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                     |
-| 08  | Brand               | 1090–1180 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
-| 09  | Outro               | 1180–1300 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
+| 05  | Semantic Resolution |   730–910 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md) |
+| 06  | Agent Answer        |  910–1000 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)               |
+| 07  | Benchmark           | 1000–1120 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                     |
+| 08  | Brand               | 1120–1210 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
+| 09  | Outro               | 1210–1330 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
 ```
 
 Keep this index synchronized when scenes are added, removed, renamed, split, merged, or retimed.

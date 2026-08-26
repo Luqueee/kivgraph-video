@@ -212,7 +212,7 @@ frame 0119 — byte-identical to 0080. The handoff frame.
 ```
 
 The still-image key frame is `0080`. The project's still-image list reads `0080`,
-`0620`, `0710`, `0840`, `1010`, `1170`.
+`0620`, `0710`, `0840`, `1040`, `1200`.
 
 ## Invariants
 
@@ -321,9 +321,9 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
 - **Demo content.** `payments-api/internal/retry/retry.go` and its neighbours are
   written for the video, chosen to agree with the repository and symbol names of
   later scenes. Nothing is read from a real Kivgraph index.
-- Scenes 01–05 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
-  (880) rather than the planned 1300. Frames `0880–1300` do not render at all
-  yet, which is preferred over seven seconds of black.
+- Scenes 01–06 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
+  (1000) rather than the planned 1330. Frames `1000–1330` do not render at all
+  yet, which is preferred over five and a half seconds of black.
 
 ## Modification history
 
@@ -430,4 +430,19 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
 - Reason for the trim, kept because it is the kind of thing that gets re-added:
   once the blast radius lost its claim line and veil, nothing animated in its
   tail and 41 of its last frames were pixel-identical.
+```
+
+```text
+2026-08-25
+- Scene 05 (Semantic Resolution) grew from 150 to 180 frames, so every master
+  frame from 0910 onward shifted +30 and the master is now 1330 frames (22.2 s).
+  This scene owns none of those frames: its own frames, beats, camera, luminance
+  and content are untouched, and 0080 is still its still-image key frame.
+- Two lists here follow the shift: the project still-image list now reads 0080,
+  0620, 0710, 0840, 1040, 1200, and mountedFrames is 1000 against a planned 1330,
+  now that scene 06 is mounted too.
+- Reason for the growth, kept because it is the kind of thing that gets trimmed
+  back: the semantic scene's two-column comparison needed a full second of
+  reading time before anything left the frame, and everything used to leave on
+  three separate windows over twenty-seven frames.
 ```

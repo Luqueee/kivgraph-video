@@ -6,32 +6,35 @@
 | 02  | Agent               |   120–330 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                              |
 | 03  | Graph Reveal        |   330–630 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
 | 04  | Blast Radius        |   630–730 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
-| 05  | Semantic Resolution |   730–880 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
-| 06  | Agent Answer        |   880–970 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
-| 07  | Benchmark           |  970–1090 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
-| 08  | Brand               | 1090–1180 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
-| 09  | Outro               | 1180–1300 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
+| 05  | Semantic Resolution |   730–910 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
+| 06  | Agent Answer        |  910–1000 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
+| 07  | Benchmark           | 1000–1120 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
+| 08  | Brand               | 1120–1210 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
+| 09  | Outro               | 1210–1330 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
 
-Master: 1920 × 1080, 60 fps, **1300 frames, 21.7 s**. Global frame boundaries
+Master: 1920 × 1080, 60 fps, **1330 frames, 22.2 s**. Global frame boundaries
 live only in `src/Composition.tsx`.
 
-That 1300 is the plan, not what renders today. Scenes 01–06 exist, so
-`KivgraphPromo` is registered at `mountedFrames` — currently **970 frames,
-16.17 s** — and Studio and `remotion render` produce the film that exists instead
-of just over sixteen seconds of video followed by five and a half of black. Raise
-`mountedFrames` in `src/Composition.tsx` as each scene lands, and delete it once
-it reaches 1300.
+That 1330 is the plan, not what renders today. Scenes 01–06 exist, so
+`KivgraphPromo` is registered at `mountedFrames` — currently **1000 frames,
+16.67 s** — and Studio and `remotion render` produce the film that exists instead
+of just under seventeen seconds of video followed by five and a half of black.
+Raise `mountedFrames` in `src/Composition.tsx` as each scene lands, and delete it
+once it reaches 1330.
 
-The master length has moved five times. Three were because the opening changed:
+The master length has moved six times. Three were because the opening changed:
 it was 1500, grew to 1620 when scene 01 was extended from 90 to 210 frames,
 returned to 1500 when the old scene 02 was deleted, and fell to 1410 when scene
 01 was cut from 210 to 120. The fourth was the first one a later scene caused —
 1410 to 1320, when the cross-repository scene was cut. The fifth, on 2026-08-25,
 is the first one a *surviving* scene caused: 1320 to 1300, when the blast radius
 was trimmed from 120 to 100 frames because the last 41 frames of it had become
-pixel-identical once its claim line and veil were cut. Only two scenes have ever
-changed duration — scene 01, and now the blast radius. For every other scene,
-only offsets have moved.
+pixel-identical once its claim line and veil were cut. The sixth, the same day,
+is the first one that added time rather than removing it: 1300 to 1330, when the
+semantic scene grew from 150 to 180 frames so its two-column comparison stands
+for a full second before anything leaves the frame. Three scenes have ever
+changed duration — scene 01, the blast radius, and the semantic scene. For every
+other scene, only offsets have moved.
 
 ## Implementation status
 
@@ -291,19 +294,19 @@ return of the graph to the match cut's pose. `src/three/crossRepoState.ts` and i
 `restLook` export went with the scene; scene 05 reads the pose off the state it
 inherits instead.
 
-Measured after the cut, re-measured after the blast radius was trimmed, and
-re-measured again once scene 06 landed: the 0330 and 0730 seams are
-pixel-identical, 0630 is 62.93 dB (glyph antialiasing only), and 970 mounted
-frames render with no black frame.
+Measured after the cut, re-measured after the blast radius was trimmed,
+re-measured again once scene 06 landed and again after the semantic scene grew:
+the 0330 and 0730 seams are pixel-identical, 0630 is 62.93 dB (glyph antialiasing
+only), and 1000 mounted frames render with no black frame.
 
-The 0880 boundary does not measure like those, and it is not supposed to. It is a
-match cut, not an invisible cut: whole-frame PSNR across 0879/0880 is 27.9 dB,
-because the split view's left column and divider leave and the prompt layer
-arrives, while the symbol region measures 42.2 dB, because the symbol itself is in
-the same place at the same size. The whole-film scan over 970 frames flags 0880
-and nothing else, and 0880 is the cut — a step, not a spike, confirmed by the
-frames either side. Anyone measuring 27.9 dB at that boundary later should read
-the symbol region before calling it a regression.
+The 0910 boundary does not measure like those, and it is not supposed to. It is a
+match cut, not an invisible cut: the symbol region across 0909/0910 measures
+41.4 dB, because the symbol itself is in the same place at the same size, while
+the whole frame measures far lower, because the split view's left column and
+divider have gone and the prompt layer arrives. The whole-film scan over 1000
+frames flags 0909 and nothing else, and 0909 is the cut — a step, not a spike,
+confirmed by the frames either side. Anyone measuring a poor whole-frame figure at
+that boundary later should read the symbol region before calling it a regression.
 
 ### The problem scene
 
@@ -328,13 +331,15 @@ find it is in the length of the two scenes that remain.
 
 ## Key frames
 
-Frames that must hold up as still images: `0080`, `0629`, `0710`, `0840`, `0940`,
-`1010`, `1170`. Each is documented in the scene that owns it. `0940` joined the
+Frames that must hold up as still images: `0080`, `0629`, `0710`, `0840`, `0970`,
+`1040`, `1200`. Each is documented in the scene that owns it. `0970` joined the
 list when scene 06 landed; of the six that predate it, the four after `0629` each
 moved −90 with the cross-repository cut, and the last three moved a further −20
 when the blast radius was trimmed. `0710` did not move with the trim: it is
 scene-local 80, so it still sits inside the shorter scene, and the hold behind it
-is now twenty-one frames rather than forty.
+is now twenty-one frames rather than forty. The last three moved again, +30, when
+the semantic scene grew from 150 to 180 frames; `0840` stayed where it was,
+because it is scene-local 110 and the growth is all in that scene's tail.
 
 Scene 03's entry moved from `0620` to `0629`. Both frames sit inside the held
 final camera pose, but at 0620 the last crossing is still handing its accent back
@@ -348,9 +353,9 @@ and have not been reconciled.
 cut, the still carries the two-column asymmetry on its own and has to be
 unmistakable without a caption telling the viewer what to conclude.
 
-`0940` is scene 06's label frame, and it sits inside a hold rather than on the
-last frame that moves: measured on the render, the scene stops changing at 0939
-and every frame from there to 0969 is byte-identical, so the still is one frame
+`0970` is scene 06's label frame, and it sits inside a hold rather than on the
+last frame that moves: measured on the render, the scene stops changing at 0969
+and every frame from there to 0999 is byte-identical, so the still is one frame
 clear of the last thing that moves rather than balanced on it.
 
 ## Rendering
@@ -394,8 +399,8 @@ survive being walked backwards as well as forwards. None of this touches the
 film: `premountingActive` is gated on `!isRendering`, so no rendered frame
 changes — the render never had the blink, only the preview did. Scene 06 carries
 `premountFor={30}` and no `postmountFor`, which is right while it is the last
-mounted scene: nothing scrubs back across 0970 yet. Scene 05's `postmountFor`,
-though, is now due and still missing — since 0880 became a boundary there is a
+mounted scene: nothing scrubs back across 1000 yet. Scene 05's `postmountFor`,
+though, is now due and still missing — since 0910 became a boundary there is a
 scene after it to scrub back from. Repeat both props on any sequence from scene 07
 onward that mounts a canvas.
 
@@ -443,4 +448,30 @@ mechanical pass across all nine documents and has not been done yet.
   0880 alone, which is the cut itself, a step rather than a spike.
 - Scene 05's postmountFor is now due and still missing: there is a scene after
   it to scrub back from.
+```
+
+```text
+2026-08-25
+- Scene 05 (Semantic Resolution) grew from 150 to 180 frames on direct art
+  direction, so the master is 1330 frames (22.2 s) and every frame at or after
+  0910 moved +30: scene 06 is 0910-1000, scene 07 1000-1120, scene 08 1120-1210,
+  scene 09 1210-1330. mountedFrames 970 -> 1000, so the film that renders is
+  16.67 s and 330 frames - still 5.5 s - of the master are black. Nothing before
+  0730 moved, and no scene-local frame outside scene 05's tail changed.
+- This is the sixth master length and the first that added time. It is also only
+  the third duration change in the film's history: scene 01, the blast radius,
+  and now the semantic scene.
+- The reason is reading time, not padding. The comparison completed at 0815 and
+  the frame began emptying 27 frames later, on three separate windows, so it read
+  as pieces being switched off one after another. Everything now leaves on one
+  window, 0875-0903, and the two columns stand complete for the sixty frames
+  before it.
+- Key frames: 0940 -> 0970, 1010 -> 1040, 1170 -> 1200. 0080, 0629, 0710 and 0840
+  are unchanged; 0840 is scene-local 110, inside the untouched head of the scene
+  that grew.
+- Measured: 1000 frames render with no black frame and the anomaly scan flags 0909
+  alone, which is the cut itself. The 0330 and 0730 seams are still
+  pixel-identical and 0630 is still 62.93 dB. The match cut is now 0909/0910 and
+  measures 41.4 dB over the symbol region. Scene 06 is static from 0969 through
+  0999, where it used to be static from 0939.
 ```

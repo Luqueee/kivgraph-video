@@ -52,10 +52,10 @@ nothing has been said about it.
 this frame: `withRetry()` stops being HTML text and becomes the central node of a
 Three.js graph.
 
-**Later.** Scene 06 (`06-agent-answer.md`, frames 0880–0970) match-cuts _back_
+**Later.** Scene 06 (`06-agent-answer.md`, frames 0910–1000) match-cuts _back_
 into this prompt row to deliver the answer. This scene therefore defines a
 reusable geometry, not a one-off layout: the rule, the row and the token positions
-established here must be reproducible 550 frames later, which is why they are
+established here must be reproducible 580 frames later, which is why they are
 exported constants rather than inline numbers.
 
 ## Why this scene absorbed its predecessor
@@ -426,7 +426,7 @@ the video.
   cloned chrome, no cloned colour scheme, no cloned status line, no cloned
   tool-result formatting.
 - **The prompt geometry is a shared constant.** `06-agent-answer.md` rebuilds this
-  row at frame 0880 and `03-graph-reveal.md` matches the token at 0330. All three
+  row at frame 0910 and `03-graph-reveal.md` matches the token at 0330. All three
   read `promptLayout` / `tokenRect`; none of them re-derives the numbers.
 - **Typing is grouped and irregular**, never a uniform per-character stream.
 - **The tool invocation stays discreet.** One line, small, one accent square. It
@@ -617,3 +617,16 @@ token's final apparent scale, and the push-in curve.
 - The trim's reason, for anyone tempted to give the blast radius its tail back:
   once its claim line and veil were cut, nothing in that tail animated and 41 of
   its last frames were pixel-identical.
+
+2026-08-25
+
+- Scene 05 grew from 150 to 180 frames, so every master frame from 0910 onward
+  shifted +30 and the master is now 1330 frames (22.2 s). This scene owns none of
+  those frames, so its own frames, beats, geometry and copy are untouched. What
+  changed here is the two references forward: the agent answer scene now spans
+  0910-1000 and rebuilds this prompt row 580 frames after the 0330 match cut
+  rather than 550.
+- The growth's reason, for anyone tempted to take the time back: the semantic
+  scene's comparison used to start emptying 27 frames after it finished building,
+  on three separate windows. It now stands complete for sixty frames and leaves
+  on one.

@@ -487,7 +487,7 @@ Frames to inspect manually (`STORYBOARD.md` §28):
 ```
 
 **Frame 0710 is a key visual frame** (`STORYBOARD.md` §29, and `AGENTS.md`'s list
-of frames that must remain intentional as stills: 0080, 0620, 0710, 0840, 1010, 1170),
+of frames that must remain intentional as stills: 0080, 0620, 0710, 0840, 1040, 1200),
 earmarked for the README. It must work as a still image, which means at 0710:
 
 - the propagation is complete and every affected node is unambiguously marked;
@@ -856,4 +856,20 @@ Safe to change without altering the scene's purpose:
   frames render with no black frame and no single-frame anomaly.
 - Beats, scene-local frames, the pulse, the propagation order, the hop geometry,
   the three card values and every visible string are unchanged.
+```
+
+```text
+2026-08-25
+- Scene 05 (Semantic Resolution) grew from 150 to 180 frames, so every master
+  frame from 0910 onward moved +30 and the master is now 1330 frames (22.2 s).
+  This scene is untouched: it still starts at 0630, still spans 0630–0730
+  (10.5 s – 12.17 s), and its key visual frame is still 0710. The 0729/0730
+  boundary into the semantic scene is unaffected and still pixel-identical.
+- The still-image list here follows the shift and now reads 0080, 0620, 0710,
+  0840, 1040, 1200.
+- The growth was the semantic scene's own, and it is the opposite of this scene's
+  trim: its comparison used to start emptying 27 frames after it finished
+  building, on three separate windows, and it now stands complete for sixty
+  frames and leaves on one. Where dead frames came off this scene, reading time
+  went onto that one.
 ```
