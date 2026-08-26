@@ -2,7 +2,13 @@ import React from "react";
 import { AbsoluteFill, interpolateColors } from "remotion";
 import * as THREE from "three";
 import { ThreeCanvas } from "@remotion/three";
-import { edges, nodeById, nodes, repositories, selectedSymbolId } from "../data/graphDemo";
+import {
+  edges,
+  nodeById,
+  nodes,
+  repositories,
+  selectedSymbolId,
+} from "../data/graphDemo";
 import type { GraphVisualState } from "../three/graphState";
 import {
   FOV,
@@ -49,7 +55,9 @@ import { brand, graph } from "../brand/tokens";
  * screen-space - the centre of the vignette - and for the camera itself.
  */
 
-export const GraphWorld: React.FC<{ state: GraphVisualState }> = ({ state }) => {
+export const GraphWorld: React.FC<{ state: GraphVisualState }> = ({
+  state,
+}) => {
   /**
    * Graph-local to world: the offset that lands the anchor on the token, with
    * the cascade's depth scaled by whatever is left of it.
@@ -264,7 +272,26 @@ export const GraphWorld: React.FC<{ state: GraphVisualState }> = ({ state }) => 
          * light stripe along two edges of the anchor with the hairline lost
          * inside it.
          *
-         * A key near the plates' own normal fixes it in one move. From
+         * **And then it went back up, because `plateTilt` did not survive.**
+         * The plates are upright now - `plateTilt` is the identity basis - so
+         * the pitch that made a raking key strike the top rim square is gone,
+         * and with it the reason the key was flattened. What was left was a key
+         * `22°` off the plates' own normal, which is very close to lighting a
+         * flat surface head-on: the front face was well lit and the chamfer the
+         * extrusion actually has was not, so the plates read as rectangles of
+         * grey rather than as objects with a thickness.
+         *
+         * `[-6, 5, 8]` puts it back over the graph and to the left, `43°` off
+         * the normal, which is what makes the side face pick up light at all.
+         * The old failure cannot come back the same way: it needed the plates
+         * pitched into the key, and they are not.
+         *
+         * The superseded value and its reasoning are kept below, because it was
+         * correct for the geometry of its day and the next agent to find a rim
+         * brighter than a face should recognise the shape of it.
+         *
+         * A key near the plates' own normal fixed it in one move, back when the
+         * plates were pitched. From
          * `[-4, 0, 9]` - level, `24°` to the left, `22°` off the normal - the
          * front face still measures `1.838`, the same number as before to
          * within a fifth of a percent, so every grey the scene was signed off
@@ -288,7 +315,7 @@ export const GraphWorld: React.FC<{ state: GraphVisualState }> = ({ state }) => 
          * of this reaches them.
          */}
         <ambientLight intensity={0.6} />
-        <directionalLight position={[-4, 0, 9]} intensity={1.34} />
+        <directionalLight position={[-6, 5, 8]} intensity={1.34} />
         <directionalLight position={[9, -1, -5]} intensity={0.45} />
 
         {/**
@@ -481,14 +508,14 @@ export const GraphWorld: React.FC<{ state: GraphVisualState }> = ({ state }) => 
         })}
 
         {/**
-          * A repository name is the one label with no plate under it, so it is
-          * the one label whose orientation is not inherited from anything. It
-          * stands upright in world space, like the plates: what makes it read
-          * as type in the space rather than as an overlay on top of the space
-          * is that it is in the scene at all - it takes the perspective of
-          * wherever in the cascade it sits, and it is occluded by anything in
-          * front of it.
-          */}
+         * A repository name is the one label with no plate under it, so it is
+         * the one label whose orientation is not inherited from anything. It
+         * stands upright in world space, like the plates: what makes it read
+         * as type in the space rather than as an overlay on top of the space
+         * is that it is in the scene at all - it takes the perspective of
+         * wherever in the cascade it sits, and it is occluded by anything in
+         * front of it.
+         */}
         {repositories.map((repository) => {
           const opacity =
             (state.labels[repository.id] ?? 0) * clusterLabelOpacity;

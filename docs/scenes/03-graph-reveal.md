@@ -614,3 +614,35 @@ structure receding from it in depth, and three relations leaving the near codeba
   embedded size all eight labels, both repository names and the whole topology
   read.
 ```
+
+```text
+2026-08-26
+- Depth pass, on direct art direction: in still frames the graph could still be
+  read as a 2D diagram with curved connectors, which is the one thing the plates
+  exist to prevent.
+- The key light went back up, and finding out why it was down is the whole entry.
+  It had been lowered to `[-4, 0, 9]` - 22 degrees off the plates' own normal -
+  because `plateTilt` pitched the plates 17 degrees into it and the key was
+  striking their top rim square, coming out brighter than the front face. That
+  measurement was correct. But `plateTilt` was afterwards set to the identity
+  basis and the plates stand upright now, so the reason was gone and the flat key
+  remained: a light almost normal to a flat surface, which lights the face and
+  not the chamfer. `[-6, 5, 8]`, 43 degrees off the normal. The old failure needs
+  pitched plates and there are none.
+- Plate thickness 0.038 -> 0.062. The documented bound has not moved; what
+  changed is that the chamfer is lit now, so it reads as a turning surface rather
+  than a slightly darker line. Checked at 3x against the failure the bound exists
+  for: the side face and the hairline are still two things, not a band.
+- The edges' lift toward the camera roughly doubled, 0.13 + 0.012 L -> 0.22 +
+  0.026 L. It is the only part of an edge that is unambiguously depth rather than
+  curvature. The lateral bow is untouched - it was set at 0.032 against a real
+  measured complaint about edges wandering, and doubling it would bring the
+  detour back.
+- Not done: per-node plate rotation of a few degrees. This file records three
+  attempts at plate rotation and why each failed, and the labels are children of
+  the plate group - they rotate with it, which is what produced fake italics on
+  the far nodes. A varied per-node tilt is not the global tilt that was rejected,
+  but it has the same consequence for the type, and the depth cue it would add is
+  the one the upright plates already get from sitting at different places in the
+  cascade.
+```

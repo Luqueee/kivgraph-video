@@ -93,8 +93,9 @@ export const shellLook = [
 const fallback = shellLook[shellLook.length - 1] ?? shellLook[0];
 
 export const lookOf = (id: string) =>
-  shellLook[Math.min(shellOf[id] ?? shellLook.length - 1, shellLook.length - 1)] ??
-  fallback;
+  shellLook[
+    Math.min(shellOf[id] ?? shellLook.length - 1, shellLook.length - 1)
+  ] ?? fallback;
 
 /**
  * Luminance of a repository label. Metadata, a step below the outermost node.
@@ -126,8 +127,15 @@ const plateHeightRatio = 2.05;
  * the eye reads as the plate turning away, next to a contour it still reads as
  * one pixel. Deeper and the two merge into a band; that is the whole history
  * of the number.
+ *
+ * Raised from `0.038` on 2026-08-26. The bound above is still the bound and it
+ * has not moved - what changed is that with the key back off the plates' normal
+ * the chamfer is *lit*, so it reads as a turning surface instead of as a
+ * slightly darker line, and it can afford the width. The graph was being read as
+ * a 2D diagram with curved connectors in still frames, which is the one thing
+ * the plates exist to prevent.
  */
-const plateThickness = 0.038;
+const plateThickness = 0.062;
 
 /**
  * A node's label and plate metrics, in world units.
@@ -140,10 +148,7 @@ const plateThickness = 0.038;
  * plate. At `0` the plate is exactly `selectedTokenRect`; at `1` it has the
  * padding every other node has. Secondary nodes are always at `1`.
  */
-export const nodeMetrics = (
-  node: { id: string; label: string },
-  grow = 1,
-) => {
+export const nodeMetrics = (node: { id: string; label: string }, grow = 1) => {
   const look = lookOf(node.id);
   const em = graphEm * look.em;
   const anchor = node.id === selectedSymbolId;

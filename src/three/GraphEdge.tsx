@@ -134,7 +134,7 @@ export const GraphEdge: React.FC<Props> = ({
       .add(end)
       .multiplyScalar(0.5)
       .add(lateral)
-      .add(new THREE.Vector3(0, 0, 0.13 + length * 0.012));
+      .add(new THREE.Vector3(0, 0, 0.22 + length * 0.026));
 
     const curve = new THREE.CatmullRomCurve3([start, mid, end]);
     const rings = Math.max(4, Math.round((length * draw) / ringSpacing));
