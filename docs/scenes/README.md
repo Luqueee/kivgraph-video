@@ -9,20 +9,22 @@
 | 05  | Semantic Resolution |   770–970 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
 | 06  | Agent Answer        |  970–1150 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
 | 07  | Benchmark           | 1150–1360 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
-| 08  | Brand               | 1360–1450 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
-| 09  | Outro               | 1450–1570 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
+| 08  | Brand               | 1360–1530 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
+| 09  | Outro               | 1530–1650 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
 
-Master: 1920 × 1080, 60 fps, **1570 frames, 26.17 s**. Global frame boundaries
+Master: 1920 × 1080, 60 fps, **1650 frames, 27.5 s**. Global frame boundaries
 live only in `src/Composition.tsx`.
 
-That 1570 is the plan, not what renders today. Scenes 01–07 exist, so
-`KivgraphPromo` is registered at `mountedFrames` — currently **1360 frames,
-22.67 s** — and Studio and `remotion render` produce the film that exists instead
-of that film followed by three and a half seconds of black.
-Raise `mountedFrames` in `src/Composition.tsx` as each scene lands, and delete it
-once it reaches 1570.
+**Every scene exists.** `mountedFrames` is gone: it held the composition at the
+length that actually rendered while the film was shorter than its plan, so that
+Studio and `remotion render` produced the film that existed rather than that film
+followed by seconds of black. Scene 09 was the last one outstanding, the two
+numbers met, and `src/Composition.tsx` now exports `masterFrames = 1650`.
 
-The master length has moved nine times. Three were because the opening changed:
+Rendered end to end: 1650 frames, 27.5 s, 1920 × 1080 at 60 fps, and no black
+frame anywhere in it.
+
+The master length has moved ten times. Three were because the opening changed:
 it was 1500, grew to 1620 when scene 01 was extended from 90 to 210 frames,
 returned to 1500 when the old scene 02 was deleted, and fell to 1410 when scene
 01 was cut from 210 to 120. The fourth was the first one a later scene caused —
@@ -59,6 +61,13 @@ retime, so it is the only scene whose length has never been set by a plan. Why 2
 rather than 170 is a dwell figure: the two-column build asks the viewer to read
 eight figures and two arm names where the single column had four figures, and its
 source note is the tightest row in the scene — see **Pacing and dwell time**.
+
+The tenth, on 2026-08-26, is the first taken from a scene that had already
+shipped rather than from one arriving, and the first taken by watching rather
+than by counting: 1570 to **1650**, when the brand reveal went from the 90 frames
+it was drafted at to 170. At 90 its tagline settled with ten frames left. Only
+scene 09 moved, +80. Six scenes have now ever changed duration, and scene 08 is
+the second — after the benchmark — whose length was never set by a plan.
 
 ## Pacing and dwell time
 
@@ -135,8 +144,8 @@ the only place in the scene where the answer is read.
 | 05  | Semantic Resolution | implemented, key frames inspected         |
 | 06  | Agent Answer        | implemented, key frames inspected         |
 | 07  | Benchmark           | implemented, key frames inspected         |
-| 08  | Brand               | specified only                            |
-| 09  | Outro               | specified only                            |
+| 08  | Brand               | implemented, key frames inspected         |
+| 09  | Outro               | implemented, key frames inspected         |
 
 `src/data/graphDemo.ts` exists and is the graph truth all three graph scenes read:
 eight nodes, seven `caller → callee` edges, two repositories, a derived
@@ -430,17 +439,38 @@ inherits instead.
 
 Measured after the cut, re-measured after the blast radius was trimmed,
 re-measured again once scene 06 landed, again after the semantic scene grew, again
-after the pacing pass, once scene 07 landed, and again once scene 07 was rebuilt:
-the 0330 and 0770 seams are pixel-identical, 0630 is 62.93 dB (glyph antialiasing
-only), and 1360 mounted frames render with no black frame.
+after the pacing pass, once scene 07 landed, again once scene 07 was rebuilt, and
+again once scene 08 landed: the 0330 and 0770 seams are pixel-identical, 0630 is
+62.93 dB (glyph antialiasing only), and 1530 mounted frames render with no black
+frame.
+
+**No black frame** now needs one word of precision, because scene 08 opens on ten
+empty ones. They are `#0a0b0d`, the brand background, painted by `BrandScene`
+itself — not `#000000`, and not a hole in the timeline. That distinction was a
+real defect for exactly as long as scene 08 was unmounted: `BenchmarkScene`
+carried its fade's `opacity` on the same `AbsoluteFill` that painted the
+background, so the background faded out with the table and the frame reached
+pure `#000000` at 1356 and held it to 1359, and scene 08 then restored `#0a0b0d`
+at 1360. A ten-level step on a flat frame, at the one boundary in the film that
+is meant to be invisible, and precisely the levels change `08-brand.md` forbids
+by name. The fade now lives on an inner fill; 1190, 1300 and 1347 are
+byte-identical to the render before it, because `fadeOut` is 1 for every frame
+before local 198.
+
+The 1359/1360 seam therefore measures `inf` — the two frames are identical, and
+the corner holds `10 11 13` across it. Scene 07 does not render the silence; it
+lands on it two frames early, at 1358, because the project's easing is within one
+255th of its final value before its ramp ends, and scene 08's own ten frames join
+it into one twelve-frame identical run.
 
 The 0970 boundary does not measure like those, and it is not supposed to. It is a
 match cut, not an invisible cut: the symbol region across 0969/0970 measures
 41.35 dB, because the symbol itself is in the same place at the same size, while
 the whole frame measures far lower, because the split view's left column and
 divider have gone and the prompt layer arrives — 28.69 dB whole-frame. The
-whole-film scan over 1360 frames flags two pairs and nothing else: 0969/0970 and
-1149/1150. Both are hard cuts, steps rather than spikes, confirmed by the frames
+whole-film scan flags two pairs and nothing else: 0969/0970 and
+1149/1150. Scene 08 adds no third: its own boundary at 1360 is identical rather
+than a cut, and it contains no cut of its own. Both are hard cuts, steps rather than spikes, confirmed by the frames
 either side, and 1149/1150 is scene 07's own cut at 24.25 dB, which is what a hard
 cut is supposed to measure. That figure moved twice: from 22.30 dB when the
 benchmark's figure set was resolved, and again to 24.25 when the attribution match
@@ -486,7 +516,7 @@ it instead of guessing:
 | `0864` | the first frame of scene 05's measured byte-identical stand.             |
 | `1064` | the frame scene 06's attribution label finishes on; the scene goes static.|
 | `1190` | scene 07's cost row complete, with both arms already named above it.     |
-| `1440` | scene 08's settled lockup plus tagline.                                 |
+| `1440` | scene 08's settled lockup plus tagline; static since `1438`.             |
 
 How they got here. `1064` joined the list as scene 06's label frame — it was
 `0940` when the scene landed and `0970` after the semantic scene grew. Of the six
@@ -569,8 +599,10 @@ sRGB from `src/brand/tokens.ts` and every other scene is DOM, so a film curve
 between the tokens and the frame would mean the graph's greys are not the site's
 greys. Scenes 04 to 06 inherit both by drawing through the same `GraphWorld` —
 scene 06 only for the 30 frames it keeps a canvas at all. Scene 07 mounts no canvas
-at all — it is type on the background and there is no Three.js in it — so scene 08
-onward is where the pair has to be carried next.
+at all — it is type on the background and there is no Three.js in it. Scene 08
+brings a canvas back for its converging relationships, and it carries the pair:
+`toneMapping: NoToneMapping`, `outputColorSpace: SRGBColorSpace`, copied from
+`GraphWorld` for the same reason. Repeat them on any canvas from here on.
 
 Every graph sequence also carries `premountFor={30}`, and that is a preview fix
 rather than a creative one. A `<Sequence>` renders its children only inside its
@@ -592,8 +624,16 @@ changes — the render never had the blink, only the preview did. Scene 06 carri
 1150, so there is a scene after it to scrub back from, and scrubbing back across
 1150 remounts the canvas scene 06 holds for its first 30 frames. Scene 05's is due
 for the same reason and has been since 0970 became a boundary. Scene 07 needs
-neither prop, because it mounts no canvas; repeat both on any sequence from scene
-08 onward that does.
+neither prop, because it mounts no canvas. Scene 08 does mount one — R3F, for
+its converging relationships — so it carries `premountFor={30}` like the graph
+scenes. Repeat both on any sequence that mounts a canvas.
+
+Scene 08 is the one place in the film where the premount matters least, and that
+is worth knowing rather than rediscovering: it opens on ten deliberately empty
+frames, so played forward the context has ten frames to warm before the first
+line is drawn at 1370. The premount is for the scrubber, not for the
+playthrough. `postmountFor` becomes due the moment scene 09 exists, for the same
+reason scenes 03 and 04 carry theirs.
 
 The mechanism survived the cross-repository cut unchanged, but the seam it was
 found at is now a different pair of scenes: it was `GraphRevealScene` handing over
@@ -873,4 +913,160 @@ mechanical pass across all nine documents and has not been done yet.
 - The scene 06 dwell claim in "Pacing and dwell time" is unchanged and was the
   reason the transition took this shape: the 87-frame static run is the only place
   the answer is read, so it could not be trimmed to close the gap.
+```
+
+```text
+2026-08-26
+- Scene 08 (Brand) implemented. src/scenes/BrandScene.tsx and the new shared
+  src/components/BrandLogo.tsx, mounted at 1360-1450, 90 frames. mountedFrames
+  1360 -> 1450. Nothing in the timeline moved: the master is still 1570, scene 08
+  is still 1360-1450 and scene 09 is still 1450-1570. Scene 09 is the only
+  unrendered part of the master.
+- BrandLogo.tsx is the fourth shared component after MetricCard, ImpactReport and
+  Attribution, and it exists for the same reason as Attribution: an element that
+  crosses a scene boundary is defined once, outside both scenes. It owns the mark,
+  the wordmark, the tagline, the two copy strings and - the part that matters at
+  1450 - the lockup's screen position, as one constant both scenes read. It was
+  authored to scene 09's column rather than to scene 08's own frame, so the mark's
+  centre is 960, 360 and scene 08 settles about 80 px above centre on purpose.
+- Three open decisions resolved. Lowercase `kivgraph` rather than `Kivgraph`,
+  with STORYBOARD.md SCENE 10 updated in the same task. The lockup persists across
+  1450, which BrandLogo.tsx now enforces rather than assumes. And 2D rather than
+  R3F - which was then partly overridden, below.
+- Three overrides on direct art direction, all recorded as overrides in 08-brand.md
+  ## Current compromises rather than dressed up as derivations. The mark is the
+  shipped raster (see below). The relationships were rebuilt in R3F with a trail
+  shader, against the AGENTS.md list that names estelas among what was rejected up
+  front - but bounded: no postprocessing, no particles, no uTime, no camera, and
+  the lockup kept in DOM so the 1450 position guarantee survives. And the mark
+  turns once as the wordmark enters, against the scene's own
+  inevitable-rather-than-animated rule - but concluding at 1436, so the still
+  frame is not caught mid-rotation. Frame 1440 came out of both overrides
+  byte-identical to the render from before either existed; it moved afterwards
+  for a third reason, below.
+- Scene 08 therefore mounts a canvas, and the two notes above about it not doing
+  so are corrected: it carries premountFor={30} and the NoToneMapping / sRGB
+  pair.
+- The mark is the shipped raster, not the 8 x 8 #2563eb square, on direct art
+  direction. Both marks are real - the square is the web header lockup and
+  TopBar.astro still draws it - so the site and the film do not show the same mark
+  today. Recorded as the first item of 08-brand.md ## Current compromises along
+  with its three consequences: no accent anywhere in the film after 1430, two
+  colours (#e9e2dc, #56818a) that come from no token, and the loss of the scene's
+  original argument that the node and the mark were the same shape.
+- New asset public/brand/kivgraph-mark.png, derived rather than copied: the
+  shipped raster with its background keyed to alpha and cropped to the glyph. The
+  background was measured as the modal colour, #0e1015, rather than read off the
+  corner, which is #101218. It rots silently if the shipped mark changes and this
+  is not regenerated - the same trap kivgraph/landing/AGENTS.md records for a
+  stale favicon.svg and src/brand/fonts.ts for the .woff2 / .ttf pair.
+- Defect found in scene 07 by mounting scene 08, fixed in the same task.
+  BenchmarkScene carried its fade's opacity on the same AbsoluteFill that painted
+  the background, so the frame reached pure #000000 at 1356 and held it to 1359
+  and scene 08 restored #0a0b0d at 1360 - the levels change 08-brand.md forbids by
+  name. Invisible only because the film used to end at 1360. Verified
+  byte-identical at 1190, 1300 and 1347; only 1348-1359 changed.
+- Measured on exported PNGs of 1340-1449, not on the Studio scrubber. 1359/1360
+  measures inf and the corner holds 10 11 13 across it. Identical runs: 1340-1348
+  the settled table, 1358-1369 the silence (twelve frames - the fade lands two
+  early and scene 08's ten join it), 1416-1418 the complete convergence figure,
+  and 1438-1449 the settled lockup. 78 distinct images in 110 frames. Measured
+  separately over a band that contains lines and no type, no line fragment
+  survives past 1424 - four frames inside the requirement that they be gone before
+  the wordmark reads. The whole-film cut scan still flags only 0969/0970 and
+  1149/1150; scene 08 adds no third.
+- Key frame 1440 unchanged in position and better in kind: it is now static since
+  1438, because the project's easing lands within one 255th of its final value
+  about two frames before its ramp ends. Same reason the wordmark is settled at
+  1428 rather than 1430. The turn was timed to end at 1436 precisely so this
+  remained true.
+- One timing bug caught by exporting rather than by reading code: the node's ramp
+  opened on local 0010, and interpolate() is exactly 0 at the left edge of its
+  range, so 1370 rendered identical to 1360 and the silence was eleven frames
+  instead of ten. The ramp opens on 0009 now.
+- Known and unfixed here: pnpm run lint fails on a clean checkout of this repo,
+  independent of this work. tsconfig.json sets lib: ["es2015"] and there are 27
+  uses of Object.fromEntries and flatMap across graphDemo.ts, blastState.ts,
+  graphState.ts, semanticState.ts and GraphWorld.tsx. Verified by stashing: the
+  same 27 errors without any file from this task. eslint passes, and tsc passes
+  with lib es2022.
+```
+
+```text
+2026-08-26
+- Two changes on direct art direction, from watching the film rather than from
+  reading it.
+- Scene 06 is centred. Its whole prompt layer - rule, question, tool line, three
+  answer blocks, attribution - and its falloff sit 260 px higher than
+  promptLayout puts them. New constant answerLift in AgentPrompt.tsx; promptScrim
+  becomes promptScrimLifted(0) so the two offsets share one gradient. Measured:
+  the content at 1064 ran 604-976, centre 790 against the frame's 540, and now
+  runs 344-716, centre 530. Horizontally nothing moved because nothing needed to -
+  the content spans 440-1458 and its centre was already 949.
+- promptLayout itself was not touched, which is the whole point. 02-agent.md marks
+  the row's position not flexible, and the reason is graphFrame.ts deriving
+  graphOffset - the world position of the entire graph for scenes 03 to 06 - from
+  selectedTokenRect. Verified: 0969 and the still 1190 are byte-identical to the
+  render before the change. Both match cuts hold: 0969/0970 whole frame 29.84 ->
+  29.83 dB and symbol plate 50.99 -> 52.14 dB; 1149/1150 attribution region 56.79
+  -> 56.70 dB with a max delta of 1 level on both sides, which is what it always
+  measured in that crop.
+- One trap worth carrying forward: the lift reaches the travelling symbol through
+  the camera pose, not through a transform on the canvas. The first build put
+  `translate` on the AbsoluteFill holding GraphWorld, gated on a ramp that is zero
+  at frame 0, and frame 0970 still moved by 51 dB. A transform resamples a WebGL
+  texture whether or not it displaces anything. Same family as scene 08's
+  will-change finding: DOM transforms over rasters are not free.
+- Scene 08 grew from 90 frames to 170, tenth master length: 1570 -> 1650 (27.5 s),
+  scene 09 to 1530-1650, mountedFrames 1450 -> 1530. No beat moved - the still
+  key frame is still 1440 - and the growth is all tail. The tagline now has 90
+  frames of dwell, 1.5 s, 28 characters per second, against ten frames and 252 at
+  the drafted length. Frames 1440 and 1529 are byte-identical.
+- attributionLayout.y is now 956 + answerLift = 696, shared by scenes 06 and 07 as
+  before, so in scene 07 that line sits between the last table row and the source
+  note. They never share a frame.
+```
+
+```text
+2026-08-26
+- Scene 09 (Outro) implemented. src/scenes/OutroScene.tsx, mounted at 1530-1650.
+  Every scene in the film now exists. mountedFrames was retired - it existed only
+  while the film was shorter than its plan - and src/Composition.tsx exports
+  masterFrames = 1650 instead; Root.tsx reads that.
+- Scene 08 gained postmountFor={30}, due the moment there was a scene after it to
+  scrub back from, because it mounts a canvas. Scene 09 needs neither prop: static
+  type, no canvas, nothing after it.
+- Both of scene 09's open decisions closed against the product rather than by
+  choice. Domain kivgraph.dev, which landing/astro.config.mjs bakes in as the
+  production fallback for `site` and which STORYBOARD.md already named, so the
+  storyboard did not change. Install line omitted - 89 characters against a
+  12-character URL, which is the condition the storyboard itself set. Integration
+  names verified: kivgraph mcp install has five targets, so all three on screen
+  are real, and Claude Desktop and Oh My Pi are left off for space.
+- Implementation status table: 09 goes from "specified only" to implemented. It is
+  the last row to move.
+- Measured end to end. The film renders 1650 frames, 27.5 s, 1920x1080 at 60 fps,
+  with no black frame anywhere. The 1530 boundary is byte-identical - 1529 and
+  1530 are the same image - so it is not a seam at all. In the H.264 encode the
+  final hold stays a hold, 87.9 dB between frames that are identical in the
+  source, and the poster frame measures 45.2 dB against its source PNG.
+```
+
+```text
+2026-08-26
+- Oh My Pi added to scene 09's integrations line, on direct art direction: four
+  names rather than three. It is a real target and the label is the product's own,
+  from landing/src/components/landing/clients.ts, which derives from
+  internal/integrations/integrations.go. STORYBOARD.md fixes that line verbatim,
+  so its copy block was updated in the same task under the clause that already
+  allowed further integrations «si hay espacio».
+- Space measured, not judged: 511 px, 27% of the frame, centred on 959, clearing a
+  1080-wide crop with 280 px either side. The stagger went 4 -> 3 frames per name
+  so the last one still lands before the URL reads at 1560.
+- Claude Desktop remains the one supported client off screen - user scope only and
+  the one target with no local skill install, so the narrowest of the five.
+- The ending's length was confirmed as final and is not to be trimmed. Scene 08 is
+  170 frames and scene 09 is 120; the tagline's 210-frame total dwell stands.
+- Nothing else moved: 1529/1530 still byte-identical, 1560/1590/1649 still one
+  image.
 ```

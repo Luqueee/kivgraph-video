@@ -35,8 +35,8 @@ Three.js debe utilizarse para visualizar el concepto que hace especial a Kivgrap
 ```text
 Resolution: 1920 × 1080
 FPS: 60
-Duration: 26.17 s
-Frames: 1570
+Duration: 27.5 s
+Frames: 1650
 Aspect ratio: 16:9
 ```
 
@@ -2146,8 +2146,8 @@ cambiar el valor. Con `recall` a dos decimales la tabla diría `1.00` frente a
 ### Frames
 
 ```text
-1360–1450
-22.67–24.17 s
+1360–1530
+22.67–25.5 s
 ```
 
 ---
@@ -2192,7 +2192,18 @@ La animación simplemente sirve como transición.
 
 Aparece:
 
-# Kivgraph
+# kivgraph
+
+Minúscula, no `Kivgraph`. El lockup real es el wordmark mono en minúscula --
+`landing/src/components/landing/TopBar.astro` y `Footer.astro` lo componen así --
+y la película ya lleva las dos formas con una regla: la prosa toma la mayúscula
+(`Answered with Kivgraph`, la firma de la 08) y un identificador toma la
+minúscula (la cabecera `kivgraph` de la tabla de la 09). El match cut de
+1149/1150 pasa la palabra de un registro al otro, así que el reveal en minúscula
+rima con esa cabecera en vez de estrenar un tercer registro en el último plano.
+
+Corregido el 2026-08-26 al implementar la escena; este documento decía
+`Kivgraph`.
 
 ---
 
@@ -2209,21 +2220,27 @@ Debajo:
 ### Frames
 
 ```text
-1450–1570
-24.17–26.17 s
+1530–1650
+25.5–27.5 s
 ```
 
 ---
 
-### Frames 1450–1480
+### Frames 1530–1560
 
 Aparecen integrations:
 
 ```text
-Claude Code · Codex · OpenCode
+Claude Code · Codex · OpenCode · Oh My Pi
 ```
 
-Opcionalmente otras compatibles si hay espacio.
+Opcionalmente otras compatibles si hay espacio. `Oh My Pi` es una de ellas y
+entró el 2026-08-26 por dirección de arte directa: la línea mide 511 px, el 27 %
+del cuadro, y sobra sitio. El quinto cliente que el producto soporta, `Claude
+Desktop`, se queda fuera — es el único target de user scope y sin skill local, o
+sea el más estrecho de los cinco.
+
+Los rótulos son los del producto, no los del flag: `Oh My Pi`, no `oh-my-pi`.
 
 ---
 
@@ -2265,7 +2282,7 @@ kivgraph.dev
 
 ---
 
-### Frames 1510–1570
+### Frames 1590–1650
 
 Hold completo.
 
@@ -2644,11 +2661,11 @@ scenes/
     <BenchmarkScene />
   </Sequence>
 
-  <Sequence from={1360} durationInFrames={90}>
+  <Sequence from={1360} durationInFrames={170}>
     <BrandScene />
   </Sequence>
 
-  <Sequence from={1450} durationInFrames={120}>
+  <Sequence from={1530} durationInFrames={120}>
     <OutroScene />
   </Sequence>
 </>
@@ -2769,9 +2786,9 @@ Durante desarrollo revisar específicamente:
 1410
 1440
 
-1450
-1510
-1569
+1530
+1590
+1649
 ```
 
 Los frames:
@@ -2994,7 +3011,7 @@ Give coding agents structural context.
 La primera versión debe entregar:
 
 ```text
-26.17 s master
+27.5 s master
 1920×1080
 60 FPS
 H.264
@@ -3438,4 +3455,139 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   región que cruza mide `inf`. Los stills 1190 y 1345 quedan idénticos píxel a
   píxel al render anterior.
 - Afecta al registro de costuras de la SCENE 05 y al frame 1150 de la SCENE 09.
+```
+
+```text
+2026-08-26
+- La SCENE 10 — BRAND REVEAL está implementada. `src/scenes/BrandScene.tsx` y
+  `src/components/BrandLogo.tsx`, montada en 1360-1450, 90 frames. Nada del
+  timeline se mueve: el master sigue en 1570 y los beats de la escena son los
+  que este documento fija desde que se escribió. `mountedFrames` pasa de 1360 a
+  1450, así que lo único que no renderiza ya es la SCENE 11.
+- Copy corregido: el reveal del frame 1430 pasa de `Kivgraph` a `kivgraph`. El
+  lockup real lleva el wordmark mono en minúscula, y la película ya llevaba las
+  dos formas con una regla — la prosa toma la mayúscula, un identificador toma
+  la minúscula — que el match cut de 1149/1150 atraviesa. La razón queda escrita
+  bajo el propio frame 1430.
+- La marca es el ráster que Kivgraph publica — favicon, icono de app, icono que
+  enseña un cliente MCP — y no el cuadrado 8 x 8 de `accent`. Por dirección de
+  arte directa. Las dos marcas son reales: el cuadrado es el lockup de la
+  cabecera web y `TopBar.astro` lo sigue dibujando, así que la web y la película
+  no enseñan hoy la misma marca. La sección 10 no se toca: el accent sigue
+  significando lo que significaba, pero deja de aparecer en el lockup.
+- Consecuencia sobre la sección 10 que sí hay que saber: después del 1430 no
+  queda `#2563eb` en pantalla en toda la película. El accent se gasta entero en
+  las relaciones que llegan y se va con ellas en el 1428, que es exactamente lo
+  que la sección 12 pide — «el accent se gasta en establecer la relación, no en
+  tenerla». La marca aporta dos colores que no están en ningún token, un
+  hueso `#e9e2dc` y un verdeazulado `#56818a`, y son suyos: nada más en el cuadro
+  puede tomarlos prestados.
+- «No hacer literalmente un grafo como logo si no corresponde con el logotipo
+  actual» se cumple ahora en sentido literal, porque lo que queda en pie es el
+  logotipo que el producto publica.
+- Dos excepciones más a este documento, las dos por dirección de arte directa y
+  las dos acotadas. Van escritas como excepciones, no como deducciones, porque
+  quien lea sólo el resultado reconstruiría el razonamiento contrario.
+  1. Las cinco relaciones llevan **estela**, hechas en R3F con un shader. La
+     sección 12 permite «un punto de energía muy sutil recorriendo el edge» y
+     esto es más que eso, y `AGENTS.md` tiene «Partículas, `Trail`, estelas» en
+     su lista de lo rechazado de entrada «para que no vuelva a proponerse». Lo
+     que la excepción **no** cubre, y no debe ampliarse sin decirlo: no hay
+     postprocesado ni `bloom` — el brillo vive dentro del material de cada línea
+     —, no hay partículas, no hay `uTime` ni `useFrame`, la cámara es ortográfica
+     y no se mueve, y **el lockup no entra en el canvas**: sigue en DOM, porque
+     su posición tiene que sobrevivir al límite 1450 hacia una escena 11 que es
+     DOM.
+  2. La marca **gira una vuelta** al entrar el wordmark, del 1420 al 1436. Va
+     contra «avoid dramatic spins» de `AGENTS.md`. Se acotó por el still: termina
+     en 1436, así que el 1440 no lo toca y el cuadro está quieto desde el 1438.
+     Una vuelta que para, nunca un bucle, y nada gira después del 1436.
+  La prueba de que las dos excepciones quedaron bien acotadas: el frame 1440
+  salió de las dos idéntico byte a byte al render anterior a que existieran. Se
+  movió después, y por un tercer motivo: estabilizar el ráster que gira obligó a
+  promover la marca a su propia capa de composición, y eso vuelve a muestrear sus
+  bordes. El 1440 no cambia de contenido, posición ni tamaño; cambia hasta 35
+  niveles en el 6 % de los subpíxeles de dentro de la marca, 43,6 dB sobre su
+  región y 60,8 dB sobre el cuadro entero, y a 3x con vecino más próximo los dos
+  son indistinguibles.
+- Defecto encontrado y corregido en la 09 al montar la 10: `BenchmarkScene`
+  llevaba la opacidad del fundido en el mismo `AbsoluteFill` que pintaba el
+  fondo, así que el cuadro llegaba a `#000000` puro en el 1356 y se quedaba ahí
+  hasta el 1359, y la 10 devolvía `#0a0b0d` en el 1360. Eso es el salto de
+  niveles que `docs/scenes/08-brand.md` prohíbe por escrito, y estaba invisible
+  sólo porque la película terminaba en 1360. Verificado idéntico byte a byte en
+  1190, 1300 y 1347; sólo cambian los frames 1348-1359.
+- Medido sobre PNG exportados del rango 1340-1449, no sobre el scrubber. La
+  costura 1359/1360 mide `inf` y la esquina sostiene 10 11 13 al cruzarla. Rachas
+  idénticas: 1340-1348 la tabla asentada, 1358-1369 el silencio — doce frames,
+  porque el fundido llega dos frames antes y los diez de la 10 se le suman —,
+  1416-1418 la figura completa de la convergencia, 1428-1430 las líneas fuera con
+  el wordmark leído, y 1438-1449 el lockup quieto. 76 imágenes distintas en 110
+  frames.
+- El still clave 1440 de la sección 28 no se mueve y ahora está asentado desde el
+  1438: el easing del proyecto queda dentro de 1/255 de su valor final unos dos
+  frames antes de terminar, así que el frame que se exporta lleva dos frames
+  quieto.
+- Afecta al copy del frame 1430 de esta SCENE 10 y a nada más de este documento.
+  La sección 28 y la sección 29 quedan como estaban.
+```
+
+```text
+2026-08-26
+- Dos cambios por dirección de arte directa, los dos por ver la película en vez
+  de por leerla.
+- La SCENE 08 — RETURN TO AGENT se centra. Toda su capa de prompt — regla,
+  pregunta, línea de tool, los tres bloques de respuesta y la atribución — y su
+  degradado suben 260 px. La posición baja es de la SCENE 02 y allí es correcta:
+  el prompt va debajo del código del que habla, y la cámara abre a 0,66 justo
+  para despejar esa mitad. En el 0970 el código está al 0,02 y la respuesta es
+  todo el cuadro, así que la misma posición dejaba el bloque caído contra el
+  borde inferior. Medido en el 1064: el contenido iba de 604 a 976, centro 790
+  contra el 540 del cuadro; ahora va de 344 a 716, centro 530.
+- Horizontalmente no se mueve nada y no hacía falta: el contenido va de 440 a
+  1458 — la frase de la ruta pasa del extremo derecho de la regla — así que su
+  centro ya era 949.
+- La geometría compartida no se toca. El prompt de la SCENE 02 y el grafo de las
+  SCENE 03 a 08 siguen donde estaban, porque `graphFrame.ts` deriva la posición
+  del grafo del rectángulo del token. El 0969 y el still 1190 salen idénticos byte
+  a byte al render anterior, y los dos match cuts se sostienen: 0969/0970 pasa de
+  29,84 a 29,83 dB de cuadro completo y de 50,99 a 52,14 dB sobre la placa del
+  símbolo, y la región de la atribución en 1149/1150 de 56,79 a 56,70 dB.
+- La SCENE 10 — BRAND REVEAL pasa de 90 a 170 frames. El master pasa de 1570 a
+  1650 (27,5 s), la SCENE 11 a 1530–1650 y `mountedFrames` de 1450 a 1530. Ningún
+  beat se mueve: el silencio sigue en 1360–1370, el nodo en 1370, el wordmark lee
+  en 1430, el lema en 1440 y el still clave sigue siendo el 1440. Lo que crece es
+  el reposo del final, de diez frames a noventa.
+- El motivo es de lectura y está medido: el lema tiene 42 caracteres, y a diez
+  frames se leía a 252 caracteres por segundo contra el presupuesto de 25–40 con
+  el que está cronometrada el resto de la película. A noventa son 28. Los frames
+  1440 y 1529 son idénticos byte a byte, así que el reposo entero es una imagen.
+- Afecta a la sección Master, a los frames de la SCENE 10 y la SCENE 11, al
+  ejemplo de `Composition.tsx` de la sección 26, a la lista de frames críticos de
+  la sección 28 — 1450/1510/1569 pasan a 1530/1590/1649 — y a la sección 34.
+```
+
+```text
+2026-08-26
+- La SCENE 11 — CTA está implementada. `src/scenes/OutroScene.tsx`, montada en
+  1530–1650. Con ella existen todas las escenas de la película: `mountedFrames`
+  se retira y `src/Composition.tsx` exporta `masterFrames = 1650`.
+- De las dos direcciones que este documento ofrece gana `kivgraph.dev`, que es la
+  que él mismo prioriza, y se comprobó en el producto en vez de elegirse:
+  `landing/astro.config.mjs` la hornea como origen de producción de `site` y
+  `landing/AGENTS.md` dice que el origen es el apex de ese dominio. Así que este
+  documento no cambia. La URL de GitHub no aparece: una sola dirección en pantalla.
+- La línea de instalación no se muestra, que es la condición que este documento
+  pone — «sólo si la línea es lo bastante corta». El comando real son 89
+  caracteres contra los 12 de la URL, y sería el elemento más ancho de toda la
+  película.
+- Las tres integraciones se verificaron contra el producto: `kivgraph mcp install`
+  tiene cinco targets, así que `Claude Code`, `Codex` y `OpenCode` existen. Las
+  otras dos —Claude Desktop y Oh My Pi— se dejan fuera: este documento permite
+  más «si hay espacio», y no lo hay.
+- Medido: los frames 1529 y 1530 son idénticos byte a byte, así que el límite
+  entre la SCENE 10 y la SCENE 11 no es una costura — el lockup sencillamente no
+  se mueve, que es lo que la sección 27 pide del final. La película entera
+  renderiza 1650 frames, 27,5 s, 1920×1080 a 60 fps, sin un solo frame negro.
+- Afecta a la SCENE 11 y a nada más de este documento.
 ```

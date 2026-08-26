@@ -397,8 +397,8 @@ It should contain the scene order and links:
 | 05  | Semantic Resolution |   770–970 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md) |
 | 06  | Agent Answer        |  970–1150 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)               |
 | 07  | Benchmark           | 1150–1360 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                     |
-| 08  | Brand               | 1360–1450 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
-| 09  | Outro               | 1450–1570 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
+| 08  | Brand               | 1360–1530 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
+| 09  | Outro               | 1530–1650 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
 ```
 
 Keep this index synchronized when scenes are added, removed, renamed, split, merged, or retimed.
