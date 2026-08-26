@@ -2,6 +2,7 @@ import React from "react";
 import { Sequence } from "remotion";
 import { AgentAnswerScene } from "./scenes/AgentAnswerScene";
 import { AgentScene } from "./scenes/AgentScene";
+import { BenchmarkScene } from "./scenes/BenchmarkScene";
 import { BlastRadiusScene } from "./scenes/BlastRadiusScene";
 import { GraphRevealScene } from "./scenes/GraphRevealScene";
 import { SemanticScene } from "./scenes/SemanticScene";
@@ -18,22 +19,20 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * Planned timeline (STORYBOARD.md 26, docs/scenes/README.md):
  *   0000-0120 Symbol         0120-0330 Agent         0330-0630 Graph Reveal
  *   0630-0770 Blast Radius   0770-0970 Semantic      0970-1150 Agent Answer
- *   1150-1270 Benchmark      1270-1360 Brand         1360-1480 Outro
+ *   1150-1320 Benchmark      1320-1410 Brand         1410-1530 Outro
  *
- * The master is 1480 frames, and four retimes got it there from 1410. The
+ * The master is 1530 frames, and five retimes got it there from 1410. The
  * cross-repository scene was deleted (-90). The blast radius lost twenty frames
  * of pixel-identical tail, then got forty back. The semantic resolution gained
- * thirty for reading time, then twenty more. The agent answer gained ninety.
+ * thirty for reading time, then twenty more. The agent answer gained ninety. The
+ * benchmark was drafted at 120 and built at 170.
  *
- * The last three are one pacing pass, and it was measured rather than felt. Time
- * on screen after a thing has finished arriving, at the old durations: the impact
- * card, which is the blast radius' whole result, had 0.42 s. The answer's proof
- * sentence - 73 characters naming the package the impact travels through - had
- * 0.57 s, which is 129 characters per second against the 25-40 that on-screen
- * technical text can be read at. The film was accelerating into its own payoff.
- *
- * So: everything after 0630 moved ninety earlier, then twenty, then thirty and
- * twenty and ninety later.
+ * Every one of those after the deletion is the same measurement: dwell, the time
+ * a readable thing stays on screen after it has finished arriving. At the drafted
+ * durations the blast radius' impact card had 0.42 s, the answer's proof sentence
+ * had 0.57 s - 129 characters per second against the 25-40 that on-screen
+ * technical text can be read at - and the benchmark's last statement had 0.17 s.
+ * The film was accelerating into its own payoff.
  *
  * Scenes 01 and 02 are one continuous camera move through one code environment
  * and have no cut between them; the boundary at 0120 is where the camera changes
@@ -46,13 +45,13 @@ import { SymbolScene } from "./scenes/SymbolScene";
 /**
  * Frames of the master that are actually mounted.
  *
- * The finished piece is 1480 frames (24.7 s), and that is the number every
+ * The finished piece is 1530 frames (25.5 s), and that is the number every
  * document plans against. Until the remaining scenes exist, the composition is
  * registered at this length instead, so Studio and `remotion render` produce the
- * film that exists rather than nineteen seconds of video followed by five and a
- * half of black. Raise it as each scene lands; delete it once it reaches 1480.
+ * film that exists rather than twenty-two seconds of video followed by three and
+ * a half of black. Raise it as each scene lands; delete it once it reaches 1530.
  */
-export const mountedFrames = 1150;
+export const mountedFrames = 1320;
 
 export const KivgraphVideo: React.FC = () => {
   return (
@@ -120,6 +119,14 @@ export const KivgraphVideo: React.FC = () => {
         premountFor={30}
       >
         <AgentAnswerScene />
+      </Sequence>
+      <Sequence
+        name="07 Benchmark"
+        from={1150}
+        durationInFrames={170}
+        premountFor={30}
+      >
+        <BenchmarkScene />
       </Sequence>
     </>
   );
