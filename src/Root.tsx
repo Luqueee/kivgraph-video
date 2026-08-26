@@ -1,7 +1,7 @@
 import "./index.css";
 import React from "react";
 import { Composition } from "remotion";
-import { KivgraphVideo, mountedFrames } from "./Composition";
+import { KivgraphVideo, masterFrames } from "./Composition";
 import { AgentScene } from "./scenes/AgentScene";
 import { GraphRevealScene } from "./scenes/GraphRevealScene";
 import { SymbolScene } from "./scenes/SymbolScene";
@@ -12,7 +12,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="KivgraphPromo"
         component={KivgraphVideo}
-        durationInFrames={mountedFrames}
+        durationInFrames={masterFrames}
         fps={60}
         width={1920}
         height={1080}
