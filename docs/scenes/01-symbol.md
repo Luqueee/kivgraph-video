@@ -33,7 +33,7 @@ out loud inside the same frame.
 ## Timeline
 
 - Storyboard scene: `STORYBOARD.md` — SCENE 01 THE SYMBOL
-- Global frames: `0180–0300`
+- Global frames: `0220–0340`
 - Time: 3.0 s – 5.0 s
 - Duration: 120 frames (2.0 s)
 - Remotion component: `src/scenes/SymbolScene.tsx`
@@ -44,13 +44,13 @@ out loud inside the same frame.
 
 | Frames | Beat |
 | --- | --- |
-| `0180–0208` | Already inside the code, very close to the symbol. The camera is pulling back; nothing else is happening. |
-| `0208–0260` | The whole scene, in one transition: the code rises to its readable luminance, `withRetry` takes the accent, a 1px line resolves under it exactly the width of the symbol, the file caption arrives, and the camera lands. |
-| `0260–0299` | Motionless. Byte-identical frames. Nothing has been said about the symbol, and that is what is unresolved. |
+| `0220–0248` | Already inside the code, very close to the symbol. The camera is pulling back; nothing else is happening. |
+| `0248–0300` | The whole scene, in one transition: the code rises to its readable luminance, `withRetry` takes the accent, a 1px line resolves under it exactly the width of the symbol, the file caption arrives, and the camera lands. |
+| `0300–0339` | Motionless. Byte-identical frames. Nothing has been said about the symbol, and that is what is unresolved. |
 
 ## Initial state
 
-Frame `0180` already carries visual information — there is no black opening.
+Frame `0220` already carries visual information — there is no black opening.
 
 **What it carries is the symbol, and only the symbol.** Everything else — the
 signature, the body, the surrounding context, the depth bed — rises from nothing
@@ -80,7 +80,7 @@ nothing but the symbol. No caption, no annotation, no mark.
 
 ## Final state
 
-Frame `0299` is the settled composition, held dead still: zoom 1.12, the code at
+Frame `0339` is the settled composition, held dead still: zoom 1.12, the code at
 its readable ladder, the caption top right, and the accent underline under
 `withRetry` exactly as wide as the symbol. Nothing is mid-animation and nothing
 is dimming. What is unresolved is not the camera but the claim: a symbol has been
@@ -152,7 +152,7 @@ frame. It does not animate elements one by one, and it never reverses anything.
   is a property of the world rather than a second hand-tuned ramp.
 - **The symbol** shifts from `textPrimary` to `accentText` on that same window.
   Nothing about it moves; it changes state.
-- **Frames `0260` to `0299` are byte-identical.** Not "almost still" — identical.
+- **Frames `0300` to `0339` are byte-identical.** Not "almost still" — identical.
   If a render ever shows a difference there, something has acquired an
   independent ramp and must be put back on `resolve`.
 - **No bounce, no spring, no overshoot, no floating.**
@@ -175,7 +175,7 @@ None. First frame of the video.
 ## Transition out
 
 Scene 02 continues this camera outward, without a cut. The contract it inherits
-at `0299`:
+at `0339`:
 
 - the shared camera at `zoom 1.12`, targeting world `(0, 0)` and projecting it to
   screen `x 620, y 662` — no jump in position or apparent scale across the
@@ -225,16 +225,16 @@ impact card in `04-blast-radius.md`. It is no longer a callback to this scene.
 ## Key frames
 
 ```text
-frame 0180 — inside the code. Symbol dominant, edges cropped, no caption, no mark, code below its final luminance.
-frame 0208 — the transition has not started; the camera is already moving.
-frame 0235 — mid-transition: code lifting, accent landing, underline drawing, caption arriving, all at once.
-frame 0260 — everything has landed together. Full composition, settled. STILL-IMAGE KEY FRAME.
-frame 0280 — byte-identical to 0260.
-frame 0299 — byte-identical to 0260. The handoff frame.
+frame 0220 — inside the code. Symbol dominant, edges cropped, no caption, no mark, code below its final luminance.
+frame 0248 — the transition has not started; the camera is already moving.
+frame 0275 — mid-transition: code lifting, accent landing, underline drawing, caption arriving, all at once.
+frame 0300 — everything has landed together. Full composition, settled. STILL-IMAGE KEY FRAME.
+frame 0320 — byte-identical to 0300.
+frame 0339 — byte-identical to 0300. The handoff frame.
 ```
 
-The still-image key frame is `0260`. The project's still-image list reads `0260`,
-`0869`, `0958`, `1104`, `1304`, `1470`, `1500`.
+The still-image key frame is `0300`. The project's still-image list reads `0300`,
+`0909`, `0998`, `1144`, `1344`, `1510`, `1500`.
 
 ## Invariants
 
@@ -249,7 +249,7 @@ The still-image key frame is `0260`. The project's still-image list reads `0260`
 - Hierarchy order is fixed: `withRetry`, the function signature, the remaining
   code, the file path.
 - No editor chrome, and no floating panel or card. The code is the composition.
-- Frame `0180` is never empty. The scene does not open on black and nothing
+- Frame `0220` is never empty. The scene does not open on black and nothing
   fades up from nothing.
 - The scene never resolves its claim. It ends settled and still, having marked a
   symbol and said nothing about it; Scene 02 is what resolves that. Stillness at
@@ -313,9 +313,9 @@ The still-image key frame is `0260`. The project's still-image list reads `0260`
 - `Interactive.Div` wraps the caption so it stays editable in Remotion Studio.
   The camera and the hierarchy ramps are scene logic and are intentionally not
   exposed as editable inline styles.
-- Verified: frames `0260`, `0280` and `0299` are byte-identical, which proves
-  the settle window is motionless; frame `0300` of `KivgraphPromo` is
-  byte-identical to frame `0180` of `Scene02Agent`, which proves the scene
+- Verified: frames `0300`, `0320` and `0339` are byte-identical, which proves
+  the settle window is motionless; frame `0340` of `KivgraphPromo` is
+  byte-identical to frame `0220` of `Scene02Agent`, which proves the scene
   compositions and the master agree and that the render is deterministic.
 
 ## Current compromises
@@ -333,7 +333,7 @@ The still-image key frame is `0260`. The project's still-image list reads `0260`
   problem the annotation was removed for. Accepted as-is.
 - **The bed enters frame later than it used to.** With a true projected camera,
   a plane behind the camera plane is pushed outward when the camera is close, so
-  at frame `0180` `client.go` is a sliver in the lower-right corner rather than
+  at frame `0220` `client.go` is a sliver in the lower-right corner rather than
   a visible texture. At 9% opacity this is invisible either way, and the earlier
   behaviour was only possible because the two planes had independent, physically
   inconsistent scale ramps.
@@ -344,7 +344,7 @@ The still-image key frame is `0260`. The project's still-image list reads `0260`
   written for the video, chosen to agree with the repository and symbol names of
   later scenes. Nothing is read from a real Kivgraph index.
 - Scenes 01–07 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
-  (1600) rather than the planned 1810. Frames `1320–1530` do not render at all
+  (1640) rather than the planned 1850. Frames `1360–1570` do not render at all
   yet, which is preferred over three and a half seconds of black.
 
 ## Modification history

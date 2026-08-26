@@ -2,18 +2,18 @@
 
 | #   | Scene               |    Frames | Component              | Documentation                                            |
 | --- | ------------------- | --------: | ---------------------- | -------------------------------------------------------- |
-| 00  | Intent              |     0–180 | `IntentScene.tsx`      | [00-intent.md](./00-intent.md)                            |
-| 01  | Symbol              |   180–300 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                            |
-| 02  | Agent               |   300–510 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                              |
-| 03  | Graph Reveal        |   510–870 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
-| 04  | Blast Radius        |  870–1010 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
-| 05  | Semantic Resolution | 1010–1210 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
-| 06  | Agent Answer        | 1210–1390 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
-| 07  | Benchmark           | 1390–1640 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
-| 08  | Brand               | 1640–1810 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
-| 09  | Outro               | 1810–1930 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
+| 00  | Intent              |     0–220 | `IntentScene.tsx`      | [00-intent.md](./00-intent.md)                            |
+| 01  | Symbol              |   220–340 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                            |
+| 02  | Agent               |   340–550 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                              |
+| 03  | Graph Reveal        |   550–910 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
+| 04  | Blast Radius        |  910–1050 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
+| 05  | Semantic Resolution | 1050–1250 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
+| 06  | Agent Answer        | 1250–1430 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
+| 07  | Benchmark           | 1430–1680 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
+| 08  | Brand               | 1680–1850 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
+| 09  | Outro               | 1850–1970 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
 
-Master: 1920 × 1080, 60 fps, **1930 frames, 32.17 s**. Global frame boundaries
+Master: 1920 × 1080, 60 fps, **1970 frames, 32.83 s**. Global frame boundaries
 live only in `src/Composition.tsx`.
 
 **Every scene exists.** `mountedFrames` is gone: it held the composition at the
@@ -22,28 +22,28 @@ Studio and `remotion render` produced the film that existed rather than that fil
 followed by seconds of black. Scene 09 was the last one outstanding, the two
 numbers met, and `src/Composition.tsx` now exports `masterFrames = 1650`.
 
-Rendered end to end: 1930 frames, 32.17 s, 1920 × 1080 at 60 fps, and no black
+Rendered end to end: 1970 frames, 32.83 s, 1920 × 1080 at 60 fps, and no black
 frame anywhere in it.
 
 The master length has moved ten times. Three were because the opening changed:
-it was 1500, grew to 1900 when scene 01 was extended from 90 to 210 frames,
-returned to 1500 when the old scene 02 was deleted, and fell to 1690 when scene
+it was 1500, grew to 1940 when scene 01 was extended from 90 to 210 frames,
+returned to 1500 when the old scene 02 was deleted, and fell to 1730 when scene
 01 was cut from 210 to 120. The fourth was the first one a later scene caused —
-1690 to 1600, when the cross-repository scene was cut. The fifth, on 2026-08-25,
-is the first one a *surviving* scene caused: 1600 to 1580, when the blast radius
+1730 to 1640, when the cross-repository scene was cut. The fifth, on 2026-08-25,
+is the first one a *surviving* scene caused: 1640 to 1620, when the blast radius
 was trimmed from 120 to 100 frames because the last 41 frames of it had become
 pixel-identical once its claim line and veil were cut. The sixth, the same day,
-is the first one that added time rather than removing it: 1580 to 1610, when the
+is the first one that added time rather than removing it: 1620 to 1650, when the
 semantic scene grew from 150 to 180 frames so its two-column comparison stands
 for a full second before anything leaves the frame.
 
 The seventh, also 2026-08-25, is the largest single change to the film's length
-and the first taken against a measurement rather than a judgement: 1610 to
-**1760**, when the blast radius went 100 → 140, the semantic resolution 180 → 200
+and the first taken against a measurement rather than a judgement: 1650 to
+**1800**, when the blast radius went 100 → 140, the semantic resolution 180 → 200
 and the agent answer 90 → 180. See **Pacing and dwell time** below.
 
 The eighth, on 2026-08-26, is the second taken against that same measurement and
-the first taken *before* a scene shipped rather than after: 1760 to **1810**, when
+the first taken *before* a scene shipped rather than after: 1800 to **1850**, when
 the benchmark landed at 170 frames instead of the 120 it had been drafted at. At
 120 its last statement settled with 10 frames left — **0.17 s** — so the scene was
 built at the length its own reading time asked for rather than at the length the
@@ -53,7 +53,7 @@ twice, the agent answer once, and the benchmark once, at implementation. For eve
 other scene, only offsets have moved.
 
 The ninth, the same day, is the second one the benchmark caused, and the first
-time any scene has changed duration twice at implementation: 1810 to **1850**,
+time any scene has changed duration twice at implementation: 1850 to **1890**,
 when scene 07 was rebuilt as a two-column comparison and went from 170 to 210
 frames. Only scenes 08 and 09 moved again, +40 each. The eighth entry's count
 takes one correction from here: five scenes have still ever changed duration, but
@@ -65,7 +65,7 @@ source note is the tightest row in the scene — see **Pacing and dwell time**.
 
 The tenth, on 2026-08-26, is the first taken from a scene that had already
 shipped rather than from one arriving, and the first taken by watching rather
-than by counting: 1850 to **1930**, when the brand reveal went from the 90 frames
+than by counting: 1890 to **1970**, when the brand reveal went from the 90 frames
 it was drafted at to 170. At 90 its tagline settled with ten frames left. Only
 scene 09 moved, +80. Six scenes have now ever changed duration, and scene 08 is
 the second — after the benchmark — whose length was never set by a plan.
@@ -78,7 +78,7 @@ arriving. It is not the same quantity as a hold, and it is not the same quantity
 as a scene's length — an element can settle early in a long scene and still be
 read, or settle late in one and never be read at all.
 
-Measured on the 1610-frame cut, two elements failed badly:
+Measured on the 1650-frame cut, two elements failed badly:
 
 - the **impact card** in scene 04 — `7 affected symbols`, `3 dependency paths`,
   `2 repositories`, the three counted lines that scene exists to deliver — settled
@@ -125,7 +125,7 @@ benchmark` is 37 characters in 1.03 s, which is 35.8 per second, the tightest
 reading in the scene and still under 40. That is also why the question count is not
 in the note: `29` is already on screen in the denominator of `28 / 29`, and
 repeating it would push the one row with no slack out of budget. The settled table
-then stands byte-identical for 63 frames from 1566 before the fade.
+then stands byte-identical for 63 frames from 1606 before the fade.
 
 Two things follow for anyone retiming this film again. Dead frames and dwell are
 different quantities measured in the same units: the twenty frames trimmed off the
@@ -225,7 +225,7 @@ Scenes 01 and 02 establish the grammar the rest of the video inherits:
   ink — a hard cut between a frozen frame and an empty one reads as a stall, not
   as a change of register;
 - the opening is **one continuous shot** through **one world**. There is no cut
-  anywhere before frame 0510. `src/world/camera.ts` projects it and
+  anywhere before frame 0550. `src/world/camera.ts` projects it and
   `src/components/CodeWorld.tsx` holds the only spatial layout; a scene animates
   the camera and luminance, and never places a plane;
 - `withRetry` is world origin `(0, 0)` and the camera targets it, so the symbol
@@ -275,7 +275,7 @@ Scene 03 inherits all of it and adds the graph's own grammar:
 - the camera is a **rig** — an eye and a point it looks at — not a position with
   a fixed direction. It holds still through the match cut, steps off the axis,
   travels with the impact and rises above the chain, and then stops: scene 03's
-  move completes at 0838 and no frame after it explores, though two later scenes
+  move completes at 0878 and no frame after it explores, though two later scenes
   do move the rig — scene 05 straightening it to frontal as part of its flatten,
   and scene 06 running the reveal's own travel backwards over twenty-four frames to
   put the anchor back where the match cut found it. It never orbits
@@ -318,7 +318,7 @@ Two measurements from that migration are worth keeping, because both correct
 something the project believed.
 
 **The DOM labels were never straight on their plates.** At the pose the graph
-holds from 0838 onward — the `lookAt` rig at eye `(7.0, 3.2, 10.0)` looking at
+holds from 0878 onward — the `lookAt` rig at eye `(7.0, 3.2, 10.0)` looking at
 `(8.0, 0.0, -2.4)`, 15° off `-Z` — a world vertical projects with a lean running
 from `-10.4°` at the anchor to `+9.0°` at the far cluster label; measured on the
 render, the anchor plate's own edges come out at `-11.6°` and `-8.7°`, bracketing
@@ -349,7 +349,7 @@ and is also unavailable, since troika renders the variable font's default
 instance.
 
 The value is measured rather than chosen. Integrated glyph coverage over the
-match-cut token rectangle, at master 0540 — the frame where the dissolve's
+match-cut token rectangle, at master 0580 — the frame where the dissolve's
 residual has reached zero while the camera still holds the match-cut pose, so the
 rectangle holds the troika label alone at the size the DOM token had. Matching a
 20.8% deficit means raising ink by `1 / (1 - 0.208) - 1 = 26.3%`; `0.75%` of em
@@ -374,8 +374,8 @@ wide, and the field and fill are byte-exact `#1e3a8a` and `#bfdbfe`.
 
 Document numbers follow the nine Remotion components, not the eleven storyboard
 scenes, and two storyboard scenes have no document of their own. `STORYBOARD.md`
-splits the graph into `SCENE 03 — FROM CODE TO GRAPH` (0510–0660) and
-`SCENE 04 — THE GRAPH EXPANDS` (0660–0870), both realised by the single
+splits the graph into `SCENE 03 — FROM CODE TO GRAPH` (0550–0700) and
+`SCENE 04 — THE GRAPH EXPANDS` (0700–0910), both realised by the single
 `GraphRevealScene` component, and its `SCENE 05 — CROSS-REPOSITORY` is now a
 record of a cut scene rather than a scene. Documents are therefore offset by one
 across the graph reveal and by **two** from `04-blast-radius.md` onward.
@@ -409,7 +409,7 @@ Two scenes have been cut. Neither should come back.
 ### The cross-repository scene
 
 `CrossRepoScene.tsx` / `04-cross-repo.md`, storyboard `SCENE 05 —
-CROSS-REPOSITORY`, 90 frames at master 0870–0960 under the numbering of the time.
+CROSS-REPOSITORY`, 90 frames at master 0910–1000 under the numbering of the time.
 It turned the camera around the finished graph — one turn, 20.6°, and stop — and
 labelled the crossings `Cross-repository.` on a veil at `0.86`, then suppressed
 the local chain to leave the crossings alone on screen.
@@ -419,7 +419,7 @@ It was cut for two reasons, and both are worth keeping.
 **The camera turn did not communicate.** The viewer had already read the
 structure by the time it started, and moving around it added nothing they could
 name. The crossings themselves were never the problem: scene 03 still draws them,
-at 0734–0809, and the propagation still leaves one repository and arrives in
+at 0774–0849, and the propagation still leaves one repository and arrives in
 another. What went was a shot *about* that fact, laid over a frame that had
 already shown it.
 
@@ -431,10 +431,10 @@ settled graph, evenly present, via `getGraphState(300)` where it used to sample
 `getCrossRepoState(90)`, and its propagation reads as travel rather than as the
 re-lighting of something held back for it.
 
-Everything after 0870 moved 90 frames earlier and the master went from 1690 to
-1600. The camera pose the deleted scene landed on was scene 03's own returned to,
+Everything after 0910 moved 90 frames earlier and the master went from 1730 to
+1640. The camera pose the deleted scene landed on was scene 03's own returned to,
 so nothing about the graph's geometry changed with it: the only rig moves after
-0838 are scene 05 straightening into its flatten and scene 06's twenty-four-frame
+0878 are scene 05 straightening into its flatten and scene 06's twenty-four-frame
 return of the graph to the match cut's pose. `src/three/crossRepoState.ts` and its
 `restLook` export went with the scene; scene 05 reads the pose off the state it
 inherits instead.
@@ -442,8 +442,8 @@ inherits instead.
 Measured after the cut, re-measured after the blast radius was trimmed,
 re-measured again once scene 06 landed, again after the semantic scene grew, again
 after the pacing pass, once scene 07 landed, again once scene 07 was rebuilt, and
-again once scene 08 landed: the 0510 and 1010 seams are pixel-identical, 0870 is
-62.93 dB (glyph antialiasing only), and 1810 mounted frames render with no black
+again once scene 08 landed: the 0550 and 1050 seams are pixel-identical, 0910 is
+62.93 dB (glyph antialiasing only), and 1850 mounted frames render with no black
 frame.
 
 **No black frame** now needs one word of precision, because scene 08 opens on ten
@@ -452,41 +452,41 @@ itself — not `#000000`, and not a hole in the timeline. That distinction was a
 real defect for exactly as long as scene 08 was unmounted: `BenchmarkScene`
 carried its fade's `opacity` on the same `AbsoluteFill` that painted the
 background, so the background faded out with the table and the frame reached
-pure `#000000` at 1636 and held it to 1639, and scene 08 then restored `#0a0b0d`
-at 1640. A ten-level step on a flat frame, at the one boundary in the film that
+pure `#000000` at 1676 and held it to 1679, and scene 08 then restored `#0a0b0d`
+at 1680. A ten-level step on a flat frame, at the one boundary in the film that
 is meant to be invisible, and precisely the levels change `08-brand.md` forbids
-by name. The fade now lives on an inner fill; 1468, 1580 and 1627 are
+by name. The fade now lives on an inner fill; 1508, 1620 and 1667 are
 byte-identical to the render before it, because `fadeOut` is 1 for every frame
 before local 198.
 
-The 1639/1640 seam therefore measures `inf` — the two frames are identical, and
+The 1679/1680 seam therefore measures `inf` — the two frames are identical, and
 the corner holds `10 11 13` across it. Scene 07 does not render the silence; it
-lands on it two frames early, at 1638, because the project's easing is within one
+lands on it two frames early, at 1678, because the project's easing is within one
 255th of its final value before its ramp ends, and scene 08's own ten frames join
 it into one twelve-frame identical run.
 
-The 1210 boundary does not measure like those, and it is not supposed to. It is a
-match cut, not an invisible cut: the symbol region across 1209/1210 measures
+The 1250 boundary does not measure like those, and it is not supposed to. It is a
+match cut, not an invisible cut: the symbol region across 1249/1250 measures
 41.35 dB, because the symbol itself is in the same place at the same size, while
 the whole frame measures far lower, because the split view's left column and
 divider have gone and the prompt layer arrives — 28.69 dB whole-frame. The
-whole-film scan flags two pairs and nothing else: 1209/1210 and
-1389/1390. Scene 08 adds no third: its own boundary at 1640 is identical rather
+whole-film scan flags two pairs and nothing else: 1249/1250 and
+1429/1430. Scene 08 adds no third: its own boundary at 1680 is identical rather
 than a cut, and it contains no cut of its own. Both are hard cuts, steps rather than spikes, confirmed by the frames
-either side, and 1389/1390 is scene 07's own cut at 24.25 dB, which is what a hard
+either side, and 1429/1430 is scene 07's own cut at 24.25 dB, which is what a hard
 cut is supposed to measure. That figure moved twice: from 22.30 dB when the
 benchmark's figure set was resolved, and again to 24.25 when the attribution match
 cut was added. Neither is an improvement or a regression — a cut's PSNR is a
 property of both frames, and the right side of this one is the figure table, so
 changing what it holds moves the number by definition. Anyone measuring a poor
 whole-frame figure at either boundary later should read the matched region before
-calling it a regression: at 1389/1390 the attribution region measures `inf`.
+calling it a regression: at 1429/1430 the attribution region measures `inf`.
 
 ### The problem scene
 
 There used to be a scene between the symbol and the agent: `ProblemScene.tsx` /
 `02-problem.md`, storyboard `SCENE 02 — THE LIMITATION`, later `NOT ALONE`,
-frames 0390–0540 under the numbering of the time.
+frames 0430–0580 under the numbering of the time.
 
 It was deleted, not merged. Its job had been to deliver two lines of copy —
 `Your agent can read this file.` and `But what depends on it?` — and when the
@@ -505,71 +505,71 @@ find it is in the length of the two scenes that remain.
 
 ## Key frames
 
-Frames that must hold up as still images: `0260`, `0869`, `0958`, `1104`, `1304`,
-`1468`, `1440`. Each is documented in the scene that owns it, and each is stated
+Frames that must hold up as still images: `0300`, `0909`, `0998`, `1144`, `1344`,
+`1508`, `1440`. Each is documented in the scene that owns it, and each is stated
 there as a *definition* rather than as a number, so the next retime can recompute
 it instead of guessing:
 
 | Frame  | Definition                                                              |
 | ------ | ----------------------------------------------------------------------- |
-| `0260` | scene 01's arrival: everything has landed together, first settled frame. |
-| `0869` | scene 03's last frame — the settled graph, the image scene 04 inherits.  |
-| `0958` | the frame scene 04's impact card settles on; first frame of its read.    |
-| `1104` | the first frame of scene 05's measured byte-identical stand.             |
-| `1304` | the frame scene 06's attribution label finishes on; the scene goes static.|
-| `1468` | scene 07's cost row complete, with both arms already named above it.     |
-| `1440` | scene 08's settled lockup plus tagline; static since `1718`.             |
+| `0300` | scene 01's arrival: everything has landed together, first settled frame. |
+| `0909` | scene 03's last frame — the settled graph, the image scene 04 inherits.  |
+| `0998` | the frame scene 04's impact card settles on; first frame of its read.    |
+| `1144` | the first frame of scene 05's measured byte-identical stand.             |
+| `1344` | the frame scene 06's attribution label finishes on; the scene goes static.|
+| `1508` | scene 07's cost row complete, with both arms already named above it.     |
+| `1440` | scene 08's settled lockup plus tagline; static since `1758`.             |
 
-How they got here. `1304` joined the list as scene 06's label frame — it was
-`1000` when the scene landed and `1210` after the semantic scene grew. Of the six
-that predate it, the four after `0869` each moved −90 with the cross-repository
+How they got here. `1344` joined the list as scene 06's label frame — it was
+`1000` when the scene landed and `1250` after the semantic scene grew. Of the six
+that predate it, the four after `0909` each moved −90 with the cross-repository
 cut, and the last three moved a further −20 when the blast radius was trimmed,
 then +30 when the semantic scene grew. The 2026-08-25 pacing pass moved five of
-them: `0950` → `0958`, `0900` → `1104`, `1210` → `1304`, `1280` → `1468` and
-`1200` → `1630`. Only `0260` and `0869` are untouched by it. The 2026-08-26
-benchmark pass moved one of them: `1630` → `1500`, carried by scene 08's +50
+them: `0990` → `0998`, `0900` → `1144`, `1250` → `1344`, `1320` → `1508` and
+`1200` → `1670`. Only `0300` and `0909` are untouched by it. The 2026-08-26
+benchmark pass moved one of them: `1670` → `1500`, carried by scene 08's +50
 offset, and the same day's rebuild of scene 07 moved it again, `1500` → `1440`,
-carried by scene 08's further +40. `1468` has not moved through either pass,
+carried by scene 08's further +40. `1508` has not moved through either pass,
 because scene 07 grew at its tail both times — its start is unchanged and the
 frame is scene-local 40 either way — and it is now measured on the render rather
 than planned.
 
 Two of those are not simple shifts and that is the reason the definitions are
-written down. `0958` is +8 rather than +40, because the card's entry window moved
-inside its own scene as well as the scene moving. `1104` is +24 rather than +40,
+written down. `0998` is +8 rather than +40, because the card's entry window moved
+inside its own scene as well as the scene moving. `1144` is +24 rather than +40,
 because scene 05's growth went into its build rather than its tail, so the stand
 it names starts later in scene-local frames than it used to.
 
-Scene 03's entry moved from `0860` to `0869`. Both frames sit inside the held
-final camera pose, but at 0860 the last crossing is still handing its accent back
-to the structure; `0869` is the last frame the scene owns, the nearest thing to
+Scene 03's entry moved from `0900` to `0909`. Both frames sit inside the held
+final camera pose, but at 0900 the last crossing is still handing its accent back
+to the structure; `0909` is the last frame the scene owns, the nearest thing to
 settled, and the image `04-blast-radius.md` inherits one frame later — so the still
-and the handoff are the same picture. `STORYBOARD.md` §28-§29 still list `0860`
+and the handoff are the same picture. `STORYBOARD.md` §28-§29 still list `0900`
 and have not been reconciled.
 
-`1104` lost its headline rather than just its number. It used to hold
+`1144` lost its headline rather than just its number. It used to hold
 `A name is not a symbol.` across the middle of the split view; with that sentence
 cut, the still carries the two-column asymmetry on its own and has to be
 unmistakable without a caption telling the viewer what to conclude.
 
-`1304` is scene 06's label frame, and it sits at the head of a hold rather than on
-the last frame that moves: measured on the render, the scene stops changing at 1303
-and every frame from there to 1389 is byte-identical, so the still is one frame
+`1344` is scene 06's label frame, and it sits at the head of a hold rather than on
+the last frame that moves: measured on the render, the scene stops changing at 1343
+and every frame from there to 1429 is byte-identical, so the still is one frame
 clear of the last thing that moves rather than balanced on it. That hold is 87
 frames, and it is where the answer is read.
 
-`1468` is the one still in the list that is delivered with a compromise. What it
+`1508` is the one still in the list that is delivered with a compromise. What it
 holds is now structural rather than a pair of numbers: the cost row complete and
 legible with **both arms already named above it**, which is what lets the frame
 explain itself as a standalone image. The superseded build could not do that — it
 showed two bare figures and nothing saying whose each one was — and the rebuild is
 the reason the still improved rather than merely moved. The cost row arrives in a
-single window — scene-local 14 to 38, master 1404 to 1468 — and settles two frames
-before 1468, so nothing has to be front-loaded inside its ramp to make the frame
+single window — scene-local 14 to 38, master 1444 to 1508 — and settles two frames
+before 1508, so nothing has to be front-loaded inside its ramp to make the frame
 legible. What the still holds is `35,961` against `267,980`, under `kivgraph` and
 `grep + read`.
 
-What it still cannot do is centre what it shows. At 1468 the rows on screen sit
+What it still cannot do is centre what it shows. At 1508 the rows on screen sit
 above frame centre, because the block is laid out for four rows and the lower ones
 are still empty; centring them would decentre the table, and the table is the image
 the film actually shows for 63 static frames. A still that needs the row optically
@@ -608,24 +608,24 @@ brings a canvas back for its converging relationships, and it carries the pair:
 
 Every graph sequence also carries `premountFor={30}`, and that is a preview fix
 rather than a creative one. A `<Sequence>` renders its children only inside its
-range, so at the 0870 boundary `GraphRevealScene` unmounts and `BlastRadiusScene`
+range, so at the 0910 boundary `GraphRevealScene` unmounts and `BlastRadiusScene`
 mounts; sharing the `GraphWorld` component does not share its instance, and the
 `ThreeCanvas` loses its WebGL context at the seam. Measured in Studio by patching
-`HTMLCanvasElement.prototype.getContext` and stepping 0869 <-> 0872 four times:
+`HTMLCanvasElement.prototype.getContext` and stepping 0909 <-> 0912 four times:
 four new `webgl2` contexts. On the first displayed frame after the cut the DOM
 labels are painted and the plates and tubes are not, so the whole graph blinks at
 the one seam the design spends everything to hide. Premounting mounts the scene
 thirty frames early while `<Sequence>`'s hardcoded `hideWhilePremounted:
 "opacity"` keeps it invisible, so the canvas paints and the context is warm
 before it is seen. Scenes 03 and 04 also carry `postmountFor={30}`, because
-scrubbing back across 0870 or 1010 remounts them and the timeline has to
+scrubbing back across 0910 or 1050 remounts them and the timeline has to
 survive being walked backwards as well as forwards. None of this touches the
 film: `premountingActive` is gated on `!isRendering`, so no rendered frame
 changes — the render never had the blink, only the preview did. Scene 06 carries
 `premountFor={30}` and no `postmountFor`, and that is now due: scene 07 mounts at
-1390, so there is a scene after it to scrub back from, and scrubbing back across
-1390 remounts the canvas scene 06 holds for its first 30 frames. Scene 05's is due
-for the same reason and has been since 1210 became a boundary. Scene 07 needs
+1430, so there is a scene after it to scrub back from, and scrubbing back across
+1430 remounts the canvas scene 06 holds for its first 30 frames. Scene 05's is due
+for the same reason and has been since 1250 became a boundary. Scene 07 needs
 neither prop, because it mounts no canvas. Scene 08 does mount one — R3F, for
 its converging relationships — so it carries `premountFor={30}` like the graph
 scenes. Repeat both on any sequence that mounts a canvas.
@@ -633,14 +633,14 @@ scenes. Repeat both on any sequence that mounts a canvas.
 Scene 08 is the one place in the film where the premount matters least, and that
 is worth knowing rather than rediscovering: it opens on ten deliberately empty
 frames, so played forward the context has ten frames to warm before the first
-line is drawn at 1650. The premount is for the scrubber, not for the
+line is drawn at 1690. The premount is for the scrubber, not for the
 playthrough. `postmountFor` becomes due the moment scene 09 exists, for the same
 reason scenes 03 and 04 carry theirs.
 
 The mechanism survived the cross-repository cut unchanged, but the seam it was
 found at is now a different pair of scenes: it was `GraphRevealScene` handing over
 to `CrossRepoScene`, and the `getContext` measurement was taken there. The
-boundary frame is still 0870 and the count is still four, because what is being
+boundary frame is still 0910 and the count is still four, because what is being
 counted is a `<Sequence>` remount rather than anything specific to either scene.
 
 ## Known documentation debt
@@ -1171,4 +1171,20 @@ mechanical pass across all nine documents and has not been done yet.
   retimes, so scene 04's master column had been stale since the +60 before this.
   Both are fixed by deriving every master cell from its own local cell plus the
   scene start, which is self-correcting and is how it should have been done.
+```
+
+```text
+2026-08-27
+- Scene 00 restructured into three beats - problem, tool, result - and grown 180
+  -> 220 frames. Master 1930 -> 1970, 32.83 s. Everything from 0180 on moved +40;
+  nothing inside any other scene changed.
+- The growth is measured rather than felt. At 180 the reading budget of 25-40
+  characters per second failed on three of five blocks, the worst of them
+  settling two frames before the scene began to leave. Structure fixed *hard to
+  parse*; it could not also fix *not on screen long enough*.
+- Two documentation defects of the same family as last time, both caught by
+  reading the result rather than trusting the script: numbers without a leading
+  zero escape the frame-shift rule, and a range written as one backticked span
+  escapes it too. Scene 01's own global range and scene 04's row in both index
+  tables were wrong until they were checked.
 ```

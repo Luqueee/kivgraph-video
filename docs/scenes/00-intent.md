@@ -19,22 +19,54 @@ Secondary: what it gets back is a place to start, not a proof.
 
 ## Timeline
 
-- Global frames: `0000`–`0180`
-- Scene-local frames: `0000`–`0180` (they are master frames; the scene starts at 0)
-- Time: 0.0 s – 3.0 s
-- Duration: 180 frames / 3.0 s at 60 fps
+- Global frames: `0000`–`0220`
+- Scene-local frames: `0000`–`0220` (they are master frames; the scene starts at 0)
+- Time: 0.0 s – 3.67 s
+- Duration: 220 frames / 3.67 s at 60 fps
 - Remotion component: `src/scenes/IntentScene.tsx`
-- Registration: `<Sequence name="00 Intent" durationInFrames={180}>`
+- Registration: `<Sequence name="00 Intent" durationInFrames={220}>`
 
 | Master        | Local         | Beat                                                        |
 | ------------- | ------------- | ----------------------------------------------------------- |
-| `0000`–`0010` | `0000`–`0010` | Empty. The same opening silence discipline as `08-brand.md`. |
-| `0010`–`0070` | `0010`–`0070` | The intent settles.                                          |
-| `0070`–`0092` | `0070`–`0092` | `kivgraph / find_by_intent` arrives.                         |
-| `0092`–`0134` | `0092`–`0134` | Three candidates arrive, staggered nine frames apart.        |
-| `0126`–`0156` | `0126`–`0156` | The field quiets: question, invocation and metadata recede.  |
-| `0148`–`0172` | `0148`–`0172` | `withRetry` travels and grows onto the source symbol's point. |
-| `0180`        | `0180`        | Match cut into `01-symbol.md` frame 0.                        |
+| `0000`–`0008` | `0000`–`0008` | Empty. The same opening silence discipline as `08-brand.md`. |
+| `0008`–`0048` | `0008`–`0048` | **Beat 1, the problem.** Two lines, the second the punch.    |
+| `0052`–`0084` | `0052`–`0084` | **Beat 1, the behaviour**, described.                        |
+| `0088`–`0110` | `0088`–`0110` | **Beat 2, the tool**, and in plain language what it does.    |
+| `0112`–`0142` | `0112`–`0142` | **Beat 3, the result.** One dominant name; two quiet others. |
+| `0186`–`0210` | `0186`–`0210` | Everything except the name leaves.                           |
+| `0190`–`0214` | `0190`–`0214` | The name scales onto the source symbol. It never travels.    |
+| `0220`        | `0220`        | Match cut into `01-symbol.md` frame 0.                        |
+
+## Three beats, one idea
+
+The idea is *describe what the code does; Kivgraph finds where to start*, and the
+scene is built so that idea arrives before any mechanics do.
+
+The first build did the opposite: three candidates of equal weight, each with a
+repository, a package and a `match` value, asking the viewer to infer the tool's
+purpose from a ranking they had to parse first. Technically accurate and
+unreadable at a glance.
+
+**Beat 1 — the problem.** `You know what the code does.` / `Not where it lives.`
+Sans, because it is addressed to the viewer. Then the behaviour itself, in mono.
+
+**There is no `❯` on it.** The prompt glyph promises a command or a question
+typed at a shell and this is neither — it is a description of what some code
+does, which is exactly what the tool's `intent` argument takes. The glyph was
+continuity with scene 02's question, and it was continuity bought against the one
+thing this scene has to make obvious: that you say what the code *does*, not what
+it is called.
+
+**Beat 2 — the tool.** `find_by_intent`, and under it `Finds where to start
+reading`. Both that and *finds likely code entry points* are accurate; the second
+is the documentation's register and the first is a person's. "Entry point" is a
+term you have to already hold, and the sentence exists precisely for a viewer who
+does not.
+
+**Beat 3 — the result.** One name at 44 px, its file under it, and the authority
+marker under that. `Policy.Do()` and `Once()` stay at low contrast so the frame
+is honest that there was more than one plausible answer, and never compete with
+the one being opened.
 
 ## Invariants
 
@@ -101,10 +133,21 @@ point — the viewer has to read the two as the same kind of event.
 Three, and only these three, because only these three have a term to match.
 
 ```text
-withRetry     payments-api · internal/retry     lexical+calls
-Policy.Do     payments-api · internal/retry     lexical
-Once          payments-api · internal/retry     lexical
+withRetry()
+payments-api/internal/retry/retry.go
+candidate · lexical+calls
+
+Policy.Do()
+Once()
 ```
+
+The path is `symbolFile`, exported from `SymbolScene` — the same string scene 01
+prints as its caption, so the film cannot offer one file and then open another.
+The parentheses are a separate span and leave before the cut: the tool returns an
+unparenthesised `qualified_name`, the film parenthesises a symbol per
+`STORYBOARD.md` typography, and the source it cuts into writes
+`func withRetry(ctx ...` where the bracket belongs to the code. They are right
+here and wrong one frame later.
 
 `internal/retry` is the package, so its three symbols are credited for the path;
 `withRetry` alone also carries the term in its own name and is credited for what
@@ -194,6 +237,38 @@ a DOM line box and the code plane's baseline, not to the anchor.
 ```text
 2026-08-27
 - Initial scene specification, written with the implementation.
+- Restructured into three beats, on direct art direction: the first build was
+  technically accurate and unreadable at a glance. It showed three candidates of
+  equal weight, each with a repository, a package and a `match` value, and asked
+  the viewer to infer the tool's purpose from a ranking they had to parse first.
+  Now: problem, tool, result - and the result has one dominant thing in it.
+- New copy, all of it in STORYBOARD.md §32 in the same pass: `You know what the
+  code does.` / `Not where it lives.` and the subtitle `Finds where to start
+  reading`. The subtitle is the point of the restructure - purpose before
+  mechanics - and it is a person's register rather than the documentation's:
+  "entry point" is a term you have to already hold.
+- The prompt glyph is gone from the intent line. `❯` promises a command or a
+  question typed at a shell and the line is neither: it is a description of what
+  some code does, which is exactly what the `intent` argument takes. It was
+  continuity with scene 02's question, bought against the one thing this scene
+  has to make obvious.
+- The semantics survived the simplification rather than being traded for it. The
+  word `candidate` is now on screen next to `lexical+calls`, which says it more
+  plainly than three rows of metadata did; there is still no score; and the two
+  other candidates are still present and still never marked wrong.
+- 180 -> 220 frames, and the reason is measured. At 180 the film's own reading
+  budget of 25-40 characters per second failed on three of five blocks: the
+  intent at 52, the tool and its subtitle at 101, and the path and match at 1860
+  - the last settling two frames before everything began to leave. Structure was
+  the fix for *hard to parse*; it cannot also be the fix for *not on screen long
+  enough*. At 220 everything a viewer must read to completion is inside budget,
+  and only the path is above it, which is correct because a path is scanned.
+- The name now only scales. Placing it so the nine glyphs of `withRetry` are
+  already centred on `symbolAnchor` at 44 px makes the cut a pure zoom into the
+  candidate, which is also the clearest reading of *we enter that source code*.
+  Re-measured at the new boundary 0219/0220: dx +0.03, dy -0.01, ink mass ratio
+  1.0005, zero residue outside the token, 45.0 dB across the seam.
+- Master 1930 -> 1970 frames, 32.83 s.
 - Two defects in the handover, both found by looking at a frame rather than at a
   number. The receding candidates were floored at 0.182 instead of reaching zero,
   so they read through `withRetry` as ghost type and the cut handed over three

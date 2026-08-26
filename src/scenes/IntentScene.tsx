@@ -1,47 +1,66 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
-import { symbolAnchor, symbolOpeningZoom } from "./SymbolScene";
+import { symbolAnchor, symbolFile, symbolOpeningZoom } from "./SymbolScene";
 import { world } from "../components/CodeWorld";
 import { nodeById } from "../data/graphDemo";
-import { fontMono } from "../brand/fonts";
+import { fontMono, fontSans } from "../brand/fonts";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 00 - intent (master 0000-0180, scene-local 0000-0180).
+ * Scene 00 - intent (master 0000-0220, scene-local 0000-0220).
  *
- * The scene that stops the film assuming its own answer.
+ * The scene that stops the film assuming its own answer. Everything after it
+ * opens on `withRetry` already singled out, which quietly claims the agent knew
+ * what the symbol was called. It usually does not.
  *
- * Everything after this opens on `withRetry` already singled out, which quietly
- * claims that the agent knew what the symbol was called. It usually does not. A
- * real session starts from a behaviour - *where do we retry failed requests* -
- * and the name, the file, the package and the repository are all things it has
- * to find. `find_by_intent` is the tool for that step, and without it the film
- * says Kivgraph is useful once you already know where to look.
+ * ## One idea, three beats
+ *
+ * The idea is *describe what the code does; Kivgraph finds where to start*, and
+ * the scene is built so that idea arrives before any mechanics do.
+ *
+ * The first build did the opposite. It showed three candidates of equal weight,
+ * each with a repository, a package and a `match` value, and asked the viewer to
+ * infer the tool's purpose from a ranking they had to parse first. Technically
+ * accurate and unreadable at a glance.
+ *
+ * So: **problem**, then **tool**, then **result**, and the result has one
+ * dominant thing in it rather than three equal ones.
  *
  * ## The distinction this scene must not blur
  *
- * `find_by_intent` matches **text**, not edges. Its own documentation is blunt
- * about it, and the wording matters enough to keep here:
+ * `find_by_intent` matches text, not edges, and its own documentation is blunt:
  *
  * > `match` is `lexical` when the candidate matched text alone, and
  * > `lexical+calls` when it was also credited for the terms its callees carry.
- * > Neither is an edge this tool resolved. A row here is a *candidate*, in the
- * > sense this project uses that word everywhere else: plausible and not proven.
+ * > Neither is an edge this tool resolved. A row here is a *candidate* [...]:
+ * > plausible and not proven.
  *
- * So the scene shows `match` on every row, because every row of the real answer
- * carries it and it is the field that says *this is text that looked alike*.
- * And it shows **no score**, because the tool deliberately publishes none:
+ * That survives the simplification rather than being traded for it. The word
+ * `candidate` is now *on screen*, next to `lexical+calls`, which says it more
+ * plainly than three rows of metadata did. And there is still **no score**,
+ * because the tool publishes none:
  *
- * > No score travels: it orders candidates inside one answer and means nothing
- * > on its own [...] publishing it would invite a reader to treat it as a
+ * > No score travels [...] publishing it would invite a reader to treat it as a
  * > confidence this layer cannot claim.
  *
- * No bars, no percentages, no stars, no green and amber. `match` is metadata
- * about *why a row appeared*, never about how much to believe it.
+ * `Policy.Do()` and `Once()` stay visible at low contrast so the frame is honest
+ * about there having been several plausible candidates. They are never marked
+ * wrong, and nothing implies `withRetry` scored higher by some number.
  *
- * `Policy.Do` and `Once` are not wrong and are never marked wrong. They recede
- * in hierarchy while `withRetry` becomes the one being inspected, which is what
- * actually happens: you pick an entry point and go and look at it.
+ * ## Why 220 frames and not 180
+ *
+ * The three beats were built at 180 first, which is what "under three seconds"
+ * asks for, and measured against the film's own reading budget of 25-40
+ * characters per second. Three of the five blocks failed it: the intent at 52,
+ * the tool and its subtitle at 101, and the path and match at 1860 - the last
+ * settling two frames before everything began to leave.
+ *
+ * The structure was the fix for *hard to parse*; it cannot also be the fix for
+ * *not on screen long enough*. At 220 every block a viewer has to read to
+ * completion is inside the budget, and the path and the match line are the only
+ * things left above it - which is correct, because they are scanned rather than
+ * read, and the name they belong to survives the cut and is the anchor of the
+ * whole next scene.
  */
 
 const ease = Easing.bezier(0.22, 1, 0.36, 1);
@@ -59,176 +78,154 @@ const entry = (frame: number, from: number, to: number) => {
   return { opacity: progress, offsetY: 8 * (1 - progress) };
 };
 
+/** Beat 1. The problem, addressed to the viewer, so it is sans. */
+const problem = [
+  "You know what the code does.",
+  "Not where it lives.",
+] as const;
+
 /**
- * The question, verbatim from the tool's own documented example.
+ * Beat 1. The question, verbatim from the tool's own documented example.
  *
- * Not a variant written for the film. The documented example is
- * `retry a failed request with exponential backoff`, its top result is
- * `withRetry`, and it is therefore the one intent that makes this video
- * demonstrable against the product rather than merely plausible.
+ * Not a variant written for the film. Its documented top result is `withRetry`,
+ * which is what makes this video demonstrable against the product rather than
+ * merely plausible.
  */
 export const intent = "retry a failed request with exponential backoff";
 
 /**
- * The candidates, derived from the graph fixture rather than typed.
+ * Beat 2. What the tool is called and, in plain language, what it does.
  *
- * `graphDemo.ts` carries a rule this scene is squarely inside: *«a video selling
- * exactness cannot illustrate it with a fabricated fixture»*, written after an
- * earlier scene showed seven invented contexts. So the rows name symbols that
- * exist in the dataset the rest of the film is built on, and their repository
- * and package are read off the same nodes the graph will later draw.
+ * The subtitle is the whole point of the restructure: the viewer should not have
+ * to understand ranking to understand purpose. It is an explanation, not a
+ * headline - sans, at the label scale, under the invocation rather than over it.
  *
- * Three, and only these three, because only these three have a term to match.
- * `internal/retry` is the package, so its three symbols are credited for the
- * path; `withRetry` alone also carries the term in its own name and is credited
- * for what its callees carry, which is exactly the difference between `lexical`
- * and `lexical+calls`. `Client.Charge` and `Client.Refund` live in
- * `paymentService` and have nothing to match, so they are absent - not filtered
- * out for tidiness, simply not candidates.
- *
- * The names are the tool's `qualified_name`, which is unparenthesised. The graph
- * parenthesises its labels per `STORYBOARD.md` typography; this surface is not
- * the graph, and the unparenthesised form is also what makes the match cut exact
- * - the nine glyphs of `withRetry` are the nine glyphs of `world.retry.origin`.
+ * *Finds where to start reading* rather than *Finds likely code entry points*.
+ * Both are accurate; the second is the documentation's register and the first is
+ * a person's. "Entry point" is a term you have to already hold, and the sentence
+ * exists precisely for a viewer who does not yet hold any of them.
  */
-const candidates = [
-  { id: "payments.withRetry", match: "lexical+calls" },
-  { id: "payments.policyDo", match: "lexical" },
-  { id: "payments.once", match: "lexical" },
-].map(({ id, match }) => {
-  const node = nodeById(id);
-
-  return {
-    id,
-    match,
-    name: node.label.replace("()", ""),
-    where: `${node.repository} · ${node.package}`,
-  };
-});
-
-/** The one the agent goes and looks at. Its row becomes the source symbol. */
-const winner = 0;
+const tool = { name: "find_by_intent", does: "Finds where to start reading" };
 
 /**
- * The column, and it is the prompt's column.
+ * Beat 3. The selected candidate and the two it was selected from.
  *
- * `500` is `promptLayout.row.x`, which scene 02 uses for the question and scene
- * 06 for the answer. Sharing it is the cheapest kind of continuity: three
- * different surfaces across thirty seconds, one left edge.
+ * All three are derived from `graphDemo.ts` rather than typed, under the rule
+ * that file carries: *«a video selling exactness cannot illustrate it with a
+ * fabricated fixture»*. The path is `symbolFile`, exported from `SymbolScene` -
+ * the same string that scene 01 prints as its caption, so the film cannot offer
+ * one file and then open another.
  */
-const column = {
-  x: 500,
-  intentY: 300,
-  intentSize: 30,
-  toolY: 382,
-  toolSize: 20,
-  firstY: 486,
-  pitch: 104,
-  nameSize: 28,
-  metaSize: 17,
-} as const;
+const selected = nodeById("payments.withRetry");
+const alsoFound = ["payments.policyDo", "payments.once"].map(
+  (id) => nodeById(id).label,
+);
 
 /**
- * Where the winning candidate has to end up, derived from `SymbolScene`.
- *
- * Not written down: `symbolAnchor` is the point the source symbol is pinned to
- * at every zoom, `symbolOpeningZoom` is the zoom frame 0 opens on, and
- * `world.retry` owns the type scale and the fact that the token is nine
- * characters. If any of those move, this follows.
+ * Where the selected candidate's name has to end up, derived from
+ * `SymbolScene`: `world.retry` owns the type scale and the fact that the token
+ * is nine characters, `symbolAnchor` is the point the source symbol is pinned to
+ * and `symbolOpeningZoom` is the zoom frame 0 opens on.
  */
 const target = {
   em: world.retry.fontSize * symbolOpeningZoom,
   glyphs: world.retry.origin.width,
 };
 
-/**
- * The vertical correction between a `lineHeight: 1` DOM box and the glyphs the
- * code plane draws.
- *
- * Measured against the render rather than derived from font metrics, which is
- * what `AGENTS.md` asks for and what the other match cut already does: a number
- * arrived at by arithmetic is a number nobody has looked at.
- *
- * The arithmetic alone landed the candidate three pixels high. `2.5` corrected
- * that to the nearest pixel, and a bounding box cannot see better than that -
- * it rounds, so two glyphs a pixel apart can share one. The residue showed up as
- * a 234-level difference at the seam on identical bounding boxes, which is what
- * a sub-pixel offset looks like on high-contrast edges.
- *
- * `1.51` is the ink centroid measurement, which is sub-pixel: candidate
- * `(609.47, 666.61)` against source `(609.27, 665.62)`, so `dy +0.99` and
- * `dx +0.20`. The ink mass ratio is `1.0004`, which is the proof that the size
- * and the weight were right all along and only the placement was not.
- *
- * It lives here rather than folded into `symbolAnchor` because it belongs to the
- * difference between a DOM line box and the code plane's baseline, not to the
- * anchor.
- */
-const targetTopBias = 1.51;
+/** The size the name arrives at, before it becomes the source symbol. */
+const nameSize = 44;
 
 /**
- * The same correction on the other axis, and the same instrument.
+ * Sub-pixel corrections between a DOM line box and the code plane's baseline,
+ * measured with the ink centroid rather than with a bounding box.
  *
- * `-0.2` is what the ink centroid still read after the vertical was zeroed. It
- * is a fifth of a pixel and nobody will ever see it; it is here because the
- * measurement can see it and the cost of honouring it is one number.
+ * A bounding box rounds, so two glyphs a pixel apart can share one: it agreed to
+ * the pixel while the seam still measured 234 levels of difference. The centroid
+ * is sub-pixel and found the real error. With both applied the offset is
+ * `dx +0.03, dy -0.01` and the ink mass ratio is `1.0005`, which is the proof
+ * that the size and weight were always right and only the placement was not.
  */
+const targetTopBias = 1.51;
 const targetLeftBias = -0.2;
+
+/** The column the whole film shares: `promptLayout.row.x`. */
+const columnX = 500;
 
 export const IntentScene: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const intentIn = entry(frame, 10, 70);
-  const toolIn = entry(frame, 70, 92);
+  const intentIn = entry(frame, 52, 84);
+  const toolIn = entry(frame, 88, 110);
+  const resultIn = entry(frame, 112, 138);
 
   /**
-   * The narrowing.
+   * Everything that is not the selected name leaves, so the frame handed to the
+   * match cut holds the symbol and nothing else.
    *
-   * Two gestures, deliberately not one. First the field quiets - the question,
-   * the invocation and the two other candidates lose luminance over `0126-0156`
-   * - and only then, from `0148`, does `withRetry` travel and grow. Doing both
-   * at once was the first build and it did not work: the winner was already
-   * scaling while the rows were still arriving, so it collided with `Policy.Do`
-   * and the frame read as a layout fault rather than as a choice.
-   *
-   * Separating them also buys the beat the scene is actually about. There is a
-   * moment where three plausible candidates stand together, and then a moment
-   * where one of them is the one being opened - which is what picking an entry
-   * point is.
-   *
-   * Nothing is struck through and nothing is marked wrong. `find_by_intent` is
-   * not certifying true and false, it is ordering plausible things, and the shot
-   * has to say *this is the one we are going to look at* rather than *these were
-   * the mistakes*. `Policy.Do` and `Once` are still perfectly good candidates
-   * when they leave the frame; they simply are not the one being inspected.
-   *
-   * **They leave on `context`, all the way to zero.** The first build floored
-   * them at `0.28 x 0.65 = 0.182`, an attempt to say *receded, not deleted*, and
-   * it was wrong twice over: `withRetry` grows directly over where they sit, so
-   * they showed through it as ghost type, and the frame the match cut hands over
-   * has to hold the symbol and nothing else or the cut is into a different
-   * image. Receding is what they do between `0126` and `0156`, while they are
-   * still on screen. Being gone at the cut is not a verdict on them.
+   * The first build floored the other candidates at `0.182` to say *receded, not
+   * deleted*, and it was wrong twice: the name grows over where they sit, so
+   * they read through it as ghost type, and a cut into a frame with three names
+   * in it is a cut into a different image. Receding is what they do while they
+   * are on screen; being absent at the cut is not a verdict on them.
    */
-  const narrow = ramp(frame, 148, 172);
+  const context = 1 - ramp(frame, 186, 210);
 
-  /** Everything that is not the winner leaves the frame to it. */
-  const context = 1 - ramp(frame, 126, 156);
+  /**
+   * The name becoming the source symbol.
+   *
+   * It only **scales**. Placing it so that the nine glyphs of `withRetry` are
+   * already centred on `symbolAnchor` at 44 px means the cut is a pure zoom into
+   * the candidate rather than a slide plus a zoom - which is also the clearest
+   * possible reading of *we enter that source code*.
+   */
+  const open = ramp(frame, 190, 214);
+  const size = nameSize + (target.em - nameSize) * open;
+  const width = target.glyphs * 0.6 * size;
 
   return (
     <AbsoluteFill style={{ backgroundColor: brand.background }}>
+      {/** Beat 1 - the problem. */}
+      {problem.map((line, index) => {
+        const arrive = entry(frame, 8 + index * 8, 40 + index * 8);
+
+        return (
+          <div
+            key={line}
+            style={{
+              position: "absolute",
+              left: columnX,
+              top: 250 + index * 48,
+              fontFamily: fontSans,
+              fontSize: 34,
+              lineHeight: 1,
+              whiteSpace: "pre",
+              color: index === 0 ? brand.textMuted : brand.textPrimary,
+              opacity: arrive.opacity * context,
+              translate: `0px ${arrive.offsetY}px`,
+            }}
+          >
+            {line}
+          </div>
+        );
+      })}
+
       {/**
-       * The intent, in the prompt's own voice. `❯` is the glyph scene 02 uses,
-       * so the question the agent asks here and the question it asks there are
-       * visibly the same act.
+       * Beat 1 - the behaviour, described.
+       *
+       * **No `❯`.** The prompt glyph promises a command or a question typed at a
+       * shell, and this is neither: it is a description of what some code does, which
+       * is exactly what the tool's `intent` argument takes. The glyph was continuity
+       * with scene 02's question and it was continuity bought at the cost of the one
+       * thing the scene has to make obvious - that you say what the code *does*, not
+       * what it is called. Beat 1's two lines above it do the framing instead.
        */}
       <div
         style={{
           position: "absolute",
-          left: column.x,
-          top: column.intentY,
+          left: columnX,
+          top: 396,
           fontFamily: fontMono,
-          fontSize: column.intentSize,
+          fontSize: 30,
           lineHeight: 1,
           whiteSpace: "pre",
           color: brand.textSecondary,
@@ -236,24 +233,17 @@ export const IntentScene: React.FC = () => {
           translate: `0px ${intentIn.offsetY}px`,
         }}
       >
-        <span style={{ color: brand.textFaint }}>{"❯  "}</span>
         {intent}
       </div>
 
-      {/**
-       * The invocation, in the same treatment scene 02 gives
-       * `kivgraph / get_blast_radius`: an accent square, the server, a slash,
-       * the tool. Agent tooling metadata, at the size metadata gets. Reusing the
-       * form rather than inventing one is the point - the viewer has to read the
-       * two as the same kind of event.
-       */}
+      {/** Beat 2 - the tool, and what it does. */}
       <div
         style={{
           position: "absolute",
-          left: column.x,
-          top: column.toolY,
+          left: columnX,
+          top: 478,
           fontFamily: fontMono,
-          fontSize: column.toolSize,
+          fontSize: 20,
           lineHeight: 1,
           letterSpacing: "0.02em",
           whiteSpace: "pre",
@@ -272,83 +262,127 @@ export const IntentScene: React.FC = () => {
             backgroundColor: brand.accent,
           }}
         />
-        kivgraph <span style={{ color: brand.textFaint }}>/</span>{" "}
-        find_by_intent
+        {tool.name}
       </div>
 
-      {candidates.map((candidate, index) => {
-        const isWinner = index === winner;
-        const arrive = entry(frame, 92 + index * 9, 116 + index * 9);
-        const rowY = column.firstY + index * column.pitch;
+      <div
+        style={{
+          position: "absolute",
+          left: columnX + 22,
+          top: 512,
+          fontFamily: fontSans,
+          fontSize: 18,
+          lineHeight: 1,
+          whiteSpace: "pre",
+          color: brand.textFaint,
+          opacity: toolIn.opacity * context,
+          translate: `0px ${toolIn.offsetY}px`,
+        }}
+      >
+        {tool.does}
+      </div>
 
-        /**
-         * The winner's name is the only element that leaves its row. It travels
-         * to `symbolAnchor` and grows to the source's em; the others stay
-         * exactly where they are and only lose light.
-         */
-        const size = isWinner
-          ? column.nameSize + (target.em - column.nameSize) * narrow
-          : column.nameSize;
-        const width = target.glyphs * 0.6 * size;
-        const startCx =
-          column.x + (candidate.name.length * 0.6 * column.nameSize) / 2;
-        const startCy = rowY + column.nameSize / 2;
-        const cx = isWinner
-          ? startCx + (symbolAnchor.x - startCx) * narrow
-          : startCx;
-        const cy = isWinner
-          ? startCy + (symbolAnchor.y - startCy) * narrow
-          : startCy;
+      {/**
+       * Beat 3 - the two candidates that were also found.
+       *
+       * Present, so the frame is honest that there was more than one plausible
+       * answer, and quiet, so they never compete with the one being opened. No
+       * cross, no tick, no strike-through: they are not wrong, they are simply
+       * not the one being inspected.
+       */}
+      {alsoFound.map((label, index) => (
+        <div
+          key={label}
+          style={{
+            position: "absolute",
+            left: columnX,
+            top: 782 + index * 40,
+            fontFamily: fontMono,
+            fontSize: 22,
+            lineHeight: 1,
+            whiteSpace: "pre",
+            color: brand.textFaint,
+            opacity:
+              entry(frame, 118 + index * 8, 142 + index * 8).opacity *
+              context *
+              0.45,
+          }}
+        >
+          {label}
+        </div>
+      ))}
 
-        return (
-          <React.Fragment key={candidate.id}>
-            <div
-              style={{
-                position: "absolute",
-                left: cx - width / 2 + targetLeftBias * narrow,
-                top: cy - size / 2 + targetTopBias * narrow,
-                width,
-                textAlign: "center",
-                fontFamily: fontMono,
-                fontSize: size,
-                lineHeight: 1,
-                whiteSpace: "pre",
-                color: isWinner ? brand.textPrimary : brand.textSecondary,
-                opacity: arrive.opacity * (isWinner ? 1 : context),
-                translate: `0px ${isWinner ? 0 : arrive.offsetY}px`,
-              }}
-            >
-              {candidate.name}
-            </div>
+      {/**
+       * Beat 3 - the selected candidate.
+       *
+       * The parentheses are a separate span and leave before the cut. The tool
+       * returns an unparenthesised `qualified_name`; the film parenthesises a
+       * symbol per `STORYBOARD.md` typography, and the source it cuts into
+       * writes `func withRetry(ctx ...`, where the bracket belongs to the code
+       * and not to the symbol. So they are right here and wrong one frame later,
+       * and the nine glyphs that cross the cut are exactly the nine of
+       * `world.retry.origin`.
+       */}
+      <div
+        style={{
+          position: "absolute",
+          left: symbolAnchor.x - width / 2 + targetLeftBias * open,
+          top: symbolAnchor.y - size / 2 + targetTopBias * open,
+          fontFamily: fontMono,
+          fontSize: size,
+          lineHeight: 1,
+          whiteSpace: "pre",
+          color: brand.textPrimary,
+          opacity: resultIn.opacity,
+        }}
+      >
+        {selected.label.replace("()", "")}
+        <span style={{ opacity: 1 - ramp(frame, 182, 202) }}>()</span>
+      </div>
 
-            {/**
-             * Repository, package, and `match`. One line, `textFaint`, at the
-             * label scale - the same register the attribution and the source
-             * note use. `match` sits at the end of it because that is what it
-             * is: a note on why the row is here, not a verdict on it.
-             */}
-            <div
-              style={{
-                position: "absolute",
-                left: column.x,
-                top: rowY + 40,
-                fontFamily: fontMono,
-                fontSize: column.metaSize,
-                lineHeight: 1,
-                letterSpacing: "0.02em",
-                whiteSpace: "pre",
-                color: brand.textFaint,
-                opacity: arrive.opacity * context,
-                translate: `0px ${arrive.offsetY}px`,
-              }}
-            >
-              {candidate.where}
-              <span style={{ color: brand.border }}>{"   ·   "}</span>
-              {candidate.match}
-            </div>
-          </React.Fragment>
-        );
-      })}
+      {/** Beat 3 - where it lives, which is the caption scene 01 will print. */}
+      <div
+        style={{
+          position: "absolute",
+          left: columnX,
+          top: 706,
+          fontFamily: fontMono,
+          fontSize: 20,
+          lineHeight: 1,
+          whiteSpace: "pre",
+          color: brand.textMuted,
+          opacity: resultIn.opacity * context,
+          translate: `0px ${resultIn.offsetY}px`,
+        }}
+      >
+        {symbolFile}
+      </div>
+
+      {/**
+       * Beat 3 - the authority marker, and the only mechanics on screen.
+       *
+       * `candidate` says in one word what three rows of ranking could not, and
+       * `lexical+calls` is the product's own vocabulary for *why this row
+       * appeared*. Never a score, never a bar, never a colour.
+       */}
+      <div
+        style={{
+          position: "absolute",
+          left: columnX,
+          top: 742,
+          fontFamily: fontMono,
+          fontSize: 16,
+          lineHeight: 1,
+          letterSpacing: "0.02em",
+          whiteSpace: "pre",
+          color: brand.textFaint,
+          opacity: resultIn.opacity * context,
+          translate: `0px ${resultIn.offsetY}px`,
+        }}
+      >
+        candidate <span style={{ color: brand.border }}>·</span>{" "}
+        {"lexical+calls"}
+      </div>
     </AbsoluteFill>
   );
 };

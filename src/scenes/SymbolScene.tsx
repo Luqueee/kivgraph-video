@@ -63,6 +63,15 @@ export const symbolAnchor = { x: 620, y: 662 } as const;
 /** The zoom frame 0 opens on. `IntentScene` sizes its candidate against it. */
 export const symbolOpeningZoom = 2.35;
 
+/**
+ * The file this scene is looking at, and the caption it prints top right.
+ *
+ * Exported because `00-intent.md` names the same file one scene earlier, as the
+ * path under the candidate it picks. Two literals would let the film offer a
+ * path and then open a different one.
+ */
+export const symbolFile = "payments-api/internal/retry/retry.go";
+
 export const SymbolScene: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -174,7 +183,7 @@ export const SymbolScene: React.FC = () => {
           opacity: resolve * 0.8,
         }}
       >
-        payments-api/internal/retry/retry.go
+        {symbolFile}
       </Interactive.Div>
     </AbsoluteFill>
   );
