@@ -516,16 +516,37 @@ silence
 brand reveal
 ```
 
-The whole table fades out together over `1348`–`1360`, ending on black at `1360`.
-It fades as one composition; fading the rows out in sequence would restate the
-cascade backwards and cost the brand reveal its silence. The last rendered frame
-of the scene, `1359`, is one frame short of black — the render contains no fully
-black frame.
+The whole **table** fades out together over `1348`–`1360`, ending on the empty
+brand background at `1360`. It fades as one composition; fading the rows out in
+sequence would restate the cascade backwards and cost the brand reveal its
+silence.
 
-`1360`–`1370` is black, and it is not a hole in the timeline: it is scene 08's
-own opening beat, its scene-local `0000`–`0010`, and `08-brand.md` owns it. That
-black is the `silence` in the §27 path, and it separates this scene's evidence
-from the logo so the reveal is not read as a fifth measure.
+**The table fades. The background does not.** That distinction was a real defect
+until 2026-08-26: the `opacity` sat on the same `AbsoluteFill` that painted
+`brand.background`, so the background left with the table and there was nothing
+behind it. The frame reached pure `#000000` at `1356` and held it to `1359`, and
+scene 08 then restored `#0a0b0d` at `1360` — a ten-level step on a flat frame,
+at the one boundary in the film that is meant to be invisible, and precisely the
+levels change `08-brand.md` forbids by name. It had been invisible only because
+`mountedFrames` was 1360 and the film ended here.
+
+The fade now lives on an inner fill under an opaque one. Only `1348`–`1359`
+changed: `fadeOut` is 1 for every frame before local `198`, so `1190`, `1300` and
+`1347` are byte-identical to the render before the fix, and nothing about the
+`1150` cut or the 63-frame settled run moved. **Never put this scene's fade back
+on the element that carries `backgroundColor`.**
+
+Measured after the fix: `1359` and `1360` are pixel-identical, `PSNR = inf`, and
+the corner holds `10 11 13` across the boundary. The fade actually lands two
+frames early, at `1358`, because the project's easing is within one 255th of its
+final value before its ramp ends — so the scene's own tail and scene 08's ten
+frames of silence form one twelve-frame identical run, `1358`–`1369`.
+
+`1360`–`1370` is that silence, and it is not a hole in the timeline: it is scene
+08's own opening beat, its scene-local `0000`–`0010`, and `08-brand.md` owns it.
+It is `#0a0b0d`, not `#000000`. That silence is the `silence` in the §27 path,
+and it separates this scene's evidence from the logo so the reveal is not read as
+a fifth measure.
 
 ## Copy
 
@@ -701,6 +722,8 @@ compromise is vertical; see `## Current compromises`.
   and both arms named above them.
 - The hard cut at `1150` stays hard.
 - The scene is static from `1286` to `1348`, and the whole table leaves together.
+- **The background does not fade.** The scene's `opacity` never goes on the
+  element that carries `backgroundColor`; the frame never reaches `#000000`.
 
 ## Flexible elements
 
@@ -1154,3 +1177,44 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
   63-frame byte-identical settled run from 1286 intact, 1360 frames with no black
   frame, anomalies still only at the two hard cuts.
 ```
+
+```text
+2026-08-26
+- Fade-out defect fixed, found by mounting scene 08. The scene carried
+  `opacity: fadeOut(frame)` on the same AbsoluteFill that painted
+  brand.background, so the background faded with the table and the frame reached
+  pure #000000 at 1356, holding it to 1359 - and scene 08 restored #0a0b0d at
+  1360. A ten-level step on a flat frame at an invisible boundary, and the exact
+  artefact docs/scenes/08-brand.md forbids by name. The fade now lives on an
+  inner fill under an opaque one.
+- Nothing else about the scene changed and nothing in the timeline moved. Only
+  frames 1348-1359 differ, because fadeOut is 1 for every frame before local 198:
+  verified byte-identical at 1190, 1300 and 1347 against the render before the
+  fix. The 1150 cut, the 63-frame settled run 1286-1348 and every figure are
+  untouched.
+- Measured after: 1359/1360 is pixel-identical, PSNR = inf, corner 10 11 13 on
+  both sides. The fade lands two frames early at 1358 - the project's easing is
+  within 1/255 of its final value before its ramp ends - so this scene's tail and
+  scene 08's ten frames of silence are one twelve-frame identical run, 1358-1369.
+- New invariant under ## Invariants: the background does not fade. Do not put
+  this scene's opacity back on the element that carries backgroundColor.
+```
+
+```text
+2026-08-26
+- The attribution this scene inherits across 1149/1150 moved, and nothing in this
+  scene moved with it. Scene 06 was recentred - its whole prompt layer lifted
+  260 px - so attributionLayout.y is now 956 + answerLift = 696. The constant is
+  shared, so both scenes still draw the line at identical coordinates and the
+  match cut is intact.
+- Consequence for this frame: the line now sits between the last table row and the
+  source note rather than near the bottom edge. They never share a frame - the
+  attribution is gone by local 18 (1168) and the note does not arrive until local
+  116 (1266) - and the still at 1190 is byte-identical to the render before the
+  change. Nothing about the table, the figures or the timing changed.
+- Measured: 1149/1150 over the attribution region, 56.79 dB before and 56.70 dB
+  after, max delta 1 level on both sides. It was never `inf` in that crop; the
+  single level is the code bed showing through the 0.72 tail of promptScrim on
+  scene 06's side.
+```
+

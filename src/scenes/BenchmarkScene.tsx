@@ -126,94 +126,112 @@ export const BenchmarkScene: React.FC = () => {
   const note = entry(frame, 116, 136);
 
   return (
-    <AbsoluteFill
-      style={{ backgroundColor: brand.background, opacity: fadeOut(frame) }}
-    >
-      <Attribution opacity={handoff} />
-
+    <AbsoluteFill style={{ backgroundColor: brand.background }}>
       {/**
-       * The column heads. Both are `textMuted`, the same treatment the row
-       * labels get, because all six are labels: the hierarchy in this frame is
-       * carried by the figures, and marking the subject column with a colour
-       * would assert a difference the correctness rows explicitly deny.
+       * The background is painted by the outer fill and the fade lives on an
+       * inner one, which is not a nesting flourish: putting `opacity` on the
+       * element that also carries `backgroundColor` fades the background out
+       * with the table, and behind it there is nothing. The frame reached pure
+       * `#000000` at 1356 and held it to 1359, and scene 08 then restored
+       * `#0a0b0d` at 1360 - a ten-level step on a flat frame, at the one
+       * boundary in the film that is supposed to be invisible.
+       *
+       * `08-brand.md` forbids exactly that artefact by name: a drop to true
+       * black and a return to `#0a0b0d` reads as a levels change on OLED and on
+       * aggressively compressed embedded players. It was invisible while
+       * `mountedFrames` was 1360 and the film simply ended here; mounting scene
+       * 08 exposed it.
+       *
+       * Only 1348-1359 change - `fadeOut` is 1 for every frame before local
+       * 198 - so nothing about the 1149/1150 cut or the settled table moves.
        */}
-      {arms.map((arm, column) => (
+      <AbsoluteFill style={{ opacity: fadeOut(frame) }}>
+        <Attribution opacity={handoff} />
+
+        {/**
+         * The column heads. Both are `textMuted`, the same treatment the row
+         * labels get, because all six are labels: the hierarchy in this frame is
+         * carried by the figures, and marking the subject column with a colour
+         * would assert a difference the correctness rows explicitly deny.
+         */}
+        {arms.map((arm, column) => (
+          <div
+            key={arm}
+            style={{
+              position: "absolute",
+              left: 0,
+              top: layout.headerTop,
+              width: tableGrid.columnRight[column],
+              textAlign: "right",
+              fontFamily: fontMono,
+              fontSize: 18,
+              lineHeight: 1,
+              letterSpacing: "0.04em",
+              whiteSpace: "pre",
+              color: brand.textMuted,
+              opacity: header.opacity,
+              translate: `0px ${header.offsetY}px`,
+            }}
+          >
+            {arm}
+          </div>
+        ))}
+
+        {/**
+         * The one rule in the scene, under the column heads. Depth in this project
+         * is hairlines and surface steps, never shadows, and this is the only
+         * structural line the frame gets: no card, no box, no fill, and no borders
+         * on the table. A bordered table would be a screenshot of a spreadsheet,
+         * which is the opposite of what the scene is for.
+         */}
         <div
-          key={arm}
           style={{
             position: "absolute",
-            left: 0,
-            top: layout.headerTop,
-            width: tableGrid.columnRight[column],
-            textAlign: "right",
+            left: tableGrid.labelLeft,
+            top: layout.ruleY,
+            width: tableGrid.columnRight[1] - tableGrid.labelLeft,
+            height: 1,
+            backgroundColor: brand.border,
+            opacity: ramp(frame, 10, 30) * 0.9,
+          }}
+        />
+
+        {rows.map((row, index) => (
+          <BenchmarkMetric
+            key={row.label}
+            label={row.label}
+            values={row.values}
+            emphasis={row.emphasis}
+            top={layout.rowTops[index]}
+            {...entry(frame, rowEntry[index][0], rowEntry[index][1])}
+          />
+        ))}
+
+        {/**
+         * The source note, in a table's source-note position: bottom left, quieter
+         * than the measures above it, carrying no figure of its own. It is the
+         * secondary takeaway of the whole scene - these numbers are checkable -
+         * and it lands last because a source note is read after the thing it
+         * vouches for.
+         */}
+        <div
+          style={{
+            position: "absolute",
+            left: tableGrid.labelLeft,
+            top: layout.noteTop,
             fontFamily: fontMono,
             fontSize: 18,
             lineHeight: 1,
             letterSpacing: "0.04em",
             whiteSpace: "pre",
-            color: brand.textMuted,
-            opacity: header.opacity,
-            translate: `0px ${header.offsetY}px`,
+            color: brand.textFaint,
+            opacity: note.opacity,
+            translate: `0px ${note.offsetY}px`,
           }}
         >
-          {arm}
+          {sourceNote}
         </div>
-      ))}
-
-      {/**
-       * The one rule in the scene, under the column heads. Depth in this project
-       * is hairlines and surface steps, never shadows, and this is the only
-       * structural line the frame gets: no card, no box, no fill, and no borders
-       * on the table. A bordered table would be a screenshot of a spreadsheet,
-       * which is the opposite of what the scene is for.
-       */}
-      <div
-        style={{
-          position: "absolute",
-          left: tableGrid.labelLeft,
-          top: layout.ruleY,
-          width: tableGrid.columnRight[1] - tableGrid.labelLeft,
-          height: 1,
-          backgroundColor: brand.border,
-          opacity: ramp(frame, 10, 30) * 0.9,
-        }}
-      />
-
-      {rows.map((row, index) => (
-        <BenchmarkMetric
-          key={row.label}
-          label={row.label}
-          values={row.values}
-          emphasis={row.emphasis}
-          top={layout.rowTops[index]}
-          {...entry(frame, rowEntry[index][0], rowEntry[index][1])}
-        />
-      ))}
-
-      {/**
-       * The source note, in a table's source-note position: bottom left, quieter
-       * than the measures above it, carrying no figure of its own. It is the
-       * secondary takeaway of the whole scene - these numbers are checkable -
-       * and it lands last because a source note is read after the thing it
-       * vouches for.
-       */}
-      <div
-        style={{
-          position: "absolute",
-          left: tableGrid.labelLeft,
-          top: layout.noteTop,
-          fontFamily: fontMono,
-          fontSize: 18,
-          lineHeight: 1,
-          letterSpacing: "0.04em",
-          whiteSpace: "pre",
-          color: brand.textFaint,
-          opacity: note.opacity,
-          translate: `0px ${note.offsetY}px`,
-        }}
-      >
-        {sourceNote}
-      </div>
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };
