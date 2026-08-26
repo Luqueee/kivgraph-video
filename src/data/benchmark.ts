@@ -3,37 +3,35 @@
  *
  * ## Provenance — READ THIS BEFORE CHANGING A FIGURE
  *
- * Upstream is `kivgraph/benchmarks/graph-tools-comparison`. That directory
- * contains two markdown reports and nine `results*.json` files, and **they do
- * not agree**. Audited 2026-08-26, kivgraph on the seven-question set:
+ * Upstream is `kivgraph/benchmarks/graph-tools-comparison`. Every figure below
+ * is the `aggregate` block of `results-all.json`, commit `954b9eb`, generated
+ * `2026-08-22T10:18:32Z`, over **29 questions**:
  *
  * ```text
- * results.json          commit 4c1bfae   4.449 tok   P 0,81   R 0,841   4/7
- * results-0.3.6.json    commit 954b9eb   6.134 tok   P 1,00   R 0,984   6/7
+ *              tokens    calls   precision   recall   exact   answered
+ * kivgraph     35 961       36       1.0     0.99617   28/29     29/29
+ * native      267 980      101       1.0     0.98851   28/29     29/29
  * ```
  *
- * **No results file records kivgraph at 7/7.** The `7/7 · 1,00 · 1,00 · 6.200
- * tokens` that the values below state comes from the closing section of
- * `remeasure.md`, which says at its line 283 that `results-0.3.6.json` holds
- * that pass on commit `71e6c57`. The file on disk is commit `954b9eb` and
- * reports `6/7`. All three passes in `remeasure.md` were written to the same
- * filename, so each overwrote the last and the run that substantiated `7/7` is
- * gone.
+ * `native` is the `grep` + reading arm. `267980 / 35961 = 7.452`.
  *
- * `grep` + reading is the arm the results files do record at 7/7, P 1,00 and
- * R 1,00, for `63.531` tokens. So the `exact answers` row below states a tie
- * that the machine-readable record does not currently show.
+ * ## Why the 29-question set and not the 7
  *
- * Of the four figures the storyboard specified, `63.531` and `37 repositories`
- * reproduce exactly from `results.json`. `6.2k` and `7 / 7` do not reproduce
- * from any results file.
+ * The storyboard originally specified `6.2k · 63.5k · 7 / 7 · 37 repositories`,
+ * and that set was withdrawn on 2026-08-26 after an audit of all nine
+ * `results*.json` files: **no results file records kivgraph at 7/7.** The
+ * seven-question passes on disk read `4/7` (`results.json`, commit `4c1bfae`)
+ * and `6/7` (`results-0.3.6.json`, commit `954b9eb`). The `7/7` came from the
+ * closing prose of `remeasure.md`, which attributes it to
+ * `results-0.3.6.json` at commit `71e6c57`; all three of its passes were
+ * written to that same filename, so each overwrote the last and the run that
+ * substantiated `7/7` no longer exists.
  *
- * The fully machine-backed alternative is `results-all.json`, same commit
- * `954b9eb`, over 29 questions rather than 7: kivgraph `35.961` tokens, 36
- * calls, P `1,00`, R `0,996`, `28/29`; `grep` + reading `267.980` tokens, 101
- * calls, P `1,00`, R `0,989`, `28/29`. Ties on exact answers, wins on recall,
- * and `7,45x` cheaper. Awaiting a decision on which set the film states; do not
- * resolve it by editing these values.
+ * The 29-question set is machine-backed line by line, and it is the better
+ * denominator anyway — the benchmark's own caution is that seven questions on
+ * one corpus is a small set, chosen for what it could discriminate. A perfect
+ * score there is not a tool that answers everything; it is a tool with no known
+ * miss on that set.
  *
  * ```text
  * corpus      37 git repositories
@@ -46,36 +44,34 @@
  * Because the comparison is the evidence, and a single column would make the
  * viewer supply the baseline from memory. `grep` + reading is the honest
  * denominator: the real alternative to a code graph is not being wrong, it is
- * spending an order of magnitude more tokens.
+ * spending seven times the tokens to be equally right.
  *
- * The four rows are meant to say that every measure of correctness ties and only
- * cost moves. **On the seven-question set that reading is not currently
- * supported** — see the provenance note above. It is supported on the
- * 29-question set in `results-all.json`, where both arms reach `28/29` and
- * kivgraph's recall is the higher of the two.
- *
- * The benchmark's own caution belongs here either way, because the film inherits
- * it: seven questions on one corpus is a small set, chosen for what it could
- * discriminate. A tool with a perfect score there is not a tool that answers
- * everything; it is a tool with no known miss on that set. The 29-question set
- * is the better denominator for exactly this reason.
+ * The four rows say that every measure of correctness ties or favours kivgraph
+ * and only cost moves. On this set that reading is exact: `exact answers` and
+ * `precision` tie, `recall` is kivgraph's by `0.007`, and cost is the only row
+ * where the two columns are not near-identical.
  *
  * ## Why the four rivals are not in this table
  *
- * The benchmark measures six arms. On the 29-question set the other four graph
- * tools reach `3/29`, `4/29`, `3/29` and `3/29` against kivgraph's `28/29`, so
- * the gap is not close. They are still out: naming competitors is a strategic
- * decision and not a design one, and their figures are pinned to builds that
- * will move. `grep` + reading cannot go stale the same way — it is what an agent
- * already does.
+ * The benchmark measures six arms. The other four graph tools reach `3/29`,
+ * `4/29`, `3/29` and `3/29`, so the gap is not close. They are still out:
+ * naming competitors is a strategic decision and not a design one, and their
+ * figures are pinned to builds that will move. `grep` + reading cannot go stale
+ * the same way — it is what an agent already does.
  *
  * ## Why the values are strings
  *
- * `6.2k` is not `6200` rendered with a suffix. The published figure is quoted at
- * that precision, and formatting a number would let a future edit change the
- * precision — which is the same thing as changing the value. `AGENTS.md`
- * § Benchmark integrity: never invented, rounded or modified for visual
- * convenience, and one place to change if the benchmark moves.
+ * A number would let a future edit change the displayed precision, which is the
+ * same thing as changing the value. `recall` is the row that proves the point:
+ * at two decimals it reads `1.00` against `0.99`, which both flatters kivgraph
+ * to a perfect score it did not earn and doubles the apparent gap. Three
+ * decimals is the shortest form that is true, so `precision` states three as
+ * well rather than mixing depths down a column.
+ *
+ * Token counts are exact, comma-grouped. Grouping does not change precision;
+ * rounding to `36k` would, and `AGENTS.md` § Benchmark integrity forbids it:
+ * never invented, rounded or modified for visual convenience, and one place to
+ * change if the benchmark moves.
  */
 
 /** The two arms, in column order. Kivgraph first: it is the subject. */
@@ -84,19 +80,19 @@ export const arms = ["kivgraph", "grep + read"] as const;
 /**
  * The rows, in reading order.
  *
- * Cost first, because it is the only row where the columns differ and it earns
- * the three that follow. Correctness after, in three measures, because a cheap
+ * Cost first, because it is the row where the columns diverge and it earns the
+ * three that follow. Correctness after, in three measures, because a cheap
  * wrong answer is worthless and one row saying so would be easy to disbelieve.
  */
 export const rows = [
-  /** The row the scene exists for. `10,2x`, stated as two figures rather than a ratio. */
-  { label: "tokens", values: ["6.2k", "63.5k"], emphasis: "cost" },
-  /** Questions whose answer set matched the manual truth exactly. */
-  { label: "exact answers", values: ["7 / 7", "7 / 7"], emphasis: "claim" },
-  /** Of what it said, the fraction that was true. */
-  { label: "precision", values: ["1.00", "1.00"], emphasis: "claim" },
-  /** Of what existed, the fraction it found. */
-  { label: "recall", values: ["1.00", "1.00"], emphasis: "claim" },
+  /** The row the scene exists for. `7.45x`, stated as two figures rather than a ratio. */
+  { label: "tokens", values: ["35,961", "267,980"], emphasis: "cost" },
+  /** Questions whose answer set matched the manual truth exactly. A tie. */
+  { label: "exact answers", values: ["28 / 29", "28 / 29"], emphasis: "claim" },
+  /** Of what it said, the fraction that was true. Both exactly 1. */
+  { label: "precision", values: ["1.000", "1.000"], emphasis: "claim" },
+  /** Of what existed, the fraction it found. The one correctness row that moves. */
+  { label: "recall", values: ["0.996", "0.989"], emphasis: "claim" },
 ] as const;
 
 /**
@@ -105,5 +101,10 @@ export const rows = [
  * Stays lowercase and quiet: it is a source note, not a headline. `37
  * repositories` was one of the storyboard's four statements and is now the scale
  * the whole table holds at, which is where it always belonged.
+ *
+ * The question count is deliberately absent. It is already on screen, in the
+ * denominator of `28 / 29`, and this note is the row with the least reading time
+ * in the scene — at 37 characters it is the one that sets the whole table's
+ * chars-per-second floor.
  */
 export const sourceNote = "37 repositories · published benchmark";

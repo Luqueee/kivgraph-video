@@ -48,8 +48,8 @@ const ramp = (frame: number, from: number, to: number) =>
  * high in their em, so a geometrically centred box of numerals reads low.
  *
  * The cost row is the only one that breaks the 36 px figure size, and inside it
- * `6.2k` is 76 px against `63.5k`'s 36. Both ratios are the argument, which is
- * why nothing in the frame is coloured to make it.
+ * `35,961` is 76 px against `267,980`'s 36. Both ratios are the argument, which
+ * is why nothing in the frame is coloured to make it.
  */
 const layout = {
   headerTop: 342,
@@ -67,9 +67,9 @@ const layout = {
  *
  * The cost row is complete by local 38, which is master 1188. `STORYBOARD.md`
  * §29 reserves master 1190 as a still-image key frame whose required content is
- * `6.2k vs 63.5k`, both fully legible; a half-faded figure there would ruin the
- * one frame from this scene that gets used outside the video. The ramp therefore
- * front-loads inside the storyboard's window rather than filling it.
+ * `35,961 vs 267,980`, both fully legible; a half-faded figure there would ruin
+ * the one frame from this scene that gets used outside the video. The ramp
+ * therefore front-loads inside the storyboard's window rather than filling it.
  *
  * The three correctness rows then arrive on a 24-frame pitch, which is the same
  * pitch as their vertical spacing - the table fills in at one speed, so it reads

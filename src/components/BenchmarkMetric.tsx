@@ -13,22 +13,23 @@ import { brand } from "../brand/tokens";
  * scene moves on.
  *
  * Each column right-aligns on its own edge. That is the whole convention of a
- * figure column, and it is what lets `6.2k` and `63.5k` be read as the same
+ * figure column, and it is what lets `35,961` and `267,980` be read as the same
  * measure at two magnitudes rather than as two unrelated numbers.
  *
  * ## Why the emphases are named and not sized
  *
  * The caller says what a row *is*. The type scale lives here, once, so the ratio
  * the scene depends on cannot drift one call at a time: the cost row is 76 px
- * against the correctness rows' 36 px, and `6.2k` beats `63.5k` inside its own
+ * against the correctness rows' 36 px, and `35,961` beats `267,980` inside its
  * row by being 76 px against 36 px. A `fontSize` prop would let a future edit
  * narrow that until the hierarchy stopped reading — and the comparison has to
  * survive in greyscale (`AGENTS.md` §37), so it cannot be rescued with colour.
  *
  * The subject column is `textPrimary` and the baseline column is `textFaint` in
- * the cost row only. In the correctness rows both columns are `textPrimary`,
- * because those rows tie and dimming one side would assert a difference the
- * benchmark does not report.
+ * the cost row only. In the correctness rows both columns are `textPrimary`:
+ * `exact answers` and `precision` tie outright, and `recall` differs by `0.007`
+ * in kivgraph's favour, which the digits already say. Dimming a side would
+ * assert a hierarchy the benchmark does not report.
  */
 
 const emphasis = {
@@ -38,7 +39,7 @@ const emphasis = {
     weight: [500, 400],
     colour: [brand.textPrimary, brand.textFaint],
   },
-  /** A correctness row. Both arms tie, so both are stated at equal weight. */
+  /** A correctness row. Stated at equal weight whether or not the arms tie. */
   claim: {
     size: [36, 36],
     weight: [400, 400],
@@ -54,13 +55,19 @@ const emphasis = {
  * of detail that makes a frame look assembled rather than designed.
  *
  * 800 px wide, centred: labels from 560, figure columns ending at 1060 and 1360.
+ * Measured on the settled frame 1345: the rule spans 560-1359 at y 388, exactly
+ * 800 px, and the block's ink centres on 959.5 against a frame centre of 960.
+ *
  * The two proportions that matter were measured off a render and then fixed. The
- * gap from a label to its first figure runs 251-352 px depending on how long the
- * label is, and the gap between the two figures runs 200-222 px - so a label
+ * gap from a label to its first figure runs 174-331 px depending on how long the
+ * label is, and the gap between the two figures runs 158-201 px - so a label
  * reads as belonging to its row while the two figures still read as two columns
- * rather than one wide number. The first attempt had those at 466 and 248, which
- * detached `recall` from its own `1.00` while letting the two `1.00`s crowd each
- * other.
+ * rather than one wide number. An earlier draft had those at 466 and 248, which
+ * detached `recall` from its own figure while letting the two columns crowd each
+ * other. Swapping `6.2k`/`63.5k` for the exact 29-question counts took the
+ * label gap's floor down 77 px and the figure gap's down 42, because the cost
+ * row grew from four glyphs to six at 76 px; nothing collided and the right
+ * edges did not move.
  */
 export const tableGrid = {
   labelLeft: 560,
@@ -98,7 +105,7 @@ export const BenchmarkMetric: React.FC<Props> = ({
    * Everything in a row sits on the tallest figure's optical centre rather than
    * its top edge. Mono digits fill about three quarters of their em, so half of
    * that is where the row's weight actually is — and in the cost row the two
-   * figures differ by 40 px of size, so aligning tops would leave `63.5k`
+   * figures differ by 40 px of size, so aligning tops would leave `267,980`
    * floating above its own baseline.
    */
   const centre = top + tallest * 0.375;
