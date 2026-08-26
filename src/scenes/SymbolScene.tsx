@@ -66,6 +66,34 @@ export const symbolOpeningZoom = 2.35;
 export const SymbolScene: React.FC = () => {
   const frame = useCurrentFrame();
 
+  /**
+   * The world arriving around the symbol, over the first twenty-six frames.
+   *
+   * This scene used to open the film, so its code field was simply *there* on
+   * frame 0 - `signature` at `0.3`, `body` at `0.1`, and so on. It is now the
+   * receiving half of a match cut, and that opening became the loudest thing in
+   * the frame: `00-intent.md` hands over a frame holding `withRetry` and nothing
+   * else, and the next frame added an entire file at once. The token matched to
+   * the pixel and the surroundings arrived like a light being switched on.
+   *
+   * So everything except the symbol now rises from nothing while the symbol
+   * stays where the candidate left it. Frame `0180` is the candidate's last
+   * frame with the code still to come, and the file materialises around it.
+   *
+   * `symbol` is deliberately not multiplied. It is the object crossing the cut,
+   * and the one thing that must not change at it.
+   *
+   * This is the same shape as the other match cut's solution, arrived at from
+   * the other side: scene 03 keeps scene 02's last image on top and dissolves
+   * it, so its matched token is continuous while its surroundings change. Here
+   * the surroundings are absent and arrive; there they are present and leave.
+   */
+  const carry = interpolate(frame, [0, 26], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.22, 1, 0.36, 1),
+  });
+
   /** 0 -> 1 across the resolve window. Every value in the scene rides this. */
   const resolve = interpolate(frame, [resolveFrom, resolveTo], [0, 1], {
     extrapolateLeft: "clamp",
@@ -113,9 +141,9 @@ export const SymbolScene: React.FC = () => {
         camera={camera}
         main={{
           symbol: 1,
-          signature: lum(0.3, 0.55),
-          body: lum(0.1, 0.38),
-          context: lum(0.08, 0.22),
+          signature: lum(0.3, 0.55) * carry,
+          body: lum(0.1, 0.38) * carry,
+          context: lum(0.08, 0.22) * carry,
         }}
         symbolColor={interpolateColors(
           resolve,
@@ -123,7 +151,7 @@ export const SymbolScene: React.FC = () => {
           [brand.textPrimary, brand.accentText],
         )}
         neighbours={0}
-        bed={lum(0.09, 0.16)}
+        bed={lum(0.09, 0.16) * carry}
         mark={resolve}
       />
 

@@ -50,8 +50,19 @@ out loud inside the same frame.
 
 ## Initial state
 
-Frame `0180` already carries visual information — there is no black opening and
-no element that fades in from nothing. It is also **the receiving half of a
+Frame `0180` already carries visual information — there is no black opening.
+
+**What it carries is the symbol, and only the symbol.** Everything else — the
+signature, the body, the surrounding context, the depth bed — rises from nothing
+over the first twenty-six frames, on `carry`. That reverses this document's
+original claim that no element fades in from nothing, and the reason is that the
+claim was written when this scene opened the film. It does not any more. It is
+the receiving half of a match cut, and handing over a frame holding `withRetry`
+alone into a frame holding `withRetry` and an entire file matched the token
+perfectly and switched a light on around it.
+
+`symbol` is deliberately not on `carry`. It is the object crossing the cut and
+the one thing that must not change at it. It is also **the receiving half of a
 match cut**, which is new: `00-intent.md` lands its chosen candidate on this
 frame's `withRetry` and cuts. Measured on the render, the candidate's ink at
 `0179` and this frame's occupy `x 382..855` on both sides, `y 626..711` against
@@ -496,3 +507,23 @@ The still-image key frame is `0260`. The project's still-image list reads `0260`
   now, matching ## Timeline and durationInFrames={120}. Nothing else in the
   document still reflects the 210-frame cut.
 ```
+
+```text
+2026-08-27
+- Everything except the symbol now rises from nothing over the first twenty-six
+  frames, on a new `carry` ramp. The scene is the receiving half of a match cut
+  since `00-intent.md` was put in front of it, and its opening code field - which
+  simply existed on frame 0, at `signature` 0.3 and `body` 0.1 - arrived like a
+  light being switched on beside a token that had matched to the pixel.
+- `symbol` is not multiplied by it. It is the object crossing the cut.
+- The document's claim that no element fades in from nothing is reversed, and the
+  reason is recorded rather than the claim quietly deleted: it was written when
+  this scene opened the film, and it does not.
+- Same shape as the other match cut's solution reached from the other side: scene
+  03 keeps scene 02's last image on top and dissolves it, so its matched token is
+  continuous while its surroundings change. There they are present and leave;
+  here they are absent and arrive.
+- Measured across the seam: 34.5 -> 45.0 dB whole-frame once the code stopped
+  popping and the two sub-pixel biases landed.
+```
+

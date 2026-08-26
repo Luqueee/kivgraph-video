@@ -143,15 +143,30 @@ Measured on the render rather than trusted to arithmetic, which is what the othe
 two match cuts already do:
 
 ```text
-candidate `0179`   ink x 382..855   y 626..711
-source    `0180`   ink x 382..855   y 626..710
-error              dx 0 / 0         dy 0 / +1
+ink centroid, candidate `0179`   (609.30, 665.61)
+ink centroid, source    `0180`   (609.27, 665.62)
+offset                           dx +0.03 px   dy -0.01 px
+ink mass ratio                   1.0005
 ```
 
-Zero on three edges; the one pixel is antialiasing on the descender of the `y`.
-Measured inside a box around the token, because scene 01's frame is a code field
-cropped by every edge — a whole-frame comparison here measures the code, not the
-cut.
+**The bounding box was the wrong instrument and it hid a real error.** It agreed
+to the pixel while the seam still measured 234 levels of difference on identical
+boxes, which is what a sub-pixel offset looks like on high-contrast glyph edges:
+a box rounds, so two glyphs a pixel apart can share one. The ink centroid is
+sub-pixel and found `dy +0.99`; `targetTopBias` and `targetLeftBias` in
+`IntentScene.tsx` are that measurement. The mass ratio is the proof that the size
+and the weight were right all along and only the placement was not.
+
+Whole-frame PSNR across the seam went 34.5 → 45.0 dB as the two biases landed.
+The 30.5 dB that remains over the token's own box is the irreducible difference
+between two rendering paths — a `span` inside a laid-out code line, and a centred
+`div` — at an offset of two hundredths of a pixel.
+
+**The code field is scene 01's half of this cut, and it has to arrive.** Handing
+over a frame that holds `withRetry` and nothing else, into a frame that holds
+`withRetry` and an entire file, matched the token perfectly and switched a light
+on around it. `01-symbol.md` now raises everything except the symbol from nothing
+over its first twenty-six frames.
 The arithmetic alone landed three pixels high, and `targetTopBias` in
 `IntentScene.tsx` is that measured error — it belongs to the difference between
 a DOM line box and the code plane's baseline, not to the anchor.
@@ -179,4 +194,12 @@ a DOM line box and the code plane's baseline, not to the anchor.
 ```text
 2026-08-27
 - Initial scene specification, written with the implementation.
+- Two defects in the handover, both found by looking at a frame rather than at a
+  number. The receding candidates were floored at 0.182 instead of reaching zero,
+  so they read through `withRetry` as ghost type and the cut handed over three
+  names; and the alignment was verified with a bounding box, which rounds, so a
+  sub-pixel offset survived it. Re-measured with the ink centroid: dx +0.03,
+  dy -0.01, mass ratio 1.0005, and the seam went 34.5 -> 45.0 dB whole-frame.
+- The code field now arrives rather than appearing. That half of the fix lives in
+  01-symbol.md.
 ```

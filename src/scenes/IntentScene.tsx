@@ -149,13 +149,31 @@ const target = {
  * what `AGENTS.md` asks for and what the other match cut already does: a number
  * arrived at by arithmetic is a number nobody has looked at.
  *
- * The arithmetic alone landed the candidate's ink at `x 382..855, y 623..708`
- * against the source's `x 382..855, y 626..710` - horizontally exact to the
- * pixel, three pixels high. `2.5` is that error, and it is here rather than
- * folded into `symbolAnchor` because it belongs to the difference between a DOM
- * line box and the code plane's baseline, not to the anchor.
+ * The arithmetic alone landed the candidate three pixels high. `2.5` corrected
+ * that to the nearest pixel, and a bounding box cannot see better than that -
+ * it rounds, so two glyphs a pixel apart can share one. The residue showed up as
+ * a 234-level difference at the seam on identical bounding boxes, which is what
+ * a sub-pixel offset looks like on high-contrast edges.
+ *
+ * `1.51` is the ink centroid measurement, which is sub-pixel: candidate
+ * `(609.47, 666.61)` against source `(609.27, 665.62)`, so `dy +0.99` and
+ * `dx +0.20`. The ink mass ratio is `1.0004`, which is the proof that the size
+ * and the weight were right all along and only the placement was not.
+ *
+ * It lives here rather than folded into `symbolAnchor` because it belongs to the
+ * difference between a DOM line box and the code plane's baseline, not to the
+ * anchor.
  */
-const targetTopBias = 2.5;
+const targetTopBias = 1.51;
+
+/**
+ * The same correction on the other axis, and the same instrument.
+ *
+ * `-0.2` is what the ink centroid still read after the vertical was zeroed. It
+ * is a fifth of a pixel and nobody will ever see it; it is here because the
+ * measurement can see it and the cost of honouring it is one number.
+ */
+const targetLeftBias = -0.2;
 
 export const IntentScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -287,7 +305,7 @@ export const IntentScene: React.FC = () => {
             <div
               style={{
                 position: "absolute",
-                left: cx - width / 2,
+                left: cx - width / 2 + targetLeftBias * narrow,
                 top: cy - size / 2 + targetTopBias * narrow,
                 width,
                 textAlign: "center",
