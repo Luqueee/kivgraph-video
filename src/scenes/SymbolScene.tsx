@@ -38,6 +38,31 @@ import type { Camera } from "../world/camera";
 const resolveFrom = 28;
 const resolveTo = 80;
 
+/**
+ * Where `withRetry` sits on screen for the whole of this scene, and the opening
+ * zoom it sits there at.
+ *
+ * The camera pulls back and the symbol does not move: it is pinned to this
+ * point at every zoom, which is what makes it the fixed thing in the shot. That
+ * makes it a contract as well as a composition, because `00-intent.md`'s
+ * candidate has to arrive on exactly this point at exactly this size for the
+ * match cut into frame 0 to be a match rather than a resemblance.
+ *
+ * Measured on the rendered frame 119, where the accent underline is exactly the
+ * width of the symbol: the token spans `x 506..731`, 226 px, centred on 620 -
+ * against `world.retry.origin.width * 0.6 * world.retry.fontSize * 1.12 =
+ * 229.8`. So the point is the token's **centre**, not its left edge, and the
+ * arithmetic that follows from it is sound.
+ *
+ * Exported rather than described, for the reason `graphFrame.ts` gives about
+ * the other match cut: a number that two files each derive is a number they
+ * will eventually derive differently.
+ */
+export const symbolAnchor = { x: 620, y: 662 } as const;
+
+/** The zoom frame 0 opens on. `IntentScene` sizes its candidate against it. */
+export const symbolOpeningZoom = 2.35;
+
 export const SymbolScene: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -60,14 +85,20 @@ export const SymbolScene: React.FC = () => {
    * The curve is not the project's `bezier(0.22, 1, 0.36, 1)`: that front-loads
    * too hard to read as a camera.
    */
-  const zoom = interpolate(frame, [0, resolveTo], [2.35, 1.12], {
+  const zoom = interpolate(frame, [0, resolveTo], [symbolOpeningZoom, 1.12], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.33, 0.05, 0.2, 1),
   });
 
   /** The symbol never leaves the lower-left third. */
-  const camera: Camera = { x: 0, y: 0, zoom, screenX: 620, screenY: 662 };
+  const camera: Camera = {
+    x: 0,
+    y: 0,
+    zoom,
+    screenX: symbolAnchor.x,
+    screenY: symbolAnchor.y,
+  };
 
   /**
    * Luminance rises on the same window and then holds. Scene 02 inherits these

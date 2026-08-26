@@ -35,8 +35,8 @@ Three.js debe utilizarse para visualizar el concepto que hace especial a Kivgrap
 ```text
 Resolution: 1920 × 1080
 FPS: 60
-Duration: 29.17 s
-Frames: 1750
+Duration: 32.17 s
+Frames: 1930
 Aspect ratio: 16:9
 ```
 
@@ -45,7 +45,7 @@ También debe ser posible generar posteriormente:
 ```text
 1920 × 1080   landing / YouTube / GitHub
 1080 × 1080   X / LinkedIn
-1080 × 1450   LinkedIn / social
+1080 × 1630   LinkedIn / social
 1080 × 1920   vertical
 ```
 
@@ -593,7 +593,7 @@ Fue 15–31° mientras existió la escena CROSS-REPOSITORY, cuyo giro compraba
 ángulo hasta aterrizar fuera del bracket. Cortada esa escena (SCENE 05), el
 techo vuelve a ser el que era antes de ella, y la pose en la que termina el
 reveal — la que hereda todo lo que sigue — se queda en 15,1° fuera de `-Z`.
-Después de 0658 el rig se mueve dos veces, y ninguna de las dos compra ángulo: la
+Después de 0838 el rig se mueve dos veces, y ninguna de las dos compra ángulo: la
 07 lo endereza a frontal dentro de su aplanado, y la 08 lo devuelve en veinte
 frames a la pose del match cut, que es la del primer frame del reveal.
 
@@ -611,11 +611,11 @@ porque el layout no admite otra cosa. Cuando tuvo que cumplir las dos
 restricciones a la vez, una rejilla sobre azimut, elevación y desplazamiento del
 target no encontró **ninguna** pose que lo consiguiera en todos los frames del
 movimiento. Se resolvió dejando los 16 px completos en la pose de llegada —donde
-viven el blast radius y la comparación semántica, y donde el still clave 0778
+viven el blast radius y la comparación semántica, y donde el still clave 0958
 tiene que leerse reducido a ancho de README— y bajando a 15 px en los frames *de
 paso*, que se veían una fracción de segundo. Ese compromiso se va con la escena:
 los 15 px los producía su giro, y el único movimiento que queda sobre el grafo
-después de 0658 —el retorno de veinte frames de la 08— no llega a tocar la
+después de 0838 —el retorno de veinte frames de la 08— no llega a tocar la
 rejilla: cuando arranca ya no queda en el cuadro más que el ancla, así que no hay
 etiqueta de clúster que contener ni suelo de 16 px que respetar. Quien vuelva a
 proponer un movimiento sobre el grafo completo se encuentra otra vez con la
@@ -691,7 +691,7 @@ desplazamiento es del composer y no del render.
 Arreglable en principio, dándole al composer un render lineal y dejando que él
 haga la conversión a sRGB. Eso significa reconstruir el pipeline de color que el
 proyecto ya arregló midiendo, y volver a verificar cada gris de token y cada
-costura en los 1460 frames montados.
+costura en los 1640 frames montados.
 
 **Y las restricciones no le dejan nada que desenfocar.** «Nunca desenfocar
 información importante» significa aquí: ni el símbolo cambiado, ni las crossings,
@@ -716,7 +716,7 @@ que responder antes de volver a proponerlo.
 ### Frames
 
 ```text
-0000–0120
+0180–0300
 0.0–2.0 s
 ```
 
@@ -800,7 +800,7 @@ La implementación no necesita ser legible. La jerarquía manda.
 
 ---
 
-### Frames 0000–0028
+### Frames 0180–0208
 
 El primer frame ya tiene información visual. No se abre en negro.
 
@@ -812,7 +812,7 @@ Cámara:
 
 ```text
 dolly out, un solo movimiento
-scale: 2.35 → 1.12 (se completa en 0080)
+scale: 2.35 → 1.12 (se completa en 0260)
 ```
 
 Sin titular. Sin caption todavía. El código está por debajo de su luminancia
@@ -820,7 +820,7 @@ final: se lee que hay código, no *qué* código.
 
 ---
 
-### Frames 0028–0080
+### Frames 0208–0260
 
 **Toda la escena ocurre aquí, en una sola transición.**
 
@@ -835,7 +835,7 @@ la cámara termina su dolly out
 ```
 
 No son cinco entradas escalonadas: es un solo acontecimiento que aterriza en el
-frame 0080. Antes se repartían en cuatro tiempos y la apertura se sentía como
+frame 0260. Antes se repartían en cuatro tiempos y la apertura se sentía como
 una secuencia de anuncios en lugar de una llegada.
 
 ```text
@@ -857,9 +857,9 @@ Esto es foreshadowing por selección, no por dirección.
 
 ---
 
-### Frames 0080–0120
+### Frames 0260–0300
 
-La escena está quieta. Byte-idéntica de 0080 a 0119: no hay deriva, ni
+La escena está quieta. Byte-idéntica de 0260 a 0299: no hay deriva, ni
 respiración, ni parallax residual.
 
 La escena **no lleva texto explicativo de ningún tipo**. No hay titular, ni
@@ -920,7 +920,7 @@ apertura va en una sola dirección.
 ### Frames
 
 ```text
-0120–0330
+0300–0510
 2.0–5.5 s
 ```
 
@@ -952,7 +952,7 @@ componentes de marca Kivgraph.
 
 ---
 
-### Frames 0120–0190
+### Frames 0300–0370
 
 La cámara no invierte el sentido: lo continúa. La escena 01 sale y se queda
 quieta; la 02 recoge el mundo desde el reposo y sigue abriendo. El beat es la
@@ -986,7 +986,7 @@ La regla del prompt se dibuja de izquierda a derecha y aparece el glifo:
 
 ---
 
-### Frames 0165–0245
+### Frames 0345–0425
 
 Typing:
 
@@ -1013,7 +1013,7 @@ persona a su agente. Nunca aparece como titular.
 
 ---
 
-### Frame 0255
+### Frame 0435
 
 Enter.
 
@@ -1021,7 +1021,7 @@ Pequeño feedback visual: el caret se retira y el glifo `❯` gana peso.
 
 ---
 
-### Frames 0270–0300
+### Frames 0450–0480
 
 Aparece, debajo:
 
@@ -1042,7 +1042,7 @@ herramienta, no un estado de espera.
 
 ---
 
-### Frames 0300–0330
+### Frames 0480–0510
 
 El texto `withRetry()` se selecciona dentro del prompt y crece ligeramente, sin
 desplazar los caracteres anteriores.
@@ -1062,7 +1062,7 @@ Debe comenzar la transición hacia Three.js.
 ### Frames
 
 ```text
-0330–0480
+0510–0660
 5.5–8.0 s
 ```
 
@@ -1072,7 +1072,7 @@ y sólo después empieza a retirarse hasta quedar en textura.
 
 ---
 
-### Frame 0330
+### Frame 0510
 
 El texto:
 
@@ -1087,7 +1087,7 @@ congelado, sosteniendo el corte.
 
 ---
 
-### Frames 0330–0360
+### Frames 0510–0540
 
 La palabra deja de comportarse como texto HTML.
 
@@ -1131,7 +1131,7 @@ exterior está más apagado, no sólo más pequeño.
 
 ---
 
-### Frames 0360–0390
+### Frames 0540–0570
 
 La cámara se mueve por primera vez. Hasta aquí ha estado quieta: el corte se
 sostiene con el ojo exactamente donde estaba, porque cualquier movimiento durante
@@ -1150,7 +1150,7 @@ distancia llega después. El edge precede siempre al nodo al que llega.
 
 ---
 
-### Frame 0395
+### Frame 0575
 
 Sale de `withRetry()` el primer edge, hacia el fondo y hacia fuera, buscando un
 nodo que todavía no está.
@@ -1168,7 +1168,7 @@ alejándose de la cámara. Nunca al revés.
 
 ---
 
-### Frames 0400–0430
+### Frames 0580–0610
 
 Primer nodo del hop 1: aparece al final del edge que ya lo estaba señalando.
 
@@ -1180,7 +1180,7 @@ Policy.Do()
 
 ---
 
-### Frames 0420–0450
+### Frames 0600–0630
 
 Segundo edge, hacia el mismo hop: el hop 1 tiene dos nodos y se completa antes de
 que el grafo mire más lejos. Los dos hermanos se separan en vertical lo justo
@@ -1189,7 +1189,7 @@ un solo trazo.
 
 ---
 
-### Frames 0440–0480
+### Frames 0620–0660
 
 Tercer edge. Este ya no se queda en el primer hop: sale hasta el hop 2, un paso
 más lejos de la cámara.
@@ -1215,13 +1215,13 @@ dos pasos       lo que llama a eso
 ### Frames
 
 ```text
-0480–0690
+0660–0870
 8.0–10.5 s
 ```
 
 ---
 
-### Frame 0480
+### Frame 0660
 
 La cámara no se detiene en el límite de escena: viene de la escena 03 en un único
 movimiento continuo que no se invierte. Aquí todavía está acompañando al impacto;
@@ -1233,7 +1233,7 @@ más cercano, y ese es el encuadre que hereda la escena siguiente.
 
 ---
 
-### Frames 0490–0550
+### Frames 0670–0730
 
 Aparecen progresivamente más relaciones.
 
@@ -1285,7 +1285,7 @@ avanza hacia un lado, pero lo que ordena la lectura es la profundidad.
 
 ---
 
-### Frames 0530–0630
+### Frames 0710–0810
 
 Surge la etiqueta del repositorio cercano:
 
@@ -1299,7 +1299,7 @@ cercana ya está completa: primero se ve el código, después se dice de dónde 
 
 ---
 
-### Frames 0560–0660
+### Frames 0740–0840
 
 La cámara se eleva por encima de la cadena y abre.
 
@@ -1326,7 +1326,7 @@ geometría en lugar de como un segundo codebase.
 
 ---
 
-### Frame 0650
+### Frame 0830
 
 No cruza un edge largo: cruzan tres a la vez. Son los crossings, los tres únicos
 edges que salen de `payments-api`, y los tres van hacia el fondo, separándose.
@@ -1338,7 +1338,7 @@ Estos tres edges deben ser visualmente más importantes que los anteriores.
 
 ---
 
-### Frames 0650–0680
+### Frames 0830–0860
 
 Los crossings atraviesan:
 
@@ -1356,7 +1356,7 @@ Tres direcciones, tres nodos, un único límite de repositorio.
 
 ---
 
-### Frame 0680
+### Frame 0860
 
 Los tres nodos remotos se activan.
 
@@ -1376,7 +1376,7 @@ Dejar que el espectador lo vea primero.
 
 # SCENE 05 — CROSS-REPOSITORY (cortada)
 
-Esta escena existió. Ocupaba 90 frames — 0690–0780 del master anterior — y hacía
+Esta escena existió. Ocupaba 90 frames — 0870–0960 del master anterior — y hacía
 dos cosas: giraba la cámara alrededor de la cascada (el ojo se desplazaba 4,2
 unidades de mundo, la dirección de vista rotaba 15,5° en yaw y la obliquidad
 total pasaba de 15,1° a 22,1° respecto a `-Z`) y, a la vez, restaba, dejando en
@@ -1396,13 +1396,13 @@ escena los bajaba a `0.22` y el frame siguiente volvía a encenderlos.
 
 Consecuencias sobre el resto de la película:
 
-- todo lo posterior a 0690 se adelanta 90 frames y el master pasa de 1510 a 1420
+- todo lo posterior a 0870 se adelanta 90 frames y el master pasa de 1690 a 1600
   frames (22 s);
 - la 06 ya no hereda un grafo aislado ni una pose movida: hereda el estado
   asentado completo con el que termina la 04, en el encuadre con el que la 04
   termina — ojo en `(7.0, 3.2, 10.0)` mirando a `(8.0, 0.0, -2.4)`, 15,1° fuera
   de `-Z` — y ese encuadre se mantiene hasta el aplanado de la 07: después de
-  0658 nadie explora el grafo, sólo se endereza el rig y, en la 08, se devuelve a
+  0838 nadie explora el grafo, sólo se endereza el rig y, en la 08, se devuelve a
   la pose del match cut;
 - la regla de la que venía esta escena sigue en pie y ahora se cumple sola:
 
@@ -1413,26 +1413,26 @@ Dejar que el espectador lo vea primero.
 
 Antes de cortarse la escena ya se había cortado su palabra: el cuadro entero se
 oscurecía a `0.86` y se leía `Cross-repository.` sobre el velo, centrado, entre
-0718 y 0768. Aterrizaba como un subtítulo quemado sobre un plano y no como parte
+0898 y 0948. Aterrizaba como un subtítulo quemado sobre un plano y no como parte
 de la película.
 
 Medido tras el corte, tras el recorte de la 06, tras crecer la 07, tras el pase de
 ritmo sobre las escenas 06–08, tras montarse la 09, tras reconstruirse la 09 y tras
-fijarse sus cifras: las costuras 0330 y 0830 son idénticas píxel a píxel, la 0690
-mide 62,93 dB — sólo antialiasing — y los 1460 frames montados no tienen ni un
-frame negro. El barrido marca dos parejas y nada más: 1029/1030, los dos lados del
-match cut de la 08, y 1209/1210, el hard cut de la 09. Las dos son escalones, no
+fijarse sus cifras: las costuras 0510 y 1010 son idénticas píxel a píxel, la 0870
+mide 62,93 dB — sólo antialiasing — y los 1640 frames montados no tienen ni un
+frame negro. El barrido marca dos parejas y nada más: 1209/1210, los dos lados del
+match cut de la 08, y 1389/1390, el hard cut de la 09. Las dos son escalones, no
 picos, y ninguna pretende ser invisible: la primera mide 41,35 dB sobre la región
 del símbolo, que es la que el corte sostiene, y 28,69 dB de cuadro completo; la
 segunda mide 24,25 dB, que es lo que tiene que medir un hard cut.
 
-La 1209/1210 ha cambiado dos veces: medía 22,30 dB antes de fijarse las cifras y
+La 1389/1390 ha cambiado dos veces: medía 22,30 dB antes de fijarse las cifras y
 24,21 dB después, y ahora 24,25 dB con el relevo de la firma. Ninguna de las dos
 es mejora ni empeoramiento: la PSNR de un corte es una propiedad de sus dos
 frames, y el lado derecho de este corte es justo la tabla, así que cambiar `6.2k`
 por `35,961` mueve el número por definición. Que el segundo movimiento sea
 insignificante es justo lo que se buscaba — cruzar una línea tenue no ablanda el
-corte, y la región que cruza mide `inf`. Las dos cifras de la 1029/1030 no se
+corte, y la región que cruza mide `inf`. Las dos cifras de la 1209/1210 no se
 comparan entre sí:
 una es de región y la otra de cuadro completo.
 
@@ -1446,13 +1446,13 @@ conservan su numeración de storyboard.
 ### Frames
 
 ```text
-0690–0830
+0870–1010
 10.5–12.83 s
 ```
 
 ---
 
-### Frame 0690
+### Frame 0870
 
 El nodo `withRetry()` pulsa una única vez.
 
@@ -1460,7 +1460,7 @@ No loop.
 
 ---
 
-### Frames 0698–0772
+### Frames 0878–0952
 
 El cambio se propaga.
 
@@ -1533,16 +1533,16 @@ x +24 → 0
 
 Sin rebotes.
 
-Entra en 0756–0778 — local 066–088 —: arranca sobre el último hop y se asienta
+Entra en 0936–0958 — local 066–088 —: arranca sobre el último hop y se asienta
 seis frames después de que ese hop aterrice, así que la cifra llega detrás de su
 prueba y nunca delante.
 
 ---
 
-### Frames 0778–0830
+### Frames 0958–1010
 
-La card se asienta en 0778 y cuatro frames después el cuadro deja de cambiar del
-todo: es estático de 0782 a 0830 — 49 frames — y la costura 0829 → 0830 es
+La card se asienta en 0958 y cuatro frames después el cuadro deja de cambiar del
+todo: es estático de 0962 a 1010 — 49 frames — y la costura 1009 → 1010 es
 idéntica píxel a píxel, así que la card cruza entera el corte y se apaga con el
 aplanado de la 07.
 
@@ -1578,8 +1578,8 @@ Ese recorte estaba bien medido y mal argumentado: contaba frames congelados, no
 tiempo de lectura. Con 100 frames la card se asentaba con 25 frames por delante
 — 0,42 s para tres líneas de cifras —, y una imagen quieta delante de alguien que
 todavía está leyendo no es tiempo perdido: es la escena. La escena pasa a 140
-frames, 0690–0830, 2,33 s, y el reposo queda en 49 frames estáticos con 1,47 s de
-dwell sobre la card. La costura 0829 → 0830 es idéntica píxel a píxel; el corte
+frames, 0870–1010, 2,33 s, y el reposo queda en 49 frames estáticos con 1,47 s de
+dwell sobre la card. La costura 1009 → 1010 es idéntica píxel a píxel; el corte
 hacia la 07 sigue siendo invisible.
 
 ---
@@ -1589,7 +1589,7 @@ hacia la 07 sigue siendo invisible.
 ### Frames
 
 ```text
-0830–1030
+1010–1210
 12.83–16.17 s
 ```
 
@@ -1680,7 +1680,7 @@ etiqueta caería a unos 11 px.
 
 ---
 
-### Frames 0830–0928
+### Frames 1010–1108
 
 Aquí ocurre lo que la escena construye: el aplanado, la vuelta a frontal y las
 dos columnas. Frames locales, sobre 200:
@@ -1703,9 +1703,9 @@ sólo al final la cifra que lo cuenta.
 
 ---
 
-### Frames 0928–0988
+### Frames 1108–1168
 
-De 0928 en adelante no se va nada del cuadro durante sesenta frames — un segundo
+De 1108 en adelante no se va nada del cuadro durante sesenta frames — un segundo
 entero. Es el tiempo de lectura de las dos columnas, y es la razón por la que
 esta escena creció primero de 150 a 180 frames y ahora de 180 a 200.
 
@@ -1717,7 +1717,7 @@ segundo de lectura se queda exactamente donde estaba, en sus 60 frames.
 Lo que sí cambia es que el reposo ya no lleva nada dentro. Antes corría por
 debajo la rampa de opacidad de la columna izquierda y el hold byte-idéntico
 quedaba reducido a los últimos treinta y cinco frames; medido ahora, el cuadro es
-estático de 0924 a 0988 — 65 frames, cinco más que los sesenta nominales, porque
+estático de 1104 a 1168 — 65 frames, cinco más que los sesenta nominales, porque
 la cola de la última ventana ya no mueve píxeles. El segundo de lectura es un
 still completo y los contadores de las dos columnas tienen **1,00 s** de dwell.
 
@@ -1743,7 +1743,7 @@ clara, y esa asimetría es la frase.
 
 ---
 
-### Frames 0988–1016
+### Frames 1168–1196
 
 Todo sale en una sola ventana, y sale más tarde. Los contadores de la columna
 derecha, los nodos y los tubos, y el chrome de la comparación se van juntos en
@@ -1757,10 +1757,10 @@ alguien va apagando una detrás de otra. Una sola ventana, para las tres cosas.
 
 ---
 
-### Frames 1016–1030
+### Frames 1196–1210
 
 Hold. La ventana cierra catorce frames antes del corte y el cuadro es idéntico
-píxel a píxel de 1016 a 1029, así que la forma que el match cut de la 08 necesita
+píxel a píxel de 1196 a 1209, así que la forma que el match cut de la 08 necesita
 llega al corte en reposo. Eran siete frames; son catorce, que es la mitad de los
 20 que gana la escena: el frame sobre el que se corta es el único que no admite
 prisa.
@@ -1772,13 +1772,13 @@ prisa.
 ### Frames
 
 ```text
-1030–1210
+1210–1390
 16.17–19.17 s
 ```
 
 ---
 
-### Frame 1030
+### Frame 1210
 
 El grafo se contrae hacia el nodo seleccionado.
 
@@ -1820,7 +1820,7 @@ through payments-api/paymentService.  064–080
 
 ---
 
-### Frames 1110–1124
+### Frames 1290–1304
 
 Pequeño label:
 
@@ -1828,8 +1828,8 @@ Pequeño label:
 Answered with Kivgraph
 ```
 
-Entra en el local 080–094. De 1124 a 1210 no se mueve nada — medido, 87 frames
-estáticos desde 1123 — y de ahí se corta a la 09.
+Entra en el local 080–094. De 1304 a 1390 no se mueve nada — medido, 87 frames
+estáticos desde 1303 — y de ahí se corta a la 09.
 
 ---
 
@@ -1866,7 +1866,7 @@ demasiado corta; lo que no se puede hacer es dejarla pasar.
 ### Frames
 
 ```text
-1210–1460
+1390–1640
 19.17–22.67 s
 ```
 
@@ -1894,13 +1894,13 @@ sobrescribió al anterior, y la ejecución que lo sostenía ya no existe. Una ci
 que no se puede volver a leer no se proyecta.
 
 Los bloques de beats, el copy y la tabla de dwell que siguen describen **la escena
-que hay hoy**. El timeline sigue fijado: 250 frames, 1210–1460, el still en 1288,
-la tabla asentada desde 1386 y byte-idéntica durante 63 frames, y el fade en
-1448–1460.
+que hay hoy**. El timeline sigue fijado: 250 frames, 1390–1640, el still en 1468,
+la tabla asentada desde 1566 y byte-idéntica durante 63 frames, y el fade en
+1628–1640.
 
 ---
 
-### Frame 1210
+### Frame 1390
 
 Hard cut limpio.
 
@@ -1919,7 +1919,7 @@ Sólo tipografía.
 ### El relevo de la firma
 
 El corte es duro, pero no cae en el vacío. La línea de atribución de la escena
-anterior — `Answered with Kivgraph` — sigue en pantalla en el frame 1210, en su
+anterior — `Answered with Kivgraph` — sigue en pantalla en el frame 1390, en su
 posición exacta, y se retira mientras entran las cabeceras de columna.
 
 La palabra `Kivgraph` pasa de ser la firma de la respuesta a ser la cabecera de
@@ -1930,7 +1930,7 @@ convierte en «y esto es lo que costó».
 No es un fundido. El panel, el prompt y los tres bloques de respuesta
 desaparecen de golpe, y el cuadro completo sigue midiendo como un corte duro.
 Lo único que cruza es la firma, y sólo lo suficiente para ser reemplazada. Las
-seis condiciones del frame 1210 se mantienen intactas: la atribución **es**
+seis condiciones del frame 1390 se mantienen intactas: la atribución **es**
 tipografía.
 
 Existe por una razón medida, no estética: la escena anterior pasa sus últimos 87
@@ -1993,7 +1993,7 @@ aquí.
 
 ---
 
-### Frames 1212–1272
+### Frames 1392–1452
 
 Entran las cabeceras. Los dos brazos se nombran antes de que haya una sola cifra
 que atribuirles:
@@ -2004,14 +2004,14 @@ kivgraph    grep + read
 
 ---
 
-### Frames 1220–1280
+### Frames 1400–1460
 
 Entra la regla, del ancho de la tabla. Separa las cabeceras del cuerpo y es lo
 único que dibuja la tabla.
 
 ---
 
-### Frames 1224–1288
+### Frames 1404–1468
 
 Primera fila, la de coste:
 
@@ -2020,12 +2020,12 @@ tokens          35,961      267,980
 ```
 
 Entra pisando la regla a propósito: es la fila que lleva el argumento y no espera
-turno detrás de las otras tres. Queda completa en 1288, justo antes del still
+turno detrás de las otras tres. Queda completa en 1468, justo antes del still
 clave.
 
 ---
 
-### Frames 1292–1312
+### Frames 1472–1492
 
 Segunda fila:
 
@@ -2039,7 +2039,7 @@ menos.
 
 ---
 
-### Frames 1316–1336
+### Frames 1496–1516
 
 Tercera fila:
 
@@ -2049,7 +2049,7 @@ precision       1.000       1.000
 
 ---
 
-### Frames 1340–1360
+### Frames 1520–1540
 
 Cuarta fila:
 
@@ -2061,7 +2061,7 @@ Las cuatro filas entran igual: un fundido con un asentamiento corto hacia arriba
 
 ---
 
-### Frames 1366–1386
+### Frames 1546–1566
 
 Aterriza la nota de procedencia, debajo de todo y la última:
 
@@ -2073,7 +2073,7 @@ Una nota de procedencia se lee después de lo que avala.
 
 ---
 
-### Frames 1386–1448
+### Frames 1566–1628
 
 Reposo. La tabla asentada es byte-idéntica durante **63 frames**, y es donde se
 leen las ocho cifras.
@@ -2083,7 +2083,7 @@ el borde de su columna.
 
 ---
 
-### Frames 1448–1460
+### Frames 1628–1640
 
 Fade out. La tabla entera se va junta.
 
@@ -2146,13 +2146,13 @@ cambiar el valor. Con `recall` a dos decimales la tabla diría `1.00` frente a
 ### Frames
 
 ```text
-1460–1630
+1640–1810
 22.67–25.5 s
 ```
 
 ---
 
-### Frame 1460
+### Frame 1640
 
 Todo desaparece.
 
@@ -2160,13 +2160,13 @@ Negro.
 
 ---
 
-### Frame 1470
+### Frame 1650
 
 Aparece un único nodo.
 
 ---
 
-### Frames 1470–1510
+### Frames 1650–1690
 
 Pequeñas líneas empiezan a llegar desde fuera del frame hacia ese nodo.
 
@@ -2178,7 +2178,7 @@ Pequeñas líneas empiezan a llegar desde fuera del frame hacia ese nodo.
 
 ---
 
-### Frames 1500–1530
+### Frames 1500–1710
 
 Las relaciones convergen formando una composición inspirada en el lenguaje visual de Kivgraph.
 
@@ -2188,7 +2188,7 @@ La animación simplemente sirve como transición.
 
 ---
 
-### Frame 1530
+### Frame 1710
 
 Aparece:
 
@@ -2199,7 +2199,7 @@ Minúscula, no `Kivgraph`. El lockup real es el wordmark mono en minúscula --
 y la película ya lleva las dos formas con una regla: la prosa toma la mayúscula
 (`Answered with Kivgraph`, la firma de la 08) y un identificador toma la
 minúscula (la cabecera `kivgraph` de la tabla de la 09). El match cut de
-1209/1210 pasa la palabra de un registro al otro, así que el reveal en minúscula
+1389/1390 pasa la palabra de un registro al otro, así que el reveal en minúscula
 rima con esa cabecera en vez de estrenar un tercer registro en el último plano.
 
 Corregido el 2026-08-26 al implementar la escena; este documento decía
@@ -2220,13 +2220,13 @@ Debajo:
 ### Frames
 
 ```text
-1630–1750
+1810–1930
 25.5–27.5 s
 ```
 
 ---
 
-### Frames 1630–1660
+### Frames 1810–1840
 
 Aparecen integrations:
 
@@ -2244,7 +2244,7 @@ Los rótulos son los del producto, no los del flag: `Oh My Pi`, no `oh-my-pi`.
 
 ---
 
-### Frame 1580
+### Frame 1760
 
 CTA:
 
@@ -2282,7 +2282,7 @@ kivgraph.dev
 
 ---
 
-### Frames 1690–1750
+### Frames 1870–1930
 
 Hold completo.
 
@@ -2657,15 +2657,15 @@ scenes/
     <AgentAnswerScene />
   </Sequence>
 
-  <Sequence from={1210} durationInFrames={210}>
+  <Sequence from={1390} durationInFrames={210}>
     <BenchmarkScene />
   </Sequence>
 
-  <Sequence from={1460} durationInFrames={170}>
+  <Sequence from={1640} durationInFrames={170}>
     <BrandScene />
   </Sequence>
 
-  <Sequence from={1630} durationInFrames={120}>
+  <Sequence from={1810} durationInFrames={120}>
     <OutroScene />
   </Sequence>
 </>
@@ -2733,72 +2733,72 @@ brand reveal
 Durante desarrollo revisar específicamente:
 
 ```text
-0000
-0028
-0055
-0080
-0100
-0119
-
-0120
-0150
 0180
-0210
-0255
-0270
-0300
-0329
+0208
+0235
+0260
+0280
+0299
 
+0300
 0330
 0360
 0390
+0435
 0450
-
 0480
+0509
+
+0510
 0540
-0650
-0680
+0570
+0630
 
-0690
-0730
-0778
-0829
-
+0660
+0720
 0830
-0878
-0924
-0988
-1016
-1029
+0860
 
-1030
-1092
-1124
+0870
+0910
+0958
+1009
+
+1010
+1058
+1104
+1168
+1196
 1209
 
 1210
-1288
-1386
-1448
-1459
+1272
+1304
+1389
 
-1460
-1510
+1390
+1468
+1566
+1628
+1639
+
+1640
+1690
 1440
 
-1630
-1690
-1749
+1810
+1870
+1929
 ```
 
 Los frames:
 
 ```text
-0080
-0680
-0778
-0924
-1288
+0260
+0860
+0958
+1104
+1468
 1440
 ```
 
@@ -2808,7 +2808,7 @@ deben funcionar incluso como capturas estáticas.
 
 # 29. Key visual frames
 
-## Frame ~0080
+## Frame ~0260
 
 ```text
 Code field +
@@ -2822,7 +2822,7 @@ Usable como thumbnail.
 
 ---
 
-## Frame ~0680
+## Frame ~0860
 
 ```text
 The cascade complete, seen from above it.
@@ -2833,7 +2833,7 @@ Usable para social.
 
 ---
 
-## Frame ~0778
+## Frame ~0958
 
 ```text
 Blast radius +
@@ -2851,14 +2851,14 @@ Usable en README.
 
 ---
 
-## Frame ~0924
+## Frame ~1104
 
 ```text
 Name matching vs Semantic resolution
 ```
 
 Local 94 de la escena 07: primer frame de su reposo. El cuadro es estático de
-0924 a 0988, el segundo entero que las dos columnas necesitan para leerse.
+1104 a 1168, el segundo entero que las dos columnas necesitan para leerse.
 
 Sin frase en el centro. El still es la asimetría de las dos columnas, y es lo
 único que tiene que sostener.
@@ -2867,7 +2867,7 @@ Usable para marketing técnico.
 
 ---
 
-## Frame ~1288
+## Frame ~1468
 
 ```text
                 kivgraph    grep + read
@@ -2879,11 +2879,11 @@ es el primer frame en el que la **fila de coste está completa y legible con sus
 brazos ya nombrados encima**. Eso es lo que le permite explicarse sola como imagen
 suelta, que es justo lo que la versión anterior de la escena no conseguía —
 mostraba dos cifras desnudas sin decir de quién era cada una. La fila entra en una
-sola ventana y se asienta antes de 1288, así que no hay que adelantar nada dentro
+sola ventana y se asienta antes de 1468, así que no hay que adelantar nada dentro
 de su rampa para que el frame se lea. Si la escena vuelve a retimarse, el número se
 recalcula desde esa definición y no se arrastra.
 
-El compromiso es vertical y sobrevive a la reconstrucción: en 1288 lo que hay en
+El compromiso es vertical y sobrevive a la reconstrucción: en 1468 lo que hay en
 pantalla queda **por encima del centro del cuadro**, porque el bloque está
 maquetado para cabeceras, cuatro filas y su nota de procedencia, y todo lo que va
 debajo de la fila de coste está todavía vacío. Es deliberado y no se arregla con
@@ -2975,6 +2975,10 @@ Same answer. Less context.
 ```
 
 ```text
+retry a failed request with exponential backoff
+```
+
+```text
 A name is not a symbol.
 ```
 
@@ -3015,7 +3019,7 @@ Give coding agents structural context.
 La primera versión debe entregar:
 
 ```text
-29.17 s master
+32.17 s master
 1920×1080
 60 FPS
 H.264
@@ -3653,4 +3657,31 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   propia definición estructural y no arrastrados. La sección 28 y la 29 quedan
   actualizadas.
 - Medido: la película renderiza 1750 frames, 29,17 s, sin un solo frame negro.
+```
+
+```text
+2026-08-27
+- Escena nueva al principio: SCENE 00 — INTENT, 0-180, y el tercer match cut de
+  la película. El master pasa de 1750 a 1930 frames (32,17 s) y todo lo demás se
+  desplaza 180 sin que cambie nada dentro de ninguna escena.
+- El motivo es narrativo y no de función: la película abría con `withRetry` ya
+  señalado, lo que daba por hecho que el agente sabía cómo se llamaba el símbolo.
+  Normalmente no lo sabe. `find_by_intent` es la herramienta de ese paso previo.
+- Copy nuevo, literal del ejemplo documentado de la herramienta, y entra en la
+  sección 32:
+      retry a failed request with exponential backoff
+- Invariantes semánticos de la escena, tomados de la documentación real y no de
+  una descripción: `match` viaja visible en cada fila con el vocabulario del
+  producto — `lexical`, `lexical+calls` —, no se muestra ningún score porque la
+  herramienta no publica ninguno a propósito, y los candidatos salen del fixture
+  y no se teclean. Nada implica que un candidato sea una relación resuelta.
+- Los tres candidatos son `withRetry`, `Policy.Do` y `Once`, todos de
+  `payments-api · internal/retry`. Los otros dos símbolos del grafo no aparecen
+  porque no tienen término que casar, no porque se hayan filtrado.
+- Medido: el corte candidato → fuente sale con 0 px de error en tres aristas y 1
+  px de antialiasing en la cuarta. El corte fuente → Three.js sigue idéntico
+  píxel a píxel en su nuevo límite 0509/0510.
+- El hold de 39 frames de la SCENE 01 se probó recortar y se conserva: su caption
+  son 36 caracteres con 0,65 s por delante, o sea 55 car/s contra el presupuesto
+  de 25-40. Ya está por debajo del mínimo.
 ```

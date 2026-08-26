@@ -7,20 +7,21 @@ import { BlastRadiusScene } from "./scenes/BlastRadiusScene";
 import { BrandScene } from "./scenes/BrandScene";
 import { OutroScene } from "./scenes/OutroScene";
 import { GraphRevealScene } from "./scenes/GraphRevealScene";
+import { IntentScene } from "./scenes/IntentScene";
 import { SemanticScene } from "./scenes/SemanticScene";
 import { SymbolScene } from "./scenes/SymbolScene";
 
 /**
- * The 29.17 s master. This file is the only place that holds global frame
+ * The 32.17 s master. This file is the only place that holds global frame
  * boundaries; scenes animate in their own local frame space, because
  * `useCurrentFrame()` inside a `<Sequence>` starts at 0.
  *
  * `from` and `durationInFrames` stay inline literals so the sequences remain
  * trimmable in Remotion Studio.
  *
- * 0000-0120 Symbol 0120-0330 Agent 0330-0690 Graph Reveal
- * 0690-0830 Blast Radius 0830-1030 Semantic 1030-1210 Agent Answer
- * 1210-1460 Benchmark 1460-1630 Brand 1630-1750 Outro
+ * 0000-0180 Intent 0180-0300 Symbol 0300-0510 Agent
+ * 0510-0870 Graph Reveal 0870-1010 Blast Radius 1010-1210 Semantic
+ * 1210-1390 Agent Answer 1390-1640 Benchmark 1640-1810 Brand 1810-1930 Outro
  *
  * The master is 1750 frames, and eight retimes got it there from 1410. The
  * cross-repository scene was deleted (-90). The blast radius lost twenty frames
@@ -60,15 +61,23 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * reason it always was one: the length belongs to this file, which is the only
  * place that holds global frame boundaries.
  */
-export const masterFrames = 1750;
+export const masterFrames = 1930;
 
 export const KivgraphVideo: React.FC = () => {
   return (
     <>
-      <Sequence name="01 Symbol" durationInFrames={120}>
+      {/**
+       * Scene 00 mounts at 0 and scene 01 no longer does, which is the only
+       * structural consequence of the new opening: everything else moved by a
+       * constant.
+       */}
+      <Sequence name="00 Intent" durationInFrames={180}>
+        <IntentScene />
+      </Sequence>
+      <Sequence name="01 Symbol" from={180} durationInFrames={120}>
         <SymbolScene />
       </Sequence>
-      <Sequence name="02 Agent" from={120} durationInFrames={210}>
+      <Sequence name="02 Agent" from={300} durationInFrames={210}>
         <AgentScene />
       </Sequence>
       {/**
@@ -97,7 +106,7 @@ export const KivgraphVideo: React.FC = () => {
        */}
       <Sequence
         name="03 Graph Reveal"
-        from={330}
+        from={510}
         durationInFrames={360}
         premountFor={30}
         postmountFor={30}
@@ -106,7 +115,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="04 Blast Radius"
-        from={690}
+        from={870}
         durationInFrames={140}
         premountFor={30}
         postmountFor={30}
@@ -115,7 +124,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="05 Semantic Resolution"
-        from={830}
+        from={1010}
         durationInFrames={200}
         premountFor={30}
       >
@@ -123,7 +132,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="06 Agent Answer"
-        from={1030}
+        from={1210}
         durationInFrames={180}
         premountFor={30}
       >
@@ -131,7 +140,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="07 Benchmark"
-        from={1210}
+        from={1390}
         durationInFrames={250}
         premountFor={30}
       >
@@ -156,7 +165,7 @@ export const KivgraphVideo: React.FC = () => {
        */}
       <Sequence
         name="08 Brand"
-        from={1460}
+        from={1640}
         durationInFrames={170}
         premountFor={30}
         postmountFor={30}
@@ -173,7 +182,7 @@ export const KivgraphVideo: React.FC = () => {
        * over the frame scene 08 settled on - and there is nothing after it to
        * scrub back from.
        */}
-      <Sequence name="09 Outro" from={1630} durationInFrames={120}>
+      <Sequence name="09 Outro" from={1810} durationInFrames={120}>
         <OutroScene />
       </Sequence>
     </>
