@@ -76,8 +76,9 @@ long as the blocks remain three distinct beats, the scene is fully settled by
 
 ## Initial state
 
-At `0970` the frame is the agent prompt layer from `02-agent.md`, in the same
-position and at the same scale it had there:
+At `0970` the frame is the agent prompt layer from `02-agent.md`, at the same
+scale it had there and **260 px higher up the frame** — see
+`## Visual composition`, `The lift`:
 
 - **no terminal panel.** Scene 02 never draws one, and neither does this scene:
   the layer is a 1 px `borderStrong` `#333a42` rule, a `❯` glyph, one monospace
@@ -162,6 +163,40 @@ that the agent is a layer over the world, not a window in it.
 
 Answer text is left-aligned to the prompt's text column (`promptLayout.row.x`).
 Agent output that does not share the prompt's left edge stops reading as output.
+
+### The lift
+
+The whole prompt layer sits **260 px above** where `promptLayout` puts it, and
+the falloff behind it moves with it. `answerLift` in `AgentPrompt.tsx` is the
+constant; nothing in this scene writes the number itself.
+
+It exists because `promptLayout`'s position is scene 02's answer to a question
+this scene no longer asks. There, the prompt sits in the lower half because it is
+a prompt *under the code it is about*: the camera opens to `0.66` specifically to
+clear that half for it, and `promptScrim` takes the light out of it so the
+question reads. By `0970` the code bed is down at `0.02` and the answer is the
+whole frame, so the same position stops reading as a prompt under code and starts
+reading as a block that has slid off the bottom of the shot.
+
+Measured on the settled frame `1064`: the content ran `604` to `976`, so its
+centre sat at `790` against the frame's `540`. Lifted, it runs `344` to `716`,
+centre `530` — deliberately a little above geometric centre, which is the
+correction `BenchmarkScene` makes for the same reason: a block of type centred
+geometrically reads low.
+
+**Horizontally nothing moved, and that was measured rather than assumed.** The
+content spans `440` to `1458` — the path sentence runs well past the right end of
+the prompt rule — so its centre is already `949`, eleven pixels from the frame's.
+There was nothing to correct, and moving it would break the one thing this
+document requires of the answer's `x`.
+
+**`promptLayout` itself was not touched, and must not be.** `02-agent.md` marks
+the row's position *not flexible* because scenes 03 and 07 depend on it, and the
+dependency is real rather than nominal: `graphFrame.ts` derives `graphOffset` —
+the world position of the entire graph for scenes 03 to 06 — from
+`selectedTokenRect`. Folding the lift into `promptLayout` would carry the graph,
+the camera path and the key stills `0629`, `0718` and `0864` with it. The lift is
+this scene's, and only this scene's.
 
 ## Motion
 
@@ -380,9 +415,25 @@ frame that proves the loop closed and must be inspected as if it were a still.
 
 ## Invariants
 
-- The prompt layer reappears at the **same position and the same scale** it had
-  in `02-agent.md`, read from `promptLayout`. If it drifts, the match cut stops
-  being a match cut and the scene becomes an unrelated shot of a prompt.
+- The prompt layer reappears at the **same scale** it had in `02-agent.md`, read
+  from `promptLayout`, and 260 px higher — `answerLift`. The scale is what the
+  match cut depends on; the position is this scene's to compose, because the
+  prompt is not on screen at `0969` and there is nothing for it to match. If the
+  *scale* drifts, the match cut stops being a match cut and the scene becomes an
+  unrelated shot of a prompt.
+- **The lift reaches the travelling symbol through the camera pose, never
+  through a transform on the canvas.** `answerState.ts` offsets `tokenLook`;
+  `AgentAnswerScene` puts no transform on the element holding `GraphWorld`. The
+  first build did, at `answerLift * travelProgress`, which is zero at frame 0 and
+  should therefore have left `0970` untouched — and did not: a transform
+  resamples the WebGL texture whether or not it moves anything, and `0970` came
+  out 51 dB from the same frame without the wrapper. That is antialiasing noise
+  rather than a visible shift, but it is noise on the one frame in the film whose
+  whole job is to be identical to the frame before it.
+- **`Attribution` is rendered outside the lift wrapper.** Its `y` already carries
+  the lift, as `956 + answerLift`, because scene 07 reads the same constant across
+  the cut at `1149`/`1150`. Applying the wrapper to it as well would offset it
+  twice here and not at all there.
 - The `withRetry()` token in the prompt is the anchor the incoming contraction
   converges on. Its position is a shared constant, not two independent layouts.
 - The answer enters in blocks. Never letter by letter.
@@ -694,3 +745,44 @@ frame that proves the loop closed and must be inspected as if it were a still.
   while the whole frame still measures 24.25 dB, which is what a hard cut
   measures. The cut was not softened.
 ```
+
+```text
+2026-08-26
+- The scene is centred. The whole prompt layer - rule, question, tool line, the
+  three answer blocks and the attribution - sits 260 px higher than promptLayout
+  puts it, and promptScrim moves with it. New constant answerLift in
+  AgentPrompt.tsx; new builder promptScrimLifted() so the falloff and the layer
+  cannot drift apart. Direct art direction: at the old position the block read as
+  having slid off the bottom of the shot, which is what promptLayout is for in
+  scene 02 - a prompt under code - and no longer describes anything by 0970.
+- Measured rather than eyeballed. Content at 1064 ran 604-976, centre 790 against
+  the frame's 540; it now runs 344-716, centre 530, deliberately just above
+  geometric centre. Horizontally nothing moved and nothing needed to: the content
+  spans 440-1458 - the path sentence runs past the prompt rule - so its centre was
+  already 949.
+- promptLayout was not touched. It is marked not flexible in 02-agent.md because
+  graphFrame.ts derives graphOffset - the whole graph's world position for scenes
+  03 to 06 - from selectedTokenRect, so folding the lift in would have carried the
+  graph, the camera path and the stills 0629, 0718 and 0864 with it. Verified:
+  0969 renders byte-identical to the render before this change, and so does scene
+  07's key still 1190.
+- The travelling symbol reaches the lifted token slot through the camera pose in
+  answerState.ts, not through a transform on the canvas. The first build used a
+  transform gated on travelProgress, zero at frame 0, and it still moved 0970 by
+  51 dB - a transform resamples the WebGL texture whether or not it displaces
+  anything. Offsetting tokenLook by answerLift / pxPerUnit(FOV, cutDistance)
+  costs nothing and keeps the travel a single camera move: 201 px left and 334 px
+  up rather than 74.
+- Both match cuts measured against the render before the change. 0969/0970 whole
+  frame 29.84 -> 29.83 dB, symbol plate 50.99 -> 52.14 dB. 1149/1150 attribution
+  region 56.79 -> 56.70 dB, max delta 1 level on both sides - it was never inf in
+  that crop, and this change did not make it worse. The handover at 0994 measures
+  46.3 dB between the lifted band and the original one, which is the symbol
+  landing on the token exactly as before, 260 px higher.
+- attributionLayout.y is now 956 + answerLift = 696 and is read by scene 07
+  unchanged, so the two scenes still draw that line at identical coordinates. In
+  scene 07 it now sits between the last table row and the source note instead of
+  near the bottom edge; they never share a frame, and the still at 1190 is
+  byte-identical to before.
+```
+

@@ -3,7 +3,8 @@ import { AbsoluteFill, useCurrentFrame } from "remotion";
 import {
   AgentPrompt,
   promptLayout,
-  promptScrim,
+  answerLift,
+  promptScrimLifted,
   question,
   settledGrow,
 } from "../components/AgentPrompt";
@@ -61,7 +62,13 @@ import type { Camera } from "../world/camera";
  * about that file, so it stays. Matching the previous scene exactly is also what
  * makes the cut at 0970 a change of context rather than a change of world.
  */
-const bedCamera: Camera = { x: 0, y: 0, zoom: 0.34, screenX: 960, screenY: 540 };
+const bedCamera: Camera = {
+  x: 0,
+  y: 0,
+  zoom: 0.34,
+  screenX: 960,
+  screenY: 540,
+};
 
 /**
  * The answer's column.
@@ -132,8 +139,13 @@ export const AgentAnswerScene: React.FC = () => {
       {/**
        * The prompt's surface, at full strength from the first frame. Scene 02
        * ramps it in; here it is simply the world the prompt lives on.
+       *
+       * Built at the lift, not at zero: the falloff exists so the answer never
+       * competes with a line of code sitting next to it, and a falloff left in
+       * the lower half while the block moved to the middle puts the brightest
+       * line of the scene over the brightest part of the bed.
        */}
-      <AbsoluteFill style={{ background: promptScrim }} />
+      <AbsoluteFill style={{ background: promptScrimLifted(answerLift) }} />
 
       {/**
        * The travelling symbol, above the scrim.
@@ -142,6 +154,12 @@ export const AgentAnswerScene: React.FC = () => {
        * three quarters of the light out of the one element the cut depends on.
        * Unmounted once it has handed over, rather than left at zero opacity, so
        * the remaining sixty frames do not pay for a canvas nobody can see.
+       *
+       * No transform on this element. Scene 06's lift reaches the symbol through
+       * the camera pose in `answerState.ts`, not through the canvas, because a
+       * transform here resamples the WebGL texture even at zero offset - see the
+       * note on `tokenLook`. So the symbol travels 201 px left and 334 px up as
+       * one camera move, and `0970` is untouched.
        */}
       {symbol > 0 ? (
         <AbsoluteFill style={{ opacity: symbol }}>
@@ -149,91 +167,115 @@ export const AgentAnswerScene: React.FC = () => {
         </AbsoluteFill>
       ) : null}
 
-      <AgentPrompt
-        chars={question.length}
-        rule={1}
-        glyph={1}
-        caret={0}
-        tool={1}
-        select={selectSettle(frame)}
-        grow={settledGrow}
-        tokenOpacity={tokenPresence(frame)}
-      />
-
-      <div
-        style={{
-          position: "absolute",
-          left: answer.x,
-          top: answer.lead.y,
-          fontFamily: fontMono,
-          fontSize: answer.lead.fontSize,
-          color: brand.textSecondary,
-          whiteSpace: "pre",
-          opacity: blocks.lead.opacity,
-          translate: `0px ${blocks.lead.offsetY}px`,
-        }}
-      >
-        {"Changing "}
-        <span style={{ color: brand.textPrimary }}>withRetry()</span>
-        {" affects:"}
-      </div>
-
       {/**
-       * The answer itself, and the only line in the scene at the body scale.
+       * Everything the prompt layer draws, lifted as one object.
        *
-       * One line rather than the storyboard's two: at 32 px mono the sentence is
-       * 576 px wide, so the break was a wrap point that is no longer needed, and
-       * one line makes the two quantities read as one fact - which is what they
-       * are.
+       * One wrapper rather than an offset threaded through `AgentPrompt`,
+       * `Attribution` and three absolute divs: the block has to move as a unit,
+       * and four places that each add the same constant are four places that can
+       * stop agreeing. `Attribution` in particular is shared with scene 07 and
+       * still draws at its own coordinates - it is this wrapper that moves it
+       * here, so scene 07 is untouched and the `1149`/`1150` match is a matter
+       * of both scenes drawing the line at the same place. `Attribution` is
+       * therefore rendered outside this wrapper, with the lift folded into
+       * `attributionLayout` instead, so scene 07 inherits the same coordinates.
        */}
-      <div
-        style={{
-          position: "absolute",
-          left: answer.x,
-          top: answer.counts.y,
-          fontFamily: fontMono,
-          fontSize: answer.counts.fontSize,
-          fontWeight: 500,
-          color: brand.textSecondary,
-          whiteSpace: "pre",
-          opacity: blocks.counts.opacity,
-          translate: `0px ${blocks.counts.offsetY}px`,
-        }}
-      >
-        <span style={{ color: numeral }}>{counts.affected}</span>
-        {" symbols across "}
-        <span style={{ color: numeral }}>{counts.repositories}</span>
-        {" repositories."}
-      </div>
+      <AbsoluteFill style={{ translate: `0px ${answerLift}px` }}>
+        <AgentPrompt
+          chars={question.length}
+          rule={1}
+          glyph={1}
+          caret={0}
+          tool={1}
+          select={selectSettle(frame)}
+          grow={settledGrow}
+          tokenOpacity={tokenPresence(frame)}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            left: answer.x,
+            top: answer.lead.y,
+            fontFamily: fontMono,
+            fontSize: answer.lead.fontSize,
+            color: brand.textSecondary,
+            whiteSpace: "pre",
+            opacity: blocks.lead.opacity,
+            translate: `0px ${blocks.lead.offsetY}px`,
+          }}
+        >
+          {"Changing "}
+          <span style={{ color: brand.textPrimary }}>withRetry()</span>
+          {" affects:"}
+        </div>
+
+        {/**
+         * The answer itself, and the only line in the scene at the body scale.
+         *
+         * One line rather than the storyboard's two: at 32 px mono the sentence is
+         * 576 px wide, so the break was a wrap point that is no longer needed, and
+         * one line makes the two quantities read as one fact - which is what they
+         * are.
+         */}
+        <div
+          style={{
+            position: "absolute",
+            left: answer.x,
+            top: answer.counts.y,
+            fontFamily: fontMono,
+            fontSize: answer.counts.fontSize,
+            fontWeight: 500,
+            color: brand.textSecondary,
+            whiteSpace: "pre",
+            opacity: blocks.counts.opacity,
+            translate: `0px ${blocks.counts.offsetY}px`,
+          }}
+        >
+          <span style={{ color: numeral }}>{counts.affected}</span>
+          {" symbols across "}
+          <span style={{ color: numeral }}>{counts.repositories}</span>
+          {" repositories."}
+        </div>
+
+        {/**
+         * The proof. `payments-api/paymentService` is the one package the impact
+         * could cross the repository boundary through - `withRetry()` lives in
+         * `payments-api/internal/retry`, which Go's `internal/` rule forbids
+         * `checkout-service` from importing - so this names the path rather than
+         * restating the graph.
+         */}
+        <div
+          style={{
+            position: "absolute",
+            left: answer.x,
+            top: answer.path.y,
+            fontFamily: fontMono,
+            fontSize: answer.path.fontSize,
+            color: brand.textSecondary,
+            whiteSpace: "pre",
+            opacity: blocks.path.opacity,
+            translate: `0px ${blocks.path.offsetY}px`,
+          }}
+        >
+          <span style={{ color: brand.textPrimary }}>checkout-service</span>
+          {" consumes the symbol through "}
+          <span style={{ color: brand.textPrimary }}>
+            payments-api/paymentService
+          </span>
+          {"."}
+        </div>
+      </AbsoluteFill>
 
       {/**
-       * The proof. `payments-api/paymentService` is the one package the impact
-       * could cross the repository boundary through - `withRetry()` lives in
-       * `payments-api/internal/retry`, which Go's `internal/` rule forbids
-       * `checkout-service` from importing - so this names the path rather than
-       * restating the graph.
+       * Outside the lift, and that is not an oversight.
+       *
+       * `attributionLayout` already carries the lifted position - see
+       * `Attribution.tsx` - because scene 07 inherits this line across the cut
+       * at `1149`/`1150` and the two scenes have to draw it at the same
+       * coordinates. Putting it inside the wrapper would apply the 260 twice
+       * here and not at all there, and the match cut would become a 260 px jump.
        */}
-      <div
-        style={{
-          position: "absolute",
-          left: answer.x,
-          top: answer.path.y,
-          fontFamily: fontMono,
-          fontSize: answer.path.fontSize,
-          color: brand.textSecondary,
-          whiteSpace: "pre",
-          opacity: blocks.path.opacity,
-          translate: `0px ${blocks.path.offsetY}px`,
-        }}
-      >
-        <span style={{ color: brand.textPrimary }}>checkout-service</span>
-        {" consumes the symbol through "}
-        <span style={{ color: brand.textPrimary }}>
-          payments-api/paymentService
-        </span>
-        {"."}
-      </div>
-
       <Attribution opacity={labelOpacity(frame)} />
     </AbsoluteFill>
   );

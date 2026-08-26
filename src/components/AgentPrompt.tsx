@@ -27,7 +27,77 @@ import { brand } from "../brand/tokens";
  * touched, and the prompt would then be read on two different backgrounds in
  * one film.
  */
-export const promptScrim = `linear-gradient(180deg, rgba(${brand.backgroundRgb}, 0) 0%, rgba(${brand.backgroundRgb}, 0) 28%, rgba(${brand.backgroundRgb}, 0.44) 47%, rgba(${brand.backgroundRgb}, 0.66) 63%, rgba(${brand.backgroundRgb}, 0.72) 100%)`;
+/**
+ * Stops of the vertical falloff, as `[percent of frame height, alpha]`.
+ *
+ * It stops at `0.72` rather than `1` on purpose - the code stays faintly present
+ * under the prompt, because the video never leaves it.
+ */
+const scrimStops = [
+  [0, 0],
+  [28, 0],
+  [47, 0.44],
+  [63, 0.66],
+  [100, 0.72],
+] as const;
+
+/**
+ * The falloff, built for a prompt layer sitting `lift` pixels above where
+ * `promptLayout` puts it.
+ *
+ * A builder rather than two constants, because the gradient has to follow the
+ * layer it exists to serve. Scene 02 keeps the prompt in the lower half and uses
+ * `promptScrim`; scene 06 lifts the whole layer 260 px to recentre it, and a
+ * falloff left behind would put the answer's brightest line over the part of the
+ * code bed that still has light in it - which is exactly the competition
+ * `02-agent.md` says the falloff exists to prevent. Two hand-written gradients
+ * would drift the first time either was touched.
+ *
+ * The tail is pinned at `0.72` past the last stop so lifting the ramp never
+ * uncovers the bottom of the frame.
+ */
+export const promptScrimLifted = (lift: number) => {
+  const shift = (-lift / 1080) * 100;
+  const stops = scrimStops.map(
+    ([at, alpha]) =>
+      `rgba(${brand.backgroundRgb}, ${alpha}) ${Math.max(0, at - shift).toFixed(2)}%`,
+  );
+
+  return `linear-gradient(180deg, ${stops.join(", ")}, rgba(${brand.backgroundRgb}, ${scrimStops[scrimStops.length - 1][1]}) 100%)`;
+};
+
+export const promptScrim = promptScrimLifted(0);
+
+/**
+ * How far scene 06 lifts the whole prompt layer, in master pixels.
+ *
+ * It lives here, beside `promptLayout`, because four things have to agree about
+ * it and none of them can own it: the scene's DOM wrapper, the falloff that has
+ * to follow the layer, `Attribution`'s shared `y` - which scene 07 also reads -
+ * and the camera pose that lands the travelling symbol on the token slot.
+ *
+ * Why the lift exists at all: `promptLayout` puts the prompt in the lower half,
+ * which is right for scene 02, where it is a prompt *under* the code it is about
+ * and where the camera opens to `0.66` specifically to clear that half for it. By
+ * `0970` the code bed is down at `0.02` and the answer is the whole frame, so the
+ * same position stops reading as a prompt under code and starts reading as a
+ * block that has slid off the bottom. Measured on the settled frame `1064`, the
+ * content ran `604` to `976`: centre `790` against the frame's `540`.
+ *
+ * `-260` puts it at `344` to `716`, centre `530` - slightly above geometric
+ * centre, the same correction `BenchmarkScene` makes, because a block of type
+ * centred geometrically reads low. Horizontally nothing moves and that was
+ * measured too: the content spans `440` to `1458`, so its centre is already
+ * `949`.
+ *
+ * **`promptLayout` itself must not absorb this.** It is marked *not flexible* in
+ * `02-agent.md` because scenes 03 and 07 depend on it, and the dependency is
+ * real rather than nominal: `graphFrame.ts` derives `graphOffset` - the world
+ * position of the whole graph for scenes 03 to 06 - from `selectedTokenRect`.
+ * Folding the lift in would carry the graph, the camera path and the key stills
+ * `0629`, `0718` and `0864` with it.
+ */
+export const answerLift = -260;
 
 export const promptLayout = {
   rule: { x: 440, y: 604, width: 900 },
@@ -93,7 +163,8 @@ export const selectedTokenRect = (() => {
   const bottom = top + promptLayout.row.lineHeight;
 
   const left = growOrigin.x + (tokenRect.left - growOrigin.x) * g;
-  const right = growOrigin.x + (tokenRect.left + tokenRect.width - growOrigin.x) * g;
+  const right =
+    growOrigin.x + (tokenRect.left + tokenRect.width - growOrigin.x) * g;
   const y0 = growOrigin.y + (top - growOrigin.y) * g;
   const y1 = growOrigin.y + (bottom - growOrigin.y) * g;
 
@@ -183,7 +254,9 @@ export const AgentPrompt: React.FC<Props> = ({
           color: brand.textPrimary,
         }}
       >
-        <span style={{ color: brand.textFaint, opacity: glyph }}>{"\u276f "}</span>
+        <span style={{ color: brand.textFaint, opacity: glyph }}>
+          {"\u276f "}
+        </span>
         <span>{visibleHead}</span>
         <span
           style={{

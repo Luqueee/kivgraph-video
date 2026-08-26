@@ -1,5 +1,5 @@
 import React from "react";
-import { promptLayout } from "./AgentPrompt";
+import { answerLift, promptLayout } from "./AgentPrompt";
 import { fontMono } from "../brand/fonts";
 import { brand } from "../brand/tokens";
 
@@ -35,9 +35,29 @@ import { brand } from "../brand/tokens";
  * pixel of the terminal are gone at 1150. Only the signature survives, and only
  * long enough to be replaced.
  */
+/**
+ * `y` resolves to `696`, and it is written as `956 + answerLift` rather than as
+ * the number, so it cannot fall out of step with the layer it belongs to.
+ *
+ * `956` is this line's own place in scene 06's composition: the bottom row of
+ * the answer block, 44 px under the path sentence, which is the gap it has
+ * always had. `answerLift` is the 260 px scene 06 lifts its whole prompt layer
+ * by so the block reads centred rather than fallen to the bottom of the shot.
+ *
+ * **Scene 06 must not apply its lift to this component on top of the constant,
+ * and scene 07 must not apply anything at all.** The two scenes draw this line
+ * at the same coordinates or the match cut at `1149`/`1150` stops being a match
+ * - which is the entire reason the geometry lives here instead of in either
+ * scene. `AgentAnswerScene` therefore renders it outside its lift wrapper.
+ *
+ * In scene 07 the line now sits between the last table row and the source note
+ * rather than near the bottom edge. They never share a frame: the attribution
+ * is gone by local 18 (`1168`) and the note does not arrive until local 116
+ * (`1266`), so the still at `1190` is unaffected.
+ */
 export const attributionLayout = {
   x: promptLayout.row.x,
-  y: 956,
+  y: 956 + answerLift,
   fontSize: 17,
 } as const;
 

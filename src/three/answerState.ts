@@ -1,7 +1,9 @@
 import { Easing, interpolate } from "remotion";
-import { cutDistance } from "./graphFrame";
+import { answerLift } from "../components/AgentPrompt";
+import { cutDistance, FOV } from "./graphFrame";
 import { getSemanticState } from "./semanticState";
 import type { GraphVisualState } from "./graphState";
+import { pxPerUnit } from "./projection";
 import type { Look } from "./projection";
 
 /**
@@ -64,7 +66,37 @@ const inherited = getSemanticState(200);
  * `cutDistance` rather than as the literal `9` so there is one definition of the
  * distance the match cut is built on.
  */
-const tokenLook: Look = { eye: [0, 0, cutDistance], target: [0, 0, 0] };
+/**
+ * `answerLift` in world units at the cut distance.
+ *
+ * Moving the camera down in world `y` puts the subject higher in the frame, so
+ * the sign carries straight through: a lift of `-260 px` on screen is a camera
+ * offset of `-2.02` units here.
+ */
+const liftUnits = answerLift / pxPerUnit(FOV, cutDistance);
+
+/**
+ * The pose the anchor lands on, offset by scene 06's lift.
+ *
+ * **The lift is applied to the camera and not to the canvas, and that is not a
+ * style preference.** The first build translated the `<AbsoluteFill>` holding
+ * `GraphWorld` by `answerLift * travelProgress`, which is zero at frame 0 and
+ * should therefore have left `0970` untouched. It did not: a transform on the
+ * element resamples the WebGL texture whether or not it moves anything, and
+ * frame `0970` came out 51 dB from the same frame without the wrapper. That is
+ * antialiasing noise rather than a visible shift, but it is noise on the one
+ * frame in the film whose whole job is to be identical to the frame before it.
+ *
+ * Offsetting the pose instead costs nothing: the travel is already a camera lerp
+ * from the inherited pose to this one, so the symbol travels 201 px left and
+ * 334 px up as a single motion rather than travelling 74 and then being moved.
+ * At `t = 0` the pose is exactly the inherited one, so `0969` and `0970` match
+ * exactly as they did before the lift existed.
+ */
+const tokenLook: Look = {
+  eye: [0, liftUnits, cutDistance],
+  target: [0, liftUnits, 0],
+};
 
 /**
  * The travel: 24 frames for 201 px left and 74 px up.
@@ -135,9 +167,11 @@ export const getAnswerState = (frame: number): GraphVisualState => {
  *
  * Six frames, uneased, starting at the travel's last frame.
  */
-export const symbolFade = (frame: number) => 1 - linear(frame, arrival, arrival + 6);
+export const symbolFade = (frame: number) =>
+  1 - linear(frame, arrival, arrival + 6);
 
-export const tokenPresence = (frame: number) => linear(frame, arrival, arrival + 6);
+export const tokenPresence = (frame: number) =>
+  linear(frame, arrival, arrival + 6);
 
 /**
  * The selection field's own settle, 1 -> 0.85.
@@ -149,7 +183,8 @@ export const tokenPresence = (frame: number) => linear(frame, arrival, arrival +
  * 15% darker in one frame on a 214 x 47 px block. Twelve frames makes it a
  * settle instead of a step.
  */
-export const selectSettle = (frame: number) => lerp(1, 0.85, ramp(frame, arrival, arrival + 12));
+export const selectSettle = (frame: number) =>
+  lerp(1, 0.85, ramp(frame, arrival, arrival + 12));
 
 /**
  * The three answer blocks.
@@ -183,7 +218,6 @@ export const answerBlocks = (frame: number) => ({
 
 /** Attribution, last and quietest. Settled at local 94. */
 export const labelOpacity = (frame: number) => ramp(frame, 80, 94);
-
 
 /**
  * The code bed's light, coming back.

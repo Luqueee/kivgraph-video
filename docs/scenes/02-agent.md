@@ -468,6 +468,16 @@ the video.
 Not flexible, because scenes 03 and 07 depend on them: the row's position, the
 token's final apparent scale, and the push-in curve.
 
+That first item was tested on 2026-08-26 and held. Scene 06 needed the prompt
+layer 260 px higher to sit centred in a frame that no longer has code above it,
+and it took the lift as its own constant — `answerLift` in `AgentPrompt.tsx`,
+applied by `AgentAnswerScene` — rather than by moving `promptLayout`. The reason
+is the one this line already gives, and it is stronger than it looks:
+`graphFrame.ts` derives `graphOffset`, the world position of the entire graph for
+scenes 03 to 06, from `selectedTokenRect`. Moving the row would have carried the
+graph, the camera path and the key stills `0629`, `0718` and `0864` with it.
+Nothing in this scene changed; `0969` renders byte-identical.
+
 ## Technical notes
 
 - Pure DOM/React scene. Everything derives from `useCurrentFrame()` and
@@ -646,3 +656,19 @@ token's final apparent scale, and the push-in curve.
   sentence 0.57 s, which is 129 characters per second against the 25-40 that
   on-screen technical text is actually read at. The scene that answers this scene's
   question was the fastest thing in the film.
+
+```text
+2026-08-26
+- Nothing in this scene changed, and that is the entry. Scene 06 recentred itself
+  by lifting the prompt layer 260 px, and it did so with its own constant -
+  answerLift in AgentPrompt.tsx - instead of moving promptLayout, because this
+  document marks the row's position not flexible and graphFrame.ts derives the
+  whole graph's world offset from selectedTokenRect. ## Flexible elements now
+  records that the rule was tested and held.
+- promptScrim is now built by promptScrimLifted(0) rather than written out, so
+  scene 06 can build the same falloff at its own offset without a second copy of
+  the gradient. The string this scene renders is unchanged.
+- Verified: frame 0969 is byte-identical to the render before the change, and so
+  are scene 07's key still 1190 and every frame of this scene.
+```
+
