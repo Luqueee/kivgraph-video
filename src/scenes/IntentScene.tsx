@@ -183,6 +183,14 @@ export const IntentScene: React.FC = () => {
    * has to say *this is the one we are going to look at* rather than *these were
    * the mistakes*. `Policy.Do` and `Once` are still perfectly good candidates
    * when they leave the frame; they simply are not the one being inspected.
+   *
+   * **They leave on `context`, all the way to zero.** The first build floored
+   * them at `0.28 x 0.65 = 0.182`, an attempt to say *receded, not deleted*, and
+   * it was wrong twice over: `withRetry` grows directly over where they sit, so
+   * they showed through it as ghost type, and the frame the match cut hands over
+   * has to hold the symbol and nothing else or the cut is into a different
+   * image. Receding is what they do between `0126` and `0156`, while they are
+   * still on screen. Being gone at the cut is not a verdict on them.
    */
   const narrow = ramp(frame, 148, 172);
 
@@ -288,10 +296,7 @@ export const IntentScene: React.FC = () => {
                 lineHeight: 1,
                 whiteSpace: "pre",
                 color: isWinner ? brand.textPrimary : brand.textSecondary,
-                opacity:
-                  arrive.opacity *
-                  (isWinner ? 1 : 1 - 0.72 * narrow) *
-                  (isWinner ? 1 : context * 0.35 + 0.65),
+                opacity: arrive.opacity * (isWinner ? 1 : context),
                 translate: `0px ${isWinner ? 0 : arrive.offsetY}px`,
               }}
             >
@@ -315,8 +320,7 @@ export const IntentScene: React.FC = () => {
                 letterSpacing: "0.02em",
                 whiteSpace: "pre",
                 color: brand.textFaint,
-                opacity:
-                  arrive.opacity * context * (isWinner ? 1 : 1 - 0.5 * narrow),
+                opacity: arrive.opacity * context,
                 translate: `0px ${arrive.offsetY}px`,
               }}
             >

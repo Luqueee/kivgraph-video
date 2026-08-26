@@ -62,6 +62,14 @@ These are the ones that must survive future edits. They are not stylistic.
   result.** `Policy.Do` and `Once` are legitimate candidates and are never marked
   wrong — no cross, no tick, no strike-through, no red. They recede in hierarchy
   while one of them is opened, which is what picking an entry point is.
+- **They recede to zero, not to a floor.** The first build held them at `0.182`
+  to say *receded, not deleted*, and it was wrong twice: `withRetry` grows
+  directly over where they sit, so they read through it as ghost type, and the
+  frame handed to the match cut has to hold the symbol and nothing else. The
+  receding is the thirty frames they spend losing light while still on screen;
+  being absent at the cut is not a verdict on them. Measured at threshold 14,
+  one level above the background: **zero pixels outside the token's own box** at
+  `0165` and at `0179`.
 - **The candidate → source match cut targets screen point `620, 662`**, at the
   em `world.retry.fontSize × symbolOpeningZoom`. Both come from
   `SymbolScene.tsx`; neither is written down here.
@@ -141,6 +149,9 @@ error              dx 0 / 0         dy 0 / +1
 ```
 
 Zero on three edges; the one pixel is antialiasing on the descender of the `y`.
+Measured inside a box around the token, because scene 01's frame is a code field
+cropped by every edge — a whole-frame comparison here measures the code, not the
+cut.
 The arithmetic alone landed three pixels high, and `targetTopBias` in
 `IntentScene.tsx` is that measured error — it belongs to the difference between
 a DOM line box and the code plane's baseline, not to the anchor.
