@@ -293,13 +293,30 @@ not be hidden behind an effect: if the positions do not match, fix the positions
 
 Hard cut at `1150` into `07-benchmark.md`.
 
-The answer is on screen, static, fully readable, and then it is simply gone,
-replaced by typography on bare background. The cut is unsoftened on purpose: the
-benchmark is a change of register, from "here is the answer" to "and here is what
-it cost". A crossfade would blend the two into one continuous claim and weaken
-both.
+The answer is on screen, static, fully readable, and then the block of it is
+simply gone, replaced by typography on bare background. The cut is unsoftened on
+purpose: the benchmark is a change of register, from "here is the answer" to "and
+here is what it cost". A crossfade would blend the two into one continuous claim
+and weaken both.
 
-Nothing about this scene needs to survive the cut. No element carries over.
+One element survives, and only one: the attribution line `Answered with
+Kivgraph`. It is on screen at `1150` at exactly the position, size, colour and
+letter-spacing it holds at `1149` — the region measures `inf` PSNR across the
+cut — and scene 07 retires it over its local `2`–`18` while the table's column
+heads arrive. The word `Kivgraph` is handed from this scene's signature to that
+scene's column head, at 17 px and 18 px respectively.
+
+That is a match cut, not a softening. The panel, the prompt, the three answer
+blocks and every pixel of the terminal are gone at `1150`, and the whole frame
+still measures 24.25 dB across the boundary, which is what a hard cut measures.
+The carried line exists because this scene's last 87 frames are byte-identical —
+that stillness is the only place the answer is read, so it cannot be trimmed —
+and a hard cut out of a frozen frame into an almost empty one reads as the film
+stalling rather than as a change of register.
+
+The geometry lives in `components/Attribution.tsx`, not in either scene, because
+two scenes draw it and a one-pixel disagreement would turn the match into a
+mistake. Same reason `ImpactReport` is shared by scenes 04 and 05.
 
 ## Copy
 
@@ -657,4 +674,23 @@ frame that proves the loop closed and must be inspected as if it were a still.
   listed as an open decision although the entry above settles it. Neither survived.
 - The inherited position and apparent size, the answer copy, every quantity in it
   and the block-not-typing rule are unchanged.
+```
+
+```text
+2026-08-26
+- Transition out is no longer a bare hard cut. One element crosses it: the
+  attribution line `Answered with Kivgraph`, which scene 07 inherits on its first
+  frame and retires over its local 2-18 as the column heads arrive. The word
+  `Kivgraph` hands from this scene's signature at 17 px to that scene's column
+  head at 18 px.
+- The line's geometry moved out of this scene and into
+  `src/components/Attribution.tsx`, because two scenes now draw it and a pixel of
+  drift would turn the match into a mistake. `answer.label` is gone from
+  `AgentAnswerScene.tsx`; the other three rows are unchanged.
+- Nothing else about this scene changed. The 87-frame byte-identical reading hold,
+  1063-1149, is untouched - it is why the carried line exists rather than a trim:
+  that stillness is the only place the answer is read.
+- Measured: the attribution region is pixel-identical across 1149/1150 (`inf`),
+  while the whole frame still measures 24.25 dB, which is what a hard cut
+  measures. The cut was not softened.
 ```

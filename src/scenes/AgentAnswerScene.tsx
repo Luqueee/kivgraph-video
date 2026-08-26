@@ -7,6 +7,7 @@ import {
   question,
   settledGrow,
 } from "../components/AgentPrompt";
+import { Attribution } from "../components/Attribution";
 import { CodeWorld } from "../components/CodeWorld";
 import { GraphWorld } from "../components/GraphWorld";
 import {
@@ -72,16 +73,18 @@ const bedCamera: Camera = { x: 0, y: 0, zoom: 0.34, screenX: 960, screenY: 540 }
  * instead of a decision.
  *
  * Sizes follow the type scale in `STORYBOARD.md` §7: the counts sit at the top
- * of the body scale because they are the answer, the lead-in and the path at the
- * code scale because they frame and prove it, the attribution at the label
- * scale. The whole block ends 100 px above the frame's bottom edge.
+ * of the body scale because they are the answer, and the lead-in and the path at
+ * the code scale because they frame and prove it. The attribution is the fourth
+ * row and sits at the label scale, but its geometry lives in
+ * `components/Attribution.tsx` rather than here, because scene 07 inherits that
+ * line across the cut and the two scenes must not be able to disagree about it.
+ * The whole block ends 100 px above the frame's bottom edge.
  */
 const answer = {
   x: promptLayout.row.x,
   lead: { y: 760, fontSize: 24 },
   counts: { y: 820, fontSize: 32 },
   path: { y: 890, fontSize: 22 },
-  label: { y: 956, fontSize: 17 },
 } as const;
 
 /**
@@ -231,20 +234,7 @@ export const AgentAnswerScene: React.FC = () => {
         {"."}
       </div>
 
-      <div
-        style={{
-          position: "absolute",
-          left: answer.x,
-          top: answer.label.y,
-          fontFamily: fontMono,
-          fontSize: answer.label.fontSize,
-          letterSpacing: "0.02em",
-          color: brand.textFaint,
-          opacity: labelOpacity(frame),
-        }}
-      >
-        Answered with Kivgraph
-      </div>
+      <Attribution opacity={labelOpacity(frame)} />
     </AbsoluteFill>
   );
 };

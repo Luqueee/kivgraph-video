@@ -463,12 +463,46 @@ Not used.
 
 Hard clean cut at `1150` (`STORYBOARD.md`: *hard cut limpio*).
 
-No crossfade, no dissolve, no motion carried over from the terminal. The previous
-scene is fully settled at `1149` and this one is empty at `1150`. The abruptness
-is the point: the video steps out of the demonstration and states a measurement.
+No crossfade, no dissolve, no motion carried over from the terminal. The
+abruptness is the point: the video steps out of the demonstration and states a
+measurement. The whole frame measures 24.25 dB across the boundary, which is what
+a hard cut measures.
 
-Nothing from `06-agent-answer.md` persists — not the panel, not the prompt, not
-the label.
+It is a match cut on one element. The attribution line `Answered with Kivgraph`
+arrives already on screen at `1150`, at exactly the position, size, colour and
+letter-spacing scene 06 left it — that region measures `inf` PSNR across the cut
+— and retires over local `2`–`18` as the column heads arrive. The word
+`Kivgraph` is handed from a signature at 17 px to a column head at 18 px, which
+states the pivot from "Kivgraph produced this answer" to "and here is what the
+answer cost" without a sentence.
+
+Nothing else from `06-agent-answer.md` persists — not the panel, not the prompt,
+not the three answer blocks. `STORYBOARD.md`'s frame spec for `1150` still holds
+exactly as written: background, *sin grafo*, *sin terminal*, *sin chrome de
+producto*, *sólo tipografía*. The carried line is typography.
+
+### Why anything is carried at all
+
+Scene 06 is byte-identical for its last 87 frames, `1063`–`1149`, and that
+stillness is the only place in that scene where the answer is read, so it cannot
+be trimmed. This scene used to open on a frame holding 34% of its settled ink,
+reaching 38% by local 6. A hard cut out of a frozen frame and into an almost
+empty one reads as the film stalling rather than as a change of register: the
+viewer's eye is parked at the answer's last line around `y 956` and the table
+builds at `y 342`–`734`, so for a third of a second there was nothing to look at
+anywhere.
+
+Carrying the attribution puts something at `1150` in the place the eye already
+is, and then moves the eye up by taking it away. The alternative considered and
+rejected was a crossfade, which both this document and `06-agent-answer.md`
+rejected independently for the same reason: it blends two claims into one. A
+crossfade would also have made the wrong problem worse — this cut was never too
+abrupt, it was landing in a vacuum.
+
+The geometry lives in `components/Attribution.tsx`, not in either scene, so the
+two frames either side of the cut cannot disagree about it. A single pixel of
+drift would turn the match into a mistake. Same reason `ImpactReport` is shared
+by scenes 04 and 05.
 
 ## Transition out
 
@@ -755,12 +789,14 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
   `0629`/`0630` at **62.93 dB** and `0769`/`0770` pixel-identical, both unchanged
   by this figures pass; `0969`/`0970` at **30.44 dB whole frame**, a match cut,
   and a whole-frame figure is not comparable to a symbol-region one so always
-  say which is quoted; `1149`/`1150` at **24.21 dB**, where a hard cut is
-  supposed to measure low. That last number moved from 22.30 dB, and it moved
-  because the content on the right of the cut *is* the new figure set: a cut's
-  PSNR is a property of both frames, so replacing the cost row necessarily moves
-  it. It is neither a regression nor an improvement — it is the same cut
-  measuring a different first frame.
+  say which is quoted; `1149`/`1150` at **24.25 dB**, where a hard cut is
+  supposed to measure low. That number moved twice: from 22.30 to 24.21 dB when
+  the figure set was resolved, because the content on the right of the cut *is*
+  the figures and a cut's PSNR is a property of both frames; then to 24.25 dB
+  when the attribution match cut was added. That second move being negligible is
+  the point — carrying one faint line across the cut did not soften it, while the
+  carried region itself measures `inf`. Neither move is a regression or an
+  improvement; both are the same cut measuring a different first frame.
 - Because the frame is nearly empty, check legibility in a small embedded player
   (`STORYBOARD.md` §7). The source note at 18 px in `textFaint` `#737373` is the
   first thing that will disappear at low resolution or high compression, and it
@@ -1089,4 +1125,32 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
 - The four rival graph tools scored graft `3/29`, graphify `4/29`,
   codebase-memory `3/29` and code-review-graph `3/29` on exact answers. They
   stay out of the table; that decision is still the user's and is still open.
+```
+
+```text
+2026-08-26
+- Transition in is now a match cut on one element, not a bare hard cut. The
+  attribution line `Answered with Kivgraph` arrives already on screen at 1150 at
+  scene 06's exact values and retires over local 2-18 while the column heads
+  arrive, handing the word `Kivgraph` from a signature at 17 px to a column head
+  at 18 px.
+- Built because this scene opened on 34% of its settled ink and scene 06's last
+  87 frames are byte-identical reading time that cannot be trimmed. A hard cut
+  from a frozen frame into an almost empty one reads as the film stalling, not as
+  a change of register - the eye sits at y 956 and the table builds at y 342-734.
+- A crossfade was rejected, as it already was independently in this document and
+  in `06-agent-answer.md`: it blends two claims into one. It would also have
+  worsened the wrong problem - the cut was never too abrupt, it was landing in a
+  vacuum.
+- `STORYBOARD.md`'s frame spec for 1150 is unchanged and still exactly true:
+  background, sin grafo, sin terminal, sin chrome de producto, solo tipografia.
+  The carried line is typography. A new storyboard block, "El relevo de la
+  firma", records the beat.
+- Geometry lives in `src/components/Attribution.tsx` so the two frames either
+  side cannot disagree. Third shared component after `MetricCard` and
+  `ImpactReport`, for the same measured reason.
+- Measured: attribution region `inf` across 1149/1150, whole frame 24.25 dB
+  (from 24.21), stills 1190 and 1345 pixel-identical to the previous render, the
+  63-frame byte-identical settled run from 1286 intact, 1360 frames with no black
+  frame, anomalies still only at the two hard cuts.
 ```

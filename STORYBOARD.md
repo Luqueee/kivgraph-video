@@ -1424,12 +1424,16 @@ frame negro. El barrido marca dos parejas y nada más: 0969/0970, los dos lados 
 match cut de la 08, y 1149/1150, el hard cut de la 09. Las dos son escalones, no
 picos, y ninguna pretende ser invisible: la primera mide 41,35 dB sobre la región
 del símbolo, que es la que el corte sostiene, y 28,69 dB de cuadro completo; la
-segunda mide 24,21 dB, que es lo que tiene que medir un hard cut.
+segunda mide 24,25 dB, que es lo que tiene que medir un hard cut.
 
-La 1149/1150 medía 22,30 dB antes de fijarse las cifras, y no ha mejorado ni ha
-empeorado: la PSNR de un corte es una propiedad de sus dos frames, y el lado
-derecho de este corte es justo la tabla, así que cambiar `6.2k` por `35,961` mueve
-el número por definición. Las dos cifras de la 0969/0970 no se comparan entre sí:
+La 1149/1150 ha cambiado dos veces: medía 22,30 dB antes de fijarse las cifras y
+24,21 dB después, y ahora 24,25 dB con el relevo de la firma. Ninguna de las dos
+es mejora ni empeoramiento: la PSNR de un corte es una propiedad de sus dos
+frames, y el lado derecho de este corte es justo la tabla, así que cambiar `6.2k`
+por `35,961` mueve el número por definición. Que el segundo movimiento sea
+insignificante es justo lo que se buscaba — cruzar una línea tenue no ablanda el
+corte, y la región que cruza mide `inf`. Las dos cifras de la 0969/0970 no se
+comparan entre sí:
 una es de región y la otra de cuadro completo.
 
 El número 05 se queda ocupado por este registro y las escenas siguientes
@@ -1909,6 +1913,31 @@ Sin terminal.
 Sin chrome de producto.
 
 Sólo tipografía.
+
+---
+
+### El relevo de la firma
+
+El corte es duro, pero no cae en el vacío. La línea de atribución de la escena
+anterior — `Answered with Kivgraph` — sigue en pantalla en el frame 1150, en su
+posición exacta, y se retira mientras entran las cabeceras de columna.
+
+La palabra `Kivgraph` pasa de ser la firma de la respuesta a ser la cabecera de
+la medición: 17 px abajo a la izquierda, 18 px arriba a la derecha. Es la
+bisagra del argumento dicha sin una frase — «Kivgraph respondió esto» se
+convierte en «y esto es lo que costó».
+
+No es un fundido. El panel, el prompt y los tres bloques de respuesta
+desaparecen de golpe, y el cuadro completo sigue midiendo como un corte duro.
+Lo único que cruza es la firma, y sólo lo suficiente para ser reemplazada. Las
+seis condiciones del frame 1150 se mantienen intactas: la atribución **es**
+tipografía.
+
+Existe por una razón medida, no estética: la escena anterior pasa sus últimos 87
+frames congelada — ahí es donde se lee la respuesta, así que no se puede
+recortar — y esta escena abría con el 34% de su tinta final. Un corte duro de un
+cuadro congelado a un cuadro casi vacío se lee como que la película se ha
+parado, no como un cambio de registro.
 
 ---
 
@@ -3386,4 +3415,27 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   0969/0970 y el de cuadro completo no se comparan entre sí.
 - Afecta a la sección 29, al registro de costuras de la SCENE 05 y a los beats, el
   copy y la tabla de dwell de la escena 09.
+```
+
+```text
+2026-08-26
+- Se añade una transición entre la escena 06 y la 07, por dirección de arte
+  directa. Es un match cut, no un fundido: la línea de atribución `Answered with
+  Kivgraph` cruza el corte 1149/1150 idéntica píxel a píxel y se retira en el
+  local 2-18 de la 07 mientras entran las cabeceras, pasando la palabra
+  `Kivgraph` de firma a cabecera de columna.
+- Nuevo bloque «El relevo de la firma» bajo SCENE 09, después del frame 1150. Las
+  seis condiciones del frame 1150 no se tocan y siguen siendo exactas: la
+  atribución es tipografía.
+- Se rechazó el fundido, que es lo que los dos documentos de escena ya habían
+  rechazado por separado: mezcla dos afirmaciones en una. Además habría empeorado
+  el problema real — el corte nunca fue demasiado abrupto, caía en el vacío.
+- Razón medida, no estética: la 06 pasa sus últimos 87 frames congelada y ahí es
+  donde se lee la respuesta, así que no se puede recortar; la 07 abría con el 34%
+  de su tinta final.
+- Medido: la costura 1149/1150 pasa de 24,21 a 24,25 dB — movimiento
+  insignificante, que es justo la prueba de que el corte no se ablandó — y la
+  región que cruza mide `inf`. Los stills 1190 y 1345 quedan idénticos píxel a
+  píxel al render anterior.
+- Afecta al registro de costuras de la SCENE 05 y al frame 1150 de la SCENE 09.
 ```

@@ -202,6 +202,17 @@ Scenes 01 and 02 establish the grammar the rest of the video inherits:
   so it is a comparison table on the bare background — one hairline rule, no panel
   — and `src/components/BenchmarkMetric.tsx` is its own surface language, one
   comparison row rather than a card;
+- an element that **crosses a cut** is defined once, outside both scenes, for the
+  same reason: `src/components/Attribution.tsx` holds `Answered with Kivgraph`,
+  which scene 06 settles as the answer's signature and scene 07 inherits on its
+  first frame and retires as its column heads arrive. The region measures `inf`
+  PSNR across `1149/1150` while the whole frame still measures 24.25 dB, which is
+  what a match cut is: hard in the frame, exact in the matched element. A pixel of
+  drift between the two scenes would turn it into a mistake, so neither scene owns
+  the geometry. It is there because scene 06's last 87 frames are byte-identical
+  reading time that cannot be trimmed, and scene 07 opened on 34% of its settled
+  ink — a hard cut between a frozen frame and an empty one reads as a stall, not
+  as a change of register;
 - the opening is **one continuous shot** through **one world**. There is no cut
   anywhere before frame 0330. `src/world/camera.ts` projects it and
   `src/components/CodeWorld.tsx` holds the only spatial layout; a scene animates
@@ -430,13 +441,14 @@ the whole frame measures far lower, because the split view's left column and
 divider have gone and the prompt layer arrives — 28.69 dB whole-frame. The
 whole-film scan over 1360 frames flags two pairs and nothing else: 0969/0970 and
 1149/1150. Both are hard cuts, steps rather than spikes, confirmed by the frames
-either side, and 1149/1150 is scene 07's own cut at 24.21 dB, which is what a hard
-cut is supposed to measure. That figure moved from 22.30 dB when the benchmark's
-figure set was resolved, and it is neither an improvement nor a regression: a
-cut's PSNR is a property of both frames, and the right side of this one is the
-figure table, so replacing `6.2k` with `35,961` moves it by definition. Anyone
-measuring a poor whole-frame figure at either boundary later should read the
-symbol region before calling it a regression.
+either side, and 1149/1150 is scene 07's own cut at 24.25 dB, which is what a hard
+cut is supposed to measure. That figure moved twice: from 22.30 dB when the
+benchmark's figure set was resolved, and again to 24.25 when the attribution match
+cut was added. Neither is an improvement or a regression — a cut's PSNR is a
+property of both frames, and the right side of this one is the figure table, so
+changing what it holds moves the number by definition. Anyone measuring a poor
+whole-frame figure at either boundary later should read the matched region before
+calling it a regression: at 1149/1150 the attribution region measures `inf`.
 
 ### The problem scene
 
@@ -841,3 +853,24 @@ mechanical pass across all nine documents and has not been done yet.
   0629/0630 at 62.07 against the earlier 62.93 is JPEG re-encode variance on frames
   that differ only by antialiasing; the earlier figure is correct for its own pass
   and is not being corrected.
+```
+
+```text
+2026-08-26
+- A transition was added between scenes 06 and 07, on direct art direction. It is
+  a match cut, not a dissolve: the attribution line `Answered with Kivgraph`
+  crosses 1149/1150 pixel-identically and retires over scene 07's local 2-18 as
+  its column heads arrive, handing the word `Kivgraph` from signature to column
+  head.
+- New shared component `src/components/Attribution.tsx`, added to the visual
+  grammar list as its own invariant: an element that crosses a cut is defined
+  once, outside both scenes. Third such component after `MetricCard` and
+  `ImpactReport`.
+- The 1149/1150 figure in "The cross-repository scene" moved 24.21 -> 24.25 dB.
+  Both moves of that number are now recorded there with their causes; the matched
+  region measures `inf`, and a reader who finds a poor whole-frame number should
+  read the matched region before calling it a regression.
+- The scene 06 dwell claim in "Pacing and dwell time" is unchanged and was the
+  reason the transition took this shape: the 87-frame static run is the only place
+  the answer is read, so it could not be trimmed to close the gap.
+```

@@ -1,5 +1,6 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
+import { Attribution } from "../components/Attribution";
 import { BenchmarkMetric, tableGrid } from "../components/BenchmarkMetric";
 import { arms, rows, sourceNote } from "../data/benchmark";
 import { brand } from "../brand/tokens";
@@ -105,7 +106,7 @@ const entry = (frame: number, from: number, to: number) => {
  * The scene is 210 frames, not the 120 the storyboard drafted, and the reason is
  * measured rather than felt. Dwell - how long a readable thing stays on screen
  * after it has finished arriving - runs 2.67 s for the cost row down to 1.03 s
- * for the source note, and the note is 37 characters, so it is read at 38
+ * for the source note, and the note is 37 characters, so it is read at 35.8
  * characters per second against a 25-40 budget for on-screen technical text. At
  * 120 frames a four-row table could not finish arriving at all.
  */
@@ -114,12 +115,22 @@ const fadeOut = (frame: number) => 1 - ramp(frame, 198, 210);
 export const BenchmarkScene: React.FC = () => {
   const frame = useCurrentFrame();
   const header = entry(frame, 2, 22);
+
+  /**
+   * The one thing that survives the cut, retiring as the heads that replace it
+   * arrive. Leaves at 18 so it is gone before the first row has any weight;
+   * starts at 2 so frame 1150 carries it at full strength, pixel-identical to
+   * 1149 in that region. `Attribution` owns the geometry - see it for why.
+   */
+  const handoff = 1 - ramp(frame, 2, 18);
   const note = entry(frame, 116, 136);
 
   return (
     <AbsoluteFill
       style={{ backgroundColor: brand.background, opacity: fadeOut(frame) }}
     >
+      <Attribution opacity={handoff} />
+
       {/**
        * The column heads. Both are `textMuted`, the same treatment the row
        * labels get, because all six are labels: the hierarchy in this frame is
