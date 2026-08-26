@@ -1,6 +1,6 @@
 import { Easing, interpolate } from "remotion";
 import { edges, nodes, selectedSymbolId, shellOf } from "../data/graphDemo";
-import { getGraphState } from "./graphState";
+import { getGraphState, graphRevealFrames } from "./graphState";
 import type { GraphVisualState } from "./graphState";
 
 /**
@@ -39,7 +39,8 @@ const ramp = (frame: number, from: number, to: number) =>
  * truth that goes stale the first time the scene before this one is retuned.
  * Sampling a pure function of a frame is exact and cannot drift.
  *
- * `getGraphState(300)` is scene 03's settled state: every ramp inside it clamps,
+ * `getGraphState(graphRevealFrames)` is scene 03's settled state: every ramp inside
+ * it clamps,
  * so 300 and anything past it return the values that scene renders on its last
  * frame.
  *
@@ -51,7 +52,7 @@ const ramp = (frame: number, from: number, to: number) =>
  * re-lit. The propagation now starts from a whole, evenly present graph, which
  * is what makes "the change travels" legible: nothing was pre-selected for it.
  */
-const inherited = getGraphState(300);
+const inherited = getGraphState(graphRevealFrames);
 
 /**
  * Which hop an edge delivers to.
@@ -95,7 +96,8 @@ const nodeDelay = 6;
  */
 const leafStagger = 4;
 
-const hopMembers = (hop: number) => nodes.filter((node) => shellOf[node.id] === hop);
+const hopMembers = (hop: number) =>
+  nodes.filter((node) => shellOf[node.id] === hop);
 
 /**
  * The pulse: one swell on the selected symbol, and the scene's first frame.
@@ -129,7 +131,9 @@ const markWindow = (id: string): readonly [number, number] | null => {
   }
 
   const stagger =
-    hop === 3 ? hopMembers(3).findIndex((node) => node.id === id) * leafStagger : 0;
+    hop === 3
+      ? hopMembers(3).findIndex((node) => node.id === id) * leafStagger
+      : 0;
 
   return [window[0] + nodeDelay + stagger, window[1] + nodeDelay + stagger];
 };
@@ -181,7 +185,9 @@ export const getBlastState = (frame: number): GraphVisualState => {
       }),
     ),
 
-    nodeAccent: Object.fromEntries(nodes.map((node) => [node.id, marked(node.id)])),
+    nodeAccent: Object.fromEntries(
+      nodes.map((node) => [node.id, marked(node.id)]),
+    ),
 
     pulse: pulseAt(frame),
 

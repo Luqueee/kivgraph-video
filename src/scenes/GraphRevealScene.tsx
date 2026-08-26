@@ -133,4 +133,3 @@ export const GraphRevealScene: React.FC = () => {
  * Scene 03's final image, held. Scene 04 opens on it and must be able to
  * reproduce it exactly, so it is exported rather than described.
  */
-export const graphRevealEndFrame = 360;

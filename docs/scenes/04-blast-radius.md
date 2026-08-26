@@ -1014,3 +1014,23 @@ Safe to change without altering the scene's purpose:
 - The values, their copy and their position are unchanged, and so is every frame
   number in this scene.
 ```
+
+```text
+2026-08-27
+- Regression fixed, introduced by the same day's scene 03 retime and reported from
+  a frame rather than caught by a check: the whole `checkout-service` repository
+  was missing from this scene while its three crossings still ran off toward it.
+- Cause: `blastState.ts` inherited scene 03's settled graph with a literal
+  `getGraphState(300)`. Scene 03 grew 300 -> 360 for the cross-repository beat, and
+  at frame 300 the three far nodes have only just begun arriving - so this scene
+  inherited a state in which they did not exist yet. Nothing in the build said so;
+  `tsc` and `eslint` both pass on a number that is merely wrong.
+- The scene's length is one definition now, `graphRevealFrames` in `graphState.ts`,
+  read by the sequence and by the inherit. Third time this exact shape of bug has
+  appeared - after the code bed levels and scene 04's own copy of them - and the
+  fix is the same each time: the constant belongs to whoever owns the timing, and
+  everyone else reads it.
+- `graphRevealEndFrame` was exported from `GraphRevealScene.tsx` and imported by
+  nobody, which is why it did not prevent this. Removed.
+```
+

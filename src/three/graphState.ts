@@ -43,6 +43,22 @@ const ramp = (
  * the frame edge would be a label sliced in half, which reads as a fault
  * rather than as a discovery.
  */
+/**
+ * How long scene 03 runs, and the single definition of it.
+ *
+ * It has to equal the `durationInFrames` of the `03 Graph Reveal` sequence, and
+ * `blastState.ts` has to inherit the graph at exactly this frame - scene 04
+ * continues the same graph and assumes scene 03 left it settled.
+ *
+ * It was a literal `300` in two places and they came apart the moment the scene
+ * grew to 360 for the cross-repository beat: scene 04 went on inheriting frame
+ * 300, where the three `checkout-service` nodes have only just started arriving,
+ * so the whole far repository was missing from the blast radius while its
+ * crossings still ran off toward it. Nothing in the build said so. One
+ * definition now.
+ */
+export const graphRevealFrames = 360;
+
 const schedule: Readonly<Record<string, readonly [number, number]>> = {
   // The substitution (local 0000-0030).
   "payments.withRetry": [0, 30],
