@@ -39,9 +39,11 @@ import { brand } from "../brand/tokens";
  * `y` resolves to `696`, and it is written as `956 + answerLift` rather than as
  * the number, so it cannot fall out of step with the layer it belongs to.
  *
- * `956` is this line's own place in scene 06's composition: the bottom row of
- * the answer block, 44 px under the path sentence, which is the gap it has
- * always had. `answerLift` is the 260 px scene 06 lifts its whole prompt layer
+ * `1015` is this line's own place in scene 06's composition: the bottom row of
+ * the answer block, 44 px under the path sentence. It was `956` while the path
+ * was one line at 22 px; the answer was enlarged for small-player legibility and
+ * the path now sets two lines at 26 px, so the block grew 59 px downward and the
+ * signature had to follow it or be written over. `answerLift` is the 260 px scene 06 lifts its whole prompt layer
  * by so the block reads centred rather than fallen to the bottom of the shot.
  *
  * **Scene 06 must not apply its lift to this component on top of the constant,
@@ -57,7 +59,7 @@ import { brand } from "../brand/tokens";
  */
 export const attributionLayout = {
   x: promptLayout.row.x,
-  y: 956 + answerLift,
+  y: 1015 + answerLift,
   fontSize: 17,
 } as const;
 

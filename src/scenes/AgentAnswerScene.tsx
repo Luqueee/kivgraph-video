@@ -87,11 +87,30 @@ const bedCamera: Camera = {
  * line across the cut and the two scenes must not be able to disagree about it.
  * The whole block ends 100 px above the frame's bottom edge.
  */
+/**
+ * The answer block, and it is deliberately larger than the type scale's body
+ * tier allows.
+ *
+ * `STORYBOARD.md` §7 puts body at 26-34 px and `06-agent-answer.md` said the
+ * quantities *may rise to* 34. They are 42 here, which is between body and
+ * heading, and the reason is the one §7 gives for its own existence: *«El vídeo
+ * debe seguir siendo entendible cuando se reproduce dentro de un post
+ * social.»* `7 symbols across 2 repositories.` is the sentence the whole film is
+ * built to deliver, and at 32 px it is 1.7 % of the height of a 600 px embed.
+ *
+ * The rest of the block moved with it - lead 24 -> 28, path 22 -> 26 - so the
+ * hierarchy inside the answer is unchanged and only its scale grew. The prompt
+ * row above stays at 30: that is `promptLayout`, which `02-agent.md` marks not
+ * flexible because the match cut is built on it.
+ *
+ * The counts therefore now outweigh the question that asked for them, which is
+ * correct: this scene is the answer, not the asking.
+ */
 const answer = {
   x: promptLayout.row.x,
-  lead: { y: 760, fontSize: 24 },
-  counts: { y: 820, fontSize: 32 },
-  path: { y: 890, fontSize: 22 },
+  lead: { y: 756, fontSize: 28 },
+  counts: { y: 818, fontSize: 42 },
+  path: { y: 896, fontSize: 26 },
 } as const;
 
 /**
@@ -252,6 +271,7 @@ export const AgentAnswerScene: React.FC = () => {
             top: answer.path.y,
             fontFamily: fontMono,
             fontSize: answer.path.fontSize,
+            lineHeight: 1.45,
             color: brand.textSecondary,
             whiteSpace: "pre",
             opacity: blocks.path.opacity,
@@ -259,7 +279,7 @@ export const AgentAnswerScene: React.FC = () => {
           }}
         >
           <span style={{ color: brand.textPrimary }}>checkout-service</span>
-          {" consumes the symbol through "}
+          {" consumes the symbol through\n"}
           <span style={{ color: brand.textPrimary }}>
             payments-api/paymentService
           </span>

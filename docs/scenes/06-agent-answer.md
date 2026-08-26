@@ -138,9 +138,25 @@ Hierarchy, strongest to weakest:
 
 Typography follows `AGENTS.md` §27 and `STORYBOARD.md` §7. Everything in this
 scene is agent output, so everything is `JetBrains Mono`. Weights 400 and 500
-only. The answer sits at the code scale (20–28 px); the quantities may rise to
-the body scale (26–34 px) to carry the hierarchy above; the attribution label
-sits at the label scale (16–20 px). No text smaller than 16 px.
+only.
+
+The scale was raised on 2026-08-26 and the quantities now sit **above** the body
+tier: lead 28 px, quantities **42 px**, path 26 px, against 24 / 32 / 22 before.
+42 is between body and heading, which §7 does not offer, and the reason is the
+one §7 gives for its own existence: *«El vídeo debe seguir siendo entendible
+cuando se reproduce dentro de un post social.»* `7 symbols across 2
+repositories.` is the sentence the whole film is built to deliver, and at 32 px
+it was 1.7 % of the height of a 600 px embed.
+
+The quantities therefore outweigh the question that asked for them, which is
+correct: this scene is the answer, not the asking. The prompt row stays at 30 px
+because that is `promptLayout`, which `02-agent.md` marks not flexible.
+
+The path sentence sets on **two lines**, broken before the package. The copy is
+unchanged; at 26 px on one line it measured 1133 px, 62 % of the frame, and would
+be gone in the 1:1 and 9:16 crops `STORYBOARD.md` §2 requires to stay possible.
+The attribution label sits at the label scale (16–20 px). No text smaller than
+16 px.
 
 Colour, per `AGENTS.md` §26:
 
@@ -166,9 +182,11 @@ Agent output that does not share the prompt's left edge stops reading as output.
 
 ### The lift
 
-The whole prompt layer sits **260 px above** where `promptLayout` puts it, and
+The whole prompt layer sits **287 px above** where `promptLayout` puts it, and
 the falloff behind it moves with it. `answerLift` in `AgentPrompt.tsx` is the
-constant; nothing in this scene writes the number itself.
+constant; nothing in this scene writes the number itself. It is not a constant of
+the layout - it is the answer to a measurement, and it is re-measured whenever
+the block's type scale changes.
 
 It exists because `promptLayout`'s position is scene 02's answer to a question
 this scene no longer asks. There, the prompt sits in the lower half because it is
@@ -179,16 +197,17 @@ whole frame, so the same position stops reading as a prompt under code and start
 reading as a block that has slid off the bottom of the shot.
 
 Measured on the settled frame `1064`: the content ran `604` to `976`, so its
-centre sat at `790` against the frame's `540`. Lifted, it runs `344` to `716`,
-centre `530` — deliberately a little above geometric centre, which is the
+centre sat at `790` against the frame's `540`. Lifted, it runs `317` to `748`,
+centre `532` — deliberately a little above geometric centre, which is the
 correction `BenchmarkScene` makes for the same reason: a block of type centred
 geometrically reads low.
 
 **Horizontally nothing moved, and that was measured rather than assumed.** The
-content spans `440` to `1458` — the path sentence runs well past the right end of
-the prompt rule — so its centre is already `949`, eleven pixels from the frame's.
-There was nothing to correct, and moving it would break the one thing this
-document requires of the answer's `x`.
+content is left-aligned at `500` under a rule that starts at `440`, so its
+horizontal centre is a property of the rule and the longest line rather than
+something to tune. It measures `889` today, 71 px left of the frame's — 3.7 %,
+and structural. Moving it would break the one thing this document requires of
+the answer's `x`.
 
 **`promptLayout` itself was not touched, and must not be.** `02-agent.md` marks
 the row's position *not flexible* because scenes 03 and 07 depend on it, and the
@@ -786,3 +805,27 @@ frame that proves the loop closed and must be inspected as if it were a still.
   byte-identical to before.
 ```
 
+```text
+2026-08-26
+- The answer was enlarged, on direct art direction, because at a size anyone
+  actually watches this at the sentence the film exists to deliver could not be
+  read. Lead 24 -> 28, quantities 32 -> 42, path 22 -> 26. 42 is above the body
+  tier that §7 offers and above what this document previously allowed; both were
+  updated rather than quietly exceeded.
+- The path sentence now sets on two lines, broken before the package. Copy
+  unchanged. On one line at 26 px it measured 1133 px - 62% of the frame - and
+  would not survive the 1:1 and 9:16 crops §2 requires to stay possible; broken,
+  it is 686 px.
+- Two knock-ons, both measured rather than noticed later. The block grew 59 px
+  downward, so `answerLift` went -260 -> -287 to keep it centred: it now runs 317
+  to 748, centre 532 against the frame's 540. And `attributionLayout.y` went
+  `956 + answerLift` -> `1015 + answerLift`, because the second path line was
+  drawn straight over the signature.
+- Horizontal centring is no longer stated as a number to hit. The block is
+  left-aligned at 500 under a rule that starts at 440, so its centre is a
+  property of the rule and the longest line; it measures 889, 71 px left, which
+  is 3.7% and structural.
+- Verified: 0969/0970 still matches on the symbol plate, and the 1149/1150
+  attribution region measures 55.8 dB with the same one-level bed bleed it always
+  had.
+```

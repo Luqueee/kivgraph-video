@@ -84,9 +84,12 @@ export const promptScrim = promptScrimLifted(0);
  * block that has slid off the bottom. Measured on the settled frame `1064`, the
  * content ran `604` to `976`: centre `790` against the frame's `540`.
  *
- * `-260` puts it at `344` to `716`, centre `530` - slightly above geometric
+ * `-287` puts it at `317` to `748`, centre `532` - slightly above geometric
  * centre, the same correction `BenchmarkScene` makes, because a block of type
- * centred geometrically reads low. Horizontally nothing moves and that was
+ * centred geometrically reads low. It was `-260` until the answer was enlarged
+ * for small-player legibility: the block grew 59 px downward, so the lift grew
+ * with it. Re-measure it whenever the block's type scale changes; it is not a
+ * constant of the layout, it is the answer to a measurement. Horizontally nothing moves and that was
  * measured too: the content spans `440` to `1458`, so its centre is already
  * `949`.
  *
@@ -97,7 +100,7 @@ export const promptScrim = promptScrimLifted(0);
  * Folding the lift in would carry the graph, the camera path and the key stills
  * `0629`, `0718` and `0864` with it.
  */
-export const answerLift = -260;
+export const answerLift = -287;
 
 export const promptLayout = {
   rule: { x: 440, y: 604, width: 900 },

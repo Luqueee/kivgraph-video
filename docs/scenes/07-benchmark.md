@@ -1218,3 +1218,15 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
   scene 06's side.
 ```
 
+```text
+2026-08-26
+- The inherited attribution moved again, and again nothing in this scene moved
+  with it: scene 06's answer was enlarged, its path sentence now sets on two
+  lines, and the signature had to clear them. `attributionLayout.y` is now
+  `1015 + answerLift` = 728. The constant is still shared, so both scenes draw
+  the line at identical coordinates and the match cut is intact - measured 55.79
+  dB over that region, the same one-level bed bleed as before.
+- In this frame the line now sits below the source note rather than between the
+  last row and it. They still never share a frame, and the still at 1190 is
+  unaffected.
+```

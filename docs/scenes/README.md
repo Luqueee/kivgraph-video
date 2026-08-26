@@ -1070,3 +1070,43 @@ mechanical pass across all nine documents and has not been done yet.
 - Nothing else moved: 1529/1530 still byte-identical, 1560/1590/1649 still one
   image.
 ```
+
+```text
+2026-08-26
+- Legibility pass on direct art direction, from watching the film at the sizes it
+  is embedded at rather than at full size. Three items, no retime, no topology or
+  concept touched: contrast in the graph, the impact card's surface, and the size
+  of the agent's answer.
+- Contrast. Measured on frame 0629, 94.86% of the frame sat below luminance 12 and
+  the hop-3 labels - the three checkout-service consumers, the payoff of the piece
+  - were the dimmest ink in it. Shell labels went 1 / 0.75 / 0.65 / 0.58 -> 1 /
+  0.84 / 0.76 / 0.70, plates 1 / 0.9 / 0.78 / 0.66 -> 1 / 0.94 / 0.86 / 0.78,
+  repository labels 0.42 -> 0.56, and settled edges now gain opacity instead of
+  losing it - a local edge ends at 0.72 rather than 0.56, a crossing at 0.88. The
+  code bed came down to roughly half. Verified at 900 px: the whole topology, all
+  eight labels and both repository names read.
+- One defect found doing it: three hand-kept copies of the level the code settles
+  to, and scene 04 was holding scene 03's previous numbers, so the code read
+  brighter under the impact card than under the graph the card describes. One
+  definition now, `settledBed` in CodeWorld.tsx.
+- The impact card stops being a card - no fill, no hairline, no padding - which is
+  what STORYBOARD.md already asked for under *No hay claim line*: the values read
+  against the graph, and the graph under `7 affected symbols` is the proof of the
+  figure. An opaque panel made that impossible.
+- The agent's answer grew: lead 24 -> 28, quantities 32 -> 42, path 22 -> 26, and
+  the path sets on two lines so it survives the 1:1 and 9:16 crops. 42 is above
+  the body tier §7 offers; §7's own reason for existing is that the video stay
+  understandable inside a social post, and at 32 px the film's central sentence
+  was 1.7% of the height of a 600 px embed. Two knock-ons: `answerLift` -260 ->
+  -287 to keep the grown block centred, and `attributionLayout.y` moved because
+  the second path line was drawn over the signature.
+- Not done, and deliberately. The review also asked for more perceptible depth,
+  a stronger cross-repository payoff and a narrative bridge into the benchmark;
+  two of those change durations and cascade through every document, so they are
+  their own pass. It asked to shorten the outro, which contradicts a direct
+  instruction that the ending's length is final - the instruction wins. And it
+  asked to bring back `A name is not a symbol.`, which STORYBOARD.md records as
+  built, watched and cut, with the reason: it named what the two columns were
+  already demonstrating. Not reinstated without a decision taken in knowledge of
+  that.
+```

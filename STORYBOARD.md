@@ -3591,3 +3591,32 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   renderiza 1650 frames, 27,5 s, 1920×1080 a 60 fps, sin un solo frame negro.
 - Afecta a la SCENE 11 y a nada más de este documento.
 ```
+
+```text
+2026-08-26
+- Pasada de legibilidad por dirección de arte directa, hecha viendo la película al
+  tamaño al que se embebe y no a tamaño completo. Ni topología, ni concepto, ni
+  duraciones: contraste del grafo, la card de impacto y el tamaño de la respuesta.
+- El contraste era medible, no una impresión: en el frame 0629 el 94,86 % del
+  cuadro estaba por debajo de luminancia 12, y las etiquetas del hop 3 - los tres
+  consumidores de `checkout-service`, que son el payoff de la pieza - eran la
+  tinta más oscura del cuadro. Se comprimió la escalera de sombras del grafo, se
+  subieron las etiquetas de repositorio, las aristas asentadas ganan opacidad en
+  vez de perderla, y el código de fondo bajó a algo más de la mitad. La sección 17
+  se respeta: el código no desaparece, pero deja de competir.
+- La card de `CHANGE IMPACT` deja de ser una card. Sin relleno, sin filete, sin
+  padding — que es lo que este documento ya pedía en «No hay claim line»: los tres
+  valores se leen contra el grafo sin oscurecer, y el grafo debajo de `7 affected
+  symbols` es la prueba de la cifra. Un panel opaco lo impedía.
+- La respuesta del agente crece: la frase `7 symbols across 2 repositories.` pasa
+  de 32 a 42 px, por encima del rango de la sección 7 — y el motivo es el que la
+  propia sección 7 da para existir: «El vídeo debe seguir siendo entendible cuando
+  se reproduce dentro de un post social.» La frase de la ruta pasa a dos líneas
+  para sobrevivir a los recortes 1:1 y 9:16 de la sección 2. El copy no cambia.
+- Sin hacer, y a propósito: más profundidad percibida, más payoff en el reveal
+  cross-repo y un puente narrativo hacia el benchmark van en su propia pasada,
+  porque dos de ellos mueven duraciones. Acortar el outro contradice una
+  instrucción directa de que su duración es definitiva. Y reponer `A name is not a
+  symbol.` contradice la sección «No hay frase en el centro» de este mismo
+  documento, que la registra construida, vista y cortada.
+```
