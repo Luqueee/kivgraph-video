@@ -56,8 +56,9 @@ frames. Only scenes 08 and 09 moved again, +40 each. The eighth entry's count
 takes one correction from here: five scenes have still ever changed duration, but
 the benchmark has now changed twice, both times at implementation rather than in a
 retime, so it is the only scene whose length has never been set by a plan. Why 210
-rather than 170 is a dwell figure, and dwell figures for this scene are on hold —
-see the note under **Pacing and dwell time**.
+rather than 170 is a dwell figure: the two-column build asks the viewer to read
+eight figures and two arm names where the single column had four figures, and its
+source note is the tightest row in the scene — see **Pacing and dwell time**.
 
 ## Pacing and dwell time
 
@@ -89,11 +90,13 @@ reading time rather than from feel, and the figures as the film stands are:
 | scene 06's counts                           | `1.97 s` |
 | scene 06's path sentence                    | `1.67 s` (44 characters per second) |
 | scene 06's `Answered with Kivgraph` label   | `1.43 s` |
-| scene 07's `tokens / 6.2k`                  | `2.10 s` |
-| scene 07's `grep + read / 63.5k`            | `2.00 s` |
-| scene 07's `exact answers / 7 / 7`          | `1.50 s` |
-| scene 07's `repositories / 37`              | `1.07 s` |
-| scene 07's `published benchmark` note       | `1.00 s` |
+| scene 07's column heads                     | `2.93 s` |
+| scene 07's `tokens / 35,961`                | `2.67 s` |
+| scene 07's `grep + read / 267,980`          | `2.67 s` |
+| scene 07's `exact answers / 28 / 29`        | `2.27 s` |
+| scene 07's `precision / 1.000`              | `1.87 s` |
+| scene 07's `recall / 0.996`                 | `1.47 s` |
+| scene 07's source note                      | `1.03 s` (35.8 characters per second) |
 
 Scene 05's counters were already at 1.00 s and its sixty-frame stand was left
 exactly as it was; its twenty extra frames went to the *build* instead, where
@@ -103,20 +106,16 @@ than they can be counted.
 
 Scene 07 is the first scene whose duration was set by this measurement *before* it
 was built rather than after. At the 120 frames it had been drafted at, its last
-statement settled with 10 frames left — 0.17 s — so it landed at 170. Its two
-closing rows sit at the floor rather than above it, 1.07 s and 1.00 s, alongside
-scene 05's counters: `repositories`, `37` and `published benchmark` are 33
-characters between them, and 33 characters in 1.00 s is 33 per second, inside the
-same 25–40 the path sentence failed against.
-
-**On hold, 2026-08-26.** Scene 07's five rows in the table above, and the
-paragraph immediately above this one, both describe the **superseded** 170-frame
-build, whose table was one column of measured values. The scene was rebuilt the
-same day as a two-column comparison at 210 frames, and its dwell figures — and the
-row labels those figures are attached to — are withheld until the benchmark's
-figure set is confirmed. Do not read either as current, and do not carry the old
-values forward. What is settled is the timeline: 210 frames, master 1150–1360, and
-a settled stand of 63 frames before the fade.
+statement settled with 10 frames left — 0.17 s — so it landed at 170, and the
+rebuild as a two-column comparison took it to 210. Every readable element sits
+inside the budget: the column heads at 6.5 characters per second, `tokens` at 7.1,
+`precision` at 10.2, `recall` at 10.9 and `exact answers` at 11.9. The row
+that sets the scene's floor is the source note — `37 repositories · published
+benchmark` is 37 characters in 1.03 s, which is 35.8 per second, the tightest
+reading in the scene and still under 40. That is also why the question count is not
+in the note: `29` is already on screen in the denominator of `28 / 29`, and
+repeating it would push the one row with no slack out of budget. The settled table
+then stands byte-identical for 63 frames from 1286 before the fade.
 
 Two things follow for anyone retiming this film again. Dead frames and dwell are
 different quantities measured in the same units: the twenty frames trimmed off the
@@ -154,19 +153,32 @@ callers must live in `internal/retry`, and Go's `internal/` rule forbids
 `checkout-service` from importing them — the impact has to travel through the
 public `payments-api/paymentService`. Do not simplify it back.
 
-`src/data/benchmark.ts` is the same idea for scene 07: the four measured values in
-one place, each with its provenance. They are stored as **strings, not numbers** —
-`6.2k` is not `6200` with a suffix — because formatting a number would let a
-future edit change the precision, and changing the precision is changing the
-value. That is also why the scene has no count-up: a mid-count still frame
-displays a number that is not the published benchmark.
+`src/data/benchmark.ts` is the same idea for scene 07: every figure the scene shows
+in one place, each with its provenance. It holds the two arm names, four rows of two
+values — eight figures — and the source note, and its header comment carries the
+upstream file, commit and generation date they were read from. They are stored as
+**strings, not numbers**, because formatting a number would let a future edit change
+the precision, and changing the precision is changing the value. The table shows
+that rule working in both directions. Comma-grouping `35,961` does not change its
+precision, but rounding it to `36k` would, so the token counts stay exact and
+grouped. And `recall` is the row that proves the cost of the other direction — at
+two decimals it would read `1.00` against `0.99`, which flatters kivgraph to a
+perfect score it did not earn and doubles the apparent gap — so three decimals is
+the shortest true form, and `precision` states three as well rather than mixing
+depths down one column. That is also why the scene has no count-up: a mid-count
+still frame displays a number that is not the published benchmark.
 
-**On hold, 2026-08-26.** Scene 07's rebuild changed which values this file holds,
-and the figure set itself is under verification, so the paragraph above still
-describes the superseded single-column build. Its two structural claims survive the
-rebuild — one place, each value with its provenance, and strings rather than
-numbers — but do not treat its account of *which* values, or of how many, as
-current.
+The figure set moved once, on 2026-08-26, and the reason belongs here rather than
+only in the module. The storyboard specified `6.2k · 63.5k · 7 / 7 · 37
+repositories`, and the `7 / 7` was withdrawn because **no results file records it**:
+the seven-question passes on disk read `4/7` (`results.json`, commit `4c1bfae`) and
+`6/7` (`results-0.3.6.json`, commit `954b9eb`), and the `7 / 7` comes from the
+closing prose of `remeasure.md`, which attributes it to `results-0.3.6.json` at
+commit `71e6c57` — all three of that file's passes wrote to the same filename, so
+each overwrote the last and the run that substantiated it no longer exists. The
+29-question set replaced it because it is machine-backed line by line. The four
+rival graph tools the same results file measures are out of the table by a strategic
+decision rather than a measured one; the module records that too.
 
 "Specified only" means the document is the contract the future implementation
 must satisfy; no component exists yet and the corresponding stretch of the
@@ -418,9 +430,13 @@ the whole frame measures far lower, because the split view's left column and
 divider have gone and the prompt layer arrives — 28.69 dB whole-frame. The
 whole-film scan over 1360 frames flags two pairs and nothing else: 0969/0970 and
 1149/1150. Both are hard cuts, steps rather than spikes, confirmed by the frames
-either side, and 1149/1150 is scene 07's own cut at 22.30 dB, which is what a hard
-cut is supposed to measure. Anyone measuring a poor whole-frame figure at either
-boundary later should read the symbol region before calling it a regression.
+either side, and 1149/1150 is scene 07's own cut at 24.21 dB, which is what a hard
+cut is supposed to measure. That figure moved from 22.30 dB when the benchmark's
+figure set was resolved, and it is neither an improvement nor a regression: a
+cut's PSNR is a property of both frames, and the right side of this one is the
+figure table, so replacing `6.2k` with `35,961` moves it by definition. Anyone
+measuring a poor whole-frame figure at either boundary later should read the
+symbol region before calling it a regression.
 
 ### The problem scene
 
@@ -457,7 +473,7 @@ it instead of guessing:
 | `0718` | the frame scene 04's impact card settles on; first frame of its read.    |
 | `0864` | the first frame of scene 05's measured byte-identical stand.             |
 | `1064` | the frame scene 06's attribution label finishes on; the scene goes static.|
-| `1190` | scene 07's cost row complete, with both arms already named above it. <!-- FIGURE PENDING: the cost row's two figures --> |
+| `1190` | scene 07's cost row complete, with both arms already named above it.     |
 | `1440` | scene 08's settled lockup plus tagline.                                 |
 
 How they got here. `1064` joined the list as scene 06's label frame — it was
@@ -504,8 +520,10 @@ legible with **both arms already named above it**, which is what lets the frame
 explain itself as a standalone image. The superseded build could not do that — it
 showed two bare figures and nothing saying whose each one was — and the rebuild is
 the reason the still improved rather than merely moved. The cost row arrives in a
-single window and settles before 1190, so nothing has to be front-loaded inside its
-ramp to make the frame legible.
+single window — scene-local 14 to 38, master 1164 to 1188 — and settles two frames
+before 1190, so nothing has to be front-loaded inside its ramp to make the frame
+legible. What the still holds is `35,961` against `267,980`, under `kivgraph` and
+`grep + read`.
 
 What it still cannot do is centre what it shows. At 1190 the rows on screen sit
 above frame centre, because the block is laid out for four rows and the lower ones
@@ -513,9 +531,9 @@ are still empty; centring them would decentre the table, and the table is the im
 the film actually shows for 63 static frames. A still that needs the row optically
 centred should be cropped, not re-laid-out.
 
-<!-- FIGURE PENDING: 1190's own definition names no figures on purpose while the
-benchmark's figure set is under verification. When it is confirmed, the definition
-stays structural — do not fold the values back into it. -->
+The definition in the table stays structural on purpose. `35,961` and `267,980` are
+what it resolves to on this cut; a later retime should recompute the frame from the
+cost row's settle rather than look the numbers up.
 
 ## Rendering
 
@@ -777,3 +795,49 @@ mechanical pass across all nine documents and has not been done yet.
 - Scene 07 still mounts no canvas, so it still needs neither premountFor nor
   postmountFor, and scenes 05 and 06 still owe theirs.
 ```
+
+```text
+2026-08-26
+- Benchmark figure set resolved and the hold lifted. Scene 07 shows the 29-question
+  set: tokens 35,961 against 267,980, exact answers 28 / 29 against 28 / 29,
+  precision 1.000 against 1.000, recall 0.996 against 0.989, over the source note
+  37 repositories · published benchmark. Provenance is the aggregate block of
+  results-all.json, commit 954b9eb, generated 2026-08-22T10:18:32Z, 29 questions,
+  corpus 37 git repositories, tokenizer tiktoken o200k_base, Apple M5 / macOS /
+  arm64. The cost ratio is 267980 / 35961 = 7.452, stated as 7.45x and shown as two
+  figures rather than as a ratio.
+- The 7-question set was withdrawn: no results file records kivgraph at 7/7. The
+  passes on disk read 4/7 (results.json, 4c1bfae) and 6/7 (results-0.3.6.json,
+  954b9eb); the 7/7 came from the closing prose of remeasure.md, attributed to
+  results-0.3.6.json at 71e6c57, and all three of that file's passes wrote to the
+  same filename, so the run behind it no longer exists. The superseded on-screen set
+  was 6.2k / 63.5k / 7 / 7 / 1.00 / 1.00. The four rival graph tools reach 3/29,
+  4/29, 3/29 and 3/29 on this set and stay out of the table.
+- Both ON HOLD notes are gone - the one over the dwell table's scene-07 rows and the
+  one over the src/data/benchmark.ts paragraph - and both FIGURE PENDING markers in
+  this file are resolved. 1190's definition stays structural, which is what its own
+  marker asked for; the figures it resolves to are stated in the prose under Key
+  frames instead.
+- Dwell, scene 07 as built, fade at local 198: column heads 2.93 s (6.5 characters
+  per second), tokens 2.67 s (7.1), exact answers 2.27 s (11.9), precision 1.87 s
+  (10.2), recall 1.47 s (10.9), source note 1.03 s (35.8). The note is the tightest
+  row in the scene and inside the 25-40 budget, and it is why the question count is
+  absent from it: 29 is already on screen in the denominator of 28 / 29.
+- The dwell table lost its repositories / 37 row. 37 repositories is part of the
+  source note now, not a row of its own, and it gained rows for the column heads,
+  precision and recall, so the table lists every readable element of the scene.
+- Nothing in the timeline moved: master 1570, mountedFrames 1360, 07 is 1150-1360,
+  08 1360-1450, 09 1450-1570. 1360 frames render with no black frame and the anomaly
+  scan still flags only the two hard cuts, 969/970 and 1149/1150. The settled table
+  is byte-identical for 63 frames from 1286.
+- Seams on the pass that ships these figures: 0629/0630 62.07 dB, 0769/0770
+  pixel-identical, 0969/0970 30.44 dB whole frame, 1149/1150 24.21 dB. Two notes on
+  reading them against the entries above. 1149/1150 was 22.30 dB and moved because
+  the content on its right side is the new figures - a hard cut's PSNR is a property
+  of both frames, so replacing 6.2k with 35,961 necessarily moves it, and it is
+  neither a regression nor an improvement. And 0969/0970 must be quoted with its
+  region: 30.44 dB and the earlier 28.69 dB are whole-frame, the 41.35 dB in the
+  2026-08-25 entry is the symbol region alone, and the two are not comparable.
+  0629/0630 at 62.07 against the earlier 62.93 is JPEG re-encode variance on frames
+  that differ only by antialiasing; the earlier figure is correct for its own pass
+  and is not being corrected.

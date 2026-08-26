@@ -1,17 +1,5 @@
 # Scene 07 — Benchmark
 
-> **FIGURES ON HOLD — 2026-08-26.** The layout, the timing and the geometry in
-> this document are built, rendered and measured. **The contents of the table's
-> cells are not confirmed.** A verification pass against the upstream
-> benchmark's machine-readable results found that the pass this scene was built
-> from is recorded only in prose and is contradicted by every `results*.json`
-> file in that directory, on token count, on both correctness ratios and on the
-> number of exactly-answered questions. Until the figure set is confirmed, every
-> cell value, every correctness row label and the source-note string are marked
-> `<!-- FIGURE PENDING: … -->` below. **Do not fill a marker from this
-> document's own modification history**: those entries are dated records of what
-> was built, not a source of truth about what is measured. See `## Provenance`.
-
 ## Purpose
 
 This scene replaces the claim with evidence.
@@ -35,91 +23,115 @@ the numbers read as a fact about the world rather than a screenshot of a tool.
 > Two ways of getting the same answer, measured side by side, and one of them
 > costs a fraction of the other.
 
-The scene states a cost difference and a set of correctness measures, in two
-named columns, at a stated corpus size. It does not state a superlative and it
-does not state a percentage.
+The scene states a cost difference and three correctness measures, in two named
+columns, at a stated corpus size. It does not state a superlative and it does not
+state a percentage.
 
-<!-- FIGURE PENDING: the takeaway's concrete form - the two cost figures, the
-     correctness measures, and the corpus size - once the figure set is
-     confirmed. Do not restate the previous build's values here. -->
+Concretely: `35,961` tokens against `267,980` for the same 29 questions, with
+`exact answers` at `28 / 29` in both columns, `precision` at `1.000` in both, and
+`recall` at `0.996` against `0.989`. The corpus is 37 repositories. The ratio
+between the two token figures is 7.45x and the scene never states it — two
+figures sharing a row state it better than the word would.
 
 Secondary, carried by the words `published benchmark` in the source note: these
 numbers are checkable. Someone can go and read them — see `## Provenance` for
-where, and for what in that directory must not be read as authoritative.
+where they live and which file in that directory is the record.
 
 ## Provenance
-
-**This section is the most important one in the document, and it is currently
-the least settled.**
 
 The figures in this scene are not this repository's own. They come from an
 upstream benchmark directory, and `src/data/benchmark.ts` is the single place in
 this project where they live — its doc comment carries the provenance, and
 `AGENTS.md` §29's update procedure lands there.
 
-<!-- FIGURE PENDING: the upstream directory, the exact pass that is
-     authoritative, and the corpus size, tokenizer, machine and date of the
-     measurement environment. All of those were written into
-     src/data/benchmark.ts from a pass that is now disputed; do not copy them
-     out of that file into this one until the discrepancy below is resolved. -->
+The authoritative pass:
 
-### The discrepancy that put every figure on hold
+- file: `kivgraph/benchmarks/graph-tools-comparison/results-all.json`, the
+  `aggregate` block;
+- commit `954b9eb`, generated `2026-08-22T10:18:32Z`;
+- 29 questions over a corpus of 37 git repositories;
+- tokenizer `tiktoken`, encoding `o200k_base`;
+- machine Apple M5, macOS, arm64.
 
-A verification pass compared the numbers this scene was built from against the
-machine-readable results in the upstream directory. They do not agree.
+The two arms the film shows, as that block records them:
 
-- The pass the scene was built from appears **only in the closing prose** of a
-  remeasurement note. That prose **names no results file**.
-- Every `results*.json` file in the directory disagrees with it — on token
-  count, on both correctness ratios, and on how many of the questions were
-  answered exactly. **No results file records the subject arm at a perfect
-  score.**
-- The baseline arm's figures *are* corroborated by the machine record.
+| Arm           |    tokens | calls | precision |    recall |   exact | answered |
+| ------------- | --------: | ----: | --------: | --------: | ------- | -------- |
+| `kivgraph`    |  `35,961` |  `36` |   `1.000` | `0.99617` | `28/29` | `29/29`  |
+| `grep + read` | `267,980` | `101` |   `1.000` | `0.98851` | `28/29` | `29/29`  |
 
-The consequence for this scene is specific and it is not cosmetic. The built
-table states its correctness rows with **both columns at equal weight**, which is
-a claim that the two arms tie on those measures. The machine record does not show
-that tie. A frame that asserts a tie the measurement does not report is a
-benchmark-integrity failure of exactly the kind `AGENTS.md` §29 exists to
-prevent, and it is worse than a wrong number, because it is a wrong *shape* — the
-layout itself would be making the claim.
+The baseline arm is recorded upstream as `native`. It is the `grep + read` arm,
+and the film names it that way because that is what an agent without any tool
+actually does. The cost ratio is `267980 / 35961` = **7.45x**; it is stated here
+and nowhere on screen.
 
-So: the two-column composition described below is built and is sound as a
-composition. Whether the four rows it holds are the right four rows, and whether
-their figures tie, is open.
+### The discrepancy that put every figure on hold, and how it resolved
 
-### Warning to whoever fills these markers in
+The set this scene was first built from was a 7-question set that claimed the
+subject arm at `7 / 7`. **No results file records that.** The passes on disk
+read `4/7` (`results.json`, commit `4c1bfae`) and `6/7`
+(`results-0.3.6.json`, commit `954b9eb`). The `7 / 7` came from the closing
+prose of `remeasure.md`, which attributes it to `results-0.3.6.json` at commit
+`71e6c57` — but all three of that note's passes wrote to that same filename, so
+each overwrote the last, and the run that substantiated `7 / 7` no longer
+exists. It cannot be re-checked, because it is not there.
 
-**Prefer the machine-readable results over prose.** A remeasurement note's
-narrative can describe a pass whose output was never committed; a results file
-cannot. Where the two conflict, the results file is the record and the prose is a
-claim about it.
+The old on-screen set was `6.2k` / `63.5k` / `7 / 7` / `1.00` / `1.00`. It is
+gone. The 29-question set above replaces it, and the difference that matters is
+not that the numbers are bigger: it is that this set is a results file rather
+than a narrative about one.
 
-**Do not resolve this by picking whichever source makes the film look
-strongest.** If the honest figures are weaker than the ones this scene was built
-from, the scene changes — the copy, the row set, possibly the argument. The film
-is allowed to be less impressive. It is not allowed to be wrong.
+The rule that fell out of this is now an invariant. **Prefer the
+machine-readable results over prose.** A remeasurement note can describe a pass
+whose output was never committed; a results file cannot. Where the two conflict,
+the results file is the record and the prose is a claim about it. And do not
+resolve such a conflict by picking whichever source makes the film look
+strongest: the film is allowed to be less impressive, it is not allowed to be
+wrong.
 
-<!-- FIGURE PENDING: the named-file account of which source supersedes which,
-     including the token and exact-answer counts each one reports, once the
-     upstream record has been reconciled. This section is deliberately
-     figure-free until then. -->
+The freeze also raised a question about *shape* rather than values. The table
+states its correctness rows with **both columns at equal weight**, which is a
+claim that the two arms tie on those measures — and a layout that asserts a tie
+the measurement does not report is a benchmark-integrity failure of exactly the
+kind `AGENTS.md` §29 exists to prevent, because it is a wrong shape and not
+merely a wrong number. On the 29-question set that claim is checkable and it
+holds: `exact answers` and `precision` are exact ties, and `recall` differs by
+0.007 in kivgraph's favour. The equal-weight shape is therefore load-bearing and
+true, which is why `## Invariants` now protects it.
+
+### Display precision
+
+Two display decisions are part of the figure set and not formatting.
+
+Token counts are stated **exactly and comma-grouped** — `35,961` and `267,980`,
+never `36k` and `268k`. An exact count is a measurement; a rounded one is a
+summary of a measurement, and at 76 px that is the difference between a fact and
+a headline.
+
+`recall` is stated to three decimals, and `precision` is stated to three
+decimals **to match it** even though both arms are at `1.000`. The reason is the
+column, read downward: at two decimals `recall` would read `1.00` against
+`0.99`, which flatters kivgraph to a perfect score it did not earn and inflates
+the visible gap from 0.007 to 0.01. Three decimals states the smaller true gap
+and keeps the two ratio rows at one depth.
 
 ### The caution the film inherits
 
-The benchmark cautions about itself that its question set is small and was chosen
-for what it could discriminate, on a single corpus. This scene inherits that
-caution and does not get to drop it: a tool that answers all of the questions
-there is not a tool that answers everything, it is a tool with **no known miss on
-that set**. This is why the scene states raw fractions rather than a superlative,
-and why `## Invariants` forbids a percentage improvement.
-
-<!-- FIGURE PENDING: the size of the question set and of the corpus. -->
+The benchmark cautions about itself that its question set is small — 29
+questions — and was chosen for what it could discriminate, on a single corpus of
+37 repositories. This scene inherits that caution and does not get to drop it.
+The subject arm answered all 29 questions and got 28 of them exactly right: that
+is one known miss, not a perfect score, and the table says so in the same
+denominator it states everything else in. This is why the scene shows raw
+fractions rather than a superlative, and why `## Invariants` forbids a
+percentage improvement.
 
 ### The rival arms that are not in the table
 
-The upstream benchmark measures more arms than the film shows. The additional
-graph tools are **deliberately absent**, for two reasons:
+The upstream benchmark measures more arms than the film shows. On this
+29-question set the four rival graph tools scored graft `3/29`, graphify `4/29`,
+codebase-memory `3/29` and code-review-graph `3/29` on exact answers. They are
+**deliberately absent** from the table, for two reasons:
 
 - naming competitors in a promotional video is a strategic decision and not a
   design one, and it is not this document's to make;
@@ -132,8 +144,8 @@ decision goes the other way, the table is no longer two columns and every
 measurement in `## Visual composition` is void — do not treat the two-column
 layout as though the absence had been argued to a conclusion.
 
-<!-- FIGURE PENDING: which tools, at which versions, and the margin by which the
-     subject arm beats them on cost per correct answer. -->
+The version each rival was pinned to, and any cost-per-correct-answer margin
+against them, live upstream and are not restated here.
 
 ## Narrative context
 
@@ -173,18 +185,18 @@ why the scene is 210 frames**.
 
 Beats, as built:
 
-| Master        | Local         | Beat                                                                                         |
-| ------------- | ------------- | -------------------------------------------------------------------------------------------- |
-| `1150`        | `0000`        | Hard cut. Empty background.                                                                  |
-| `1152`–`1172` | `0002`–`0022` | The two column heads, `kivgraph` and `grep + read`, arrive together.                         |
-| `1160`–`1180` | `0010`–`0030` | The hairline rule under the heads, to `0.9` opacity.                                         |
-| `1164`–`1188` | `0014`–`0038` | The cost row, `tokens`: the subject figure at 76 px, the baseline figure at 36 px and faint. |
-| `1192`–`1212` | `0042`–`0062` | The first correctness row.                                                                   |
-| `1216`–`1236` | `0066`–`0086` | The second correctness row.                                                                  |
-| `1240`–`1260` | `0090`–`0110` | The third correctness row.                                                                   |
-| `1266`–`1286` | `0116`–`0136` | The source note, below the body, lands last.                                                 |
-| `1286`–`1348` | `0136`–`0198` | Settled. The render measures 63 byte-identical frames.                                       |
-| `1348`–`1360` | `0198`–`0210` | The whole table fades out together.                                                          |
+| Master        | Local         | Beat                                                                     |
+| ------------- | ------------- | ------------------------------------------------------------------------ |
+| `1150`        | `0000`        | Hard cut. Empty background.                                              |
+| `1152`–`1172` | `0002`–`0022` | The two column heads, `kivgraph` and `grep + read`, arrive together.     |
+| `1160`–`1180` | `0010`–`0030` | The hairline rule under the heads, to `0.9` opacity.                     |
+| `1164`–`1188` | `0014`–`0038` | The cost row, `tokens`: `35,961` at 76 px, `267,980` at 36 px and faint. |
+| `1192`–`1212` | `0042`–`0062` | The `exact answers` row: `28 / 29` in both columns.                      |
+| `1216`–`1236` | `0066`–`0086` | The `precision` row: `1.000` in both columns.                            |
+| `1240`–`1260` | `0090`–`0110` | The `recall` row: `0.996` against `0.989`.                               |
+| `1266`–`1286` | `0116`–`0136` | The source note, `37 repositories · published benchmark`, lands last.    |
+| `1286`–`1348` | `0136`–`0198` | Settled. The render measures 63 byte-identical frames.                   |
+| `1348`–`1360` | `0198`–`0210` | The whole table fades out together.                                      |
 
 The table is built before it is filled: the heads and their rule arrive first,
 because a figure landing in an unheaded column is a number with no claim
@@ -216,22 +228,22 @@ static:
 - two column heads, `kivgraph` and `grep + read`, 18 px `textMuted`, each
   right-aligned on its own column;
 - one 1 px hairline under them at `y 388`, spanning the table's full 800 px;
-- the cost row, `tokens`: the subject figure at 76 px `textPrimary`, the baseline
-  figure at 36 px `textFaint`;
-- three correctness rows, each stating both columns at 36 px `textPrimary`;
-- the source note alone below the body, 18 px `textFaint`, with no figure beside
-  it;
+- the cost row, `tokens`: `35,961` at 76 px `textPrimary`, `267,980` at 36 px
+  `textFaint`;
+- `exact answers`, `28 / 29` against `28 / 29`, both at 36 px `textPrimary`;
+- `precision`, `1.000` against `1.000`, both at 36 px `textPrimary`;
+- `recall`, `0.996` against `0.989`, both at 36 px `textPrimary`;
+- the source note alone below the body, `37 repositories · published benchmark`,
+  18 px `textFaint`, with no figure beside it;
 - nothing in motion.
 
-<!-- FIGURE PENDING: the eight cell values, the three correctness row labels and
-     the source-note string. The structure above is built and measured; the
-     contents are not confirmed. -->
-
-The row where the two columns differ is the cost row, and that difference is what
-the composition exists to carry. The correctness rows are stated at equal weight
-in both columns, which is a claim about the measurement and not a design choice —
-see `## Provenance` → **The discrepancy that put every figure on hold** before
-treating that shape as settled.
+The only row where the two columns differ by an order of magnitude is the cost
+row, and that difference is what the composition exists to carry. Below it,
+`exact answers` and `precision` are exact ties and `recall` differs by 0.007 in
+kivgraph's favour, so all three are stated at equal weight in both columns —
+which is a report of the measurement and not a design choice. See
+`## Provenance` → **The discrepancy that put every figure on hold, and how it
+resolved**.
 
 The render measures this frame byte-identical for **63 frames**, master `1286`–
 `1348`. A viewer landing on any one of those 63 frames should be able to
@@ -246,17 +258,13 @@ body.
 ```text
                           kivgraph        grep + read
               ────────────────────────────────────────
-tokens                    [cost A]           [cost B]
-[measure 2]                [fig A]            [fig B]
-[measure 3]                [fig A]            [fig B]
-[measure 4]                [fig A]            [fig B]
+tokens                      35,961            267,980
+exact answers              28 / 29            28 / 29
+precision                    1.000              1.000
+recall                       0.996              0.989
 
-[source note]
+37 repositories · published benchmark
 ```
-
-<!-- FIGURE PENDING: the bracketed cells, the three measure labels and the
-     source-note string. The shape of the diagram - two headed columns, one
-     rule, four rows, a detached note - is the built layout and is correct. -->
 
 **Why two columns.** The scene's argument is a comparison, so the composition has
 to be one. Each column right-aligns on its own edge, which is the whole
@@ -274,13 +282,16 @@ Columns, in master pixels, exported as `tableGrid` from
 - `labelLeft: 560`, `columnRight: [1060, 1360]` — 800 px wide, centred in the
   1920 frame.
 
-Two proportions were measured off a render and then fixed. The gap from a label
-to its first figure runs **251–352 px** depending on how long the label is, and
-the gap between the two figures runs **200–222 px**. A label therefore reads as
-belonging to its row while the two figures still read as two columns rather than
-as one wide number. The first attempt had those at **466** and **248**, which
-detached the last row's label from its own figure while letting that row's two
-figures crowd each other.
+Two proportions were measured off the render and then fixed. The gap from a label
+to its first figure runs **174–331 px** depending on how long the label and its
+figure are, and the gap between the two figures runs **158–201 px**. A label
+therefore reads as belonging to its row while the two figures still read as two
+columns rather than as one wide number. Both ranges tightened when the figures
+got longer — `35,961` and `267,980` fill more of their columns than the previous
+build's shorter strings did — so the earlier **251–352** and **200–222** are
+superseded, as is the first attempt's **466** and **248**, which detached the
+last row's label from its own figure while letting that row's two figures crowd
+each other.
 
 Vertical positions, in master pixels:
 
@@ -307,10 +318,11 @@ differ by 40 px of size, and aligning tops would leave the smaller one floating
 above its own baseline. The table is centred within the frame so future
 1:1 / 4:5 / 9:16 variants remain possible (`STORYBOARD.md` §2, `AGENTS.md` §38).
 
-Measured in the render: column A right-aligns at exactly `x 1058` and column B at
-`x 1358` — 1–2 px of mono side bearing inside the declared column edges — the
-block's ink spans `x 561`–`1358` for a centre of **959.5** against a frame centre
-of 960, and the rule is 1 px tall and exactly 800 px wide at `y 388`.
+Measured on the render at settled frame `1345`: column A right-aligns at exactly
+`x 1057` and column B at `x 1357` — 3 px of mono side bearing inside the declared
+column edges — the block's ink spans `x 560`–`1359` for a centre of **959.5**
+against a frame centre of 960, and the rule spans `x 560`–`1359` at `y 388`,
+1 px tall and exactly 800 px wide.
 
 Type, all `JetBrains Mono`, weights 400 and 500 only:
 
@@ -326,13 +338,14 @@ one, which is exactly `AGENTS.md` §27's monospace case.
 
 **The baseline figure in the cost row is the only dimmed figure in the table.**
 `textFaint` in this scene means one thing: *the baseline, on the one measure where
-the columns differ*. In the three correctness rows both columns are `textPrimary`,
-at the same size and the same weight, because dimming one side of an equal pair
-would assert a difference the measurement does not report — it would turn a
-stated equality into an implied win, which is the one thing this scene is not
-allowed to do (`AGENTS.md` §29). Whether those three rows are in fact equal is the
-open question in `## Provenance`; the rule about dimming holds either way, because
-it is a rule about not letting the type contradict the data.
+the columns differ by an order of magnitude*. In the three correctness rows both
+columns are `textPrimary`, at the same size and the same weight. On `exact
+answers` and `precision` that is an exact tie, and dimming one side of an equal
+pair would assert a difference that is not there. On `recall` the columns do
+differ — `0.996` against `0.989` — and dimming the baseline there would inflate a
+0.007 gap in the third decimal into a visual win. Both faults point the same way,
+and the rule that forbids them is the same rule: the type may not contradict the
+data (`AGENTS.md` §29).
 
 **The column heads are labels, not a subject marker.** `kivgraph` and
 `grep + read` are both `textMuted`, the same treatment the row labels get,
@@ -374,10 +387,10 @@ Windows as built:
 | ------------------------- | ----------- | ------------- |
 | the two column heads      | `002`–`022` | `1152`–`1172` |
 | the hairline rule         | `010`–`030` | `1160`–`1180` |
-| the cost row              | `014`–`038` | `1164`–`1188` |
-| correctness row 1         | `042`–`062` | `1192`–`1212` |
-| correctness row 2         | `066`–`086` | `1216`–`1236` |
-| correctness row 3         | `090`–`110` | `1240`–`1260` |
+| the cost row, `tokens`    | `014`–`038` | `1164`–`1188` |
+| the `exact answers` row   | `042`–`062` | `1192`–`1212` |
+| the `precision` row       | `066`–`086` | `1216`–`1236` |
+| the `recall` row          | `090`–`110` | `1240`–`1260` |
 | the source note           | `116`–`136` | `1266`–`1286` |
 | fade out, the whole table | `198`–`210` | `1348`–`1360` |
 
@@ -395,9 +408,11 @@ of what a table is for.
 
 Storyboard frame numbers mark when a beat **reads**, not when its ramp begins,
 and frame `1190` is the case where that matters. It is a designated still-image
-key frame (`STORYBOARD.md` §29). The cost row therefore completes at `1188`, and
-the first correctness row does not begin until `1192`. A half-faded figure at
-`1190` would ruin the one frame from this scene that gets used outside the video.
+key frame (`STORYBOARD.md` §29). The cost row therefore completes at local `038`
+/ master `1188`, and the `exact answers` row does not begin until `1192`, so
+`1190` carries `35,961` and `267,980` settled under their two named arms with
+nothing half-arrived beneath them. A half-faded figure at `1190` would ruin the
+one frame from this scene that gets used outside the video.
 
 **No count-up, no odometer, no ticking numerals.** Numbers appear at their final
 value. Two reasons, and both are hard: a mid-count still frame displays a number
@@ -414,23 +429,22 @@ arriving at all.
 
 Measured on the 210-frame cut, with the fade beginning at master `1348`:
 
-| Element           | Settles at master | Dwell               |
-| ----------------- | ----------------: | ------------------- |
-| column heads      |            `1172` | 176 frames / 2.93 s |
-| the cost row      |            `1188` | 160 frames / 2.67 s |
-| correctness row 1 |            `1212` | 136 frames / 2.27 s |
-| correctness row 2 |            `1236` | 112 frames / 1.87 s |
-| correctness row 3 |            `1260` |  88 frames / 1.47 s |
-| the source note   |            `1286` |  62 frames / 1.03 s |
+| Element                 | Settles at master |               Dwell | Chars/s |
+| ----------------------- | ----------------: | ------------------: | ------: |
+| column heads            |            `1172` | 176 frames / 2.93 s |     6.5 |
+| the `tokens` row        |            `1188` | 160 frames / 2.67 s |     7.1 |
+| the `exact answers` row |            `1212` | 136 frames / 2.27 s |    11.9 |
+| the `precision` row     |            `1236` | 112 frames / 1.87 s |    10.2 |
+| the `recall` row        |            `1260` |  88 frames / 1.47 s |    10.9 |
+| the source note         |            `1286` |  62 frames / 1.03 s |    35.8 |
 
-The binding element is the source note, at 1.03 s. It is the longest quiet string
-in the scene and the last thing to arrive, so it sets whether the scene is
-readable at all.
-
-<!-- FIGURE PENDING: the source note's character count and the resulting
-     characters-per-second reading rate against this project's 25-40 budget for
-     on-screen technical text. The 1.03 s is measured and correct; the rate
-     depends on the note's final string. -->
+The binding element is the source note, at 1.03 s and **35.8 characters per
+second**: 37 characters in 62 frames. It is the longest quiet string in the scene
+and the last thing to arrive, so it sets whether the scene is readable at all,
+and it is the row that sets the scene's chars-per-second floor. Every other row
+sits between 6.5 and 11.9, so nothing else is close. 35.8 is inside this
+project's 25–40 budget for on-screen technical text, with nothing to spare — if
+the note ever gets longer, the scene has to get longer with it.
 
 The hold from master `1286` to `1348` is not padding and it is not a settled
 frame waiting for a cut. Four measures across two columns can only be read as one
@@ -490,16 +504,23 @@ kivgraph
 grep + read
 ```
 
-Row labels:
+The four rows, as label, column A, column B:
 
 ```text
-tokens
+tokens          35,961      267,980
+exact answers   28 / 29     28 / 29
+precision       1.000       1.000
+recall          0.996       0.989
 ```
 
-<!-- FIGURE PENDING: the three correctness row labels and the source-note
-     string. They are copy, but they name measures whose figures are
-     unconfirmed, and if the question set changes the row set changes with
-     it. -->
+The source note:
+
+```text
+37 repositories · published benchmark
+```
+
+That is fifteen strings and nothing else: two column heads, four row labels,
+eight figures and one source note.
 
 `kivgraph` is **lowercase deliberately**. It is a benchmark arm standing beside
 `grep + read`, not the brand lockup: this scene names a thing that was measured,
@@ -515,10 +536,26 @@ other has moved into the source note, where it states the scale the whole table
 holds at — which is where it always belonged. `published benchmark` remains the
 source note's tail, lowercase, a provenance stamp rather than a heading.
 
-The correctness rows are three rather than one on purpose. One row asserting that
-a tool is right is easy to disbelieve; three independent measures agreeing is a
-shape a technical viewer recognises and can check. That reasoning survives the
-figure hold, but the specific three measures do not — see `## Provenance`.
+The figures are quoted exactly as the results file records them, at the depth
+`## Provenance` → **Display precision** sets out: token counts exact and
+comma-grouped rather than rounded to `36k`, and both ratio rows at three
+decimals so the column reads at one precision.
+
+**The question count is deliberately absent from the source note.**
+`37 repositories · published benchmark` states the corpus and states that the
+measurement is checkable, and it does not say `29 questions`, because 29 is
+already on screen twice — it is the denominator of `28 / 29` in both columns.
+Repeating it would cost the note characters it does not have. At 37 characters
+in 62 frames the note already reads at 35.8 characters per second, the tightest
+row in the scene and the one that sets its chars-per-second floor, so every
+character in it has to be earning something.
+
+The correctness rows are three rather than one on purpose. One row asserting
+that a tool is right is easy to disbelieve; three independent measures agreeing
+is a shape a technical viewer recognises and can check. `exact answers` is the
+coarse, unarguable one — did it produce the answer or not. `precision` and
+`recall` are the two halves of the finer question, and stating both is what
+stops either from being cherry-picked.
 
 No unit explanations, no footnotes, no percentage, no "vs", no comparative
 sentence. The relationship between the cost row's two figures is carried by the
@@ -529,11 +566,11 @@ the layout is wrong.
 
 ```text
 frame 1150 — hard cut; empty frame, nothing yet
-frame 1190 — column heads, rule and the cost row all complete; the two cost
-             figures legible under their two named arms, correctness rows not
-             yet arrived; STILL-IMAGE KEY FRAME
-frame 1250 — heads, rule, cost row and the first two correctness rows complete,
-             the third mid-arrival
+frame 1190 — column heads, rule and the cost row all complete; `35,961` and
+             `267,980` legible under `kivgraph` and `grep + read`, the three
+             correctness rows not yet arrived; STILL-IMAGE KEY FRAME
+frame 1250 — heads, rule, `tokens`, `exact answers` and `precision` complete,
+             `recall` mid-arrival
 frame 1300 — the settled table, inside the 63-frame identical run 1286-1348
 frame 1347 — the last frame before the fade
 ```
@@ -544,15 +581,13 @@ image for landing page, README, and social use. It is a hard requirement on this
 scene, not a nicety. Inspect it as an exported PNG, not only in the Studio
 scrubber.
 
-<!-- FIGURE PENDING: STORYBOARD.md §29 specifies the required content of this
-     still as two named figures. Do not restate them here until the figure set
-     is confirmed. -->
-
-The rebuild **improved that frame**. It now shows the cost row's two figures with
-both arms named above them, so the still explains itself: a reader who has never
-seen the video can tell which number belongs to which way of working. The
-previous build put two bare numbers there and left the caption to do that work.
-Its one remaining compromise is vertical; see `## Current compromises`.
+`STORYBOARD.md` §29 specifies the required content of this still as the two cost
+figures, and the frame delivers them: `35,961` and `267,980`, complete and
+legible, with `kivgraph` and `grep + read` named above them. That is an
+improvement on the previous build, which put two bare numbers there and left the
+caption to explain which was which — a reader who has never seen the video can
+now tell which number belongs to which way of working. The still's one remaining
+compromise is vertical; see `## Current compromises`.
 
 ## Invariants
 
@@ -565,27 +600,42 @@ Its one remaining compromise is vertical; see `## Current compromises`.
 - **The figures are never re-derived from a superseded or uncorroborated pass.**
   Prefer the upstream benchmark's machine-readable results over any prose
   narrative about them; where the two conflict, the results file is the record.
-  This is the invariant this scene has already been caught violating — see
-  `## Provenance`.
+  This is the invariant that retired the 7-question set — see `## Provenance`.
 - **The figures are stored as strings, not numbers.** A figure quoted with a
-  suffix is not that suffix applied to an integer, and a figure quoted to two
-  decimal places is not an integer formatted to two places. The published values
+  suffix is not that suffix applied to an integer, and a figure quoted to three
+  decimal places is not an integer formatted to three places: `1.000` is not `1`,
+  and `0.996` is not `0.99617` re-formatted at render time. The published values
   are quoted at a specific precision, and formatting a number would let a future
   edit change the precision — which is the same thing as changing the value.
-- **Rows whose two figures are equal are never dimmed relative to each other.**
-  In every correctness row both columns are `textPrimary`, at the same size and
-  the same weight. Dimming one side of an equal pair would assert a difference
-  the measurement does not report.
+- **The four-row, equal-weight shape is load-bearing, and on this figure set it
+  is true.** `exact answers` ties at `28 / 29`, `precision` ties at `1.000`,
+  `recall` differs by 0.007 in kivgraph's favour, and cost is the only measure
+  that moves at all. That is the argument the frame makes: same answers, same
+  correctness, a fraction of the tokens. An edit that drops a correctness row,
+  collapses the three into one, or dims one column on any of them breaks it —
+  with fewer rows the scene is a cost claim with nothing holding it honest, and
+  with a dimmed column it is an implied win the measurement does not report.
+  Four rows, two columns, one dimmed figure.
+- **`precision` states three decimals.** It ties at `1.000` in both columns and
+  could be written `1.00`, but it is quoted to `recall`'s depth so the two ratio
+  rows read at one precision down the column. At two decimals `recall` would
+  read `1.00` against `0.99`, which hands kivgraph a perfect score it did not
+  earn and inflates the visible gap from 0.007 to 0.01.
+- **Rows whose two figures are equal are never dimmed relative to each other**,
+  and neither is a row that differs only in the third decimal. In every
+  correctness row both columns are `textPrimary`, at the same size and the same
+  weight. Dimming one side would assert a difference the measurement does not
+  report, or inflate one it barely does.
 - **The baseline figure in the cost row is the only dimmed figure in the table.**
-  `textFaint` means "the baseline, on the one measure where the columns differ",
-  and it never spreads to another row.
+  `textFaint` means "the baseline, on the one measure where the columns differ by
+  an order of magnitude", and it never spreads to another row.
 - **The column heads are labels, not a coloured subject marker.** `kivgraph` and
   `grep + read` are both `textMuted`, identical to the row labels. Marking the
   subject column with accent or `textPrimary` would contradict the equal-weight
   correctness rows in the same frame that states them.
 - **The shared right edge, per column.** Column A right-aligns on
-  `tableGrid.columnRight[0]` `1060` (measured ink at `x 1058`) and column B on
-  `columnRight[1]` `1360` (measured at `x 1358`). The comparison is made by the
+  `tableGrid.columnRight[0]` `1060` (measured ink at `x 1057`) and column B on
+  `columnRight[1]` `1360` (measured at `x 1357`). The comparison is made by the
   composition, not by the viewer. A row that centres itself, or a figure that
   opts out of its column, destroys the scene's mechanism.
 - **The 76/36 pair.** In the cost row the subject figure is 76 px against the
@@ -613,8 +663,8 @@ Its one remaining compromise is vertical; see `## Current compromises`.
 - The figures speak for themselves. Nothing is added to help them.
 - Typography only. No graph, no terminal, no product UI, no logo, no device
   frame, no background texture.
-- Frame `1190` works as a still image, with both cost figures fully legible and
-  both arms named above them.
+- Frame `1190` works as a still image, with `35,961` and `267,980` fully legible
+  and both arms named above them.
 - The hard cut at `1150` stays hard.
 - The scene is static from `1286` to `1348`, and the whole table leaves together.
 
@@ -623,8 +673,8 @@ Its one remaining compromise is vertical; see `## Current compromises`.
 - Exact row tops and the vertical rhythm, provided the source note keeps roughly
   double a row's gap above it.
 - The table's width and column positions, provided the two measured proportions
-  hold: a label sits 251–352 px from its first figure, and the two figures sit
-  200–222 px apart. Those are the numbers that keep a label attached to its row
+  hold: a label sits 174–331 px from its first figure, and the two figures sit
+  158–201 px apart. Those are the numbers that keep a label attached to its row
   without letting the two figures merge into one wide number.
 - Whether the hairline under the column heads exists at all, and its opacity
   (built: `0.9`).
@@ -636,14 +686,11 @@ Its one remaining compromise is vertical; see `## Current compromises`.
   all of them: the table has to fill at one speed.
 - The exact window starts, provided no element loses dwell against the table in
   `## Motion` and the cost row is complete at `1190`.
-- **The row set itself, until the figure hold lifts.** How many correctness rows
-  there are, and what they measure, follows the confirmed figure set rather than
-  this layout. Four rows is what is built; it is not yet an invariant.
 
-Not flexible, and stated in `## Invariants`: the 76/36 size pair, the per-column
-right edges, the equal treatment of any row whose figures are equal, the baseline
-cost figure as the only dimmed figure, the column heads as plain labels, and
-whether any accent is used.
+Not flexible, and stated in `## Invariants`: the four-row equal-weight shape and
+the row set that carries it, the three decimals on both ratio rows, the 76/36
+size pair, the per-column right edges, the baseline cost figure as the only
+dimmed figure, the column heads as plain labels, and whether any accent is used.
 
 ## Technical notes
 
@@ -680,8 +727,8 @@ whether any accent is used.
 - Benchmark figures: `src/data/benchmark.ts`, exporting `arms`, `rows` and
   `sourceNote`, with the provenance in the file's own doc comment. §29's update
   procedure has to have a single place to land; eight cell values spread through
-  a component are eight places to forget. **That file currently holds the
-  disputed figure set** — see `## Provenance`.
+  a component are eight places to forget. That file holds the confirmed
+  29-question set — see `## Provenance`.
 - Global scene boundaries live inline in `src/Composition.tsx` as
   `<Sequence name="07 Benchmark" from={1150} durationInFrames={210} premountFor={30}>`
   literals, because Remotion Studio can only trim inline literals. There is no
@@ -693,9 +740,10 @@ whether any accent is used.
   font swap is most visible, so no fallback family here.
 - No `fontVariantNumeric` is set: `JetBrains Mono` already advances every digit
   identically, and the render confirms it — column A lands a right edge at
-  `x 1058` and column B at `x 1358`, on every row. If a future font change
-  misaligns digits, add tabular figures rather than nudging a row; misaligned
-  digits at 76 px look like a bug.
+  `x 1057` and column B at `x 1357`, on every row, including the two rows whose
+  figures differ in width by a digit. If a future font change misaligns digits,
+  add tabular figures rather than nudging a row; misaligned digits at 76 px look
+  like a bug.
 - Colours from `src/brand/tokens.ts`. No raw hex in the component. The scene uses
   `background`, `textPrimary`, `textFaint`, `textMuted` and `border`, and no
   accent.
@@ -703,9 +751,16 @@ whether any accent is used.
   absolutely positioned. No 3D, no images.
 - Measured on the render: **1360 frames with no black frame**, the settled table
   byte-identical for 63 frames (`1286`–`1348`), and the only single-frame
-  anomalies at the two hard cuts, `0969`/`0970` and `1149`/`1150`. Seam
-  measurements are unchanged by this rebuild: `0629`/`0630` at **62.93 dB** and
-  `1149`/`1150` at **22.30 dB** — a hard cut is supposed to measure low.
+  anomalies at the two hard cuts, `0969`/`0970` and `1149`/`1150`. Seams:
+  `0629`/`0630` at **62.93 dB** and `0769`/`0770` pixel-identical, both unchanged
+  by this figures pass; `0969`/`0970` at **30.44 dB whole frame**, a match cut,
+  and a whole-frame figure is not comparable to a symbol-region one so always
+  say which is quoted; `1149`/`1150` at **24.21 dB**, where a hard cut is
+  supposed to measure low. That last number moved from 22.30 dB, and it moved
+  because the content on the right of the cut *is* the new figure set: a cut's
+  PSNR is a property of both frames, so replacing the cost row necessarily moves
+  it. It is neither a regression nor an improvement — it is the same cut
+  measuring a different first frame.
 - Because the frame is nearly empty, check legibility in a small embedded player
   (`STORYBOARD.md` §7). The source note at 18 px in `textFaint` `#737373` is the
   first thing that will disappear at low resolution or high compression, and it
@@ -715,14 +770,6 @@ whether any accent is used.
 
 ## Current compromises
 
-- **The figure set is on hold, and this outranks every other compromise here.**
-  The layout, the timing and the geometry are built, rendered and measured. The
-  cell contents are not confirmed: the pass they came from is recorded only in
-  prose and is contradicted by the upstream benchmark's machine-readable
-  results. Until that is resolved this document carries
-  `<!-- FIGURE PENDING: … -->` markers instead of values, and the rendered scene
-  is showing figures that may be wrong. **Do not ship this scene.** See
-  `## Provenance`.
 - **Implemented, and rebuilt as a two-column comparison table.**
   `src/scenes/BenchmarkScene.tsx`, `src/components/BenchmarkMetric.tsx` and
   `src/data/benchmark.ts` exist and the scene renders. This document describes
@@ -731,29 +778,30 @@ whether any accent is used.
   single value column, or a `label → value` pair, or a mid-table rule, that
   sentence is a leftover and the two-column table wins.
 - **The `1190` still names both arms now, but still sits above frame centre.**
-  The frame delivers what `STORYBOARD.md` §29 asks — both cost figures complete
-  and legible — and it delivers it better than the previous build did, because
-  `kivgraph` and `grep + read` are named above the figures, so the still is
-  self-explanatory as a standalone image. The pair still sits high, because the
-  block is laid out for four rows and the lower three are empty at `1190`. That
-  is a **crop question, not a layout one**: centring the pair would decentre the
-  settled table, and the settled table is the image the film actually shows,
+  The frame delivers what `STORYBOARD.md` §29 asks — `35,961` and `267,980`
+  complete and legible — and it delivers it better than the previous build did,
+  because `kivgraph` and `grep + read` are named above the figures, so the still
+  is self-explanatory as a standalone image. The pair still sits high, because
+  the block is laid out for four rows and the lower three are empty at `1190`.
+  That is a **crop question, not a layout one**: centring the pair would decentre
+  the settled table, and the settled table is the image the film actually shows,
   byte-identical, for 63 frames. A still that needs the pair optically centred
   should be cropped.
-- **The correctness measures are jargon, accepted deliberately.** The labels on
-  the correctness rows are terms of art, not general-audience words, and a
-  general audience would need a sentence for each — which this scene refuses to
-  give. The audience for this film is developers, and to that audience the terms
-  are precise, familiar and unarguable. A viewer who does not know them still
-  reads two figures side by side and gets the shape. The alternative was a
-  plain-language paraphrase, which would have been longer, softer, and would have
-  looked like it was avoiding the real terms.
+- **Two of the correctness measures are jargon, accepted deliberately.**
+  `exact answers` reads in plain English. `precision` and `recall` are terms of
+  art, not general-audience words, and a general audience would need a sentence
+  for each — which this scene refuses to give. The audience for this film is
+  developers, and to that audience the terms are precise, familiar and
+  unarguable. A viewer who does not know them still reads two figures side by
+  side and gets the shape. The alternative was a plain-language paraphrase, which
+  would have been longer, softer, and would have looked like it was avoiding the
+  real terms.
 - **Naming the other measured arms: open.** The upstream benchmark measures more
   tools than the film shows. They are out because naming competitors is a
   strategic decision rather than a design one, and because their figures are
   pinned to versions that will move. **That is the current decision, not a closed
-  one**; it belongs to the user, not to this document. See `## Provenance` → **The
-  rival arms that are not in the table**.
+  one**; it belongs to the user, not to this document. `## Provenance` → **The
+  rival arms that are not in the table** names the four and what they scored.
 - **Accent, decided: none.** The rendered scene uses no accent at all: a neutral
   frame is what makes the comparison survive in greyscale, and the 10–15 % accent
   budget (`AGENTS.md` §26) is satisfied elsewhere in the video.
@@ -969,4 +1017,76 @@ whether any accent is used.
   about its own small question set and the open decision about the other measured
   arms. The figures in `src/data/benchmark.ts` and on screen are unchanged and
   unconfirmed; the scene must not ship until the user resolves the figure set.
+```
+
+```text
+2026-08-26
+- The figure hold is lifted. The user resolved the figure set to the 29-question
+  pass in `kivgraph/benchmarks/graph-tools-comparison/results-all.json`, the
+  `aggregate` block at commit `954b9eb`, generated `2026-08-22T10:18:32Z`: 29
+  questions over 37 git repositories, tokenizer `tiktoken` `o200k_base`, machine
+  Apple M5 / macOS / arm64. Values only - the table's layout, timing and row
+  count are unchanged. Every `<!-- FIGURE PENDING: ... -->` marker in this
+  document is filled and deleted, and the `FIGURES ON HOLD` notice under the
+  title and the "do not ship this scene" compromise are gone with them.
+- On screen, four rows: `tokens` `35,961` against `267,980`; `exact answers`
+  `28 / 29` against `28 / 29`; `precision` `1.000` against `1.000`; `recall`
+  `0.996` against `0.989`. Source note `37 repositories · published benchmark`.
+  The cost ratio is 7.45x and appears nowhere on screen. The baseline column is
+  the upstream `native` arm, named `grep + read` because that is what it is.
+- The 7-question set was abandoned because it cannot be checked. No results file
+  records the subject arm at `7 / 7`: the passes on disk read `4/7`
+  (`results.json`, commit `4c1bfae`) and `6/7` (`results-0.3.6.json`, commit
+  `954b9eb`), and the `7 / 7` comes from the closing prose of `remeasure.md`,
+  which attributes it to `results-0.3.6.json` at commit `71e6c57` - but all three
+  of that note's passes wrote to that same filename, so each overwrote the last
+  and the run that substantiated it no longer exists. The old on-screen set was
+  `6.2k` / `63.5k` / `7 / 7` / `1.00` / `1.00`.
+- The two correctness measure names that were neutralised to "both correctness
+  ratios" during the freeze are restored: the rows are `exact answers`,
+  `precision` and `recall`. Two of the three stay jargon, deliberately.
+- The four-row equal-weight shape moved from open question to invariant, because
+  on this set it is true: `exact answers` and `precision` are exact ties,
+  `recall` differs by 0.007 in kivgraph's favour, and cost is the only measure
+  that moves. An edit that reduces the table to fewer rows or dims one column
+  breaks the argument, so `## Invariants` now says so and the "row set until the
+  figure hold lifts" entry left `## Flexible elements`.
+- `precision` is quoted to three decimals although it ties at `1.000`, to match
+  `recall`'s depth down the column. At two decimals `recall` would read `1.00`
+  against `0.99`, which hands kivgraph a perfect score it did not earn and
+  inflates the visible gap from 0.007 to 0.01. Token counts stay exact and
+  comma-grouped rather than rounded to `36k`. Both rules are recorded in
+  `## Provenance`, under Display precision.
+- The question count is deliberately absent from the source note: 29 is already
+  on screen as the denominator of `28 / 29` in both columns, and the note at 37
+  characters is the row that sets the scene's chars-per-second floor.
+- Geometry re-measured on the render that ships these figures, at settled frame
+  `1345`: the rule spans `x 560`-`1359` at `y 388`, exactly 800 px; the block's
+  ink centres on 959.5 against a frame centre of 960; the figure columns
+  right-align at `x 1057` and `x 1357`. The label-to-figure gap is now 174-331 px
+  and the figure-to-figure gap 158-201 px, replacing 251-352 and 200-222, which
+  were measured with the previous, shorter figure strings.
+- Dwell against the 25-40 characters-per-second budget: column heads 6.5, the
+  `tokens` row 7.1, `exact answers` 11.9, `precision` 10.2, `recall` 10.9, and
+  the source note 35.8 - 37 characters in 62 frames. The note is the tightest row
+  in the scene and it is inside budget.
+- Entrance windows, master timeline and hold are unchanged: header 2-22, rule
+  10-30, rows 14-38, 42-62, 66-86 and 90-110, source note 116-136, fade out
+  198-210, all scene-local; master 1570 frames (26.17 s), `mountedFrames` 1360,
+  this scene master `1150`-`1360` / local `0000`-`0210`; the settled table
+  byte-identical for 63 frames from `1286`; 1360 frames rendered with no black
+  frame. The still-image key frame stays at `1190`, where the cost row is
+  complete by local `038` / master `1188`, so it carries `35,961` and `267,980`
+  under both named arms.
+- Seams on this render: `0629`/`0630` 62.93 dB and `0769`/`0770`
+  pixel-identical, unchanged; `0969`/`0970` 30.44 dB whole frame; `1149`/`1150`
+  24.21 dB, where the earlier pass measured 22.30. The hard cut itself did not
+  change - a cut's PSNR is a property of both its frames, and the frame on the
+  right of this one is now the new figure set, so the same cut measures a
+  different first frame. It is neither a regression nor an improvement. A
+  whole-frame number and a symbol-region number are not comparable, and this
+  document now states which it quotes.
+- The four rival graph tools scored graft `3/29`, graphify `4/29`,
+  codebase-memory `3/29` and code-review-graph `3/29` on exact answers. They
+  stay out of the table; that decision is still the user's and is still open.
 ```

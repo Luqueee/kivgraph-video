@@ -1417,15 +1417,20 @@ oscurecía a `0.86` y se leía `Cross-repository.` sobre el velo, centrado, entr
 de la película.
 
 Medido tras el corte, tras el recorte de la 06, tras crecer la 07, tras el pase de
-ritmo sobre las escenas 06–08, tras montarse la 09 y tras reconstruirse la 09: las
-costuras 0330 y 0770 son idénticas píxel a píxel, la 0630 mide 62,93 dB — sólo
-antialiasing — y los 1360 frames montados no tienen ni un frame negro. El barrido
-marca dos parejas y nada más: 0969/0970, los dos lados del match cut de la 08, y
-1149/1150, el hard cut de
-la 09. Las dos son escalones, no picos, y ninguna pretende ser invisible: la
-primera mide 41,35 dB sobre la región del símbolo, que es la que el corte
-sostiene, y 28,69 dB de cuadro completo; la segunda mide 22,30 dB, que es lo que
-tiene que medir un hard cut.
+ritmo sobre las escenas 06–08, tras montarse la 09, tras reconstruirse la 09 y tras
+fijarse sus cifras: las costuras 0330 y 0770 son idénticas píxel a píxel, la 0630
+mide 62,93 dB — sólo antialiasing — y los 1360 frames montados no tienen ni un
+frame negro. El barrido marca dos parejas y nada más: 0969/0970, los dos lados del
+match cut de la 08, y 1149/1150, el hard cut de la 09. Las dos son escalones, no
+picos, y ninguna pretende ser invisible: la primera mide 41,35 dB sobre la región
+del símbolo, que es la que el corte sostiene, y 28,69 dB de cuadro completo; la
+segunda mide 24,21 dB, que es lo que tiene que medir un hard cut.
+
+La 1149/1150 medía 22,30 dB antes de fijarse las cifras, y no ha mejorado ni ha
+empeorado: la PSNR de un corte es una propiedad de sus dos frames, y el lado
+derecho de este corte es justo la tabla, así que cambiar `6.2k` por `35,961` mueve
+el número por definición. Las dos cifras de la 0969/0970 no se comparan entre sí:
+una es de región y la otra de cuadro completo.
 
 El número 05 se queda ocupado por este registro y las escenas siguientes
 conservan su numeración de storyboard.
@@ -1863,24 +1868,31 @@ demasiado corta; lo que no se puede hacer es dejarla pasar.
 
 ---
 
-### Nota de estado — 2026-08-26
+### Nota de resolución — 2026-08-26
 
 La escena se reconstruyó **por segunda vez el mismo día**, por dirección de arte
 directa: una **tabla comparativa** con dos brazos como cabeceras de columna y
-cuatro medidas como filas, en lugar de la columna de valores medidos que describen
-los bloques de más abajo. La estructura, el movimiento, la geometría y el ritmo
+cuatro medidas como filas. La estructura, el movimiento, la geometría y el ritmo
 viven en `docs/scenes/07-benchmark.md`.
 
-Lo que está fijado es el timeline: 210 frames, 1150–1360, el still en 1190, la
-tabla asentada desde 1286 y byte-idéntica durante 63 frames, y el fade en
-1348–1360.
+Las cifras están **resueltas** y este documento ya las escribe. El juego elegido es
+el de **29 preguntas** del registro legible por máquina del benchmark upstream
+(`kivgraph/benchmarks/graph-tools-comparison/results-all.json`, bloque `aggregate`,
+commit `954b9eb`), sobre los 37 repositorios del corpus. Se eligió porque es el
+único juego que un fichero de resultados sostiene entero, y entero es el requisito
+de una escena cuyo argumento es la exactitud.
 
-Lo que está **en espera** es todo lo demás de esta escena. Las cifras del benchmark
-están sin verificar: el registro legible por máquina del benchmark upstream no
-sostiene el juego de cifras con el que se escribió la reconstrucción. Hasta que se
-confirme, este documento no escribe ninguna. Los bloques de beats, el copy, la
-tabla de dwell y la sección «Por qué 170 frames y no 120» que siguen describen la
-**versión superada** y no la escena que hay hoy. No arrastrar sus valores.
+El juego de 7 preguntas queda abandonado. Ningún fichero de resultados registra a
+kivgraph en `7 / 7`: los pases en disco leen `4 / 7` y `6 / 7`. El `7 / 7` venía de
+la prosa de cierre de `remeasure.md`, que lo atribuye a `results-0.3.6.json`; los
+tres pases de ese documento escribieron al mismo nombre de fichero, cada uno
+sobrescribió al anterior, y la ejecución que lo sostenía ya no existe. Una cifra
+que no se puede volver a leer no se proyecta.
+
+Los bloques de beats, el copy y la tabla de dwell que siguen describen **la escena
+que hay hoy**. El timeline sigue fijado: 210 frames, 1150–1360, el still en 1190,
+la tabla asentada desde 1286 y byte-idéntica durante 63 frames, y el fade en
+1348–1360.
 
 ---
 
@@ -1902,31 +1914,48 @@ Sólo tipografía.
 
 ### Es una tabla
 
-Implementada como **tabla**, por dirección de arte directa: la unidad a la
-izquierda, la cifra medida alineada a la derecha en su propia columna. No es un
-valor con su etiqueta debajo.
+Implementada como **tabla**, por dirección de arte directa: la medida a la
+izquierda y una columna por brazo a la derecha, cada cifra alineada a la derecha
+contra el borde de su columna. No es un valor con su etiqueta debajo.
 
-Dos cadenas de esta escena se parten en cifra y unidad, porque una tabla necesita
-la cantidad medida en su propia columna:
+Las cabeceras nombran los dos brazos y las filas nombran las medidas:
 
 ```text
-7 / 7 exact answers   →   7 / 7   +   exact answers
-37 repositories       →   37      +   repositories
+                kivgraph    grep + read
+tokens          35,961      267,980
+exact answers   28 / 29     28 / 29
+precision       1.000       1.000
+recall          0.996       0.989
 ```
 
-Ningún valor cambia: `7 / 7` conserva su espaciado y `37` su precisión.
-`published benchmark` deja de ser la etiqueta de `37` y pasa a ser la nota de
-procedencia debajo de la tabla.
+`37 repositories` y `published benchmark` dejan de ser fila y etiqueta y pasan a
+ser una sola nota de procedencia debajo de la tabla:
 
-Una sola regla fina, del ancho de la tabla. Sin bordes: una tabla con bordes es la
-captura de una hoja de cálculo.
+```text
+37 repositories · published benchmark
+```
+
+El recuento de preguntas no está en la nota a propósito: ya está en pantalla, en el
+denominador de `28 / 29`. Y la nota es la línea más apretada de la escena, la que
+fija el suelo de caracteres por segundo, así que no se le añade nada que ya se lea
+dos filas más arriba.
+
+`precision` se escribe con tres decimales para igualar la profundidad de `recall`
+en la misma columna. Con dos, `recall` leería `1.00` frente a `0.99`: le regalaría
+a kivgraph un pleno que no se ha ganado y doblaría el hueco aparente entre los dos
+brazos. Los tokens van exactos y con separador de millares — `35,961`, nunca
+`36k` —, porque redondear es cambiar el valor.
+
+Una sola regla fina, del ancho de la tabla, debajo de las cabeceras. Sin bordes:
+una tabla con bordes es la captura de una hoja de cálculo.
 
 La nota de procedencia se separa de la tabla bastante más que las filas entre sí.
 A la separación de una fila se leía como una quinta fila que había perdido su
 cifra.
 
-`6.2k` domina **por escala y nunca por color**. Es la única cifra que rompe el
-tamaño de las demás, y esa desproporción es todo el argumento de la escena: la
+La fila de coste es la que lleva el argumento: `267,980` contra `35,961`, **7,45×**
+por la misma respuesta. Domina por su sitio en la tabla y por su desproporción, y
+**nunca por color**: nada está coloreado para sostener la tesis, así que la
 comparación tiene que sobrevivir en escala de grises.
 
 La geometría exacta — columnas, coordenadas, escala tipográfica, ritmo vertical y
@@ -1935,105 +1964,126 @@ aquí.
 
 ---
 
-### Frames 1154–1182
+### Frames 1152–1172
 
-Primera fila. A la izquierda:
-
-```text
-tokens
-```
-
-y a la derecha, muy grande:
-
-# 6.2k
-
----
-
-### Frames 1168–1188
-
-Segunda fila, debajo:
+Entran las cabeceras. Los dos brazos se nombran antes de que haya una sola cifra
+que atribuirles:
 
 ```text
-grep + read
-63.5k
-```
-
-Mucho menos protagonista.
-
-Su rampa va adelantada dentro de la ventana 1170–1210 a propósito, para que el
-still clave 1190 tenga las dos cifras completas.
-
----
-
-### Frames 1190–1210
-
-Entra la regla, hasta 0,9 de opacidad. Separa el par de arriba de las dos
-afirmaciones de abajo, y es lo único que dibuja la tabla.
-
----
-
-### Frames 1196–1218
-
-Aparece:
-
-```text
-7 / 7 exact answers
+kivgraph    grep + read
 ```
 
 ---
 
-### Frames 1222–1248
+### Frames 1160–1180
 
-Aparece:
+Entra la regla, del ancho de la tabla. Separa las cabeceras del cuerpo y es lo
+único que dibuja la tabla.
+
+---
+
+### Frames 1164–1188
+
+Primera fila, la de coste:
 
 ```text
-37 repositories
-published benchmark
+tokens          35,961      267,980
 ```
 
-`37` entra en 1222–1244 y `published benchmark` en 1226–1248: la nota de
-procedencia aterriza última, porque una nota de procedencia se lee después de lo
-que avala.
+Entra pisando la regla a propósito: es la fila que lleva el argumento y no espera
+turno detrás de las otras tres. Queda completa en 1188, justo antes del still
+clave.
+
+---
+
+### Frames 1192–1212
+
+Segunda fila:
+
+```text
+exact answers   28 / 29     28 / 29
+```
+
+Las dos iguales, y eso es lo que hace que la primera signifique algo: la misma
+respuesta, a 7,45× el coste. Sin esta fila, `35,961` sólo diría que kivgraph leyó
+menos.
+
+---
+
+### Frames 1216–1236
+
+Tercera fila:
+
+```text
+precision       1.000       1.000
+```
+
+---
+
+### Frames 1240–1260
+
+Cuarta fila:
+
+```text
+recall          0.996       0.989
+```
 
 Las cuatro filas entran igual: un fundido con un asentamiento corto hacia arriba.
 
 ---
 
-### Frames 1248–1308
+### Frames 1266–1286
 
-Reposo. La tabla asentada es byte-idéntica durante **61 frames**, y es donde se
-leen las cuatro cifras.
+Aterriza la nota de procedencia, debajo de todo y la última:
 
-El bloque queda centrado en el cuadro, y las cuatro cifras alinean por la derecha
-contra el borde de su columna.
+```text
+37 repositories · published benchmark
+```
 
----
-
-### Frames 1308–1320
-
-Fade out. Las cuatro filas se van juntas.
+Una nota de procedencia se lee después de lo que avala.
 
 ---
 
-### Por qué 170 frames y no 120
+### Frames 1286–1348
+
+Reposo. La tabla asentada es byte-idéntica durante **63 frames**, y es donde se
+leen las ocho cifras.
+
+El bloque queda centrado en el cuadro, y las cifras alinean por la derecha contra
+el borde de su columna.
+
+---
+
+### Frames 1348–1360
+
+Fade out. La tabla entera se va junta.
+
+---
+
+### Por qué 210 frames y no 120
 
 La misma medición que el pase de ritmo de 2026-08-25: **dwell**, el tiempo que
 algo legible se queda en pantalla después de haber terminado de llegar. Con los
 120 frames dibujados, la última afirmación se asentaba con 10 frames por delante:
-**0,17 s**.
+**0,17 s**. Con 170 la escena ya respiraba; la reconstrucción en tabla pidió 40
+más, porque pasó de cuatro filas a cabeceras, cuatro filas y nota de procedencia.
 
-Con 170, medido con el fade arrancando en 1308:
+Con 210, medido en caracteres por segundo contra el presupuesto de 25–40 al que se
+lee texto técnico en pantalla:
 
 ```text
-tokens / 6.2k              2,10 s
-grep + read / 63.5k        2,00 s
-exact answers / 7 / 7      1,50 s
-repositories / 37          1,07 s
-published benchmark        1,00 s
+cabeceras                                6,5
+tokens                                   7,1
+exact answers                           11,9
+precision                               10,2
+recall                                  10,9
+37 repositories · published benchmark    35,8
 ```
 
-Las dos últimas filas juntas son 33 caracteres en 1,00 s — 33 caracteres por
-segundo, dentro de los 25–40 a los que se lee texto técnico en pantalla.
+La nota de procedencia es la fila más apretada de la escena y la que fija el suelo:
+37 caracteres, y aun así entra dentro del presupuesto. El resto va holgado, que es
+lo que tiene que pasar cuando hay ocho cifras que se leen comparándolas de dos en
+dos.
 
 ---
 
@@ -2054,9 +2104,11 @@ Los números deben hablar solos.
 Y nada de contadores que suben. Un frame intermedio de un contador muestra un
 número que no es el benchmark publicado — eso es un fallo de integridad, no de
 gusto — y contar es justo el gesto de «mira qué impresionante» que prohíbe la
-sección 30. Los valores se guardan como cadenas y no como números: `6.2k` no es
-`6200` con un sufijo, porque formatear un número dejaría que una edición futura
-cambiara la precisión, y cambiar la precisión es cambiar el valor.
+sección 30. Los valores se guardan como cadenas y no como números: `35,961` no es
+`35961` formateado, ni `1.000` es `1` con relleno, porque formatear un número
+dejaría que una edición futura cambiara la precisión, y cambiar la precisión es
+cambiar el valor. Con `recall` a dos decimales la tabla diría `1.00` frente a
+`0.99`, que es un pleno que kivgraph no se ha ganado.
 
 ---
 
@@ -2772,7 +2824,8 @@ Usable para marketing técnico.
 ## Frame ~1190
 
 ```text
-<!-- FIGURE PENDING: la fila de coste, sus dos cifras -->
+                kivgraph    grep + read
+tokens          35,961      267,980
 ```
 
 Local 40 de la escena 09. La definición del frame es estructural y no un número:
@@ -2786,10 +2839,11 @@ recalcula desde esa definición y no se arrastra.
 
 El compromiso es vertical y sobrevive a la reconstrucción: en 1190 lo que hay en
 pantalla queda **por encima del centro del cuadro**, porque el bloque está
-maquetado para cuatro filas y las de abajo están todavía vacías. Es deliberado y no
-se arregla con layout: centrarlas descentraría la tabla, y la tabla es la imagen
-que la película sostiene durante 63 frames estáticos. Un still que lo necesite
-centrado ópticamente se recorta, no se vuelve a maquetar.
+maquetado para cabeceras, cuatro filas y su nota de procedencia, y todo lo que va
+debajo de la fila de coste está todavía vacío. Es deliberado y no se arregla con
+layout: recolocarlo descentraría la tabla asentada, que es la imagen que la
+película sostiene durante 63 frames estáticos. Un still que lo necesite centrado
+ópticamente se recorta, no se vuelve a maquetar.
 
 Usable para benchmark launch.
 
@@ -3285,4 +3339,51 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   `docs/scenes/07-benchmark.md` § Visual composition y no aquí.
 - Afecta a las secciones 2, 15, 24, 26, 28, 29 y 34 y a los rangos y beats de las
   escenas 09–11.
+```
+
+```text
+2026-08-26
+- Cifras de la 09 resueltas y hold levantado. Se elige el juego de 29 preguntas del
+  bloque `aggregate` de
+  `kivgraph/benchmarks/graph-tools-comparison/results-all.json` (commit `954b9eb`,
+  corpus de 37 repositorios): `tokens` 35,961 contra 267,980, `exact answers`
+  28 / 29 en los dos brazos, `precision` 1.000 en los dos y `recall` 0.996 contra
+  0.989, con la nota de procedencia `37 repositories · published benchmark`. La
+  razón de coste queda en 7,45×.
+- El juego de 7 preguntas queda abandonado: ningún fichero de resultados registra
+  `7 / 7`. Los pases en disco leen `4 / 7` y `6 / 7`; el `7 / 7` sale de la prosa de
+  cierre de `remeasure.md`, y los tres pases de ese documento escribieron al mismo
+  nombre de fichero, así que la ejecución que lo sostenía ya no existe.
+- La nota de estado del principio de la escena pasa a nota de resolución, y los
+  bloques de beats, el copy y la tabla de dwell de la 09 dejan de describir la
+  versión superada: ya son la escena que hay. Desaparece el marcador
+  `<!-- FIGURE PENDING: … -->` de la sección 29, que pasa a ser la fila de coste
+  con sus dos brazos nombrados encima.
+- Ventanas en frames de master, sin tocar el timeline: cabeceras 1152–1172, regla
+  1160–1180, `tokens` 1164–1188, `exact answers` 1192–1212, `precision` 1216–1236,
+  `recall` 1240–1260 y la nota de procedencia 1266–1286; reposo 1286–1348 y fade
+  out 1348–1360. La fila de coste está completa en 1188, así que el still 1190 se
+  lee sin adelantar nada dentro de ninguna rampa — la excepción que necesitaba la
+  versión anterior desaparece.
+- Dwell en caracteres por segundo contra el presupuesto de 25–40: cabeceras 6,5,
+  `tokens` 7,1, `exact answers` 11,9, `precision` 10,2, `recall` 10,9 y la nota de
+  procedencia 35,8. La nota es la fila que fija el suelo con sus 37 caracteres, y
+  entra. El recuento de preguntas se deja fuera de la nota porque ya está en
+  pantalla, en el denominador de `28 / 29`.
+- `precision` se escribe con tres decimales para igualar la profundidad de `recall`
+  en la misma columna: con dos, `recall` leería `1.00` frente a `0.99`, un pleno que
+  kivgraph no se ha ganado y el doble de hueco aparente. Los tokens van exactos y
+  con separador de millares, nunca redondeados a `36k`. Nada está coloreado para
+  sostener el argumento: la tabla tiene que aguantar en escala de grises.
+- Se retira de la escena la afirmación de que una cifra domina por escala: era una
+  propiedad de la versión con un `6.2k` gigante. La geometría y la escala
+  tipográfica siguen en `docs/scenes/07-benchmark.md` § Visual composition y no
+  aquí.
+- Medido: la costura 1149/1150 pasa de 22,30 dB a 24,21 dB. No es mejora ni
+  regresión — la PSNR de un corte es propiedad de sus dos frames, y el lado derecho
+  de este corte es justo la tabla nueva. La 0629/0630, la 0769/0770 y la 0969/0970
+  se dejan como estaban, medidas en su propio pase; el número de región de la
+  0969/0970 y el de cuadro completo no se comparan entre sí.
+- Afecta a la sección 29, al registro de costuras de la SCENE 05 y a los beats, el
+  copy y la tabla de dwell de la escena 09.
 ```
