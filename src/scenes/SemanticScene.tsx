@@ -122,7 +122,7 @@ export const SemanticScene: React.FC = () => {
           left: grid.left,
           top: grid.labelTop,
           width: grid.columnWidth,
-          opacity: left.dim,
+          opacity: left.presence,
         }}
       >
         <NameMatchColumn

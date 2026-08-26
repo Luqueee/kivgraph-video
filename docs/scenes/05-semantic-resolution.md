@@ -77,8 +77,7 @@ Beats (scene-local = master − 730):
 | `0760–0800` | `0030–0070` | Left side builds: label `Name matching`, two `withRetry()` entries under two languages, both highlighted. |
 | `0785–0815` | `0055–0085` | Right side resolves: label `Semantic resolution`, the symbol and the two relationships that reach it. |
 | `0815`      | `0085`      | Both counters settled: `2 matches` left, `1 symbol` and `2 real relationships` right. The comparison is complete, and nothing leaves it for sixty frames. |
-| `0814–0842` | `0084–0112` | Left side loses opacity, down to `0.18`. Right side stays clear. `0840` is the key visual frame. |
-| `0841–0875` | `0111–0145` | The read hold: 35 frames byte-identical, the last of the sixty-frame stand. |
+| `0811–0875` | `0081–0145` | The stand: 65 frames byte-identical, both halves at full presence. `0840` is the key visual frame and sits inside it. |
 | `0875–0903` | `0145–0173` | One exit window, twenty-eight frames: the two callers and their tubes, the left column, the divider, `Semantic resolution` and both counters leave together. |
 | `0903–0909` | `0173–0179` | `withRetry()` alone, pixel-identical through to 0909 for the match cut. |
 
@@ -249,12 +248,11 @@ carries the left side's highlight. Well inside the 85–90% / 10–15% split
 
 ## Motion
 
-**Rhythm.** Flatten, build, compare, dim, stand, and leave one symbol. The scene
-is 3.0 s long — the longest of this trio — because the comparison needs time to be
+**Rhythm.** Flatten, build, compare, stand, and leave one symbol. The scene is
+3.0 s long — the longest of this trio — because the comparison needs time to be
 counted, not just seen: the two columns stand complete for sixty frames, a full
-second, before anything leaves. It used to state a conclusion between the
-subtraction and the hold; with the sentence cut, the subtraction *is* the
-conclusion.
+second, before anything leaves. There is no dim between the compare and the
+stand any more; see **The subtraction that was removed** below.
 
 **The flatten.** Continuous, not a cut, and three things move as one gesture: the
 rig straightens, the four hop planes collapse onto the anchor's, and the
@@ -279,16 +277,35 @@ distinguish between them, so nothing about their appearance may suggest ranking.
 relationships that reach it. Where the left side arrives all at once, the right
 side arrives deliberately.
 
-**The subtraction.** `0814–0842` (local 84–112) takes the left side's opacity down
-to `0.18` while the right side holds. As in Scene 04, the scene makes its point by
-removing rather than by adding. The left side must not vanish: the comparison has
-to remain a comparison in the still at 0840, and with no sentence over that frame
-the asymmetry is the only thing the still has to carry.
+**The subtraction that was removed.** `0814–0842` used to take the left side's
+opacity down to `0.18` while the right side held, on the principle that the scene
+makes its point by removing rather than by adding. It is gone, and it was two
+mistakes stacked.
+
+It was written so the left side would recede under the centred sentence. That
+sentence was cut, so the dim outlived its reason — and then acquired a new one
+after the fact: that the still at 0840 needed the asymmetry to carry it. It does
+not. The asymmetry is `2 matches` against `1 symbol` and `2 real relationships`,
+which is content, and the right side is already dominant through its plates and
+its accent.
+
+The second mistake was mechanical and it is the one that showed on screen. It
+broke the single exit window. Leaving from `0.18` while the right side left from
+`1` meant the right visibly vanished and the left, already almost invisible,
+appeared to go separately — which is exactly the "not together" the single window
+existed to fix. **Two things cannot read as leaving together if they start from
+different opacities.** Measured across the exit, peak luminance as a percentage
+of frame 0875: left `87 / 53 / 18 / 8`, the right column's label
+`88 / 54 / 20 / 8`.
+
+What the removal also buys is the thing the stand is for: at `0.18` the left
+column was not comfortably readable, so the sixty frames of reading time were
+being spent on a column the viewer had to squint at.
 
 **The stand.** The comparison is complete at 0815 and nothing leaves it until
 0875 — sixty frames, a full second, which is the reading time two columns need.
-The dim finishes inside that window, so the frame is byte-identical for the last
-35 of them, master 0841–0875.
+With no dim inside it the frame is byte-identical for 65 frames, master
+`0811–0875`, and both halves are at full presence for all of them.
 
 **The contraction.** Everything leaves on one window, local 145–173 (master
 `0875–0903`): the two callers and their tubes, and with them the left column, the
@@ -582,6 +599,12 @@ Preserve unless the creative direction is explicitly changed:
 - **Brand accent stays on the right.** The left side's highlight is the editor
   `selection` token; accent means semantically resolved and must not be spent on
   name matches.
+- **Everything leaves on one window, from the same opacity.** Local 145–173.
+  Nothing may be pre-dimmed, pre-faded or given its own exit before it: two
+  things cannot read as leaving together if they start from different opacities,
+  and every earlier version of this tail failed on exactly that. If a future
+  edit wants the left side quieter, it has to be quieter for its whole life, not
+  quieted on the way out.
 - **The counters are counted, not chosen.** `2 matches` is `nameMatches.length`;
   `1 symbol` and `2 real relationships` are `resolution` in
   `src/three/semanticState.ts`, which counts the edges whose callee is
@@ -1005,4 +1028,29 @@ Safe to change without altering the scene's purpose:
 - Every counted figure is untouched: 2 matches, 1 symbol, 2 real relationships,
   the two real nameMatches entries with their paths, the 11 px whole-cascade
   measurement and the 35-45 px surviving labels.
+```
+
+```text
+2026-08-25
+- The left column's pre-dim is deleted. It took the left side to `0.18` over
+  local 84-112, long before the exit, so when the single exit window arrived the
+  right half travelled `1 -> 0` and the left `0.18 -> 0`. On screen that read as
+  the right vanishing and the left going separately - the exact fault the single
+  window had been built to fix.
+- Two things cannot read as leaving together if they start from different
+  opacities. That is now an invariant, not a note.
+- The dim's original reason had already been cut: it existed so the left side
+  would recede under the centred sentence. After that sentence went it acquired a
+  second justification in this document - that the still at 0840 needed the
+  asymmetry - which does not hold. The asymmetry is `2 matches` against
+  `1 symbol` and `2 real relationships`, and that is content.
+- It also cost the scene the thing the stand exists for: at `0.18` the left
+  column was not comfortably readable, so the sixty frames of reading time were
+  being spent on a column the viewer had to squint at.
+- Measured after the removal, peak luminance as a percentage of frame 0875 across
+  the exit: left `87 / 53 / 18 / 8`, right column label `88 / 54 / 20 / 8`. The
+  stand is now byte-identical for 65 frames, master 0811-0875, up from 35.
+- Verified: 1000 frames, no black frame, the only flagged frame is 0909 which is
+  the cut. `leftColumn.dim` is renamed `leftColumn.presence`, since it no longer
+  dims anything.
 ```

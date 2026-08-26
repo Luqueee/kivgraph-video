@@ -331,16 +331,25 @@ export const leftColumn = (frame: number) => ({
   rows: [ramp(frame, 36, 54), ramp(frame, 46, 64)],
   counter: ramp(frame, 60, 78),
   /**
-   * Dimmed to 0.18 once the comparison has been read, then gone.
+   * Presence, and nothing else: the column stands at full strength until the
+   * exit window takes it, on the same window and from the same opacity as
+   * everything else.
    *
-   * This used to be held above zero on the rule that a frame without the left
-   * column has lost the comparison. That rule was written when the scene ended
-   * on the comparison; it now ends by handing a shape to a match cut, and
-   * holding four pieces of chrome to the last frame made the cut remove four
-   * things at once. The comparison has been made and read by local 112 - what
-   * the next frame needs is the symbol, alone.
+   * There used to be a pre-dim here, `1 -> 0.18` over local 84-112, and it was
+   * two mistakes stacked. It was written so the left side would recede under the
+   * centred sentence - and that sentence was cut, so the dim outlived its
+   * reason and then acquired a new one after the fact: that the still at 0840
+   * needed the asymmetry. It does not. The asymmetry is `2 matches` against
+   * `1 symbol / 2 real relationships`, which is content, and the right side is
+   * already dominant through its plates and its accent.
+   *
+   * Worse, it broke the single exit window. Leaving from 0.18 while the right
+   * left from 1 meant the right visibly vanished and the left, already almost
+   * invisible, appeared to go separately - which is exactly the "not together"
+   * it was supposed to have fixed. Two things cannot read as leaving together if
+   * they start from different opacities.
    */
-  dim: (1 - 0.82 * ramp(frame, 84, 112)) * exit(frame),
+  presence: exit(frame),
 });
 
 /**
