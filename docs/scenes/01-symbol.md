@@ -212,7 +212,7 @@ frame 0119 — byte-identical to 0080. The handoff frame.
 ```
 
 The still-image key frame is `0080`. The project's still-image list reads `0080`,
-`0620`, `0710`, `0840`, `1040`, `1200`.
+`0629`, `0718`, `0864`, `1064`, `1190`, `1350`.
 
 ## Invariants
 
@@ -322,7 +322,7 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
   written for the video, chosen to agree with the repository and symbol names of
   later scenes. Nothing is read from a real Kivgraph index.
 - Scenes 01–06 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
-  (1000) rather than the planned 1330. Frames `1000–1330` do not render at all
+  (1150) rather than the planned 1480. Frames `1150–1480` do not render at all
   yet, which is preferred over five and a half seconds of black.
 
 ## Modification history
@@ -445,4 +445,23 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
   back: the semantic scene's two-column comparison needed a full second of
   reading time before anything left the frame, and everything used to leave on
   three separate windows over twenty-seven frames.
+```
+
+```text
+2026-08-25
+- A pacing pass grew the last three implemented scenes: the blast radius 100 -> 140
+  frames, the semantic resolution 180 -> 200, the agent answer 90 -> 180. Every
+  master frame from 0770 onward shifted, the master is now 1480 frames (24.7 s),
+  and this scene owns none of it: its own frames, beats, camera, luminance and
+  content are untouched, and 0080 is still its still-image key frame.
+- Two lists here follow the shift: the project still-image list now reads 0080,
+  0629, 0718, 0864, 1064, 1190, 1350, and mountedFrames is 1150 against a planned
+  1480. The 0620 this document used to quote for scene 03 was stale; the index has
+  carried 0629 since that scene was retimed.
+- Reason for the growth, kept because it is the kind of thing that gets trimmed
+  back: it was measured, not felt. Dwell time - how long a readable thing stays on
+  screen after it has finished arriving - gave the blast radius' impact card 0.42 s
+  and the agent answer's path sentence 0.57 s, or 129 characters per second against
+  the 25-40 that on-screen technical text is actually read at. The film was
+  accelerating into its own payoff.
 ```

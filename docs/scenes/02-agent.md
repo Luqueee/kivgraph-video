@@ -52,10 +52,10 @@ nothing has been said about it.
 this frame: `withRetry()` stops being HTML text and becomes the central node of a
 Three.js graph.
 
-**Later.** Scene 06 (`06-agent-answer.md`, frames 0910–1000) match-cuts _back_
+**Later.** Scene 06 (`06-agent-answer.md`, frames 0970–1150) match-cuts _back_
 into this prompt row to deliver the answer. This scene therefore defines a
 reusable geometry, not a one-off layout: the rule, the row and the token positions
-established here must be reproducible 580 frames later, which is why they are
+established here must be reproducible 640 frames later, which is why they are
 exported constants rather than inline numbers.
 
 ## Why this scene absorbed its predecessor
@@ -426,7 +426,7 @@ the video.
   cloned chrome, no cloned colour scheme, no cloned status line, no cloned
   tool-result formatting.
 - **The prompt geometry is a shared constant.** `06-agent-answer.md` rebuilds this
-  row at frame 0910 and `03-graph-reveal.md` matches the token at 0330. All three
+  row at frame 0970 and `03-graph-reveal.md` matches the token at 0330. All three
   read `promptLayout` / `tokenRect`; none of them re-derives the numbers.
 - **Typing is grouped and irregular**, never a uniform per-character stream.
 - **The tool invocation stays discreet.** One line, small, one accent square. It
@@ -630,3 +630,19 @@ token's final apparent scale, and the push-in curve.
   scene's comparison used to start emptying 27 frames after it finished building,
   on three separate windows. It now stands complete for sixty frames and leaves
   on one.
+
+2026-08-25
+
+- A pacing pass grew the three implemented scenes after the graph reveal: the blast
+  radius 100 -> 140 frames, the semantic resolution 180 -> 200, the agent answer
+  90 -> 180. Every master frame from 0770 onward shifted and the master is now 1480
+  frames (24.7 s). This scene owns none of those frames, so its own frames, beats,
+  geometry and copy are untouched. What changed here is the two references forward:
+  the agent answer scene now spans 0970-1150 and rebuilds this prompt row 640
+  frames after the 0330 match cut rather than 580.
+- The growth's reason, for anyone tempted to take the time back: it was measured.
+  Dwell time - how long a readable thing stays on screen after it has finished
+  arriving - gave the blast radius' impact card 0.42 s and the agent answer's path
+  sentence 0.57 s, which is 129 characters per second against the 25-40 that
+  on-screen technical text is actually read at. The scene that answers this scene's
+  question was the fastest thing in the film.

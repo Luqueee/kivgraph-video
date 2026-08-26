@@ -49,30 +49,34 @@ storyboard SCENE 03 and SCENE 04 are implemented as the single
 from the film, so storyboard SCENE 08 is document 06. Read the mapping table in
 `docs/scenes/README.md` before comparing frame numbers between the two files.
 
-- Global frames: `0910`–`1000`
-- Scene-local frames: `0000`–`0090` (last rendered frame `0089` / master `0999`)
-- Time: 15.17 s – 16.67 s
-- Duration: 90 frames / 1.5 s at 60 fps
+- Global frames: `0970`–`1150`
+- Scene-local frames: `0000`–`0180` (last rendered frame `0179` / master `1149`)
+- Time: 16.17 s – 19.17 s
+- Duration: 180 frames / 3.0 s at 60 fps
 - Remotion component: `src/scenes/AgentAnswerScene.tsx`
 
 Beats:
 
-| Master      | Local       | Beat                                                          |
-| ----------- | ----------- | ------------------------------------------------------------- |
-| `0910`      | `0000`      | Match cut lands. Prompt layer is back, question still on screen. |
-| `0920`–`0935` | `0010`–`0025` | Block 1: `Changing withRetry() affects:`                      |
-| `0935`–`0955` | `0025`–`0045` | Block 2: `7 symbols` / `across 2 repositories.`               |
-| `0950`–`0970` | `0040`–`0060` | Block 3: the `checkout-service` path sentence                 |
-| `0970`      | `0060`      | Label `Answered with Kivgraph` reads.                          |
-| `0970`–`1000` | `0060`–`0090` | Hold. Nothing moves. The frame is settled for the hard cut.   |
+| Master        | Local         | Beat                                                             |
+| ------------- | ------------- | ---------------------------------------------------------------- |
+| `0970`        | `0000`        | Match cut lands. Prompt layer is back, question still on screen.  |
+| `0970`–`0994` | `0000`–`0024` | The symbol travels 201 px left and 74 px up to the token slot.    |
+| `0994`–`1000` | `0024`–`0030` | Cross-fade: the travelling symbol becomes the prompt's token.     |
+| `1000`–`1016` | `0030`–`0046` | Block 1: `Changing withRetry() affects:`                          |
+| `1016`–`1032` | `0046`–`0062` | Block 2: `7 symbols` / `across 2 repositories.`                   |
+| `1034`–`1050` | `0064`–`0080` | Block 3: the `checkout-service` path sentence                     |
+| `1050`–`1064` | `0080`–`0094` | Label `Answered with Kivgraph` arrives and reads.                 |
+| `1064`–`1150` | `0094`–`0180` | Hold. Nothing moves; the render measures 87 frames identical from `1063`. The frame is settled for the hard cut, and the hold is where the answer is read. |
 
-Only `0910` and `0970` are fixed by the storyboard. The three block windows are
-the documented rhythm, not a requirement; they may shift as long as the blocks
-remain three distinct beats and the scene is fully settled by `0970`.
+Only `0970` and `1064` are fixed. The three block windows are the documented
+rhythm, not a requirement, but they are **late and measured**: they may shift as
+long as the blocks remain three distinct beats, the scene is fully settled by
+`1064`, and no block loses dwell time against the figures in `## Motion` →
+**The hold, and why the scene is 180 frames**.
 
 ## Initial state
 
-At `0910` the frame is the agent prompt layer from `02-agent.md`, in the same
+At `0970` the frame is the agent prompt layer from `02-agent.md`, in the same
 position and at the same scale it had there:
 
 - **no terminal panel.** Scene 02 never draws one, and neither does this scene:
@@ -85,19 +89,19 @@ position and at the same scale it had there:
 - the token slot `withRetry()` **empty**, its span holding its layout box at
   `tokenOpacity` `0`. The symbol that belongs there is still on its way: it
   arrives from the previous scene 201 px to the right and 74 px above, and a row
-  drawn complete would put the same word on screen twice for twenty frames. The
-  box is held rather than collapsed so the trailing `?` never moves and the line
+  drawn complete would put the same word on screen twice for twenty-four frames.
+  The box is held rather than collapsed so the trailing `?` never moves and the line
   does not reflow when the token lands;
 - the tool invocation line `kivgraph / get_blast_radius` present, its 7 px square
   marker in `accent` `#2563eb`, the text in `textSecondary` / `textMuted`;
 - no answer text yet;
 - the graph reduced to that single travelling symbol, drawn by the same renderer
-  that drew it at `0909` so the cut matches; no other residue of the split view,
+  that drew it at `0969` so the cut matches; no other residue of the split view,
   and no divider or left column.
 
 The code world behind the prompt returns. It starts at the exact levels scene 05
 holds — anything else steps the background at the cut — and rises to the levels
-scene 02 held while it asked the question, over the same twenty frames as the
+scene 02 held while it asked the question, over the same twenty-four frames as the
 symbol's travel. This was an open decision and the two frames either side of the
 cut settled it; see `## Current compromises`.
 
@@ -106,7 +110,7 @@ its symbol to come back.
 
 ## Final state
 
-At `0999` the prompt layer holds the complete answer:
+At `1149` the prompt layer holds the complete answer:
 
 - the three answer blocks, all fully legible;
 - the quantities `7` and `2` carrying the only accent in the block;
@@ -170,29 +174,64 @@ chat-product gesture. Blocks read as a *result being returned*, which is what
 Kivgraph does. The typing in `02-agent.md` belongs to the human; the output here
 belongs to the tool, and the two must not use the same motion vocabulary.
 
-Each block: opacity `0 → 1` with a short upward settle (roughly 8 px), over
-12–16 frames, on the storyboard's controlled curve
-(`Easing.bezier(0.22, 1, 0.36, 1)`) or a heavily damped spring. No stagger
-inside a block — a block is one gesture. No bounce, no overshoot, no blur.
+Each block: opacity `0 → 1` with a short upward settle (8 px), over 16 frames, on
+the storyboard's controlled curve (`Easing.bezier(0.22, 1, 0.36, 1)`) or a heavily
+damped spring. No stagger inside a block — a block is one gesture. No bounce, no
+overshoot, no blur.
 
-The block windows overlap slightly so the three beats read as one cascade rather
-than three separate events. The answer should feel returned in one motion that
-happens to have internal structure.
+The block windows are contiguous — local `30–46`, `46–62` and `64–80` — so each
+block begins arriving as the previous one lands and the three beats read as one
+cascade with internal structure rather than as three separate events. The answer
+should feel returned in one motion.
 
 Storyboard frame numbers mark the frame at which a beat **reads**, not the frame
-at which its opacity ramp starts. The `Answered with Kivgraph` label is therefore
-centred on `0970` rather than beginning there, so the reviewed frame `0970` shows
-it legible.
+at which its opacity ramp starts. The `Answered with Kivgraph` label therefore
+*finishes* on `1064` rather than beginning there, so the reviewed frame `1064`
+shows it legible.
 
 The caret may rest after the question. It must not blink and must not retype
 anything: the human is done, and a blinking caret during the hold would break the
 settled final frame.
 
-Nothing moves between `0970` and `1000`.
+Nothing moves between `1064` and `1150`.
+
+**The hold, and why the scene is 180 frames.** This scene ran 90 frames, and the
+number that doubled it is **dwell time**: how long a readable thing stays on
+screen after it has finished arriving.
+
+At 90 frames the path sentence — `checkout-service consumes the symbol through
+payments-api/paymentService.`, 73 characters, the proof the whole film builds
+toward — settled with 34 frames left. That is **0.57 s, or 129 characters per
+second**, against the 25–40 characters per second at which on-screen technical
+text can actually be read. The payload of the entire video was the fastest thing
+in it, and the film was accelerating into its own payoff.
+
+The windows are therefore late and the hold behind them is long. Measured on the
+180-frame cut, each element's dwell is:
+
+| Element                                     | Settles at local | Dwell               |
+| ------------------------------------------- | ---------------: | ------------------- |
+| `Changing withRetry() affects:`             |               46 | 134 frames / 2.23 s |
+| `7 symbols` / `across 2 repositories.`      |               62 | 118 frames / 1.97 s |
+| the `checkout-service` path sentence        |               80 | 100 frames / 1.67 s |
+| `Answered with Kivgraph`                    |               94 |  86 frames / 1.43 s |
+
+The path sentence now reads at **44 characters per second**, inside the band. The
+hold from local 94 to 180 is not padding and it is not a settled frame waiting for
+a cut: it is the only place in the scene where the answer is read. All 86 of its
+frames sit inside the 87-frame run the render measures identical, which starts one
+frame earlier at `1063` because the label's easing is front-loaded and its last
+frame moves less than one level of eight-bit grey.
+
+The order of the dwell figures is deliberate and it is the reverse of the arrival
+order. The lead-in has the longest dwell and needs the least of it; the label has
+the shortest and is the quietest thing in the frame. What matters is that the two
+load-bearing blocks — the quantities and the path — both clear a second and a
+half.
 
 ## Three.js
 
-Used for 26 of the scene's 90 frames, and only to finish the return trip.
+Used for 30 of the scene's 180 frames, and only to finish the return trip.
 
 `## Transition in` is the reason: this scene inherits a position and an apparent
 size, *not* the token rect, so the symbol arrives 201 px right and 74 px below
@@ -207,7 +246,7 @@ anchor on `selectedTokenRect` and already defines `grow`, which at `0` makes the
 plate exactly that rectangle; `answerState.ts` lerps the rig to that pose and
 `grow` to `0`. The reveal in scene 03 ran those same two parameters the other
 way. The canvas is unmounted once the DOM token has taken over, so the remaining
-64 frames pay nothing for it.
+150 frames pay nothing for it.
 
 ## Transition in
 
@@ -226,9 +265,10 @@ match cut into prompt text
 The contraction converges on the `withRetry()` node, and this scene inherits **a
 position and an apparent size**, not the token rect. `SemanticScene` leaves the
 node where its right column drew it — 152 master pixels per world unit — and the
-cut at `0910` lands on a shape that is already exactly there. Carrying that shape
+cut at `0970` lands on a shape that is already exactly there. Carrying that shape
 back onto the `withRetry()` token inside the prompt row is *this* scene's beat,
-made over its own ninety frames: `graphOffset` in `src/three/graphFrame.ts` is
+made over its own hundred and eighty frames: `graphOffset` in
+`src/three/graphFrame.ts` is
 derived from `selectedTokenRect`, so the graph began on that rect and the film
 closes the loop by putting the symbol back on it. An earlier version of this
 document had the previous scene deliver the node pre-placed on the token, which
@@ -236,13 +276,13 @@ had it backwards — that would be the previous scene doing this scene's work, a
 match cut needs the shape in the same place on both sides of the cut, not already
 moved.
 
-Because Remotion `Sequence` boundaries at `0910` do not overlap, the contraction
-is authored as the **tail of `SemanticScene`**, complete at frame `0903` and at
-rest through `0909`. A match cut requires the outgoing shape to be settled at the
-cut; if the contraction were still running at `0910` there would be nothing to
+Because Remotion `Sequence` boundaries at `0970` do not overlap, the contraction
+is authored as the **tail of `SemanticScene`**, complete at frame `0956` and at
+rest through `0969`. A match cut requires the outgoing shape to be settled at the
+cut; if the contraction were still running at `0970` there would be nothing to
 match. Agreed division with `05-semantic-resolution.md`: the comparison stands
-`0815`–`0875`, everything leaves on one window `0875`–`0903`, and the frame is
-pixel-identical from `0903` to `0909`. See `## Current compromises` for the
+`0868`–`0928`, everything leaves on one window `0928`–`0956`, and the frame is
+pixel-identical from `0956` to `0969`. See `## Current compromises` for the
 storyboard tension this resolves.
 
 No wipe, no flash, no zoom blur (`STORYBOARD.md` §27). The transition is the
@@ -251,7 +291,7 @@ not be hidden behind an effect: if the positions do not match, fix the positions
 
 ## Transition out
 
-Hard cut at `1000` into `07-benchmark.md`.
+Hard cut at `1150` into `07-benchmark.md`.
 
 The answer is on screen, static, fully readable, and then it is simply gone,
 replaced by typography on bare background. The cut is unsoftened on purpose: the
@@ -279,7 +319,7 @@ payments-api/paymentService.
 Answered with Kivgraph
 ```
 
-Carried over from `02-agent.md` and visible from frame `0910`, not new copy:
+Carried over from `02-agent.md` and visible from frame `0970`, not new copy:
 
 ```text
 ❯ What breaks if I change withRetry()?
@@ -307,15 +347,19 @@ scene communicates through the result, not around it.
 ## Key frames
 
 ```text
-frame 0910 — match cut lands; prompt restored, question still on screen, no answer yet
-frame 0970 — full answer plus the "Answered with Kivgraph" label; the resolved frame
-frame 0999 — settled final frame immediately before the hard cut
+frame 0970 — match cut lands; prompt restored, question still on screen, no answer yet
+frame 1000 — token landed, code bed back up, first block arriving
+frame 1064 — full answer plus the "Answered with Kivgraph" label; the resolved frame
+frame 1149 — settled final frame immediately before the hard cut
 ```
 
-`0910` and `0970` are on the manual review list in `STORYBOARD.md` §28. Neither
-is a designated still-image key frame (`AGENTS.md`'s still-image key frame list
-is `0080`, `0620`, `0710`, `0840`, `1040`, `1200`), but `0970` is the frame that
-proves the loop closed and should be inspected as if it were one.
+`0970` and `1064` are on the manual review list in `STORYBOARD.md` §28. `1064` is
+*defined* as the frame the attribution label finishes on, which is also the frame
+the scene goes static, so a retime moves it to wherever `labelOpacity`'s window
+now ends. Neither is a designated still-image key frame (`AGENTS.md`'s
+still-image key frame list is `0080`, `0629`, `0718`, `0864`, `1064`, `1190`,
+`1350` — `1064` is on it because this retime put it there), but `1064` is the
+frame that proves the loop closed and must be inspected as if it were a still.
 
 ## Invariants
 
@@ -336,12 +380,17 @@ proves the loop closed and should be inspected as if it were one.
   sound, or colour alone to be understood.
 - Accent marks only the result and the Kivgraph invocation. The scene stays
   ≥ 85 % neutral.
-- The frame is static from `0970` to `1000`.
+- The frame is static from `1064` to `1150`, and that hold is the answer's reading
+  time rather than slack. The path sentence's dwell is 100 frames — 1.67 s, 44
+  characters per second. Shortening the scene, or moving any block later, spends
+  reading time on the payload of the entire film; the measurement that set these
+  numbers is in `## Motion`.
 - No 3D in this scene. The contraction belongs to the previous scene.
 
 ## Flexible elements
 
-- The exact block entrance windows, easing, and travel distance.
+- The exact block entrance windows, easing, and travel distance, provided every
+  block keeps the dwell recorded in `## Motion`.
 - Whether the quantities use `accent` `#2563eb` or `accentText` `#bfdbfe`, decided
   by measured contrast at the final type size.
 - Whether `7 symbols` and `across 2 repositories.` are two lines or one, and the
@@ -368,10 +417,12 @@ proves the loop closed and should be inspected as if it were one.
   drift the moment either is touched, and the invariant above is exactly what
   drifts.
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="06 Agent Answer" from={910} durationInFrames={90}>`
+  `<Sequence name="06 Agent Answer" from={970} durationInFrames={180}>`
   literals, because Remotion Studio can only trim inline literals. There is no
   timing module. The component animates in scene-local frames:
-  `useCurrentFrame()` inside the Sequence starts at `0`.
+  `useCurrentFrame()` inside the Sequence starts at `0`. It reads the frame it
+  inherits by sampling `getSemanticState(200)`, past the end of that scene's local
+  range, so every ramp in it has clamped.
 - The quantities should be derived from `src/data/graphDemo.ts` (count of
   affected symbols, count of distinct repositories) rather than typed as string
   literals, so the answer, the blast-radius impact card, and the graph cannot
@@ -387,29 +438,29 @@ proves the loop closed and should be inspected as if it were one.
 
 ## Current compromises
 
-- **Not implemented yet.** This document is the specification the implementation
-  must satisfy; no `AgentAnswerScene.tsx` exists at the time of writing.
-  `src/data/graphDemo.ts` does exist and already carries the quantities this
-  scene states, and `AgentPrompt.tsx` is implemented by `02-agent.md`; this
-  scene consumes both rather than rebuilding either.
+- **Implemented.** `src/scenes/AgentAnswerScene.tsx` and `src/three/answerState.ts`
+  exist and the scene renders. It consumes `src/data/graphDemo.ts` for its
+  quantities and `AgentPrompt.tsx` for its geometry rather than rebuilding either.
+  This bullet used to read "Not implemented yet" long after the scene had landed.
 - **Storyboard tension, resolved.** `STORYBOARD.md` places the graph contraction
-  at frame `0910` while giving storyboard SCENE 07 a tail that stands complete to
-  `0875` and then leaves on one window `0875`–`0903`. Both cannot be true at a
-  non-overlapping Sequence boundary, and a contraction that begins at `0910` is
-  unreachable inside `AgentAnswerScene` without making this a 3D scene.
-  Resolution agreed with `05-semantic-resolution.md`: `SemanticScene` owns the
-  contraction — the stand `0815`–`0875`, the exit `0875`–`0903`, and the frame
-  pixel-identical from `0903` to `0909`. Both documents record the same division.
-  Do not let a future agent re-split it in only one of them.
+  at the agent answer's first frame while giving storyboard SCENE 07 a tail that
+  stands complete to `0928` and then leaves on one window `0928`–`0956`. Both
+  cannot be true at a non-overlapping Sequence boundary, and a contraction that
+  begins at `0970` is unreachable inside `AgentAnswerScene` without making this a
+  3D scene. Resolution agreed with `05-semantic-resolution.md`: `SemanticScene`
+  owns the contraction — the stand `0868`–`0928`, the exit `0928`–`0956`, and the
+  frame pixel-identical from `0956` to `0969`. Both documents record the same
+  division. Do not let a future agent re-split it in only one of them.
 - **Selection treatment, now decided.** `02-agent.md` owns how the selected
   `withRetry()` token looks and has settled on a `brand.selection` `#1e3a8a`
   field with the glyphs in `brand.accentText` `#bfdbfe`, scaled 1.08. This scene
   inherits that unchanged.
-- **Open decision — the code world behind the prompt.** Scene 02 keeps the
-  dimmed code faintly visible under the prompt. Whether the match cut at `0910`
-  restores that texture or lands on bare background has not been decided; it
-  must be, together with `05-semantic-resolution.md`, before either scene is
-  built.
+- **The code world behind the prompt: settled, and it comes back.** The bed starts
+  at the exact levels scene 05 holds — anything else steps the background at the
+  cut and the cut stops being a match — and rises to the levels scene 02 held while
+  it asked the question, over the same twenty-four frames as the travel. This
+  bullet used to record it as an open decision jointly owned with
+  `05-semantic-resolution.md`; the two frames either side of the cut decided it.
 - **Sound absent.** `STORYBOARD.md` §18 permits a very short digital click on
   tool invocation. Nothing is authored yet, and per §17 the piece must work
   muted, so this is a deliberate omission rather than a gap.
@@ -567,4 +618,43 @@ proves the loop closed and should be inspected as if it were one.
   static from 0939 - still one frame clear of the label frame. The inherited
   position and apparent size, the answer copy and every quantity in it are
   unchanged.
+```
+
+```text
+2026-08-25
+- The scene doubled, from 90 frames to 180, and a measurement is the whole reason.
+  It now spans `0970`-`1150`, its last rendered frame is `1149`, its scene-local
+  range is `0000`-`0180`, and the master is 1480 frames (24.7 s). Two upstream
+  changes moved its start: scene 04 grew 100 -> 140 and scene 05 grew 180 -> 200,
+  so `0910` became `0970`.
+- The measurement is **dwell time** - how long a readable thing stays on screen
+  after it has finished arriving - and this scene was the worst offender in the
+  film. At 90 frames the path sentence settled with 34 frames left: 73 characters
+  in 0.57 s, which is **129 characters per second**, against the 25-40 that
+  on-screen technical text can actually be read at. The sentence names the one
+  package the impact can legally travel through, it is the proof the whole film
+  builds toward, and it was the fastest thing in the film.
+- Windows retimed: travel `0-24` (was 0-20), cross-fade `24-30`, blocks at `30-46`,
+  `46-62` and `64-80` (were 10, 25, 40), label `80-94` (was centred on local 60).
+  The frame is static from local 94 to 180.
+- Measured dwell after the change: lead `2.23 s`, counts `1.97 s`, path sentence
+  `1.67 s` - **44 characters per second**, inside the band - and label `1.43 s`.
+  The hold is 87 frames measured identical at master `1063-1149`, and it is not
+  padding: it is the only place in the scene where the answer is read.
+- The key frame moved `0970` -> `1064` and is now stated as a definition rather
+  than a number: the frame the attribution label finishes on, which is also the
+  frame the scene goes static. It joined `AGENTS.md`'s still-image list with this
+  retime.
+- Three.js now runs for 30 of 180 frames rather than 26 of 90; the travel is 24
+  frames instead of 20, and the canvas is still unmounted once the DOM token has
+  taken over, so the remaining 150 frames pay nothing.
+- Measured: 1150 mounted frames render with no black frame. The match cut is now
+  `0969/0970` and measures **41.35 dB** over the symbol region while the context
+  swaps; the anomaly scan flags `0969` and `0970`, the two sides of that cut, and
+  nothing else. `0629/0630` is still 62.93 dB and `0769/0770` is pixel-identical.
+- Two stale compromises were corrected while the timing was: this scene was still
+  described as "not implemented yet", and the code bed behind the prompt was still
+  listed as an open decision although the entry above settles it. Neither survived.
+- The inherited position and apparent size, the answer copy, every quantity in it
+  and the block-not-typing rule are unchanged.
 ```
