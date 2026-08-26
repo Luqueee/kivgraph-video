@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { GraphWorld } from "../components/GraphWorld";
-import { CodeWorld } from "../components/CodeWorld";
+import { CodeWorld, settledBed } from "../components/CodeWorld";
 import { ImpactReport } from "../components/ImpactReport";
 import { cardEntry, getBlastState } from "../three/blastState";
 import type { Camera } from "../world/camera";
@@ -41,11 +41,19 @@ import { brand } from "../brand/tokens";
  */
 
 /**
- * The code bed, held at scene 03's final values. The file the graph came out of
- * stays underneath it for the whole graph sequence; it never resumes
- * travelling.
+ * The code bed, held at scene 03's final values - read from `settledBed` rather
+ * than copied, which is how they came to disagree: this scene was still holding
+ * scene 03's previous numbers, so the code read brighter under the impact card
+ * than under the graph the card describes. The file the graph came out of stays
+ * underneath it for the whole graph sequence; it never resumes travelling.
  */
-const bedCamera: Camera = { x: 0, y: 0, zoom: 0.34, screenX: 960, screenY: 540 };
+const bedCamera: Camera = {
+  x: 0,
+  y: 0,
+  zoom: 0.34,
+  screenX: 960,
+  screenY: 540,
+};
 
 export const BlastRadiusScene: React.FC = () => {
   const frame = useCurrentFrame();
@@ -57,14 +65,14 @@ export const BlastRadiusScene: React.FC = () => {
       <CodeWorld
         camera={bedCamera}
         main={{
-          symbol: 0.062,
-          signature: 0.062,
-          body: 0.03,
-          context: 0.026,
+          symbol: settledBed.symbol,
+          signature: settledBed.signature,
+          body: settledBed.body,
+          context: settledBed.context,
         }}
         symbolColor={brand.textSecondary}
-        neighbours={0.022}
-        bed={0.02}
+        neighbours={settledBed.neighbours}
+        bed={settledBed.bed}
         mark={0}
         select={0}
       />

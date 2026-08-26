@@ -65,6 +65,36 @@ export const world = {
 /** Anchor of a plane that has no symbol in it: its own top-left corner. */
 const corner = { line: 0, col: 0, width: 0 };
 
+/**
+ * The luminance the code plane settles to once the graph has materialised over
+ * it, and the single definition of it.
+ *
+ * There were three copies: scene 03's `fall()` destinations, scene 04's
+ * hardcoded `main`, and `answerState.ts`'s `bedFrom`. They agreed by hand and
+ * stopped agreeing the moment one was tuned - scene 04 was still holding scene
+ * 03's *previous* values, so the code read brighter under the impact card than
+ * under the graph the card describes.
+ *
+ * The values came down on 2026-08-26 because the code bed and the graph shared
+ * too much of the same luminance range: measured on frame 0629, the far plates
+ * and the code behind them were within a few levels of each other, and at the
+ * 600-900 px this film is embedded at they merged. The code never disappears -
+ * `STORYBOARD.md` keeps it faintly present because the video never leaves it -
+ * but it is now clearly the bottom of the ladder rather than a competitor.
+ *
+ * `symbol` and `signature` stay the brightest code in the frame: that is the
+ * `withRetry` line the whole film is about, and it is the one part of the bed
+ * that is still saying something.
+ */
+export const settledBed = {
+  symbol: 0.038,
+  signature: 0.038,
+  body: 0.017,
+  context: 0.014,
+  neighbours: 0.012,
+  bed: 0.011,
+} as const;
+
 type Props = {
   camera: Camera;
   /** Luminance ladder of the anchored file. */

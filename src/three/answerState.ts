@@ -1,5 +1,6 @@
 import { Easing, interpolate } from "remotion";
 import { answerLift } from "../components/AgentPrompt";
+import { settledBed } from "../components/CodeWorld";
 import { cutDistance, FOV } from "./graphFrame";
 import { getSemanticState } from "./semanticState";
 import type { GraphVisualState } from "./graphState";
@@ -238,13 +239,7 @@ export const labelOpacity = (frame: number) => ramp(frame, 80, 94);
  * was the subject, here it would be a highlight competing with the answer, and
  * the accent budget is already spent on the two numerals and the tool marker.
  */
-const bedFrom = {
-  symbol: 0.062,
-  signature: 0.062,
-  body: 0.03,
-  context: 0.026,
-  neighbours: 0.022,
-} as const;
+const bedFrom = settledBed;
 
 const bedTo = {
   symbol: 0.15,

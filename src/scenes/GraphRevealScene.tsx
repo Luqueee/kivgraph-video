@@ -9,7 +9,7 @@ import {
 import { getGraphState } from "../three/graphState";
 import { GraphWorld } from "../components/GraphWorld";
 import { AgentFrame } from "./AgentScene";
-import { CodeWorld } from "../components/CodeWorld";
+import { CodeWorld, settledBed } from "../components/CodeWorld";
 import type { Camera } from "../world/camera";
 import { brand } from "../brand/tokens";
 
@@ -100,16 +100,16 @@ export const GraphRevealScene: React.FC = () => {
         main={{
           symbol: codeSignature + (1 - codeSignature) * handover,
           signature: codeSignature,
-          body: fall(0.07, 0.03),
-          context: fall(0.06, 0.026),
+          body: fall(0.07, settledBed.body),
+          context: fall(0.06, settledBed.context),
         }}
         symbolColor={interpolateColors(
           handover,
           [0, 1],
           [brand.textSecondary, brand.accentText],
         )}
-        neighbours={fall(0.05, 0.022)}
-        bed={fall(0.04, 0.02)}
+        neighbours={fall(0.05, settledBed.neighbours)}
+        bed={fall(0.04, settledBed.bed)}
         mark={handover}
         select={handover * 0.595}
       />

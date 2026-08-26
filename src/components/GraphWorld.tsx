@@ -328,12 +328,21 @@ export const GraphWorld: React.FC<{ state: GraphVisualState }> = ({ state }) => 
               [0, 1],
               [brand.accent, edge.cross ? graph.edgeCross : graph.edgeLocal],
             )}
+            /**
+             * A settled relation is quieter than a resolving one but it is not
+             * decoration, and it used to be treated as decoration: a local edge
+             * *lost* opacity as it settled, ending at `0.56`, which put the
+             * structure of the graph below its own labels at any size the film
+             * is embedded at. Both now gain instead, and the crossings gain
+             * most - they are the only cross-repository edges in the film and a
+             * settled crossing is supposed to weigh more than any local edge.
+             */
             opacity={
               edge.draw *
               edge.gain *
               (edge.cross
-                ? 0.62 + 0.16 * edge.settle
-                : 0.62 - 0.06 * edge.settle)
+                ? 0.62 + 0.26 * edge.settle
+                : 0.62 + 0.1 * edge.settle)
             }
           />
         ))}

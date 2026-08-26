@@ -581,3 +581,36 @@ structure receding from it in depth, and three relations leaving the near codeba
   pay off - the crossing into a second repository is carried by the image, and
   by nothing else, for the rest of the film.
 ```
+
+```text
+2026-08-26
+- Contrast pass, on direct art direction, after watching the film at the sizes it
+  is actually embedded at. The complaint was that the code bed and the graph
+  shared too much of the same luminance range, and measured on frame 0629 that
+  was exactly true: 94.86% of the frame sat below luminance 12 and the hop-3
+  labels - the three checkout-service consumers, which are the payoff of the whole
+  piece - were the dimmest ink in it.
+- The shell ladder was compressed. Labels 1 / 0.75 / 0.65 / 0.58 -> 1 / 0.84 /
+  0.76 / 0.70, plates 1 / 0.9 / 0.78 / 0.66 -> 1 / 0.94 / 0.86 / 0.78. The
+  hierarchy is not weaker: what separates the anchor is that it is the brightest
+  surface, the largest type and the only thing carrying hue at rest.
+- Repository labels 0.42 -> 0.56. `checkout-service` is the word that makes the
+  cross-repository claim land and it was the faintest type in the frame at the
+  moment the film wants it read.
+- Settled edges now gain opacity instead of losing it. A local edge ended at 0.56,
+  which put the structure of the graph below its own labels; it ends at 0.72 now,
+  and a crossing at 0.88 - a settled crossing is supposed to weigh more than any
+  local edge.
+- The code bed came down: body 0.03 -> 0.017, context 0.026 -> 0.014, neighbours
+  0.022 -> 0.012, bed 0.02 -> 0.011, and the `withRetry` line 0.062 -> 0.038 so it
+  stays the brightest code without competing. The code never disappears - the film
+  never leaves it - but it is the bottom of the ladder now rather than a rival.
+- One defect found while doing it: there were three hand-kept copies of the level
+  the code settles to, in scene 03, scene 04 and answerState.ts, and scene 04 was
+  still holding scene 03's previous numbers - so the code read brighter under the
+  impact card than under the graph the card describes. There is one definition
+  now, `settledBed` in CodeWorld.tsx, and all three read it.
+- Verified at 900 px, which is what the review was actually asking about: at
+  embedded size all eight labels, both repository names and the whole topology
+  read.
+```

@@ -68,15 +68,26 @@ export const selectedLineRatio =
  * `label` is the luminance ladder, and it is where the hierarchy actually
  * lives: an outer symbol is dimmer, not merely smaller.
  *
+ * The ladder was compressed on 2026-08-26, from `1 / 0.75 / 0.65 / 0.58` to
+ * `1 / 0.84 / 0.76 / 0.70`, and the plate step with it. The old spread was
+ * authored against a full-size frame and it did not survive the sizes this film
+ * is actually watched at: embedded in GitHub, X or Reddit at 600-900 px, the
+ * hop-3 labels are the three `checkout-service` consumers, which is to say the
+ * payoff of the whole piece, and they were the dimmest ink in the frame.
+ *
+ * The hierarchy is not weaker for it. What separates the anchor is that it is
+ * the brightest surface, the largest type and the only thing carrying hue at
+ * rest; the shells still descend, just over a range that survives a downscale.
+ *
  * `plate` is how much of the node's surface separates from the background.
  * Secondary plates are barely there on purpose — they exist to give the label a
  * body and to catch the light as the camera moves, not to be read as chips.
  */
 export const shellLook = [
   { em: 1, label: 1, plate: 1 },
-  { em: 0.93, label: 0.75, plate: 0.9 },
-  { em: 0.88, label: 0.65, plate: 0.78 },
-  { em: 0.86, label: 0.58, plate: 0.66 },
+  { em: 0.93, label: 0.84, plate: 0.94 },
+  { em: 0.88, label: 0.76, plate: 0.86 },
+  { em: 0.86, label: 0.7, plate: 0.78 },
 ] as const;
 
 const fallback = shellLook[shellLook.length - 1] ?? shellLook[0];
@@ -85,8 +96,14 @@ export const lookOf = (id: string) =>
   shellLook[Math.min(shellOf[id] ?? shellLook.length - 1, shellLook.length - 1)] ??
   fallback;
 
-/** Luminance of a repository label. Metadata, a step below the outermost node. */
-export const clusterLabelOpacity = 0.42;
+/**
+ * Luminance of a repository label. Metadata, a step below the outermost node.
+ *
+ * `0.56` since 2026-08-26, up from `0.42`. `checkout-service` is the word that
+ * makes the cross-repository claim land, and at `0.42` it was the faintest type
+ * in the frame at the exact moment the film wants it read.
+ */
+export const clusterLabelOpacity = 0.56;
 
 /**
  * Em of a repository label, in world units. Set at the outermost node's size:
