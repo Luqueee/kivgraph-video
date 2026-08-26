@@ -963,3 +963,54 @@ Safe to change without altering the scene's purpose:
 - The pulse, the propagation order, the hop geometry, the camera pose, the three
   card values and every visible string are unchanged.
 ```
+
+```text
+2026-08-26
+- Contrast pass, on direct art direction, after watching the film at the sizes it
+  is actually embedded at. The complaint was that the code bed and the graph
+  shared too much of the same luminance range, and measured on frame 0629 that
+  was exactly true: 94.86% of the frame sat below luminance 12 and the hop-3
+  labels - the three checkout-service consumers, which are the payoff of the whole
+  piece - were the dimmest ink in it.
+- The shell ladder was compressed. Labels 1 / 0.75 / 0.65 / 0.58 -> 1 / 0.84 /
+  0.76 / 0.70, plates 1 / 0.9 / 0.78 / 0.66 -> 1 / 0.94 / 0.86 / 0.78. The
+  hierarchy is not weaker: what separates the anchor is that it is the brightest
+  surface, the largest type and the only thing carrying hue at rest.
+- Repository labels 0.42 -> 0.56. `checkout-service` is the word that makes the
+  cross-repository claim land and it was the faintest type in the frame at the
+  moment the film wants it read.
+- Settled edges now gain opacity instead of losing it. A local edge ended at 0.56,
+  which put the structure of the graph below its own labels; it ends at 0.72 now,
+  and a crossing at 0.88 - a settled crossing is supposed to weigh more than any
+  local edge.
+- The code bed came down: body 0.03 -> 0.017, context 0.026 -> 0.014, neighbours
+  0.022 -> 0.012, bed 0.02 -> 0.011, and the `withRetry` line 0.062 -> 0.038 so it
+  stays the brightest code without competing. The code never disappears - the film
+  never leaves it - but it is the bottom of the ladder now rather than a rival.
+- One defect found while doing it: there were three hand-kept copies of the level
+  the code settles to, in scene 03, scene 04 and answerState.ts, and scene 04 was
+  still holding scene 03's previous numbers - so the code read brighter under the
+  impact card than under the graph the card describes. There is one definition
+  now, `settledBed` in CodeWorld.tsx, and all three read it.
+- Verified at 900 px, which is what the review was actually asking about: at
+  embedded size all eight labels, both repository names and the whole topology
+  read.
+```
+
+```text
+2026-08-26
+- The impact card stops being a card. It carried `surfaceElevated`, a 1 px
+  hairline and 34/40/38 of padding, and over a 3D graph that read as an HTML
+  element pasted on top of the shot. STORYBOARD.md had already said it should
+  not: under *No hay claim line* it asks for the three values to be read
+  «contra el grafo sin oscurecer», with «el grafo debajo de `7 affected symbols`»
+  as the proof of the figure - which an opaque fill makes impossible. The
+  implementation had drifted from its own document.
+- No fill, no border, no padding. The title also came down, 20 px `textMuted` to
+  16 px `textFaint`: wide-tracked uppercase at the card's weight was the other
+  half of what made the block read as a product panel, and §7 puts a label
+  outside the hierarchy rather than at the top of it. The three figures are the
+  hierarchy.
+- The values, their copy and their position are unchanged, and so is every frame
+  number in this scene.
+```
