@@ -4,7 +4,7 @@
 
 This scene attaches everything the viewer just understood to the name.
 
-For twenty-one seconds the video has been about a behaviour: code that
+For twenty-two seconds the video has been about a behaviour: code that
 looked isolated, relationships that were real, a boundary that was crossed, an
 impact that was computed, an answer that was cheap and correct. None of that is
 attached to an identity yet. The name itself has already been glimpsed once, in
@@ -30,8 +30,10 @@ Secondary, from the tagline: it is for coding agents, and its claim is exactness
 ## Narrative context
 
 Immediately before: `07-benchmark.md` has stated four measured facts and faded
-out. Per `STORYBOARD.md` §27 the metrics-to-logo path is `fade → silence → brand
-reveal`, so this scene opens on the silence.
+out over `1308`–`1320`. Per `STORYBOARD.md` §27 the metrics-to-logo path is
+`fade → silence → brand reveal`, and scene 07 now hands that silence over
+explicitly: its last rendered frame `1319` is one frame short of black, so the
+black is this scene's own opening ten frames.
 
 Immediately after: `09-outro.md` gives the viewer one action. This scene must
 therefore end on a frame the outro can build on rather than one that has to be
@@ -47,9 +49,9 @@ implemented as a single component and storyboard SCENE 05 — CROSS-REPOSITORY w
 cut from the film. Storyboard SCENE 10 is document 08. See
 `docs/scenes/README.md`.
 
-- Global frames: `1270`–`1360`
-- Scene-local frames: `0000`–`0090` (last rendered frame `0089` / master `1359`)
-- Time: 21.17 s – 22.67 s
+- Global frames: `1320`–`1410`
+- Scene-local frames: `0000`–`0090` (last rendered frame `0089` / master `1409`)
+- Time: 22.00 s – 23.50 s
 - Duration: 90 frames / 1.5 s at 60 fps
 - Remotion component: `src/scenes/BrandScene.tsx`
 
@@ -57,18 +59,18 @@ Beats, all fixed by the storyboard:
 
 | Master        | Local         | Beat                                                     |
 | ------------- | ------------- | -------------------------------------------------------- |
-| `1270`        | `0000`        | Everything is gone. Black. Intentional silence.           |
-| `1280`        | `0010`        | A single node appears.                                    |
-| `1280`–`1320` | `0010`–`0050` | Thin lines arrive from outside the frame toward that node. |
-| `1310`–`1340` | `0040`–`0070` | The relationships converge.                               |
-| `1340`        | `0070`        | `Kivgraph` reads.                                         |
-| `1350`        | `0080`        | `Exact code intelligence for coding agents.` reads.        |
-| `1350`–`1360` | `0080`–`0090` | Settled. Nothing moves.                                   |
+| `1320`        | `0000`        | Everything is gone. Black. Intentional silence.           |
+| `1330`        | `0010`        | A single node appears.                                    |
+| `1330`–`1370` | `0010`–`0050` | Thin lines arrive from outside the frame toward that node. |
+| `1360`–`1390` | `0040`–`0070` | The relationships converge.                               |
+| `1390`        | `0070`        | `Kivgraph` reads.                                         |
+| `1400`        | `0080`        | `Exact code intelligence for coding agents.` reads.        |
+| `1400`–`1410` | `0080`–`0090` | Settled. Nothing moves.                                   |
 
 ## Initial state
 
-At `1270` the frame is empty and dark: `background` `#0a0b0d`, edge to edge.
-Nothing else. The ten frames from `1270` to `1280` are deliberately empty — this
+At `1320` the frame is empty and dark: `background` `#0a0b0d`, edge to edge.
+Nothing else. The ten frames from `1320` to `1330` are deliberately empty — this
 is the `silence` in the §27 transition and it is doing work. It separates
 measurement from identity.
 
@@ -79,7 +81,7 @@ players, which is a technical artefact, not a creative beat.
 
 ## Final state
 
-At `1359` the frame holds the settled Kivgraph lockup and its tagline, centred:
+At `1409` the frame holds the settled Kivgraph lockup and its tagline, centred:
 
 - the mark and the wordmark, complete;
 - `Exact code intelligence for coding agents.` beneath;
@@ -94,7 +96,7 @@ a still with nothing mid-transition in it.
 
 Centred, symmetrical, almost empty.
 
-The single node at `1280` should be the mark itself: a small solid square in
+The single node at `1330` should be the mark itself: a small solid square in
 `accent` `#2563eb`, at the centre of the frame. The real Kivgraph lockup is an
 8 × 8 px `#2563eb` square plus the lowercase monospace wordmark `kivgraph`, so
 the node the relationships converge on **is** the logo mark, scaled for the
@@ -131,28 +133,28 @@ Content stays centred so 1:1, 4:5, and 9:16 variants remain possible later
 
 Three gestures: arrival, convergence, naming.
 
-**Arrival (`1280`–`1320`).** Each line is drawn from outside the frame toward the
+**Arrival (`1330`–`1370`).** Each line is drawn from outside the frame toward the
 node as a progress value `0 → 1` along its own path, staggered so they do not all
 land together. Even speed, controlled easing, no acceleration flourish, no
 travelling glow. `STORYBOARD.md` §12 permits a very subtle energy point along an
 edge; it does not permit electricity, sparks, or particles.
 
-**Convergence (`1310`–`1340`).** The lines complete, meet at the node, and then
+**Convergence (`1360`–`1390`).** The lines complete, meet at the node, and then
 resolve — dimming out or retracting into the mark. The node may take a single,
 very small scale settle as they land. One settle, not a pulse, and never a loop.
 
-**Naming (`1340` and `1350`).** The wordmark appears beside or beneath the mark,
+**Naming (`1390` and `1400`).** The wordmark appears beside or beneath the mark,
 then the tagline. Both by opacity with a minimal upward settle. The wordmark does
 not type itself in, does not assemble from fragments, and does not slide: this is
 the one moment in the video that must feel inevitable rather than animated.
 
 Storyboard frame numbers mark when a beat **reads**, not when its ramp starts.
-This is a hard constraint here, because `1350` is a designated still-image key
+This is a hard constraint here, because `1400` is a designated still-image key
 frame in `AGENTS.md`. The tagline's entrance must therefore *conclude* at
-`1350`, not begin there, and every line must be fully resolved before `1340`. If
-anything is still moving at `1350`, the key frame is unusable.
+`1400`, not begin there, and every line must be fully resolved before `1390`. If
+anything is still moving at `1400`, the key frame is unusable.
 
-Nothing moves between `1350` and `1360`.
+Nothing moves between `1400` and `1410`.
 
 ## Three.js
 
@@ -174,7 +176,7 @@ If implemented in R3F (`@react-three/fiber` + `@remotion/three`):
 - **Camera intent:** effectively static. A very small dolly-in (well inside the
   15–20° / minimal-translation budget of `STORYBOARD.md` §13) is the most that is
   permitted. No orbit, no roll, no drift. The mark must be dead centre and
-  perfectly still by `1340`, because the frame is a logo.
+  perfectly still by `1390`, because the frame is a logo.
 - **Lighting and materials:** flat and unlit. This is UI materialised, not a
   physical object (`STORYBOARD.md` §14). No specular, no metal, no rim light, no
   bloom. A logo with a highlight on it is not a logo.
@@ -183,7 +185,7 @@ If implemented in R3F (`@react-three/fiber` + `@remotion/three`):
   no randomised line angles at render time — the angles are constants.
 - **Screen-space parity:** if 3D is chosen, the mark's final screen position and
   apparent size must match what `09-outro.md` expects, since the lockup carries
-  across the `1360` boundary. Matching a projected 3D position to a DOM layout
+  across the `1410` boundary. Matching a projected 3D position to a DOM layout
   across a scene boundary is precisely the kind of continuity risk `AGENTS.md`
   §23 warns about, and it is the strongest argument for doing this scene in 2D.
 
@@ -195,9 +197,15 @@ entirely.
 
 `STORYBOARD.md` §27: `fade → silence → brand reveal`.
 
-`07-benchmark.md` fades its four statements out together, landing on an empty
-frame at `1270`. This scene then holds that emptiness for ten frames before the
-node appears at `1280`.
+`07-benchmark.md` fades its four statements out together over `1308`–`1320`,
+landing on an empty frame at `1320`. Its last rendered frame is `1319`, one frame
+short of black, so scene 07 does not render the silence itself — it hands it over.
+This scene then holds that emptiness for ten frames, scene-local `0000`–`0010` /
+master `1320`–`1330`, before the node appears at `1330`.
+
+The silence belongs to this scene. It is ten frames this scene owns and renders,
+not a hole in the timeline and not a gap between two Sequences: `BrandScene`
+mounts at `1320` and paints the brand background across them.
 
 Those ten frames are the transition. They are not dead air and must not be
 shortened to "tighten the pacing" — the reveal only lands because the frame was
@@ -205,19 +213,19 @@ emptied first.
 
 ## Transition out
 
-At `1360` the composition continues into `09-outro.md`.
+At `1410` the composition continues into `09-outro.md`.
 
 **Derived continuity decision, not literal in the storyboard:** the lockup stays
-on screen across the `1360` boundary, in the same position and at the same scale,
+on screen across the `1410` boundary, in the same position and at the same scale,
 and `09-outro.md` composes the integrations and the CTA around it. The storyboard
 does not state this, but SCENE 11 asks the final hold to let the viewer *remember
 the name* and *locate the URL*, which requires the name to still be there. A
-version where the lockup exits at `1360` and the outro is only integrations plus a
+version where the lockup exits at `1410` and the outro is only integrations plus a
 URL loses the name at exactly the moment it is meant to stick.
 
 Consequences the implementation must honour:
 
-- there is no fade or cut at `1360` — the lockup simply does not move;
+- there is no fade or cut at `1410` — the lockup simply does not move;
 - the lockup's screen position is a shared constant between `BrandScene` and
   `OutroScene`, and it is chosen with the outro's layout already in mind, so the
   mark may sit above centre rather than at the exact centre of the frame;
@@ -250,19 +258,19 @@ No other text. No `by`, no version, no slogan, no `Get started`.
 ## Key frames
 
 ```text
-frame 1270 — empty frame; the intentional silence
-frame 1320 — relationships mid-arrival, converging on the mark
-frame 1350 — complete lockup plus tagline, fully settled; STILL-IMAGE KEY FRAME
-frame 1359 — unchanged from 1350; the frame the outro inherits
+frame 1320 — empty frame; the intentional silence
+frame 1370 — relationships mid-arrival, converging on the mark
+frame 1400 — complete lockup plus tagline, fully settled; STILL-IMAGE KEY FRAME
+frame 1409 — unchanged from 1400; the frame the outro inherits
 ```
 
-`1350` is on `AGENTS.md`'s still-image key frame list and `STORYBOARD.md` §28's
+`1400` is on `AGENTS.md`'s still-image key frame list and `STORYBOARD.md` §28's
 must-work-as-a-still list. It is the brand still for landing page, README,
 social, and thumbnail use, and it is the most likely single frame from this video
 to be seen outside the video. Export it as a PNG and inspect it; do not rely on
 the Studio scrubber.
 
-`1270`, `1320`, and `1350` are all on the manual review list in
+`1320`, `1370`, and `1400` are all on the manual review list in
 `STORYBOARD.md` §28.
 
 ## Invariants
@@ -277,10 +285,10 @@ the Studio scrubber.
   time the wordmark is on screen. They never remain as part of the mark.
 - The mark is the same square that the relationships converged on. The video's
   node vocabulary and the brand mark are deliberately the same shape.
-- Frame `1350` works as a still image: complete lockup, complete tagline, nothing
+- Frame `1400` works as a still image: complete lockup, complete tagline, nothing
   mid-animation.
-- The frame is static from `1350` to `1360`.
-- The `1270`–`1280` emptiness is preserved.
+- The frame is static from `1400` to `1410`.
+- The `1320`–`1330` emptiness is preserved.
 - No orbit, no camera spin, no floating, no looping pulse, no glow build-up, no
   particles, no lens flare (`AGENTS.md` §19, `STORYBOARD.md` §30).
 - Accent `#2563eb` is confined to the mark and the arriving relationships.
@@ -310,7 +318,7 @@ the Studio scrubber.
   wordmark and their relative proportions — so that this scene, `09-outro.md`,
   and any future poster frame cannot render three slightly different logos.
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="08 Brand" from={1120} durationInFrames={90}>` literals, because
+  `<Sequence name="08 Brand" from={1320} durationInFrames={90}>` literals, because
   Remotion Studio can only trim inline literals. There is no timing module. The
   component animates in scene-local frames: `useCurrentFrame()` inside the
   Sequence starts at `0`.
@@ -339,14 +347,14 @@ the Studio scrubber.
   converging lines) is simple enough for either. R3F buys continuity with the
   graph scenes and depth on the arriving lines; plain 2D SVG/DOM buys exact
   screen-space control, which matters because the lockup must hold its position
-  across the `1360` boundary into `09-outro.md`. Decide it against a rendered
-  frame `1350`, and update `## Three.js` in the same task.
+  across the `1410` boundary into `09-outro.md`. Decide it against a rendered
+  frame `1400`, and update `## Three.js` in the same task.
 - **Open decision — wordmark capitalisation.** `STORYBOARD.md` renders the
   reveal as `Kivgraph`, while the real lockup uses the lowercase monospace
   wordmark `kivgraph`. These are different marks. The real lockup should win, but
   that contradicts the storyboard text, so per `AGENTS.md` §14 the storyboard must
   be updated in the same task if it is overruled. Not silently resolved here.
-- **Open decision — lockup persistence across `1360`.** See
+- **Open decision — lockup persistence across `1410`.** See
   `## Transition out`. This document assumes the lockup carries into
   `09-outro.md` unchanged, which the storyboard neither states nor forbids.
   Mirrored in `09-outro.md`. If it is rejected, both documents change together.
@@ -355,7 +363,7 @@ the Studio scrubber.
   lockup, but the wordmark's exact letterforms cannot be verified against the
   real logotype.
 - **Sound absent.** `STORYBOARD.md` §18 asks for a *very soft impact* on the logo,
-  around `1340`. Nothing is authored yet. Per §17 the sound may never be required
+  around `1390`. Nothing is authored yet. Per §17 the sound may never be required
   to understand the piece and the whole video must work muted, so this scene must
   be judged with audio off; a soft impact is an enhancement, never load-bearing.
 
@@ -442,4 +450,37 @@ the Studio scrubber.
   untouched.
 - The scene's own opening line now says the video has been about a behaviour for
   twenty-one seconds rather than twenty, because it has.
+```
+
+```text
+2026-08-26
+- Scene 07 (Benchmark) was implemented at 170 frames rather than the drafted 120,
+  so every master frame in this document moved +50; the master is now 1530 frames
+  (25.5 s) and this scene spans `1320`–`1410`. Beats, durations and scene-local
+  frames are unchanged; the still-image key frame is now `1400`, and the lockup
+  persistence boundary shared with `09-outro.md` is now `1410`.
+- The growth happened upstream and it was measured, not felt: at 120 frames the
+  benchmark's last statement had 0.17 s of reading time, so the scene was built at
+  170. Nothing in this scene's own choreography changed.
+- Scene 07 now explicitly hands its silence to this scene, which is a fact this
+  document previously left implicit. Scene 07 fades out over `1308`–`1320` and its
+  last rendered frame `1319` is one frame short of black, so the ten frames of
+  black at scene-local `0000`–`0010` / master `1320`–`1330` are rendered here.
+  `## Transition in` now says so: the silence belongs to this scene and is not a
+  hole in the timeline.
+- The scene's own opening line now says the video has been about a behaviour for
+  twenty-two seconds rather than twenty-one, because this scene now opens at
+  exactly 22.0 s.
+- Corrected out of band, and not part of the +50: `## Technical notes` showed
+  `from={1120}` in its `src/Composition.tsx` `<Sequence>` example. `1120` was this
+  scene's start before the 2026-08-25 pacing pass, and that pass updated every
+  master frame in the prose but missed the literal, so `1120` + 50 would have been
+  meaningless. It is now `from={1320}`, matching the current scene start;
+  `durationInFrames={90}` was already right.
+- Every other code literal in this document was then checked against the scene's
+  current numbers, because a fenced literal is not read as prose and survives
+  passes that fix everything around it. The key-frame block, the two copy blocks,
+  the convergence sketch, the `90 frames / 1.5 s` duration line and the
+  `BrandScene.tsx` / `BrandLogo.tsx` component names are all consistent. This
+  document contains no `premountFor` or `postmountFor`.
 ```

@@ -3,78 +3,79 @@ import { fontMono } from "../brand/fonts";
 import { brand } from "../brand/tokens";
 
 /**
- * One row of the benchmark table: a unit on the left, its measured value on the
- * right.
+ * One row of the comparison table: a measure on the left, one figure per arm.
  *
- * ## Why a table
+ * ## Why a table with columns
  *
- * The four statements are measurements with units, and a table is what
- * measurements look like. It buys one thing the earlier free-floating layout
- * could not: **`6.2k` and `63.5k` share a right edge**, so the comparison is
- * made by the composition instead of by the viewer. Two numbers at different
- * baselines in different sizes have to be mentally aligned before they can be
- * compared; two numbers in a column do not.
+ * The scene's argument is a comparison, so the composition has to be one. Two
+ * figures in two headed columns are compared by the layout; two figures floating
+ * at different sizes have to be compared by the viewer, from memory, while the
+ * scene moves on.
  *
- * It also needs no new copy. Every string is the storyboard's, re-associated as
- * a unit and a value rather than rewritten - see `src/data/benchmark.ts`.
+ * Each column right-aligns on its own edge. That is the whole convention of a
+ * figure column, and it is what lets `6.2k` and `63.5k` be read as the same
+ * measure at two magnitudes rather than as two unrelated numbers.
  *
- * ## Why the values are right-aligned and the units are not
+ * ## Why the emphases are named and not sized
  *
- * A value column reads as a column only if its right edge is straight; that is
- * the whole convention. The unit column is left-aligned against the same
- * gutter, so the two columns frame the row from both sides and the eye has a
- * fixed place to land. Nothing is centred: centring each row independently would
- * make four rows into four objects, and this scene is one object.
+ * The caller says what a row *is*. The type scale lives here, once, so the ratio
+ * the scene depends on cannot drift one call at a time: the cost row is 76 px
+ * against the correctness rows' 36 px, and `6.2k` beats `63.5k` inside its own
+ * row by being 76 px against 36 px. A `fontSize` prop would let a future edit
+ * narrow that until the hierarchy stopped reading — and the comparison has to
+ * survive in greyscale (`AGENTS.md` §37), so it cannot be rescued with colour.
  *
- * ## Why emphasis and not sizes
- *
- * The caller says *what a row is*, not how big it is. The type scale lives here,
- * once, so the ratio the scene depends on cannot drift: `6.2k` beats `63.5k`
- * because it is 88 px against 40 px, and that ratio is the entire argument. A
- * component taking `fontSize` would let a future edit narrow it one call at a
- * time until the hierarchy stopped reading - and the comparison has to survive
- * in greyscale (`AGENTS.md` §37), which means it cannot be rescued by colour.
+ * The subject column is `textPrimary` and the baseline column is `textFaint` in
+ * the cost row only. In the correctness rows both columns are `textPrimary`,
+ * because those rows tie and dimming one side would assert a difference the
+ * benchmark does not report.
  */
 
 const emphasis = {
-  /** The Kivgraph figure. The largest thing in the scene. */
-  primary: { size: 88, weight: 500, colour: brand.textPrimary },
-  /** The baseline it is measured against: smaller, and dimmer, never redder. */
-  baseline: { size: 40, weight: 400, colour: brand.textFaint },
-  /** Correctness and scale. Between the body and heading tiers. */
-  claim: { size: 40, weight: 400, colour: brand.textPrimary },
-} as const;
-
-/**
- * The table's own geometry, in master pixels.
- *
- * 480 px wide, centred. The widest row is `exact answers` against `7 / 7` -
- * 140 px of unit and 120 px of value at these sizes - so 480 leaves a 220 px
- * gutter there and 300 px in the sparsest row. Wider than this and
- * `repositories` stops belonging to `37`; narrower and `6.2k`, which is 211 px
- * on its own, crowds its unit.
- *
- * Exported because the separating rule spans exactly these columns, and a rule
- * a few pixels wider than the table it divides is the kind of detail that makes
- * a frame look assembled rather than designed.
- */
-export const tableGrid = {
-  labelLeft: 720,
-  valueRight: 1200,
-  get width() {
-    return this.valueRight - this.labelLeft;
+  /** The cost row. The subject's figure is the largest thing in the scene. */
+  cost: {
+    size: [76, 36],
+    weight: [500, 400],
+    colour: [brand.textPrimary, brand.textFaint],
+  },
+  /** A correctness row. Both arms tie, so both are stated at equal weight. */
+  claim: {
+    size: [36, 36],
+    weight: [400, 400],
+    colour: [brand.textPrimary, brand.textPrimary],
   },
 } as const;
 
-const unitSize = 18;
+/**
+ * The table's geometry, in master pixels.
+ *
+ * Exported because the header row and the rule under it span exactly these
+ * columns. A rule that misses the table it divides by a few pixels is the kind
+ * of detail that makes a frame look assembled rather than designed.
+ *
+ * 800 px wide, centred: labels from 560, figure columns ending at 1060 and 1360.
+ * The two proportions that matter were measured off a render and then fixed. The
+ * gap from a label to its first figure runs 251-352 px depending on how long the
+ * label is, and the gap between the two figures runs 200-222 px - so a label
+ * reads as belonging to its row while the two figures still read as two columns
+ * rather than one wide number. The first attempt had those at 466 and 248, which
+ * detached `recall` from its own `1.00` while letting the two `1.00`s crowd each
+ * other.
+ */
+export const tableGrid = {
+  labelLeft: 560,
+  columnRight: [1060, 1360],
+} as const;
+
+const labelSize = 18;
 
 type Props = {
-  /** The unit, verbatim from `src/data/benchmark.ts`. */
+  /** The measure, verbatim from `src/data/benchmark.ts`. */
   label: string;
-  /** The measured value, verbatim from the same place. */
-  value: string;
+  /** One figure per arm, in column order. */
+  values: readonly [string, string];
   emphasis: keyof typeof emphasis;
-  /** Top of the value in master pixels. The unit is centred against it. */
+  /** Top of the row's tallest figure, in master pixels. */
   top: number;
   /** 0 -> 1 presence. */
   opacity: number;
@@ -84,20 +85,23 @@ type Props = {
 
 export const BenchmarkMetric: React.FC<Props> = ({
   label,
-  value,
+  values,
   emphasis: which,
   top,
   opacity,
   offsetY,
 }) => {
   const look = emphasis[which];
+  const tallest = Math.max(look.size[0], look.size[1]);
 
   /**
-   * The unit sits on the value's optical centre, not on its top edge. Mono
-   * digits fill about three quarters of their em, so half of that is where the
-   * row's weight actually is.
+   * Everything in a row sits on the tallest figure's optical centre rather than
+   * its top edge. Mono digits fill about three quarters of their em, so half of
+   * that is where the row's weight actually is — and in the cost row the two
+   * figures differ by 40 px of size, so aligning tops would leave `63.5k`
+   * floating above its own baseline.
    */
-  const unitTop = top + look.size * 0.375 - unitSize / 2;
+  const centre = top + tallest * 0.375;
 
   return (
     <div
@@ -117,8 +121,8 @@ export const BenchmarkMetric: React.FC<Props> = ({
         style={{
           position: "absolute",
           left: tableGrid.labelLeft,
-          top: unitTop,
-          fontSize: unitSize,
+          top: centre - labelSize / 2,
+          fontSize: labelSize,
           lineHeight: 1,
           letterSpacing: "0.04em",
           color: brand.textMuted,
@@ -127,22 +131,25 @@ export const BenchmarkMetric: React.FC<Props> = ({
         {label}
       </div>
 
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top,
-          width: tableGrid.valueRight,
-          textAlign: "right",
-          fontSize: look.size,
-          fontWeight: look.weight,
-          lineHeight: 1,
-          letterSpacing: "-0.02em",
-          color: look.colour,
-        }}
-      >
-        {value}
-      </div>
+      {values.map((value, column) => (
+        <div
+          key={value + String(column)}
+          style={{
+            position: "absolute",
+            left: 0,
+            top: centre - look.size[column] * 0.375,
+            width: tableGrid.columnRight[column],
+            textAlign: "right",
+            fontSize: look.size[column],
+            fontWeight: look.weight[column],
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            color: look.colour[column],
+          }}
+        >
+          {value}
+        </div>
+      ))}
     </div>
   );
 };

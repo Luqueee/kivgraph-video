@@ -8,21 +8,21 @@
 | 04  | Blast Radius        |   630–770 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
 | 05  | Semantic Resolution |   770–970 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
 | 06  | Agent Answer        |  970–1150 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
-| 07  | Benchmark           | 1150–1270 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
-| 08  | Brand               | 1270–1360 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
-| 09  | Outro               | 1360–1480 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
+| 07  | Benchmark           | 1150–1320 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
+| 08  | Brand               | 1320–1410 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                              |
+| 09  | Outro               | 1410–1530 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                              |
 
-Master: 1920 × 1080, 60 fps, **1480 frames, 24.7 s**. Global frame boundaries
+Master: 1920 × 1080, 60 fps, **1530 frames, 25.5 s**. Global frame boundaries
 live only in `src/Composition.tsx`.
 
-That 1480 is the plan, not what renders today. Scenes 01–06 exist, so
-`KivgraphPromo` is registered at `mountedFrames` — currently **1150 frames,
-19.17 s** — and Studio and `remotion render` produce the film that exists instead
-of just over nineteen seconds of video followed by five and a half of black.
+That 1530 is the plan, not what renders today. Scenes 01–07 exist, so
+`KivgraphPromo` is registered at `mountedFrames` — currently **1320 frames,
+22.0 s** — and Studio and `remotion render` produce the film that exists instead
+of twenty-two seconds of video followed by three and a half of black.
 Raise `mountedFrames` in `src/Composition.tsx` as each scene lands, and delete it
-once it reaches 1480.
+once it reaches 1530.
 
-The master length has moved seven times. Three were because the opening changed:
+The master length has moved eight times. Three were because the opening changed:
 it was 1500, grew to 1620 when scene 01 was extended from 90 to 210 frames,
 returned to 1500 when the old scene 02 was deleted, and fell to 1410 when scene
 01 was cut from 210 to 120. The fourth was the first one a later scene caused —
@@ -35,12 +35,19 @@ semantic scene grew from 150 to 180 frames so its two-column comparison stands
 for a full second before anything leaves the frame.
 
 The seventh, also 2026-08-25, is the largest single change to the film's length
-and the only one taken against a measurement rather than a judgement: 1330 to
+and the first taken against a measurement rather than a judgement: 1330 to
 **1480**, when the blast radius went 100 → 140, the semantic resolution 180 → 200
-and the agent answer 90 → 180. See **Pacing and dwell time** below. Four scenes
-have ever changed duration — scene 01 once, the blast radius twice, the semantic
-scene twice, and the agent answer once. For every other scene, only offsets have
-moved.
+and the agent answer 90 → 180. See **Pacing and dwell time** below.
+
+The eighth, on 2026-08-26, is the second taken against that same measurement and
+the first taken *before* a scene shipped rather than after: 1480 to **1530**, when
+the benchmark landed at 170 frames instead of the 120 it had been drafted at. At
+120 its last statement settled with 10 frames left — **0.17 s** — so the scene was
+built at the length its own reading time asked for rather than at the length the
+storyboard had guessed. Only scenes 08 and 09 moved, +50 each. Five scenes have
+ever changed duration — scene 01 once, the blast radius twice, the semantic scene
+twice, the agent answer once, and the benchmark once, at implementation. For every
+other scene, only offsets have moved.
 
 ## Pacing and dwell time
 
@@ -62,7 +69,7 @@ Measured on the 1330-frame cut, two elements failed badly:
   technical text can actually be read at.
 
 The film was accelerating into its own payoff. Durations are now derived from
-reading time rather than from feel, and the figures after the retime are:
+reading time rather than from feel, and the figures as the film stands are:
 
 | Element                                     | Dwell    |
 | ------------------------------------------- | -------- |
@@ -72,12 +79,25 @@ reading time rather than from feel, and the figures after the retime are:
 | scene 06's counts                           | `1.97 s` |
 | scene 06's path sentence                    | `1.67 s` (44 characters per second) |
 | scene 06's `Answered with Kivgraph` label   | `1.43 s` |
+| scene 07's `tokens / 6.2k`                  | `2.10 s` |
+| scene 07's `grep + read / 63.5k`            | `2.00 s` |
+| scene 07's `exact answers / 7 / 7`          | `1.50 s` |
+| scene 07's `repositories / 37`              | `1.07 s` |
+| scene 07's `published benchmark` note       | `1.00 s` |
 
 Scene 05's counters were already at 1.00 s and its sixty-frame stand was left
 exactly as it was; its twenty extra frames went to the *build* instead, where
 every window was eighteen frames wide and spaced ten apart and is now twenty and
 twelve. A comparison whose subject is counting cannot deliver its terms faster
 than they can be counted.
+
+Scene 07 is the first scene whose duration was set by this measurement *before* it
+was built rather than after. At the 120 frames it had been drafted at, its last
+statement settled with 10 frames left — 0.17 s — so it landed at 170. Its two
+closing rows sit at the floor rather than above it, 1.07 s and 1.00 s, alongside
+scene 05's counters: `repositories`, `37` and `published benchmark` are 33
+characters between them, and 33 characters in 1.00 s is 33 per second, inside the
+same 25–40 the path sentence failed against.
 
 Two things follow for anyone retiming this film again. Dead frames and dwell are
 different quantities measured in the same units: the twenty frames trimmed off the
@@ -96,7 +116,7 @@ the only place in the scene where the answer is read.
 | 04  | Blast Radius        | implemented, key frames inspected         |
 | 05  | Semantic Resolution | implemented, key frames inspected         |
 | 06  | Agent Answer        | implemented, key frames inspected         |
-| 07  | Benchmark           | specified only                            |
+| 07  | Benchmark           | implemented, key frames inspected         |
 | 08  | Brand               | specified only                            |
 | 09  | Outro               | specified only                            |
 
@@ -115,6 +135,13 @@ callers must live in `internal/retry`, and Go's `internal/` rule forbids
 `checkout-service` from importing them — the impact has to travel through the
 public `payments-api/paymentService`. Do not simplify it back.
 
+`src/data/benchmark.ts` is the same idea for scene 07: the four measured values in
+one place, each with its provenance. They are stored as **strings, not numbers** —
+`6.2k` is not `6200` with a suffix — because formatting a number would let a
+future edit change the precision, and changing the precision is changing the
+value. That is also why the scene has no count-up: a mid-count still frame
+displays a number that is not the published benchmark.
+
 "Specified only" means the document is the contract the future implementation
 must satisfy; no component exists yet and the corresponding stretch of the
 master is still black.
@@ -127,12 +154,16 @@ Scenes 01 and 02 establish the grammar the rest of the video inherits:
   that explains it. Scene 04 spends the one exception: its impact card is a flat
   DOM panel composited above the canvas, because three counted numbers are a
   claim about the graph rather than a thing standing in it, and
-  `src/components/MetricCard.tsx` holds that surface language for scene 07 too.
-  `src/components/ImpactReport.tsx` composes it, and it exists because scene 05
-  inherits the card on its first frame and fades it out during the flatten: two
+  `src/components/MetricCard.tsx` holds that surface language for scenes 04 and 05
+  alone. `src/components/ImpactReport.tsx` composes it, and it exists because scene
+  05 inherits the card on its first frame and fades it out during the flatten: two
   scenes drawing the same thing from two places is how a seam that must be
   invisible ends up measuring 22 dB. `ImpactReport` is the card alone — it used to
-  carry a claim line under it, and that line was cut;
+  carry a claim line under it, and that line was cut. Scene 07 was expected to
+  inherit the card and does not: it has no graph behind it to make a claim against,
+  so it is a table on the bare background — one hairline rule, no panel — and
+  `src/components/BenchmarkMetric.tsx` is its own surface language, one table row
+  rather than a card;
 - the opening is **one continuous shot** through **one world**. There is no cut
   anywhere before frame 0330. `src/world/camera.ts` projects it and
   `src/components/CodeWorld.tsx` holds the only spatial layout; a scene animates
@@ -294,6 +325,8 @@ record, and SCENE 06 to SCENE 11 keep their numbers. Their frame ranges moved
 −90 with the cut; SCENE 06 then gave up twenty frames of its own tail, and
 SCENE 07 to SCENE 11 moved a further −20. The 2026-08-25 pacing pass then moved
 SCENE 06's end +40, SCENE 07's +70 and SCENE 08 to SCENE 11 a flat +150.
+The 2026-08-26 benchmark pass then moved SCENE 09's end +50 and SCENE 10 and
+SCENE 11 a flat +50.
 
 | Document | Storyboard scene |
 | --- | --- |
@@ -346,20 +379,21 @@ return of the graph to the match cut's pose. `src/three/crossRepoState.ts` and i
 inherits instead.
 
 Measured after the cut, re-measured after the blast radius was trimmed,
-re-measured again once scene 06 landed, again after the semantic scene grew, and
-again after the pacing pass: the 0330 and 0770 seams are pixel-identical, 0630 is
-62.93 dB (glyph antialiasing only), and 1150 mounted frames render with no black
-frame.
+re-measured again once scene 06 landed, again after the semantic scene grew, again
+after the pacing pass, and again once scene 07 landed: the 0330 and 0770 seams are
+pixel-identical, 0630 is 62.93 dB (glyph antialiasing only), and 1320 mounted
+frames render with no black frame.
 
 The 0970 boundary does not measure like those, and it is not supposed to. It is a
 match cut, not an invisible cut: the symbol region across 0969/0970 measures
 41.35 dB, because the symbol itself is in the same place at the same size, while
 the whole frame measures far lower, because the split view's left column and
-divider have gone and the prompt layer arrives. The whole-film scan over 1150
-frames flags 0969 and 0970 and nothing else, and those are the two sides of that
-cut — a step, not a spike, confirmed by the frames either side. Anyone measuring a
-poor whole-frame figure at that boundary later should read the symbol region before
-calling it a regression.
+divider have gone and the prompt layer arrives — 28.69 dB whole-frame. The
+whole-film scan over 1320 frames flags two pairs and nothing else: 0969/0970 and
+1149/1150. Both are hard cuts, steps rather than spikes, confirmed by the frames
+either side, and 1149/1150 is scene 07's own cut at 22.30 dB, which is what a hard
+cut is supposed to measure. Anyone measuring a poor whole-frame figure at either
+boundary later should read the symbol region before calling it a regression.
 
 ### The problem scene
 
@@ -385,7 +419,7 @@ find it is in the length of the two scenes that remain.
 ## Key frames
 
 Frames that must hold up as still images: `0080`, `0629`, `0718`, `0864`, `1064`,
-`1190`, `1350`. Each is documented in the scene that owns it, and each is stated
+`1190`, `1400`. Each is documented in the scene that owns it, and each is stated
 there as a *definition* rather than as a number, so the next retime can recompute
 it instead of guessing:
 
@@ -397,7 +431,7 @@ it instead of guessing:
 | `0864` | the first frame of scene 05's measured byte-identical stand.             |
 | `1064` | the frame scene 06's attribution label finishes on; the scene goes static.|
 | `1190` | scene 07's `6.2k vs 63.5k` frame, both numbers fully legible.            |
-| `1350` | scene 08's settled lockup plus tagline.                                  |
+| `1400` | scene 08's settled lockup plus tagline.                                  |
 
 How they got here. `1064` joined the list as scene 06's label frame — it was
 `0940` when the scene landed and `0970` after the semantic scene grew. Of the six
@@ -405,7 +439,11 @@ that predate it, the four after `0629` each moved −90 with the cross-repositor
 cut, and the last three moved a further −20 when the blast radius was trimmed,
 then +30 when the semantic scene grew. The 2026-08-25 pacing pass moved five of
 them: `0710` → `0718`, `0840` → `0864`, `0970` → `1064`, `1040` → `1190` and
-`1200` → `1350`. Only `0080` and `0629` are untouched by it.
+`1200` → `1350`. Only `0080` and `0629` are untouched by it. The 2026-08-26
+benchmark pass moved one of them: `1350` → `1400`, carried by scene 08's +50
+offset. `1190` did not move, because scene 07 grew at its tail — its start is
+unchanged and the frame is scene-local 40 either way — and it is now measured on
+the render rather than planned.
 
 Two of those are not simple shifts and that is the reason the definitions are
 written down. `0718` is +8 rather than +40, because the card's entry window moved
@@ -431,6 +469,16 @@ and every frame from there to 1149 is byte-identical, so the still is one frame
 clear of the last thing that moves rather than balanced on it. That hold is 87
 frames, and it is where the answer is read.
 
+`1190` is the one still in the list that is delivered with a compromise. It holds
+exactly what it is defined to hold: both numbers complete and legible, the rule not
+yet arrived, the two claims not yet arrived — which is why `63.5k`'s ramp
+front-loads inside its window instead of filling it. What it cannot do is centre
+the pair. At 1190 the two rows sit above frame centre, because the block is laid
+out for the settled table and the lower rows are still empty; centring the pair
+would decentre the table, and the table is the image the film actually shows for 61
+static frames. A still that needs the pair optically centred should be cropped, not
+re-laid-out.
+
 ## Rendering
 
 `remotion.config.ts` forces Chromium's `angle` OpenGL renderer. Three.js cannot
@@ -452,8 +500,9 @@ where ACES compresses hardest, and a plate authored `#171a1f` rendered `#080a0d`
 sRGB from `src/brand/tokens.ts` and every other scene is DOM, so a film curve
 between the tokens and the frame would mean the graph's greys are not the site's
 greys. Scenes 04 to 06 inherit both by drawing through the same `GraphWorld` —
-scene 06 only for the 30 frames it keeps a canvas at all; scene 07 onward must
-carry them too.
+scene 06 only for the 30 frames it keeps a canvas at all. Scene 07 mounts no canvas
+at all — it is type on the background and there is no Three.js in it — so scene 08
+onward is where the pair has to be carried next.
 
 Every graph sequence also carries `premountFor={30}`, and that is a preview fix
 rather than a creative one. A `<Sequence>` renders its children only inside its
@@ -471,11 +520,12 @@ scrubbing back across 0630 or 0770 remounts them and the timeline has to
 survive being walked backwards as well as forwards. None of this touches the
 film: `premountingActive` is gated on `!isRendering`, so no rendered frame
 changes — the render never had the blink, only the preview did. Scene 06 carries
-`premountFor={30}` and no `postmountFor`, which is right while it is the last
-mounted scene: nothing scrubs back across 1150 yet. Scene 05's `postmountFor`,
-though, is now due and still missing — since 0970 became a boundary there is a
-scene after it to scrub back from. Repeat both props on any sequence from scene 07
-onward that mounts a canvas.
+`premountFor={30}` and no `postmountFor`, and that is now due: scene 07 mounts at
+1150, so there is a scene after it to scrub back from, and scrubbing back across
+1150 remounts the canvas scene 06 holds for its first 30 frames. Scene 05's is due
+for the same reason and has been since 0970 became a boundary. Scene 07 needs
+neither prop, because it mounts no canvas; repeat both on any sequence from scene
+08 onward that does.
 
 The mechanism survived the cross-repository cut unchanged, but the seam it was
 found at is now a different pair of scenes: it was `GraphRevealScene` handing over
@@ -586,4 +636,59 @@ mechanical pass across all nine documents and has not been done yet.
 - Inheritance samples followed the durations: scene 05 samples getBlastState(140)
   and scene 06 samples getSemanticState(200).
 - Scene 05's postmountFor is still due and still missing.
+```
+
+```text
+2026-08-26
+- Scene 07 (Benchmark) implemented: src/scenes/BenchmarkScene.tsx,
+  src/data/benchmark.ts and src/components/BenchmarkMetric.tsx. There is no state
+  module: the timing is four ramps and a fade, and a module for that would be an
+  empty file. No Three.js, no canvas, no chrome.
+- It landed at 170 frames rather than the 120 it was drafted at, so the master is
+  1530 frames (25.5 s) and mountedFrames 1150 -> 1320, which is 22.0 s. Scenes 08
+  and 09 moved +50 each: 08 is 1320-1410, 09 is 1410-1530. Nothing before 1150
+  moved. 210 frames - 3.5 s - of the master are still black.
+- The 50 extra frames were bought with the same dwell measurement as the 2026-08-25
+  pacing pass. At 120 the last statement settled with 10 frames left: 0.17 s. As
+  built, with the fade starting at 1308: tokens / 6.2k 2.10 s, grep + read / 63.5k
+  2.00 s, exact answers / 7 / 7 1.50 s, repositories / 37 1.07 s, published
+  benchmark 1.00 s. The last two rows are 33 characters in 1.00 s, which is 33 per
+  second and inside the 25-40 budget.
+- Built as a table on direct art direction, not as the free-floating value/label
+  composition the spec described. BenchmarkMetric is therefore one table row - unit
+  left, measured value right-aligned - and it owns the type scale and the column
+  geometry, so the caller never passes a font size. It also exports tableGrid.
+  Scene 07 does not inherit MetricCard: it has no graph to make a claim against.
+- Two storyboard strings were split into value and unit, because a table needs the
+  measured quantity in its own column: 7 / 7 exact answers -> 7 / 7 + exact
+  answers, and 37 repositories -> 37 + repositories. No value changed. published
+  benchmark is now a source note under the table rather than a label of 37. Values
+  are stored as strings, not numbers: 6.2k is not 6200 with a suffix, because
+  formatting a number would let a future edit change the precision, which is the
+  same thing as changing the value.
+- Windows, master frames: 6.2k 1154-1182, 63.5k 1168-1188, rule 1190-1210 to 0.9
+  opacity, 7 / 7 1196-1218, 37 1222-1244, published benchmark 1226-1248, fade out
+  1308-1320 with all four rows leaving together. 63.5k front-loads inside the
+  storyboard's 1170-1210 window so key frame 1190 has both numbers complete.
+- Measured: 1320 frames render with no black frame and the anomaly scan flags only
+  the two hard cuts, 969/970 and 1149/1150. Seams: 0629/0630 62.93 dB and
+  0769/0770 pixel-identical, both unchanged; 0969/0970 28.69 dB whole-frame,
+  unchanged; 1149/1150 22.30 dB, the new hard cut, and a hard cut is supposed to
+  measure low. The settled table is byte-identical for 61 frames, 1248-1308. The
+  layout geometry it was measured against - columns, coordinates, type scale,
+  vertical rhythm, optical centring - lives in 07-benchmark.md § Visual
+  composition, not here.
+- Key frames: 1350 -> 1400, carried by scene 08's offset. 1190 did not move and is
+  scene 07's still. Its compromise: at 1190 the pair sits above frame centre,
+  because the block is laid out for the settled table and the lower rows are still
+  empty. Not fixable by layout - centring the pair would decentre the table, which
+  is the image the film shows for 61 static frames. Crop, do not re-lay-out.
+- Rejected: count-up or ticking numerals (a mid-count still frame shows a number
+  that is not the published benchmark), colour-coded win/lose pair (meaning would
+  depend on colour alone), bar chart, and borders on the table. 6.2k dominates by
+  scale and never by colour: it is the only figure that breaks the size of the
+  others, and that disproportion is the whole argument, so the comparison has to
+  survive in greyscale.
+- Scene 06's postmountFor is now due as well as scene 05's, since there is a scene
+  after 1150 to scrub back from. Scene 07 needs neither prop: no canvas.
 ```

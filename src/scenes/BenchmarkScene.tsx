@@ -1,12 +1,12 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
 import { BenchmarkMetric, tableGrid } from "../components/BenchmarkMetric";
-import { benchmark } from "../data/benchmark";
+import { arms, rows, sourceNote } from "../data/benchmark";
 import { brand } from "../brand/tokens";
 import { fontMono } from "../brand/fonts";
 
 /**
- * Scene 07 - benchmark (master 1150-1320, scene-local 0000-0170).
+ * Scene 07 - benchmark (master 1150-1360, scene-local 0000-0210).
  *
  * The scene that replaces the claim with evidence. Everything before it was a
  * demonstration, and a demonstration can be staged; this says the thing the
@@ -19,10 +19,10 @@ import { fontMono } from "../brand/fonts";
  * makes the numbers read as a fact about the world rather than as a screenshot
  * of a tool - so the emptiness at 1150 is the hard cut's whole effect.
  *
- * Four entrances and a hold. The values live in `src/data/benchmark.ts` and the
- * shape they share lives in `BenchmarkMetric.tsx`; this file owns the layout and
- * the timing, and there is no timing module for it because the timing is four
- * ramps and a fade.
+ * A comparison table, two arms and four measures. The figures and their
+ * provenance live in `src/data/benchmark.ts`; the row shape and the type scale
+ * live in `BenchmarkMetric.tsx`; this file owns the layout and the timing. There
+ * is no state module because the timing is seven ramps and a fade.
  *
  * See `docs/scenes/07-benchmark.md` for intent, beats and invariants.
  */
@@ -39,43 +39,41 @@ const ramp = (frame: number, from: number, to: number) =>
 /**
  * The composition, in master pixels.
  *
- * A table, because the four statements are measurements with units and that is
- * what measurements look like. It buys the thing the scene's argument needs:
- * `6.2k` and `63.5k` share a right edge, so the comparison is made by the
- * composition instead of by the viewer.
+ * Vertical rhythm: 24 px between rows, 28 px either side of the header rule, and
+ * 44 px above the source note. The note gets nearly double a row's gap because
+ * at a row's spacing it read as a fifth measure that had lost its figures; a
+ * source note has to sit outside the body it vouches for.
  *
- * Vertical rhythm: 24 px between rows inside a group, 28 px either side of the
- * rule, and 44 px above the provenance note. The note gets nearly double the
- * gap because at a row's spacing it read as a fifth row that had lost its
- * value; a source note has to sit outside the body it vouches for. The block
- * runs 351 to 725, centred on 538 rather than 540 - mono digits sit high in
- * their em, so a geometrically centred box of numerals reads low.
+ * The block runs 342 to 734, centred on 538 rather than 540 - mono digits sit
+ * high in their em, so a geometrically centred box of numerals reads low.
  *
- * `6.2k` is the only row that breaks the 40 px value size, and it breaks it by
- * 2.2x. That ratio is the entire argument of the scene and it is why nothing
- * here is coloured to make the point.
+ * The cost row is the only one that breaks the 36 px figure size, and inside it
+ * `6.2k` is 76 px against `63.5k`'s 36. Both ratios are the argument, which is
+ * why nothing in the frame is coloured to make it.
  */
 const layout = {
-  primaryTop: 351,
-  baselineTop: 463,
-  ruleY: 531,
-  accuracyTop: 559,
-  scaleTop: 623,
-  provenanceTop: 707,
+  headerTop: 342,
+  ruleY: 388,
+  rowTops: [416, 516, 576, 636],
+  noteTop: 716,
 } as const;
 
 /**
  * Entrances.
  *
- * `6.2k` and `63.5k` are both complete by local 40, which is master 1190 - a
- * designated still-image key frame reserved for the benchmark launch, whose
- * required content is both numbers fully legible. A half-faded `63.5k` there
- * would ruin the one frame from this scene that gets used outside the video, so
- * the baseline's ramp front-loads inside the storyboard's window rather than
- * filling it.
+ * The header and its rule arrive first and almost together: the table has to
+ * exist before it can be filled, and a figure landing in an unheaded column is
+ * a number without a claim attached.
  *
- * The two claims follow as one cascade. `37 repositories` settles at local 94,
- * and the frame then holds for 64 frames before the fade begins.
+ * The cost row is complete by local 38, which is master 1188. `STORYBOARD.md`
+ * §29 reserves master 1190 as a still-image key frame whose required content is
+ * `6.2k vs 63.5k`, both fully legible; a half-faded figure there would ruin the
+ * one frame from this scene that gets used outside the video. The ramp therefore
+ * front-loads inside the storyboard's window rather than filling it.
+ *
+ * The three correctness rows then arrive on a 24-frame pitch, which is the same
+ * pitch as their vertical spacing - the table fills in at one speed, so it reads
+ * as one object being completed rather than as four statements being made.
  *
  * No count-up and no odometer. A mid-count still frame would display a number
  * that is not the published benchmark, which is a benchmark-integrity failure
@@ -83,6 +81,13 @@ const layout = {
  * impressive this is" gesture the storyboard rules out. Numbers appear at their
  * final value on every frame they are visible on.
  */
+const rowEntry = [
+  [14, 38],
+  [42, 62],
+  [66, 86],
+  [90, 110],
+] as const;
+
 const entry = (frame: number, from: number, to: number) => {
   const progress = ramp(frame, from, to);
 
@@ -93,101 +98,110 @@ const entry = (frame: number, from: number, to: number) => {
  * The fade out, and the hold that earns it.
  *
  * `STORYBOARD.md` §27 makes the metrics-to-logo path `fade -> silence -> brand
- * reveal`, so this scene owns the fade and scene 08 opens on black. All four
- * statements leave together: fading them in sequence would restate the cascade
+ * reveal`, so this scene owns the fade and scene 08 opens on the silence. The
+ * whole table leaves together: fading it row by row would restate the cascade
  * backwards and cost the brand reveal its silence.
  *
- * The hold is 64 frames, and it is the reason the scene is 170 frames rather
- * than the 120 the storyboard drafted. At 120 the last statement settled with 10
- * frames left - 0.17 s to read `37 repositories` and register that the figures
- * are checkable - which is the same failure the last three scenes were repaced
- * to fix. Four statements need to be readable as one composition, and that is a
- * property of how long they are all on screen together.
+ * The scene is 210 frames, not the 120 the storyboard drafted, and the reason is
+ * measured rather than felt. Dwell - how long a readable thing stays on screen
+ * after it has finished arriving - runs 2.67 s for the cost row down to 1.03 s
+ * for the source note, and the note is 37 characters, so it is read at 38
+ * characters per second against a 25-40 budget for on-screen technical text. At
+ * 120 frames a four-row table could not finish arriving at all.
  */
-const fadeOut = (frame: number) => 1 - ramp(frame, 158, 170);
+const fadeOut = (frame: number) => 1 - ramp(frame, 198, 210);
 
 export const BenchmarkScene: React.FC = () => {
   const frame = useCurrentFrame();
-  const provenance = entry(frame, 76, 98);
+  const header = entry(frame, 2, 22);
+  const note = entry(frame, 116, 136);
 
   return (
     <AbsoluteFill
       style={{ backgroundColor: brand.background, opacity: fadeOut(frame) }}
     >
-      <BenchmarkMetric
-        label={benchmark.tokens.label}
-        value={benchmark.tokens.value}
-        emphasis="primary"
-        top={layout.primaryTop}
-        {...entry(frame, 4, 32)}
-      />
-
-      <BenchmarkMetric
-        label={benchmark.baseline.label}
-        value={benchmark.baseline.value}
-        emphasis="baseline"
-        top={layout.baselineTop}
-        {...entry(frame, 18, 38)}
-      />
+      {/**
+       * The column heads. Both are `textMuted`, the same treatment the row
+       * labels get, because all six are labels: the hierarchy in this frame is
+       * carried by the figures, and marking the subject column with a colour
+       * would assert a difference the correctness rows explicitly deny.
+       */}
+      {arms.map((arm, column) => (
+        <div
+          key={arm}
+          style={{
+            position: "absolute",
+            left: 0,
+            top: layout.headerTop,
+            width: tableGrid.columnRight[column],
+            textAlign: "right",
+            fontFamily: fontMono,
+            fontSize: 18,
+            lineHeight: 1,
+            letterSpacing: "0.04em",
+            whiteSpace: "pre",
+            color: brand.textMuted,
+            opacity: header.opacity,
+            translate: `0px ${header.offsetY}px`,
+          }}
+        >
+          {arm}
+        </div>
+      ))}
 
       {/**
-        * The one rule in the scene, separating what the answer cost from what it
-        * was worth. Depth in this project is hairlines and surface steps, never
-        * shadows, and this is the only structural line the frame gets: no card,
-        * no box, no fill. A table drawn with borders would be a screenshot of a
-        * spreadsheet, which is the opposite of what the scene is for.
-        */}
+       * The one rule in the scene, under the column heads. Depth in this project
+       * is hairlines and surface steps, never shadows, and this is the only
+       * structural line the frame gets: no card, no box, no fill, and no borders
+       * on the table. A bordered table would be a screenshot of a spreadsheet,
+       * which is the opposite of what the scene is for.
+       */}
       <div
         style={{
           position: "absolute",
           left: tableGrid.labelLeft,
           top: layout.ruleY,
-          width: tableGrid.width,
+          width: tableGrid.columnRight[1] - tableGrid.labelLeft,
           height: 1,
           backgroundColor: brand.border,
-          opacity: ramp(frame, 40, 60) * 0.9,
+          opacity: ramp(frame, 10, 30) * 0.9,
         }}
       />
 
-      <BenchmarkMetric
-        label={benchmark.accuracy.label}
-        value={benchmark.accuracy.value}
-        emphasis="claim"
-        top={layout.accuracyTop}
-        {...entry(frame, 46, 68)}
-      />
-
-      <BenchmarkMetric
-        label={benchmark.scale.label}
-        value={benchmark.scale.value}
-        emphasis="claim"
-        top={layout.scaleTop}
-        {...entry(frame, 72, 94)}
-      />
+      {rows.map((row, index) => (
+        <BenchmarkMetric
+          key={row.label}
+          label={row.label}
+          values={row.values}
+          emphasis={row.emphasis}
+          top={layout.rowTops[index]}
+          {...entry(frame, rowEntry[index][0], rowEntry[index][1])}
+        />
+      ))}
 
       {/**
-        * The provenance stamp, in a table's source-note position: bottom left,
-        * quieter than the units above it, carrying no value of its own. It is
-        * the secondary takeaway of the whole scene - these numbers are
-        * checkable - and it lands last because a source note is read after the
-        * thing it vouches for.
-        */}
+       * The source note, in a table's source-note position: bottom left, quieter
+       * than the measures above it, carrying no figure of its own. It is the
+       * secondary takeaway of the whole scene - these numbers are checkable -
+       * and it lands last because a source note is read after the thing it
+       * vouches for.
+       */}
       <div
         style={{
           position: "absolute",
           left: tableGrid.labelLeft,
-          top: layout.provenanceTop,
+          top: layout.noteTop,
           fontFamily: fontMono,
           fontSize: 18,
           lineHeight: 1,
           letterSpacing: "0.04em",
           whiteSpace: "pre",
           color: brand.textFaint,
-          opacity: provenance.opacity,
-          translate: `0px ${provenance.offsetY}px`,
+          opacity: note.opacity,
+          translate: `0px ${note.offsetY}px`,
         }}
       >
-        {benchmark.provenance}
+        {sourceNote}
       </div>
     </AbsoluteFill>
   );

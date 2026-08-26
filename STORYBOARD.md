@@ -35,8 +35,8 @@ Three.js debe utilizarse para visualizar el concepto que hace especial a Kivgrap
 ```text
 Resolution: 1920 × 1080
 FPS: 60
-Duration: 24.7 s
-Frames: 1480
+Duration: 25.5 s
+Frames: 1530
 Aspect ratio: 16:9
 ```
 
@@ -691,7 +691,7 @@ desplazamiento es del composer y no del render.
 Arreglable en principio, dándole al composer un render lineal y dejando que él
 haga la conversión a sRGB. Eso significa reconstruir el pipeline de color que el
 proyecto ya arregló midiendo, y volver a verificar cada gris de token y cada
-costura en los 1150 frames montados.
+costura en los 1320 frames montados.
 
 **Y las restricciones no le dejan nada que desenfocar.** «Nunca desenfocar
 información importante» significa aquí: ni el símbolo cambiado, ni las crossings,
@@ -1416,13 +1416,15 @@ oscurecía a `0.86` y se leía `Cross-repository.` sobre el velo, centrado, entr
 0658 y 0708. Aterrizaba como un subtítulo quemado sobre un plano y no como parte
 de la película.
 
-Medido tras el corte, tras el recorte de la 06, tras crecer la 07 y tras el pase
-de ritmo sobre las escenas 06–08: las costuras 0330 y 0770 son idénticas píxel a
-píxel, la 0630 mide 62,93 dB — sólo antialiasing — y los 1150 frames montados no
-tienen ni un frame negro. El barrido marca dos frames, 0969 y 0970, y son los dos
-lados del match cut de la 08: un escalón, no un pico. Esa costura no mide como
-las otras porque no pretende ser invisible — 41,35 dB sobre la región del
-símbolo, que es la que el corte sostiene.
+Medido tras el corte, tras el recorte de la 06, tras crecer la 07, tras el pase de
+ritmo sobre las escenas 06–08 y tras montarse la 09: las costuras 0330 y 0770 son
+idénticas píxel a píxel, la 0630 mide 62,93 dB — sólo antialiasing — y los 1320
+frames montados no tienen ni un frame negro. El barrido marca dos parejas y nada
+más: 0969/0970, los dos lados del match cut de la 08, y 1149/1150, el hard cut de
+la 09. Las dos son escalones, no picos, y ninguna pretende ser invisible: la
+primera mide 41,35 dB sobre la región del símbolo, que es la que el corte
+sostiene, y 28,69 dB de cuadro completo; la segunda mide 22,30 dB, que es lo que
+tiene que medir un hard cut.
 
 El número 05 se queda ocupado por este registro y las escenas siguientes
 conservan su numeración de storyboard.
@@ -1817,7 +1819,7 @@ Answered with Kivgraph
 ```
 
 Entra en el local 080–094. De 1064 a 1150 no se mueve nada — medido, 87 frames
-estáticos desde 1063 —, y esos son los últimos frames montados de la película.
+estáticos desde 1063 — y de ahí se corta a la 09.
 
 ---
 
@@ -1854,8 +1856,8 @@ demasiado corta; lo que no se puede hacer es dejarla pasar.
 ### Frames
 
 ```text
-1150–1270
-19.17–21.17 s
+1150–1320
+19.17–22.0 s
 ```
 
 ---
@@ -1870,40 +1872,85 @@ Sin grafo.
 
 Sin terminal.
 
+Sin chrome de producto.
+
 Sólo tipografía.
 
 ---
 
-### Frames 1150–1190
+### Es una tabla
 
-Aparece:
+Implementada como **tabla**, por dirección de arte directa: la unidad a la
+izquierda, la cifra medida alineada a la derecha en su propia columna. No es un
+valor con su etiqueta debajo.
 
-# 6.2k
+Dos cadenas de esta escena se parten en cifra y unidad, porque una tabla necesita
+la cantidad medida en su propia columna:
 
-Muy grande.
+```text
+7 / 7 exact answers   →   7 / 7   +   exact answers
+37 repositories       →   37      +   repositories
+```
 
-Debajo:
+Ningún valor cambia: `7 / 7` conserva su espaciado y `37` su precisión.
+`published benchmark` deja de ser la etiqueta de `37` y pasa a ser la nota de
+procedencia debajo de la tabla.
+
+Una sola regla fina, del ancho de la tabla. Sin bordes: una tabla con bordes es la
+captura de una hoja de cálculo.
+
+La nota de procedencia se separa de la tabla bastante más que las filas entre sí.
+A la separación de una fila se leía como una quinta fila que había perdido su
+cifra.
+
+`6.2k` domina **por escala y nunca por color**. Es la única cifra que rompe el
+tamaño de las demás, y esa desproporción es todo el argumento de la escena: la
+comparación tiene que sobrevivir en escala de grises.
+
+La geometría exacta — columnas, coordenadas, escala tipográfica, ritmo vertical y
+centrado óptico — vive en `docs/scenes/07-benchmark.md` § Visual composition, no
+aquí.
+
+---
+
+### Frames 1154–1182
+
+Primera fila. A la izquierda:
 
 ```text
 tokens
 ```
 
+y a la derecha, muy grande:
+
+# 6.2k
+
 ---
 
-### Frames 1170–1210
+### Frames 1168–1188
 
-A la derecha:
+Segunda fila, debajo:
 
 ```text
-63.5k
 grep + read
+63.5k
 ```
 
 Mucho menos protagonista.
 
+Su rampa va adelantada dentro de la ventana 1170–1210 a propósito, para que el
+still clave 1190 tenga las dos cifras completas.
+
 ---
 
-### Frames 1200–1240
+### Frames 1190–1210
+
+Entra la regla, hasta 0,9 de opacidad. Separa el par de arriba de las dos
+afirmaciones de abajo, y es lo único que dibuja la tabla.
+
+---
+
+### Frames 1196–1218
 
 Aparece:
 
@@ -1913,7 +1960,7 @@ Aparece:
 
 ---
 
-### Frames 1220–1260
+### Frames 1222–1248
 
 Aparece:
 
@@ -1921,6 +1968,50 @@ Aparece:
 37 repositories
 published benchmark
 ```
+
+`37` entra en 1222–1244 y `published benchmark` en 1226–1248: la nota de
+procedencia aterriza última, porque una nota de procedencia se lee después de lo
+que avala.
+
+Las cuatro filas entran igual: un fundido con un asentamiento corto hacia arriba.
+
+---
+
+### Frames 1248–1308
+
+Reposo. La tabla asentada es byte-idéntica durante **61 frames**, y es donde se
+leen las cuatro cifras.
+
+El bloque queda centrado en el cuadro, y las cuatro cifras alinean por la derecha
+contra el borde de su columna.
+
+---
+
+### Frames 1308–1320
+
+Fade out. Las cuatro filas se van juntas.
+
+---
+
+### Por qué 170 frames y no 120
+
+La misma medición que el pase de ritmo de 2026-08-25: **dwell**, el tiempo que
+algo legible se queda en pantalla después de haber terminado de llegar. Con los
+120 frames dibujados, la última afirmación se asentaba con 10 frames por delante:
+**0,17 s**.
+
+Con 170, medido con el fade arrancando en 1308:
+
+```text
+tokens / 6.2k              2,10 s
+grep + read / 63.5k        2,00 s
+exact answers / 7 / 7      1,50 s
+repositories / 37          1,07 s
+published benchmark        1,00 s
+```
+
+Las dos últimas filas juntas son 33 caracteres en 1,00 s — 33 caracteres por
+segundo, dentro de los 25–40 a los que se lee texto técnico en pantalla.
 
 ---
 
@@ -1938,6 +2029,13 @@ Nada de:
 
 Los números deben hablar solos.
 
+Y nada de contadores que suben. Un frame intermedio de un contador muestra un
+número que no es el benchmark publicado — eso es un fallo de integridad, no de
+gusto — y contar es justo el gesto de «mira qué impresionante» que prohíbe la
+sección 30. Los valores se guardan como cadenas y no como números: `6.2k` no es
+`6200` con un sufijo, porque formatear un número dejaría que una edición futura
+cambiara la precisión, y cambiar la precisión es cambiar el valor.
+
 ---
 
 # SCENE 10 — BRAND REVEAL
@@ -1945,13 +2043,13 @@ Los números deben hablar solos.
 ### Frames
 
 ```text
-1270–1360
-21.17–22.67 s
+1320–1410
+22.0–23.5 s
 ```
 
 ---
 
-### Frame 1270
+### Frame 1320
 
 Todo desaparece.
 
@@ -1959,13 +2057,13 @@ Negro.
 
 ---
 
-### Frame 1280
+### Frame 1330
 
 Aparece un único nodo.
 
 ---
 
-### Frames 1280–1320
+### Frames 1330–1370
 
 Pequeñas líneas empiezan a llegar desde fuera del frame hacia ese nodo.
 
@@ -1977,7 +2075,7 @@ Pequeñas líneas empiezan a llegar desde fuera del frame hacia ese nodo.
 
 ---
 
-### Frames 1310–1340
+### Frames 1360–1390
 
 Las relaciones convergen formando una composición inspirada en el lenguaje visual de Kivgraph.
 
@@ -1987,7 +2085,7 @@ La animación simplemente sirve como transición.
 
 ---
 
-### Frame 1340
+### Frame 1390
 
 Aparece:
 
@@ -1995,7 +2093,7 @@ Aparece:
 
 ---
 
-### Frame 1350
+### Frame 1400
 
 Debajo:
 
@@ -2008,13 +2106,13 @@ Debajo:
 ### Frames
 
 ```text
-1360–1480
-22.67–24.67 s
+1410–1530
+23.5–25.5 s
 ```
 
 ---
 
-### Frames 1360–1390
+### Frames 1410–1440
 
 Aparecen integrations:
 
@@ -2026,7 +2124,7 @@ Opcionalmente otras compatibles si hay espacio.
 
 ---
 
-### Frame 1390
+### Frame 1440
 
 CTA:
 
@@ -2042,7 +2140,7 @@ kivgraph.dev
 
 ---
 
-### Frame 1410
+### Frame 1460
 
 Instalación, si se decide mostrarla:
 
@@ -2064,7 +2162,7 @@ kivgraph.dev
 
 ---
 
-### Frames 1420–1480
+### Frames 1470–1530
 
 Hold completo.
 
@@ -2384,6 +2482,13 @@ quien fija la geometría del token `withRetry()` que consumen las escenas 03 y
 
 `CodeWorld.tsx` es la única fuente de verdad espacial de las escenas 01–02.
 
+`BenchmarkMetric.tsx` es una fila de tabla y no un valor con su etiqueta debajo:
+la unidad a la izquierda, la cifra medida alineada a la derecha. Es dueño de la
+escala tipográfica y de la geometría de columnas — exporta `tableGrid` —, así que
+quien lo usa nunca le pasa un tamaño de fuente. La escena 09 no hereda
+`MetricCard`: no tiene grafo detrás contra el que afirmar nada, así que su
+superficie es la tabla sobre el background y una sola regla.
+
 ---
 
 # 25. Escenas Remotion
@@ -2431,15 +2536,15 @@ scenes/
     <AgentAnswerScene />
   </Sequence>
 
-  <Sequence from={1150} durationInFrames={120}>
+  <Sequence from={1150} durationInFrames={170}>
     <BenchmarkScene />
   </Sequence>
 
-  <Sequence from={1270} durationInFrames={90}>
+  <Sequence from={1320} durationInFrames={90}>
     <BrandScene />
   </Sequence>
 
-  <Sequence from={1360} durationInFrames={120}>
+  <Sequence from={1410} durationInFrames={120}>
     <OutroScene />
   </Sequence>
 </>
@@ -2552,16 +2657,17 @@ Durante desarrollo revisar específicamente:
 
 1150
 1190
-1230
-1269
+1248
+1308
+1319
 
-1270
 1320
-1350
+1370
+1400
 
-1360
-1420
-1479
+1410
+1470
+1529
 ```
 
 Los frames:
@@ -2572,7 +2678,7 @@ Los frames:
 0718
 0864
 1190
-1350
+1400
 ```
 
 deben funcionar incluso como capturas estáticas.
@@ -2646,7 +2752,18 @@ Usable para marketing técnico.
 6.2k vs 63.5k
 ```
 
-Local 40 de la escena 09.
+Local 40 de la escena 09. El frame entrega exactamente eso — las dos cifras
+completas y legibles, la regla todavía sin llegar, las dos afirmaciones todavía
+sin llegar — y por eso la rampa de `63.5k` va adelantada dentro de su ventana. No
+se movió al crecer la escena a 170 porque creció por la cola; si la escena vuelve
+a retimarse, el número se recalcula desde esa definición y no se arrastra.
+
+El compromiso es vertical: en 1190 el par queda **por encima del centro del
+cuadro**, porque el bloque está maquetado para la tabla asentada y las filas de
+abajo están todavía vacías. Es deliberado y no se arregla con layout: centrar el
+par descentraría la tabla, y la tabla es la imagen que la película sostiene
+durante 61 frames estáticos. Un still que necesite el par centrado ópticamente se
+recorta, no se vuelve a maquetar.
 
 Usable para benchmark launch.
 
@@ -2768,7 +2885,7 @@ Give coding agents structural context.
 La primera versión debe entregar:
 
 ```text
-24.7 s master
+25.5 s master
 1920×1080
 60 FPS
 H.264
@@ -3040,4 +3157,64 @@ Debe parecer **preciso, inevitable y técnicamente sólido**.
   definición y no sólo el número.
 - Afecta a las secciones 2, 15, 26, 28, 29 y 34 y a los rangos y beats de las
   escenas 06–11.
+```
+
+```text
+2026-08-26
+- SCENE 09 — BENCHMARK implementada (`BenchmarkScene`, `src/data/benchmark.ts` y
+  `BenchmarkMetric`). No hay módulo de estado: el timing son cuatro rampas y un
+  fade, y un módulo para eso sería un fichero vacío. Sin Three.js, sin canvas,
+  sin chrome de producto.
+- Aterriza en 170 frames y no en los 120 dibujados, así que el master pasa de 1480
+  a 1530 frames (25,5 s) y `mountedFrames` de 1150 a 1320 (22,0 s): de los 1530
+  quedan 210 en negro (3,5 s). Sólo se mueven la 10 y la 11, +50 cada una
+  (1320–1410 y 1410–1530). Nada anterior a 1150 se mueve.
+- Los 50 frames se pagan con la misma medición que el pase de ritmo del 25:
+  **dwell**. Con 120 la última afirmación se asentaba con 10 frames por delante,
+  0,17 s. Con 170, y el fade arrancando en 1308: `tokens / 6.2k` 2,10 s,
+  `grep + read / 63.5k` 2,00 s, `exact answers / 7 / 7` 1,50 s,
+  `repositories / 37` 1,07 s y `published benchmark` 1,00 s. Las dos últimas filas
+  son 33 caracteres en 1,00 s — 33 caracteres por segundo, dentro de los 25–40.
+- La escena se construye como **tabla** por dirección de arte directa, no como la
+  composición de valor con etiqueta debajo que describía este documento: la unidad
+  a la izquierda, la cifra medida alineada a la derecha en su propia columna.
+  `BenchmarkMetric` es por tanto una fila de tabla, dueña de la escala tipográfica
+  y de la geometría de columnas, y exporta `tableGrid`.
+- Dos cadenas se parten en cifra y unidad, porque una tabla necesita la cantidad
+  medida en su propia columna: `7 / 7 exact answers` → `7 / 7` + `exact answers`,
+  y `37 repositories` → `37` + `repositories`. Ningún valor cambia — `7 / 7`
+  conserva su espaciado y `37` su precisión —, y `published benchmark` pasa de ser
+  la etiqueta de `37` a ser la nota de procedencia debajo de la tabla. Los valores
+  se guardan como cadenas y no como números: `6.2k` no es `6200` con un sufijo,
+  porque formatear un número dejaría que una edición futura cambiara la precisión,
+  y cambiar la precisión es cambiar el valor.
+- Ventanas en frames de master: `6.2k` 1154–1182, `63.5k` 1168–1188, la regla
+  1190–1210 hasta 0,9 de opacidad, `7 / 7` 1196–1218, `37` 1222–1244 y
+  `published benchmark` 1226–1248; fade out 1308–1320 con las cuatro filas
+  saliendo juntas. La rampa de `63.5k` va adelantada dentro de la ventana
+  1170–1210 de este documento para que el still 1190 tenga las dos cifras
+  completas.
+- `6.2k` domina por escala y nunca por color: es la única cifra que rompe el
+  tamaño de las demás, y esa desproporción es el argumento de la escena, así que
+  la comparación tiene que sobrevivir en escala de grises. Una sola regla fina, del
+  ancho de la tabla, y ningún borde. La geometría exacta — columnas, coordenadas,
+  escala tipográfica, ritmo vertical y centrado óptico — se documenta en
+  `docs/scenes/07-benchmark.md` § Visual composition y no aquí.
+- Medido: los 1320 frames montados no tienen ni un frame negro y el barrido marca
+  sólo los dos hard cuts, 969/970 y 1149/1150. Costuras: 0629/0630 sigue en
+  62,93 dB y 0769/0770 sigue idéntica píxel a píxel; 0969/0970 sigue en 28,69 dB
+  de cuadro completo; la nueva 1149/1150 mide 22,30 dB, que es lo que tiene que
+  medir un hard cut. La tabla asentada es byte-idéntica durante 61 frames,
+  1248–1308.
+- Stills clave: 1190 no se movió — la escena creció por la cola y sigue siendo su
+  local 40 — y 1350 → 1400, local 80 de la 10. El compromiso de 1190 queda
+  anotado: el par queda por encima del centro del cuadro porque el bloque está
+  maquetado para la tabla asentada y las filas de abajo están todavía vacías.
+  Centrar el par descentraría la tabla, que es la imagen que la película sostiene
+  61 frames; un still que lo necesite centrado se recorta.
+- Rechazado: contadores que suben (un frame intermedio muestra un número que no es
+  el benchmark publicado), par ganador/perdedor codificado por color, gráfico de
+  barras y bordes en la tabla.
+- Afecta a las secciones 2, 15, 24, 26, 28, 29 y 34 y a los rangos y beats de las
+  escenas 09–11.
 ```

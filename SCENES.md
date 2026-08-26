@@ -396,9 +396,9 @@ It should contain the scene order and links:
 | 04  | Blast Radius        |   630–770 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)               |
 | 05  | Semantic Resolution |   770–970 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md) |
 | 06  | Agent Answer        |  970–1150 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)               |
-| 07  | Benchmark           | 1150–1270 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                     |
-| 08  | Brand               | 1270–1360 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
-| 09  | Outro               | 1360–1480 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
+| 07  | Benchmark           | 1150–1320 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                     |
+| 08  | Brand               | 1320–1410 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
+| 09  | Outro               | 1410–1530 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
 ```
 
 Keep this index synchronized when scenes are added, removed, renamed, split, merged, or retimed.

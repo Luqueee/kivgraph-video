@@ -79,7 +79,7 @@ world away.
   continuity is real: the texture behind the opening becomes a named node later.
 - **One pinned point.** `withRetry` is world origin `(0, 0)` and the camera
   targets it, projecting it to screen `x 620, y 662` — the lower-left third —
-  for all 210 frames while the zoom changes around it. The symbol is the fixed
+  for all 120 frames while the zoom changes around it. The symbol is the fixed
   thing; the codebase is what moves.
 - **No text at all except the file path.** No sentence, no question, no
   annotation, no label, no marketing line, no large type. `withRetry` is the sole
@@ -212,7 +212,7 @@ frame 0119 — byte-identical to 0080. The handoff frame.
 ```
 
 The still-image key frame is `0080`. The project's still-image list reads `0080`,
-`0629`, `0718`, `0864`, `1064`, `1190`, `1350`.
+`0629`, `0718`, `0864`, `1064`, `1190`, `1400`.
 
 ## Invariants
 
@@ -321,9 +321,9 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
 - **Demo content.** `payments-api/internal/retry/retry.go` and its neighbours are
   written for the video, chosen to agree with the repository and symbol names of
   later scenes. Nothing is read from a real Kivgraph index.
-- Scenes 01–06 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
-  (1150) rather than the planned 1480. Frames `1150–1480` do not render at all
-  yet, which is preferred over five and a half seconds of black.
+- Scenes 01–07 are mounted, so `KivgraphPromo` is registered at `mountedFrames`
+  (1320) rather than the planned 1530. Frames `1320–1530` do not render at all
+  yet, which is preferred over three and a half seconds of black.
 
 ## Modification history
 
@@ -464,4 +464,24 @@ The still-image key frame is `0080`. The project's still-image list reads `0080`
   and the agent answer's path sentence 0.57 s, or 129 characters per second against
   the 25-40 that on-screen technical text is actually read at. The film was
   accelerating into its own payoff.
+```
+
+```text
+2026-08-26
+- Scene 07 (Benchmark) landed as an implemented scene at 170 frames rather than the
+  120 it was drafted at, so scenes 08 and 09 each moved +50 and the master is now
+  1530 frames (25.5 s). This scene owns none of those frames: its own frames, beats,
+  camera, luminance and content are untouched, and 0080 is still its still-image key
+  frame.
+- One live claim in this document changed: mountedFrames is 1320 against a planned
+  1530, now that scene 07 is mounted, and the unrendered tail is 1320-1530 - 210
+  frames, three and a half seconds, not five and a half.
+- The project still-image list follows scene 08's offset and now reads 0080, 0629,
+  0718, 0864, 1064, 1190, 1400. 1190 did not move: scene 07 grew at its tail, so its
+  start is unchanged and the frame is scene-local 40 either way.
+- Fixed a factual error while in the file, unrelated to the shift: ## Visual
+  composition said the anchor holds its screen point "for all 210 frames", a
+  leftover from the 2026-08-23 trim that took this scene 210 -> 120. It reads 120
+  now, matching ## Timeline and durationInFrames={120}. Nothing else in the
+  document still reflects the 210-frame cut.
 ```

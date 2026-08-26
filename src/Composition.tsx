@@ -16,23 +16,21 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * `from` and `durationInFrames` stay inline literals so the sequences remain
  * trimmable in Remotion Studio.
  *
- * Planned timeline (STORYBOARD.md 26, docs/scenes/README.md):
- *   0000-0120 Symbol         0120-0330 Agent         0330-0630 Graph Reveal
- *   0630-0770 Blast Radius   0770-0970 Semantic      0970-1150 Agent Answer
- *   1150-1320 Benchmark      1320-1410 Brand         1410-1530 Outro
+ * 0000-0120 Symbol 0120-0330 Agent 0330-0630 Graph Reveal
+ * 0630-0770 Blast Radius 0770-0970 Semantic 0970-1150 Agent Answer
+ * 1150-1360 Benchmark 1360-1450 Brand 1450-1570 Outro
  *
- * The master is 1530 frames, and five retimes got it there from 1410. The
+ * The master is 1570 frames, and six retimes got it there from 1410. The
  * cross-repository scene was deleted (-90). The blast radius lost twenty frames
  * of pixel-identical tail, then got forty back. The semantic resolution gained
  * thirty for reading time, then twenty more. The agent answer gained ninety. The
- * benchmark was drafted at 120 and built at 170.
+ * benchmark was drafted at 120 and built at 210.
  *
  * Every one of those after the deletion is the same measurement: dwell, the time
- * a readable thing stays on screen after it has finished arriving. At the drafted
- * durations the blast radius' impact card had 0.42 s, the answer's proof sentence
- * had 0.57 s - 129 characters per second against the 25-40 that on-screen
- * technical text can be read at - and the benchmark's last statement had 0.17 s.
- * The film was accelerating into its own payoff.
+ * a readable thing stays on screen after it has finished arriving. The benchmark
+ * is the largest of them because it is the densest frame in the film - a four-row
+ * comparison across two arms, seven things arriving - and at 120 frames it could
+ * not finish arriving at all.
  *
  * Scenes 01 and 02 are one continuous camera move through one code environment
  * and have no cut between them; the boundary at 0120 is where the camera changes
@@ -45,13 +43,14 @@ import { SymbolScene } from "./scenes/SymbolScene";
 /**
  * Frames of the master that are actually mounted.
  *
- * The finished piece is 1530 frames (25.5 s), and that is the number every
+ * The finished piece is 1570 frames (26.17 s), and that is the number every
  * document plans against. Until the remaining scenes exist, the composition is
  * registered at this length instead, so Studio and `remotion render` produce the
- * film that exists rather than twenty-two seconds of video followed by three and
- * a half of black. Raise it as each scene lands; delete it once it reaches 1530.
+ * film that exists rather than twenty-two and a half seconds of video followed
+ * by three and a half of black. Raise it as each scene lands; delete it once it
+ * reaches 1570.
  */
-export const mountedFrames = 1320;
+export const mountedFrames = 1360;
 
 export const KivgraphVideo: React.FC = () => {
   return (
@@ -123,7 +122,7 @@ export const KivgraphVideo: React.FC = () => {
       <Sequence
         name="07 Benchmark"
         from={1150}
-        durationInFrames={170}
+        durationInFrames={210}
         premountFor={30}
       >
         <BenchmarkScene />
