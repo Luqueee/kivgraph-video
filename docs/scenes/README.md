@@ -457,7 +457,7 @@ it instead of guessing:
 | `0718` | the frame scene 04's impact card settles on; first frame of its read.    |
 | `0864` | the first frame of scene 05's measured byte-identical stand.             |
 | `1064` | the frame scene 06's attribution label finishes on; the scene goes static.|
-| `1190` | scene 07's `6.2k vs 63.5k` frame, both numbers fully legible.            |
+| `1190` | scene 07's cost row complete, with both arms already named above it. <!-- FIGURE PENDING: the cost row's two figures --> |
 | `1440` | scene 08's settled lockup plus tagline.                                 |
 
 How they got here. `1064` joined the list as scene 06's label frame — it was
@@ -498,23 +498,24 @@ and every frame from there to 1149 is byte-identical, so the still is one frame
 clear of the last thing that moves rather than balanced on it. That hold is 87
 frames, and it is where the answer is read.
 
-`1190` is the one still in the list that is delivered with a compromise. It holds
-exactly what it is defined to hold: both numbers complete and legible, the rule not
-yet arrived, the two claims not yet arrived — which is why `63.5k`'s ramp
-front-loads inside its window instead of filling it. What it cannot do is centre
-the pair. At 1190 the two rows sit above frame centre, because the block is laid
-out for the settled table and the lower rows are still empty; centring the pair
-would decentre the table, and the table is the image the film actually shows for 61
-static frames. A still that needs the pair optically centred should be cropped, not
-re-laid-out.
+`1190` is the one still in the list that is delivered with a compromise. What it
+holds is now structural rather than a pair of numbers: the cost row complete and
+legible with **both arms already named above it**, which is what lets the frame
+explain itself as a standalone image. The superseded build could not do that — it
+showed two bare figures and nothing saying whose each one was — and the rebuild is
+the reason the still improved rather than merely moved. The cost row arrives in a
+single window and settles before 1190, so nothing has to be front-loaded inside its
+ramp to make the frame legible.
 
-**On hold, 2026-08-26.** The paragraph above describes the superseded
-single-column build; scene 07's rebuild changed what 1190 holds, and the frame's
-definition is being re-cut with the benchmark's figure set. Two things about it are
-already known and are not figures. The settled stand it is weighed against is now
-63 frames rather than 61. And the compromise survives the rebuild for the same
-reason it existed: the block is laid out for more rows than have arrived by 1190,
-so what is on screen there still sits above frame centre. Crop, do not re-lay-out.
+What it still cannot do is centre what it shows. At 1190 the rows on screen sit
+above frame centre, because the block is laid out for four rows and the lower ones
+are still empty; centring them would decentre the table, and the table is the image
+the film actually shows for 63 static frames. A still that needs the row optically
+centred should be cropped, not re-laid-out.
+
+<!-- FIGURE PENDING: 1190's own definition names no figures on purpose while the
+benchmark's figure set is under verification. When it is confirmed, the definition
+stays structural — do not fold the values back into it. -->
 
 ## Rendering
 
@@ -728,4 +729,51 @@ mechanical pass across all nine documents and has not been done yet.
   survive in greyscale.
 - Scene 06's postmountFor is now due as well as scene 05's, since there is a scene
   after 1150 to scrub back from. Scene 07 needs neither prop: no canvas.
+```
+
+```text
+2026-08-26
+- Scene 07 (Benchmark) rebuilt a second time the same day, on direct art
+  direction: a comparison table with two arms as column heads and four measures as
+  rows, replacing the single column of measured values the entry above describes.
+  Structure, motion, geometry and rhythm are in 07-benchmark.md. src/** is
+  committed at 7d9e88f.
+- ON HOLD, same day: every benchmark figure the rebuild displays is withheld
+  pending verification, and so is the account of what src/data/benchmark.ts cites.
+  The machine-readable results in the upstream benchmark directory do not support
+  the figure set the rebuild was written against. Nothing in this file states a
+  benchmark value for the new build, and nothing should until the figure set is
+  confirmed. Where a sentence needs an unconfirmed value it carries a
+  <!-- FIGURE PENDING: ... --> marker in its place rather than a guess. Two places
+  carry a fuller hold note because a whole passage describes the superseded build:
+  ## Pacing and dwell time (the dwell table's five scene-07 rows and the paragraph
+  under it) and ## Implementation status (the src/data/benchmark.ts paragraph). Do
+  not carry their values forward.
+- What is settled is the timeline. 170 -> 210 frames, so the master is 1570 frames
+  (26.17 s) and mountedFrames 1320 -> 1360, which is 22.67 s. Scenes 08 and 09
+  moved +40 each, on top of the +50 they took earlier the same day: 07 is
+  1150-1360, 08 is 1360-1450, 09 is 1450-1570. Nothing before 1150 moved. 210
+  frames - 3.5 s - of the master are still black, the same black as before, because
+  the master and the mount grew together.
+- Ninth master length, and the correction it forces on the entry above: five scenes
+  have still ever changed duration, but the benchmark has now changed twice, both
+  times at implementation. It is the only scene whose length has never been set by a
+  plan.
+- Measured: 1360 frames render with no black frame and the anomaly scan flags only
+  the two hard cuts, 969/970 and 1149/1150. Seams unchanged: 0629/0630 62.93 dB,
+  0769/0770 pixel-identical, 0969/0970 28.69 dB whole-frame, 1149/1150 22.30 dB.
+  The settled table is byte-identical for 63 frames, 1286-1348, where it was 61
+  frames at 1248-1308.
+- Key frames: 1400 -> 1440, carried by scene 08's further +40. 1190 did not move
+  through this pass either - the scene grew at its tail both times, so the frame is
+  scene-local 40 either way - but what it holds improved, and its definition is now
+  structural rather than a pair of numbers: the cost row complete with both arms
+  already named above it. That is what the superseded build could not deliver - two
+  bare figures with nothing saying whose each one was - so the still got better and
+  not merely later. The figure itself is marked pending; the definition stays
+  structural once it lands. The compromise survives for the reason it existed: the
+  block is laid out for more rows than have arrived by 1190. Crop, do not
+  re-lay-out.
+- Scene 07 still mounts no canvas, so it still needs neither premountFor nor
+  postmountFor, and scenes 05 and 06 still owe theirs.
 ```
