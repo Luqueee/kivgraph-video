@@ -19,6 +19,9 @@ Each scene component must map to one scene document.
 Example:
 
 ```text
+src/scenes/ColdOpenScene.tsx
+→ docs/scenes/cold-open.md
+
 src/scenes/SymbolScene.tsx
 → docs/scenes/01-symbol.md
 
@@ -390,16 +393,21 @@ It should contain the scene order and links:
 
 | #   | Scene               |    Frames | Component              | Documentation                                            |
 | --- | ------------------- | --------: | ---------------------- | -------------------------------------------------------- |
-| 00  | Intent              |     0–300 | `IntentScene.tsx`      | [00-intent.md](./00-intent.md)                           |
-| 01  | Symbol              |   300–420 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                           |
-| 02  | Agent               |   420–630 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                             |
-| 03  | Graph Reveal        |   630–990 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
-| 04  | Blast Radius        |  990–1130 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
-| 05  | Semantic Resolution | 1130–1330 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
-| 06  | Agent Answer        | 1330–1510 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
-| 07  | Benchmark           | 1510–1760 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
-| 08  | Brand               | 1760–1930 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
-| 09  | Outro               | 1930–2050 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
+| —   | Cold Open           |     0–120 | `ColdOpenScene.tsx`    | [cold-open.md](./cold-open.md)                            |
+| 00  | Intent              |   120–420 | `IntentScene.tsx`      | [00-intent.md](./00-intent.md)                           |
+| 01  | Symbol              |   420–540 | `SymbolScene.tsx`      | [01-symbol.md](./01-symbol.md)                           |
+| 02  | Agent               |   540–750 | `AgentScene.tsx`       | [02-agent.md](./02-agent.md)                             |
+| 03  | Graph Reveal        |  750–1110 | `GraphRevealScene.tsx` | [03-graph-reveal.md](./03-graph-reveal.md)                |
+| 04  | Blast Radius        | 1110–1250 | `BlastRadiusScene.tsx` | [04-blast-radius.md](./04-blast-radius.md)                |
+| 05  | Semantic Resolution | 1250–1450 | `SemanticScene.tsx`    | [05-semantic-resolution.md](./05-semantic-resolution.md)  |
+| 06  | Agent Answer        | 1450–1630 | `AgentAnswerScene.tsx` | [06-agent-answer.md](./06-agent-answer.md)                |
+| 07  | Benchmark           | 1630–1880 | `BenchmarkScene.tsx`   | [07-benchmark.md](./07-benchmark.md)                      |
+| 08  | Brand               | 1880–2050 | `BrandScene.tsx`       | [08-brand.md](./08-brand.md)                             |
+| 09  | Outro               | 2050–2170 | `OutroScene.tsx`       | [09-outro.md](./09-outro.md)                             |
 ```
+
+Not every scene document is numbered. The cold open sits before the numbered
+story rather than at the start of it, so it is named rather than numbered — see
+`docs/scenes/cold-open.md`. Keep the table ordered by frames, not by name.
 
 Keep this index synchronized when scenes are added, removed, renamed, split, merged, or retimed.

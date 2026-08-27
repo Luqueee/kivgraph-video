@@ -11,7 +11,7 @@ import type { Look } from "./projection";
  * reading animation code, and so the choreography can be retimed without
  * touching the dataset.
  *
- * Scene-local frames 0-300 (master 0330-0630).
+ * Scene-local frames 0-360 (master 0750-1110).
  */
 
 /** How far a value has travelled between two frames, clamped and eased. */

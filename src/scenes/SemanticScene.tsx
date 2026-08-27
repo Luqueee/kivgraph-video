@@ -17,7 +17,7 @@ import { brand } from "../brand/tokens";
 import { fontMono } from "../brand/fonts";
 
 /**
- * Scene 05 - semantic resolution (master 0770-0970, scene-local 0000-0200).
+ * Scene 05 - semantic resolution (master 1250-1450, scene-local 0000-0200).
  *
  * The scene that makes everything before it credible. Without it the blast
  * radius could plausibly be a fancy text search. Here the two mechanisms are
@@ -41,7 +41,7 @@ import { fontMono } from "../brand/fonts";
 
 /**
  * The code bed, held at scene 03's final values - the same literals scene 04
- * freezes. The code world never leaves, and master 0770 has to be
+ * freezes. The code world never leaves, and master 1250 has to be
  * indistinguishable from 0769.
  */
 const bedCamera: Camera = { x: 0, y: 0, zoom: 0.34, screenX: 960, screenY: 540 };

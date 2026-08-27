@@ -7,7 +7,7 @@ import { fontMono, fontSans } from "../brand/fonts";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 00 - intent (master 0000-0300, scene-local 0000-0300).
+ * Scene 00 - intent (master 0120-0420, scene-local 0000-0300).
  *
  * The scene that stops the film assuming its own answer. Everything after it
  * opens on `withRetry` already singled out, which quietly claims the agent knew

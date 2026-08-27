@@ -5,6 +5,7 @@ import { AgentScene } from "./scenes/AgentScene";
 import { BenchmarkScene } from "./scenes/BenchmarkScene";
 import { BlastRadiusScene } from "./scenes/BlastRadiusScene";
 import { BrandScene } from "./scenes/BrandScene";
+import { ColdOpenScene } from "./scenes/ColdOpenScene";
 import { OutroScene } from "./scenes/OutroScene";
 import { GraphRevealScene } from "./scenes/GraphRevealScene";
 import { IntentScene } from "./scenes/IntentScene";
@@ -12,18 +13,18 @@ import { SemanticScene } from "./scenes/SemanticScene";
 import { SymbolScene } from "./scenes/SymbolScene";
 
 /**
- * The 34.17 s master. This file is the only place that holds global frame
+ * The 36.17 s master. This file is the only place that holds global frame
  * boundaries; scenes animate in their own local frame space, because
  * `useCurrentFrame()` inside a `<Sequence>` starts at 0.
  *
  * `from` and `durationInFrames` stay inline literals so the sequences remain
  * trimmable in Remotion Studio.
  *
- * 0000-0300 Intent 0300-0420 Symbol 0420-0630 Agent
- * 0630-0990 Graph Reveal 0990-1130 Blast Radius 1130-1330 Semantic
- * 1330-1510 Agent Answer 1510-1760 Benchmark 1760-1930 Brand 1930-2050 Outro
+ * 0000-0120 Cold Open 0120-0420 Intent 0420-0540 Symbol 0540-0750 Agent
+ * 0750-1110 Graph Reveal 1110-1250 Blast Radius 1250-1450 Semantic
+ * 1450-1630 Agent Answer 1630-1880 Benchmark 1880-2050 Brand 2050-2170 Outro
  *
- * The master is 1750 frames, and eight retimes got it there from 1410. The
+ * The master is 2170 frames, and eleven retimes got it there from 1410. The
  * cross-repository scene was deleted (-90). The blast radius lost twenty frames
  * of pixel-identical tail, then got forty back. The semantic resolution gained
  * thirty for reading time, then twenty more. The agent answer gained ninety. The
@@ -31,8 +32,7 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * that joins it to the answer. The brand reveal was drafted at 90 and grew to 170
  * once it could be watched, and the graph reveal took 60 so the cross-repository
  * crossing could be a beat rather than something that happened while the camera
- * was busy. The last three are the ones taken from scenes that had already
- * shipped, by watching them rather than by counting.
+ * was busy. The intent scene arrived at 180, was built at 220 and shipped at 300.
  *
  * Every one of those after the deletion is the same measurement: dwell, the time
  * a readable thing stays on screen after it has finished arriving. The benchmark
@@ -40,10 +40,16 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * comparison across two arms, seven things arriving - and at 120 frames it could
  * not finish arriving at all.
  *
+ * The eleventh is the only one that is not about dwell inside an existing scene.
+ * The cold open added 120 frames at the front so the film opens on the benchmark
+ * result rather than on the mechanics that produce it. Nothing was compressed to
+ * pay for it: every other scene moved by exactly +120 and none changed length.
+ *
  * Scenes 01 and 02 are one continuous camera move through one code environment
- * and have no cut between them; the boundary at 0120 is where the camera changes
+ * and have no cut between them; the boundary at 0540 is where the camera changes
  * intent, not where the image changes. The first cut in the video is the match
- * cut at 0330.
+ * cut at 0420 - the cold open dissolves into the intent scene rather than cutting
+ * to it, so nothing before that boundary is a cut either.
  *
  * Every scene exists. Nothing is left black on purpose.
  */
@@ -61,23 +67,34 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * reason it always was one: the length belongs to this file, which is the only
  * place that holds global frame boundaries.
  */
-export const masterFrames = 2050;
+export const masterFrames = 2170;
 
 export const KivgraphVideo: React.FC = () => {
   return (
     <>
       {/**
-       * Scene 00 mounts at 0 and scene 01 no longer does, which is the only
-       * structural consequence of the new opening: everything else moved by a
-       * constant.
+       * The cold open mounts at 0 and the intent scene no longer does, which is
+       * the only structural consequence of the new opening: everything else
+       * moved by a constant.
+       *
+       * It is the one sequence in the film that is not part of the numbered
+       * story, and that is why it has no number. Everything from `00 Intent`
+       * onward is the product narrative; this is the result that narrative
+       * explains, shown first so the viewer has a question to carry into it.
+       *
+       * No `premountFor`: it mounts no canvas, it is the first thing in the
+       * composition, and there is nothing before it to premount from.
        */}
-      <Sequence name="00 Intent" durationInFrames={300}>
+      <Sequence name="Cold Open" durationInFrames={120}>
+        <ColdOpenScene />
+      </Sequence>
+      <Sequence name="00 Intent" from={120} durationInFrames={300}>
         <IntentScene />
       </Sequence>
-      <Sequence name="01 Symbol" from={300} durationInFrames={120}>
+      <Sequence name="01 Symbol" from={420} durationInFrames={120}>
         <SymbolScene />
       </Sequence>
-      <Sequence name="02 Agent" from={420} durationInFrames={210}>
+      <Sequence name="02 Agent" from={540} durationInFrames={210}>
         <AgentScene />
       </Sequence>
       {/**
@@ -85,11 +102,11 @@ export const KivgraphVideo: React.FC = () => {
        * creative one.
        *
        * A `<Sequence>` renders its children only inside its range, so at the
-       * 0690 boundary `GraphRevealScene` unmounts and `BlastRadiusScene` mounts.
+       * 1110 boundary `GraphRevealScene` unmounts and `BlastRadiusScene` mounts.
        * Sharing the `GraphWorld` component does not share its instance: the
        * `ThreeCanvas` is destroyed and a new WebGL context is created at the
        * seam. Measured in Studio by counting `getContext` calls while stepping
-       * 0689 <-> 0692: four crossings, four new `webgl2` contexts. For the
+       * 1109 <-> 1112: four crossings, four new `webgl2` contexts. For the
        * first displayed frame after the cut the labels are painted and the
        * plates and tubes are not - the graph blinks at the one seam the design
        * spends everything to hide.
@@ -101,12 +118,12 @@ export const KivgraphVideo: React.FC = () => {
        * film is byte-identical - it never had the blink; only the preview did.
        *
        * `postmountFor` on scene 03 for the same reason in the other direction:
-       * scrubbing back across 0690 remounts it, and AGENTS.md asks for the
+       * scrubbing back across 1110 remounts it, and AGENTS.md asks for the
        * timeline to be walked backwards as well as forwards.
        */}
       <Sequence
         name="03 Graph Reveal"
-        from={630}
+        from={750}
         durationInFrames={360}
         premountFor={30}
         postmountFor={30}
@@ -115,7 +132,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="04 Blast Radius"
-        from={990}
+        from={1110}
         durationInFrames={140}
         premountFor={30}
         postmountFor={30}
@@ -124,7 +141,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="05 Semantic Resolution"
-        from={1130}
+        from={1250}
         durationInFrames={200}
         premountFor={30}
       >
@@ -132,7 +149,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="06 Agent Answer"
-        from={1330}
+        from={1450}
         durationInFrames={180}
         premountFor={30}
       >
@@ -140,7 +157,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="07 Benchmark"
-        from={1510}
+        from={1630}
         durationInFrames={250}
         premountFor={30}
       >
@@ -155,17 +172,17 @@ export const KivgraphVideo: React.FC = () => {
        * It matters less here than anywhere else in the film, and that is worth
        * knowing rather than discovering: the scene opens on ten deliberately
        * empty frames, so played forward the context has ten frames to warm
-       * before the first line is drawn at 1370. The premount is for the
+       * before the first line is drawn at 1890. The premount is for the
        * scrubber, not for the playthrough. As always it is gated on
        * `!isRendering`, so no rendered frame changes.
        *
        * No `postmountFor` yet. It becomes due the moment scene 09 exists, for
        * the same reason scenes 03 and 04 carry theirs: the timeline has to
-       * survive being walked backwards across 1450 as well as forwards.
+       * survive being walked backwards across 2050 as well as forwards.
        */}
       <Sequence
         name="08 Brand"
-        from={1760}
+        from={1880}
         durationInFrames={170}
         premountFor={30}
         postmountFor={30}
@@ -174,7 +191,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       {/**
        * `postmountFor` on scene 08 became due the moment this scene existed:
-       * scene 08 mounts a `ThreeCanvas`, and scrubbing backwards across 1630
+       * scene 08 mounts a `ThreeCanvas`, and scrubbing backwards across 2050
        * remounts it. `AGENTS.md` asks for the timeline to survive being walked
        * backwards as well as forwards.
        *
@@ -182,7 +199,7 @@ export const KivgraphVideo: React.FC = () => {
        * over the frame scene 08 settled on - and there is nothing after it to
        * scrub back from.
        */}
-      <Sequence name="09 Outro" from={1930} durationInFrames={120}>
+      <Sequence name="09 Outro" from={2050} durationInFrames={120}>
         <OutroScene />
       </Sequence>
     </>

@@ -7,7 +7,7 @@ import { brand } from "../brand/tokens";
 import { fontMono, fontSans } from "../brand/fonts";
 
 /**
- * Scene 07 - benchmark (master 1150-1360, scene-local 0000-0210).
+ * Scene 07 - benchmark (master 1630-1880, scene-local 0000-0250).
  *
  * The scene that replaces the claim with evidence. Everything before it was a
  * demonstration, and a demonstration can be staged; this says the thing the
@@ -18,7 +18,7 @@ import { fontMono, fontSans } from "../brand/fonts";
  * It is also the first frame since the opening with no product surface in it. No
  * graph, no prompt, no chrome, no logo. Removing every interface element is what
  * makes the numbers read as a fact about the world rather than as a screenshot
- * of a tool - so the emptiness at 1150 is the hard cut's whole effect.
+ * of a tool - so the emptiness at 1630 is the hard cut's whole effect.
  *
  * A comparison table, two arms and four measures. The figures and their
  * provenance live in `src/data/benchmark.ts`; the row shape and the type scale
@@ -92,11 +92,12 @@ const layout = {
  * exist before it can be filled, and a figure landing in an unheaded column is
  * a number without a claim attached.
  *
- * The cost row is complete by local 38, which is master 1188. `STORYBOARD.md`
- * §29 reserves master 1190 as a still-image key frame whose required content is
- * `35,961 vs 267,980`, both fully legible; a half-faded figure there would ruin
- * the one frame from this scene that gets used outside the video. The ramp
- * therefore front-loads inside the storyboard's window rather than filling it.
+ * The cost row is complete by local 78, which is master 1708. `STORYBOARD.md`
+ * §29 reserves that frame as a still-image key frame whose required content is
+ * `35,961` against `267,980`, both fully legible under their two named arms; a
+ * half-faded figure there would ruin the one frame from this scene that gets
+ * used outside the video. The row arrives in a single window and settles two
+ * frames before it, so nothing has to be front-loaded inside its ramp.
  *
  * The three correctness rows then arrive on a 24-frame pitch, which is the same
  * pitch as their vertical spacing - the table fills in at one speed, so it reads
@@ -129,7 +130,7 @@ const entry = (frame: number, from: number, to: number) => {
  * whole table leaves together: fading it row by row would restate the cascade
  * backwards and cost the brand reveal its silence.
  *
- * The scene is 210 frames, not the 120 the storyboard drafted, and the reason is
+ * The scene is 250 frames, not the 120 the storyboard drafted, and the reason is
  * measured rather than felt. Dwell - how long a readable thing stays on screen
  * after it has finished arriving - runs 2.67 s for the cost row down to 1.03 s
  * for the source note, and the note is 37 characters, so it is read at 35.8
@@ -145,8 +146,8 @@ export const BenchmarkScene: React.FC = () => {
   /**
    * The one thing that survives the cut, retiring as the heads that replace it
    * arrive. Leaves at 18 so it is gone before the first row has any weight;
-   * starts at 2 so frame 1150 carries it at full strength, pixel-identical to
-   * 1149 in that region. `Attribution` owns the geometry - see it for why.
+   * starts at 2 so frame 1630 carries it at full strength, pixel-identical to
+   * 1629 in that region. `Attribution` owns the geometry - see it for why.
    */
   const handoff = 1 - ramp(frame, 2, 18);
   const note = entry(frame, 156, 176);
@@ -159,18 +160,18 @@ export const BenchmarkScene: React.FC = () => {
        * inner one, which is not a nesting flourish: putting `opacity` on the
        * element that also carries `backgroundColor` fades the background out
        * with the table, and behind it there is nothing. The frame reached pure
-       * `#000000` at 1356 and held it to 1359, and scene 08 then restored
-       * `#0a0b0d` at 1360 - a ten-level step on a flat frame, at the one
+       * `#000000` at 1876 and held it to 1879, and scene 08 then restored
+       * `#0a0b0d` at 1880 - a ten-level step on a flat frame, at the one
        * boundary in the film that is supposed to be invisible.
        *
        * `08-brand.md` forbids exactly that artefact by name: a drop to true
        * black and a return to `#0a0b0d` reads as a levels change on OLED and on
        * aggressively compressed embedded players. It was invisible while
-       * `mountedFrames` was 1360 and the film simply ended here; mounting scene
+       * `mountedFrames` was 1880 and the film simply ended here; mounting scene
        * 08 exposed it.
        *
-       * Only 1348-1359 change - `fadeOut` is 1 for every frame before local
-       * 198 - so nothing about the 1149/1150 cut or the settled table moves.
+       * Only 1868-1879 change - `fadeOut` is 1 for every frame before local
+       * 238 - so nothing about the 1629/1630 cut or the settled table moves.
        */}
       <AbsoluteFill style={{ opacity: fadeOut(frame) }}>
         <Attribution opacity={handoff} />

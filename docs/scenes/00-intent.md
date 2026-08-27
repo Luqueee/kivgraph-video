@@ -19,23 +19,23 @@ Secondary: what it gets back is a place to start, not a proof.
 
 ## Timeline
 
-- Global frames: `0000`–`0300`
-- Scene-local frames: `0000`–`0300` (they are master frames; the scene starts at 0)
-- Time: 0.0 s – 5.0 s
+- Global frames: `0120`–`0420`
+- Scene-local frames: `0000`–`0300` (last rendered frame `0299` / master `0419`)
+- Time: 2.0 s – 7.0 s
 - Duration: 300 frames / 5.0 s at 60 fps
 - Remotion component: `src/scenes/IntentScene.tsx`
-- Registration: `<Sequence name="00 Intent" durationInFrames={300}>`
+- Registration: `<Sequence name="00 Intent" from={120} durationInFrames={300}>`
 
 | Master        | Local         | Beat                                                        |
 | ------------- | ------------- | ----------------------------------------------------------- |
-| `0000`–`0008` | `0000`–`0008` | Empty. The same opening silence discipline as `08-brand.md`. |
-| `0008`–`0054` | `0008`–`0054` | **Beat 1, the problem.** Two lines, the second the punch.    |
-| `0072`–`0116` | `0072`–`0116` | **Beat 1, the question**, at the prompt glyph scene 02 also uses. |
-| `0130`–`0154` | `0130`–`0154` | **Beat 2, the tool**, and in plain language what it does.    |
-| `0160`–`0200` | `0160`–`0200` | **Beat 3, the result.** One dominant name; two quiet others. |
-| `0252`–`0282` | `0252`–`0282` | Everything except the name leaves.                           |
-| `0258`–`0294` | `0258`–`0294` | The name scales onto the source symbol. It never travels.    |
-| `0300`        | `0300`        | Match cut into `01-symbol.md` frame 0.                        |
+| `0120`–`0128` | `0000`–`0008` | Empty. The same opening silence discipline as `08-brand.md`. |
+| `0128`–`0174` | `0008`–`0054` | **Beat 1, the problem.** Two lines, the second the punch.    |
+| `0192`–`0236` | `0072`–`0116` | **Beat 1, the question**, at the prompt glyph scene 02 also uses. |
+| `0250`–`0274` | `0130`–`0154` | **Beat 2, the tool**, and in plain language what it does.    |
+| `0280`–`0320` | `0160`–`0200` | **Beat 3, the result.** One dominant name; two quiet others. |
+| `0372`–`0402` | `0252`–`0282` | Everything except the name leaves.                           |
+| `0378`–`0414` | `0258`–`0294` | The name scales onto the source symbol. It never travels.    |
+| `0420`        | `0300`        | Match cut into `01-symbol.md` frame 0.                        |
 
 ## Reading time is what the length is for
 
@@ -45,7 +45,7 @@ only thing that buys that. Every window lives in one `beat` object in
 `IntentScene.tsx` so this table and the code cannot drift.
 
 Measured against the 25–40 characters per second the rest of the film is timed
-by, with everything leaving at `0252`:
+by, with everything leaving at `0372`:
 
 ```text
 block                       chars   settles   dwell     char/s
@@ -58,7 +58,7 @@ name, path, match              72      0192    1.00 s       72
 
 The last row is the only one above the budget and it is meant to be. A path and a
 `match` value are scanned, not read; and the name in that row does not stop at
-`0252` — it survives the cut and is the anchor of the whole next scene.
+`0372` — it survives the cut and is the anchor of the whole next scene.
 
 The first build of these three beats ran 180 frames, and the same table failed on
 three of five rows, the worst settling two frames before the scene began to
@@ -130,7 +130,7 @@ These are the ones that must survive future edits. They are not stylistic.
   receding is the thirty frames they spend losing light while still on screen;
   being absent at the cut is not a verdict on them. Measured at threshold 14,
   one level above the background: **zero pixels outside the token's own box** at
-  `0165` and at `0179`.
+  `0405` and at `0419`.
 - **The candidate → source match cut targets screen point `620, 662`**, at the
   em `world.retry.fontSize × symbolOpeningZoom`. Both come from
   `SymbolScene.tsx`; neither is written down here.
@@ -211,8 +211,8 @@ glyphs of `withRetry` are the nine glyphs of `world.retry.origin`.
 
 Two gestures, deliberately not one.
 
-First the field quiets over `0126`–`0156` — the question, the invocation and the
-metadata lose luminance. Only then, from `0148`, does `withRetry` travel and
+First the field quiets over `0372`–`0402` — the question, the invocation and the
+metadata lose luminance. Only then, from `0378`, does `withRetry` travel and
 grow.
 
 Doing both at once was the first build and it did not work: the winner was
@@ -221,9 +221,25 @@ already scaling while the rows were still arriving, so it collided with
 Separating them also buys the beat the scene is about — three plausible
 candidates stand together, and then one of them is the one being opened.
 
+## Transition in
+
+A dissolve out of the cold open, not a cut.
+
+`cold-open.md` recedes its two token figures and its tie line, `35,961` last, and
+hands over an empty `#0a0b0d` field at `0119`. This scene's own opening beat is
+eight more empty frames, so the join is ten byte-identical frames of nothing —
+the same opening silence `08-brand.md` uses — and then `You know what the code
+does.` becomes visible at `0129`.
+
+**The join is what makes the teaser part of the film rather than an advert in
+front of it.** The cold open leaves the viewer a question — *how?* — and the
+first thing that arrives in the field it left is the first line of the answer.
+Nothing restarts, nothing announces a beginning, and the background never
+changes. The film's first cut is still the match cut at `0420`.
+
 ## Transition out
 
-A match cut into `01-symbol.md` frame `0180`, and it is the film's third.
+A match cut into `01-symbol.md` frame `0420`, and it is the film's third.
 
 `withRetry` is the same object crossing representations: a row in a ranked answer
 becomes the symbol in its own source. Nothing fades and nothing cuts to black.
@@ -232,8 +248,8 @@ Measured on the render rather than trusted to arithmetic, which is what the othe
 two match cuts already do:
 
 ```text
-ink centroid, candidate `0179`   (609.30, 665.61)
-ink centroid, source    `0180`   (609.27, 665.62)
+ink centroid, candidate `0419`   (609.30, 665.61)
+ink centroid, source    `0420`   (609.27, 665.62)
 offset                           dx +0.03 px   dy -0.01 px
 ink mass ratio                   1.0005
 ```
@@ -262,7 +278,9 @@ a DOM line box and the code plane's baseline, not to the anchor.
 
 ## Current compromises
 
-- **The film is 32.17 s.** The new opening is 3.0 s on a film that was 29.17 s.
+- **This scene is 5.0 s of a 36.17 s film.** It is the longest scene in the
+  piece and it is the only one that has to introduce a tool, a vocabulary and a
+  result to a viewer holding none of them.
   Trimming scene 01's 39-frame hold was tested and rejected on a measurement,
   not a feeling: the file caption `payments-api/internal/retry/retry.go` is 36
   characters and settles at local `0080`, so the hold gives it 0.65 s — 55

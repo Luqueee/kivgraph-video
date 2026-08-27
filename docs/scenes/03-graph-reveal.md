@@ -32,19 +32,19 @@ arrive, and it answers spatially before it answers semantically — the viewer u
 ## Timeline
 
 **This document covers two storyboard scenes.** `STORYBOARD.md` splits the material into
-SCENE 03 — FROM CODE TO GRAPH (0630–0700) and SCENE 04 — THE GRAPH EXPANDS (0700–0990). Both are
+SCENE 03 — FROM CODE TO GRAPH (0750–0820) and SCENE 04 — THE GRAPH EXPANDS (0820–1110). Both are
 implemented by the single component `src/scenes/GraphRevealScene.tsx`, per `AGENTS.md` §7 and the
 timeline in `STORYBOARD.md` §26, which already assigns one 380-frame `GraphRevealScene` sequence at
-`from={410}`. Because of that merge this document sits one behind its storyboard numbers, and
+`from={530}`. Because of that merge this document sits one behind its storyboard numbers, and
 because `STORYBOARD.md` SCENE 05 — CROSS-REPOSITORY is now a record of a cut scene rather than a
 scene, every document after this one sits two behind: storyboard SCENE 06 is documented in
 `04-blast-radius.md`, and so on. `docs/scenes/README.md` holds the canonical statement of this.
 
 - Storyboard scenes: `STORYBOARD.md` — SCENE 03 FROM CODE TO GRAPH **and** SCENE 04 THE GRAPH
   EXPANDS
-- Global frames: 0630–0990
-- Scene-local frames: 0300–0660
-- Time: 10.5 s – 16.5 s
+- Global frames: 0750–1110
+- Scene-local frames: 0000–0360
+- Time: 12.5 s – 18.5 s
 - Duration: 360 frames (6.0 s at 60 fps)
 - Remotion component: `src/scenes/GraphRevealScene.tsx`
 - First fully Three.js scene of the video
@@ -52,52 +52,52 @@ scene, every document after this one sits two behind: storyboard SCENE 06 is doc
   The component animates in scene-local frames: `useCurrentFrame()` inside the `Sequence` starts
   at 0.
 
-### Phase A — "from code to graph" (0630–0700 / local 0300–0450)
+### Phase A — "from code to graph" (0750–0900 / local 0000–0150)
 
 Storyboard SCENE 03. The symbol becomes a node and its direct callers appear behind it. The camera
 steps in and off the axis.
 
 | Master | Local | Beat                                                                     |
 | -----: | ----: | ------------------------------------------------------------------------ |
-|  0630  |  0000 | `withRetry()` holds its screen position; the dissolve begins; camera held |
-|  0660  |  0030 | substitution complete, the prompt layer is gone; the camera starts moving |
-|  0692  |  0062 | the first edge begins to draw, leaving the node already on screen         |
-|  0698  |  0068 | `Policy.Do()` begins to appear                                            |
-|  0718  |  0088 | second edge begins                                                        |
-|  0722  |  0092 | first edge complete                                                       |
-|  0730  |  0100 | `Once()` begins; the camera reaches its second pose and turns downstream  |
-|  0734  |  0104 | `Policy.Do()` fully present                                               |
-|  0740  |  0110 | the anchor's plate has finished growing out of the prompt's field         |
-|  0748  |  0118 | third edge begins                                                         |
-|  0758  |  0128 | `Client.Charge()` begins; `Once()` fully present                          |
-|  0780  |  0150 | Phase A ends; the move continues without a beat                           |
+|  0750  |  0000 | `withRetry()` holds its screen position; the dissolve begins; camera held |
+|  0780  |  0030 | substitution complete, the prompt layer is gone; the camera starts moving |
+|  0812  |  0062 | the first edge begins to draw, leaving the node already on screen         |
+|  0818  |  0068 | `Policy.Do()` begins to appear                                            |
+|  0838  |  0088 | second edge begins                                                        |
+|  0842  |  0092 | first edge complete                                                       |
+|  0850  |  0100 | `Once()` begins; the camera reaches its second pose and turns downstream  |
+|  0854  |  0104 | `Policy.Do()` fully present                                               |
+|  0860  |  0110 | the anchor's plate has finished growing out of the prompt's field         |
+|  0868  |  0118 | third edge begins                                                         |
+|  0878  |  0128 | `Client.Charge()` begins; `Once()` fully present                          |
+|  0900  |  0150 | Phase A ends; the move continues without a beat                           |
 
-### Phase B — "the graph expands" (0700–0990 / local 0450–0660)
+### Phase B — "the graph expands" (0900–1110 / local 0150–0360)
 
 Storyboard SCENE 04. The near repository completes and names itself, then the camera opens space to
 its right and the impact is seen leaving for a second codebase.
 
 | Master | Local | Beat                                                                  |
 | -----: | ----: | --------------------------------------------------------------------- |
-|  0788  |  0158 | fourth edge begins                                                     |
-|  0798  |  0168 | `Client.Refund()` begins; `Client.Charge()` fully present              |
-|  0950  |  0320 | cluster label `payments-api` begins to surface                         |
-|  0956  |  0326 | `Client.Refund()` settles; the near repository is complete             |
-|  0988  |  0358 | `payments-api` label settled. **Nothing else happens for eighteen frames.** |
-|  1006  |  0376 | one crossing begins, alone, travelling off the right of a frame the camera has not moved |
-|  1005  |  0375 | the rig's hold ends; it starts opening out, following where the edge went |
-|  1046  |  0416 | `checkout-service` label begins                                        |
-|  1050  |  0420 | the first crossing lands; `CheckoutService.PlaceOrder()` begins        |
-|  1056  |  0426 | second crossing begins                                                 |
-|  1058  |  0428 | third crossing begins                                                  |
-|  1064  |  0434 | `ReconciliationJob.Run()` begins                                       |
-|  1066  |  0436 | `RefundHandler.Handle()` begins                                        |
-|  1078  |  0448 | the camera reaches its final pose and holds                            |
-|  1098  |  0468 | the last node settles, and the `checkout-service` label with it; hold  |
-|  1110  |  0480 | scene ends; `04-blast-radius.md` continues the same graph              |
+|  0908  |  0158 | fourth edge begins                                                     |
+|  0918  |  0168 | `Client.Refund()` begins; `Client.Charge()` fully present              |
+|  1070  |  0320 | cluster label `payments-api` begins to surface                         |
+|  1076  |  0326 | `Client.Refund()` settles; the near repository is complete             |
+|  1108  |  0358 | `payments-api` label settled. **Nothing else happens for eighteen frames.** |
+|  1126  |  0376 | one crossing begins, alone, travelling off the right of a frame the camera has not moved |
+|  1125  |  0375 | the rig's hold ends; it starts opening out, following where the edge went |
+|  1166  |  0416 | `checkout-service` label begins                                        |
+|  1170  |  0420 | the first crossing lands; `CheckoutService.PlaceOrder()` begins        |
+|  1176  |  0426 | second crossing begins                                                 |
+|  1178  |  0428 | third crossing begins                                                  |
+|  1184  |  0434 | `ReconciliationJob.Run()` begins                                       |
+|  1186  |  0436 | `RefundHandler.Handle()` begins                                        |
+|  1198  |  0448 | the camera reaches its final pose and holds                            |
+|  1218  |  0468 | the last node settles, and the `checkout-service` label with it; hold  |
+|  1230  |  0480 | scene ends; `04-blast-radius.md` continues the same graph              |
 
-The phase boundary at 0700 is a label on this document, not an event in the shot. The camera has
-been moving since 0660 and does not pause, change direction or change rate there. The viewer must
+The phase boundary at 0820 is a label on this document, not an event in the shot. The camera has
+been moving since 0780 and does not pause, change direction or change rate there. The viewer must
 not be able to find the seam, because there is not one.
 
 **Every edge waits for its parent, and every node waits for the edge reaching it.** That ordering is
@@ -129,9 +129,9 @@ simply not complete until the last thing inside it has landed.
 
 ## Initial state
 
-At master frame 0630 (local 0300):
+At master frame 0750 (local 0000):
 
-- scene 02's final image is on top at full opacity. Master `0629` and `0630` render
+- scene 02's final image is on top at full opacity. Master `0749` and `0750` render
   **byte-identical** — verified by md5, not asserted;
 - underneath it, the code world is frozen at scene 02's last state, and the graph is drawn with the
   anchor node occupying exactly the rectangle the prompt's `withRetry()` token occupied;
@@ -168,7 +168,7 @@ Three findings the implementation depends on:
   `#171a1f` rendered `#080a0d` — darker than the background it was supposed to sit on. The canvas
   now renders with `NoToneMapping` and sRGB output, so the graph's greys are the site's greys.
 
-Frames 0629 and 0630 must be inspected side by side after any change to either scene.
+Frames 0749 and 0750 must be inspected side by side after any change to either scene.
 
 ## Layout validation
 
@@ -198,7 +198,7 @@ What the shipped layout measures:
 
 ## Final state
 
-At master frame 0990 (local 0660):
+At master frame 1110 (local 0360):
 
 - camera at eye `(7.0, 3.2, 10.0)` looking at `(8.0, 0.0, -2.4)`, held since local 348;
 - eight nodes present, each an extruded plate carrying a DOM label;
@@ -213,7 +213,7 @@ At master frame 0990 (local 0660):
 
 This is the state `04-blast-radius.md` inherits. It does not re-derive it: `src/three/blastState.ts`
 reads this scene's settled values through `getGraphState(380)`, because every ramp in this scene
-clamps and 380 therefore returns what frame 0989 renders.
+clamps and 380 therefore returns what frame 1109 renders.
 
 ## Visual composition
 
@@ -251,7 +251,7 @@ darkness rather than appearing on a flat field.
 
 ## Motion
 
-**The dissolve and the substitution (0630–0660 / local 0300–0330).** The prompt layer and the
+**The dissolve and the substitution (0750–0780 / local 0000–0030).** The prompt layer and the
 residual code world fade out while the token `withRetry()` hands over to a 3D node occupying the
 same screen rectangle. Matched position, matched apparent scale, matched typography, matched colour,
 brief cross-fade. A cross-fade between two identical images has no visible midpoint — that is the
@@ -266,12 +266,15 @@ and the only accented `withRetry` in the frame is the node.
 position and a fixed direction:
 
 ```text
-   0300-0250   eye (0.0, 0.0,  9.0)  ->  (0.0,  0.0,  0.0)   hold, the match cut
-   0330-0320   eye (0.6, 0.4,  7.4)  ->  (1.3, -0.4, -0.4)   step in, off the axis
-   0400-0415   eye (2.6, 0.2,  6.2)  ->  (3.8, -0.6, -1.0)   travel with the impact
-   0495-0475   eye (2.6, 0.2,  6.2)  ->  (3.8, -0.6, -1.0)   held, while the crossing draws
-   0555-0548   eye (7.0, 3.2, 10.0)  ->  (8.0,  0.0, -2.4)   rise and open out, after it
-   0628-0580   held
+   local 0000-0030   eye (0.0, 0.0,  9.0)  ->  (0.0,  0.0,  0.0)   hold, the match cut
+   local 0030-0100   eye (0.6, 0.4,  7.4)  ->  (1.3, -0.4, -0.4)   step in, off the axis
+   local 0100-0195   eye (2.6, 0.2,  6.2)  ->  (3.8, -0.6, -1.0)   travel with the impact
+   local 0195-0255   eye (2.6, 0.2,  6.2)  ->  (3.8, -0.6, -1.0)   held, while the crossing draws
+   local 0255-0328   eye (7.0, 3.2, 10.0)  ->  (8.0,  0.0, -2.4)   rise and open out, after it
+   local 0328-0360   held
+
+Scene-local, read straight off the keyframe list in `src/three/graphState.ts`, so
+a retime cannot make this table wrong. Master is local + the scene's start.
 ```
 
 That the camera is a rig is the change the whole design rests on. A camera locked to `-Z` sees every
@@ -393,7 +396,7 @@ anchor's highlight comes from roughness against a real light.
 Carried by perspective, by the plate orientation, by the parallax of the move, and by scene 01's
 radial falloff on the periphery. There is no depth-of-field pass. `STORYBOARD.md` §15 permits one at
 graph entry and at the cross-repository reveal; that reveal has since been cut, and §15 now records
-the pass itself as built, measured and retired. Frame 0989 lands without it.
+the pass itself as built, measured and retired. Frame 1109 lands without it.
 
 ### Deterministic animation rules
 
@@ -407,28 +410,28 @@ the pass itself as built, measured and retired. Frame 0989 lands without it.
 
 ## Transition in
 
-Hard boundary at 0630 in `src/Composition.tsx`, but **not a visual cut**. Scene 02 delivers a
-contract at its frame 0629: the screen-space centre and apparent scale of the token `withRetry()`,
+Hard boundary at 0750 in `src/Composition.tsx`, but **not a visual cut**. Scene 02 delivers a
+contract at its frame 0749: the screen-space centre and apparent scale of the token `withRetry()`,
 its font and weight, its colour and selection field, and the direction and velocity of the 2D
 push-in already underway. This scene honours all of it.
 
-- The central node occupies that same screen rectangle at 0630.
+- The central node occupies that same screen rectangle at 0750.
 - Its label is drawn in the same face at the same apparent size.
 - The R3F camera starting at `Z: 9` continues the push-in rather than restarting a move.
-- The prompt layer and the residual code world are dissolved by **this** scene, over 0630–0660, not
+- The prompt layer and the residual code world are dissolved by **this** scene, over 0750–0780, not
   by scene 02.
 
 If `promptLayout`, the token's size or the push-in curve changes in `02-agent.md`, this scene must be
-updated in the same task. Frames 0629 and 0630 are always inspected as a pair.
+updated in the same task. Frames 0749 and 0750 are always inspected as a pair.
 
 ## Transition out
 
-Hard boundary at 0990 into `04-blast-radius.md`, but **not a visual cut**. The next scene continues
+Hard boundary at 1110 into `04-blast-radius.md`, but **not a visual cut**. The next scene continues
 this exact graph: same camera pose, same node states, same edge states, same labels. Nothing is
 added at the seam — no caption, no label, no veil — and scene 04 works by reducing the opacity of
 everything that is not the source symbol, the crossings or their endpoints.
 
-The graph state at frame 0989 must therefore equal the graph state scene 04 assumes at 0990. The
+The graph state at frame 1109 must therefore equal the graph state scene 04 assumes at 1110. The
 practical consequence is that graph state must be a pure function of the **global** frame, or the
 two scenes must share the same state function with an explicit offset — a discontinuity here would
 read as a mistake, since nothing in the image is supposed to have changed.
@@ -444,20 +447,20 @@ somewhere else.
 ## Key frames
 
 ```text
-frame 0630 — match cut; withRetry() in its prompt position, the layer beginning to dissolve
-frame 0660 — the word is now a 3D node, fully lit and accented; the prompt is gone; the code is
+frame 0750 — match cut; withRetry() in its prompt position, the layer beginning to dissolve
+frame 0780 — the word is now a 3D node, fully lit and accented; the prompt is gone; the code is
              still legible underneath
-frame 0740 — the anchor's plate has finished forming; two callers present; one edge resolving
-frame 0830 — the near repository is complete and begins to name itself
-frame 0930 — a crossing edge is in flight toward empty frame; the reveal is a camera move
-frame 0989 — the whole graph, settled — KEY VISUAL, must work as a still image
+frame 0860 — the anchor's plate has finished forming; two callers present; one edge resolving
+frame 0950 — the near repository is complete and begins to name itself
+frame 1050 — a crossing edge is in flight toward empty frame; the reveal is a camera move
+frame 1109 — the whole graph, settled — KEY VISUAL, must work as a still image
 ```
 
-`STORYBOARD.md` §28 lists 0630, 0660, 0690, 0750, 0700, 0840, 0950 and 0900 for manual review. The
+`STORYBOARD.md` §28 lists 0750, 0780, 0810, 0870, 0820, 0960, 1070 and 1020 for manual review. The
 list above is where the beats actually land now, and the two should be reconciled the next time the
 storyboard is touched.
 
-**Frame 0989 is the key visual frame** (`STORYBOARD.md` §29), intended for social use. As a still,
+**Frame 1109 is the key visual frame** (`STORYBOARD.md` §29), intended for social use. As a still,
 with no motion and no audio, it must communicate the entire product thesis: one accented symbol, a
 structure receding from it in depth, and three relations leaving the near codebase for a second one.
 
@@ -475,10 +478,10 @@ structure receding from it in depth, and three relations leaving the near codeba
   reading normally.
 - **The code's own `withRetry` token is demoted, never deleted.** It is a word inside a line of Go
   that stays on screen.
-- **The match cut at 0630 is not covered by an effect.** No flash, no whip pan, no blur transition.
+- **The match cut at 0750 is not covered by an effect.** No flash, no whip pan, no blur transition.
 - **Accent marks exactly one thing at a time:** the anchor's hairline, and an edge while it is
   resolving.
-- **The graph state is continuous across 0990.** Scene 04 must be able to assume it.
+- **The graph state is continuous across 1110.** Scene 04 must be able to assume it.
 
 ## Flexible elements
 
@@ -494,7 +497,7 @@ structure receding from it in depth, and three relations leaving the near codeba
   already in `package.json`. Consult the local Remotion skills under `.claude/skills/` before
   assuming an API (`AGENTS.md` §3).
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="03 Graph Reveal" from={410} durationInFrames={380}>`. That file is the single
+  `<Sequence name="03 Graph Reveal" from={750} durationInFrames={360}>`. That file is the single
   place holding global frame numbers — there is no timing module, deliberately, because Remotion
   Studio can only trim inline literals.
 - **Phase structure.** This component covers two storyboard scenes but is a single flat 380-frame
@@ -506,7 +509,7 @@ structure receding from it in depth, and three relations leaving the near codeba
   with `GraphNode = { id, label, repository, package, kind, position }`.
 - Derived state: `getGraphState(frame)` in `src/three/graphState.ts`, returning the
   `GraphVisualState` shape from `STORYBOARD.md` §22. Keeping the whole scene's timing in one pure
-  function is what makes the causal ordering auditable and the 0990 handoff verifiable.
+  function is what makes the causal ordering auditable and the 1110 handoff verifiable.
 - Spatial contract: `src/three/graphFrame.ts`. One definition of a node's box, three consumers — the
   DOM label, the plate drawn behind it, and the clipping of every edge that arrives at it. If they
   disagree, an edge stops short of its own node or a plate sits crooked under its text.
@@ -522,13 +525,13 @@ structure receding from it in depth, and three relations leaving the near codeba
 ## Current compromises
 
 - **Sound is absent.** `STORYBOARD.md` §18 suggests a small tick on edge resolve and a slightly
-  deeper sound on the cross-repository connection. Neither is implemented, and frame 0989 must land
+  deeper sound on the cross-repository connection. Neither is implemented, and frame 1109 must land
   without them.
 - **DOF is a P1 item** (`STORYBOARD.md` §35) and ships absent. The radial falloff on the periphery
   is a composition device, not a depth-of-field pass; its absence is not a defect, but a real DOF
   pass that softens a crossing or a repository label would be.
-- **`STORYBOARD.md` §28–§29 still list 0900** as the key visual, and the last node now settles at
-  0977 with the scene holding to 0990. `0989` is the frame that ships; the storyboard should be
+- **`STORYBOARD.md` §28–§29 still list 1020** as the key visual, and the last node now settles at
+  1097 with the scene holding to 1110. `1109` is the frame that ships; the storyboard should be
   reconciled the next time it is touched.
 - **Edges are one pixel wide in the shader's terms and cannot be thicker as lines.** They are meshes
   for exactly that reason; if an edge ever needs a rendered outline or a variable profile it has to

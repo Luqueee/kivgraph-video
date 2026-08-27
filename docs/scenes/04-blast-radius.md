@@ -48,9 +48,9 @@ cut — see `## Modification history`.
 
 ## Narrative context
 
-**Immediately before.** Scene 03 (`03-graph-reveal.md`, frames 0630–0990) finished
+**Immediately before.** Scene 03 (`03-graph-reveal.md`, frames 0750–1110) finished
 building the graph and settled: eight nodes and seven edges present, the cascade
-laid out in depth, the three crossings drawn at 0854–0929, `withRetry()` accent-lit
+laid out in depth, the three crossings drawn at 0974–1049, `withRetry()` accent-lit
 at its head, and the camera at rest on the pose it arrived at. There used to be a
 scene between the two — `CrossRepoScene`, frames 0990–1000 — and it was cut; see
 `## Modification history`. What its removal changes here is the inheritance: this
@@ -75,12 +75,12 @@ the rest of the video refers to.
   cut, so every document number from this one onward is **two** lower than its
   storyboard scene number. `docs/scenes/README.md` § Scene numbering holds the
   whole mapping.
-- Global frames: **0990–1130**
-- Scene-local frames: **0300–0440**
-- Time: **16.5 s – 18.83 s**
+- Global frames: **1110–1250**
+- Scene-local frames: **0000–0140**
+- Time: **18.5 s – 20.83 s**
 - Duration: **140 frames / 2.33 s** at 60 fps
 - Remotion component: `src/scenes/BlastRadiusScene.tsx`
-- Boundary source: the inline `<Sequence name="04 Blast Radius" from={710} durationInFrames={140}>`
+- Boundary source: the inline `<Sequence name="04 Blast Radius" from={1110} durationInFrames={140}>`
   literal in `src/Composition.tsx`
 
 Beats (scene-local = master − 710):
@@ -92,7 +92,7 @@ Beats (scene-local = master − 710):
 | `1022–1052` | `0032–0062` | Hop 2, the public bridge: `Client.Charge()` and `Client.Refund()`.                        |
 | `1048–1086` | `0058–0096` | Hop 3, the three `checkout-service` consumers, four frames apart.                         |
 | `1056–1078` | `0066–0088` | The impact card: `opacity 0 → 1`, `x +24 → 0`, no overshoot.                              |
-| `1078`      | `0088`      | Card settled, propagation all but complete. **Key visual frame.**                          |
+| `1198`      | `0088`      | Card settled, propagation all but complete. **Key visual frame.**                          |
 | `1082–1130` | `0092–0140` | The read. 49 frames measured identical; nothing moves, the frame exists to be read.       |
 
 The hop schedule in `src/three/blastState.ts` is `1: [8, 30]`, `2: [32, 56]`,
@@ -112,14 +112,14 @@ measurement that set this duration.
 
 ## Initial state
 
-At master frame 0990 (local 0300) the frame is **visually identical** to master
-frame 0989, inheriting Scene 03's camera and graph exactly:
+At master frame 1110 (local 0000) the frame is **visually identical** to master
+frame 1109, inheriting Scene 03's camera and graph exactly:
 
 - The settled cascade in depth: `withRetry()` nearest the camera at `z 0.0`,
   hop 1 at `-0.8`, hop 2 at `-1.9`, hop 3 at `-3.4`, every hop stepping `+x` as
   well. The camera is at rest on the pose scene 03 ends on — the `lookAt` rig at
   eye `(7.0, 3.2, 10.0)` looking at `(8.0, 0.0, -2.4)`, its view direction 15° off
-  `-Z`. Scene 03's camera move completes at 0958 and nothing in the film moves the
+  `-Z`. Scene 03's camera move completes at 1078 and nothing in the film moves the
   camera after it, so this scene inherits that exact pose with zero velocity.
 - `withRetry()` accent-lit at the head of the cascade: the largest label, the
   brightest plate and the only accent in the frame.
@@ -140,7 +140,7 @@ The pulse on `withRetry()` begins on this frame.
 
 ## Final state
 
-At master frame 1130 (local 0440, the boundary frame handed to
+At master frame 1250 (local 0140, the boundary frame handed to
 `SemanticScene.tsx`):
 
 - Every affected node carries the Kivgraph accent, all the way back to the last
@@ -150,7 +150,7 @@ At master frame 1130 (local 0440, the boundary frame handed to
 - No veil and no sentence. The graph is at full presence under the card.
 - The camera has not moved at all; the graph is still, propagation finished.
 
-Nothing is mid-animation at 1130, and nothing has been for 49 frames. The next
+Nothing is mid-animation at 1250, and nothing has been for 49 frames. The next
 scene begins by flattening this exact frame.
 
 ## Visual composition
@@ -213,7 +213,7 @@ graph-attached text is mono, viewer-addressed narrative is sans
 (`STORYBOARD.md` §7, `AGENTS.md` §37) — which now governs nothing in this scene,
 because every string in it is a symbol name, a cluster name or a measured value.
 
-**Hierarchy** at 1078, strongest first:
+**Hierarchy** at 1198, strongest first:
 
 1. the accent-marked propagation, from `withRetry()` at the front back to the
    `checkout-service` consumers;
@@ -229,7 +229,7 @@ each distinctly separated, and then a 49-frame read — the last mark's ramp end
 local 96 but the frame stops measurably changing at 92, which is where the read
 begins. No two events compete for attention, and nothing competes with the card.
 
-**The pulse.** `withRetry()` pulses exactly **once** at 0990 — a single short
+**The pulse.** `withRetry()` pulses exactly **once** at 1110 — a single short
 brightness swell that returns to rest. Brightness and not scale: apparent size in
 this layout is depth, and a node that swells reads for a moment as having come
 closer than the change itself. It is not a loop, not a heartbeat and not an
@@ -290,23 +290,23 @@ sentence is just a scene that dims.
 The graph therefore stays at full presence for all 140 frames. That is the right
 outcome for the card rather than a concession: its three lines are graph-attached
 technical values whose job is to be read *against* the structure behind them, and
-key frame 1078 has to hold the count and the evidence in one image. Darkening the
+key frame 1198 has to hold the count and the evidence in one image. Darkening the
 graph there would have taken away the reason to keep the receipt.
 
-**Camera.** Static. Scene 03 leaves the rig at rest at 0990, so this scene holds
+**Camera.** Static. Scene 03 leaves the rig at rest at 1110, so this scene holds
 the camera exactly where it inherits it and spends its whole motion budget on the
 graph. It stays the `lookAt` rig at eye `(7.0, 3.2, 10.0)` looking at
 `(8.0, 0.0, -2.4)`, 15° off `-Z`, `up` world up on every frame. No orbit, no roll,
 no rotation, no shake, no dolly.
 
-**Holds.** 1078 must be still enough to export as an image. 1082–1130 is a true
+**Holds.** 1198 must be still enough to export as an image. 1202–1250 is a true
 hold — 49 frames measured identical. Nothing changes after the card settles, and
 the frame's job there is to be read.
 
 This scene has been retimed twice in opposite directions, and both times for the
 same reason: a hold is worth exactly the reading it buys, and nothing else.
 
-It first ran 1070–1110 on a 120-frame cut, and the twenty frames that came off it
+It first ran at what was then 1070–1110, on a 120-frame cut, and the twenty frames that came off it
 were dead. With the claim line and its veil cut, nothing in the tail animated at
 all: measured on the render, the frame stopped changing at scene-local 78 and the
 remaining 41 frames were pixel-identical — a third of the scene was a frozen
@@ -322,7 +322,7 @@ thing in the film. Dead frames are worth removing; the payload's reading time is
 different quantity that happens to be measured in the same units, and 0.42 s of it
 is not reading time at all.
 
-The card now settles at 1078 and stands 51 frames of this scene, then keeps fading
+The card now settles at 1198 and stands 51 frames of this scene, then keeps fading
 for another 36 through scene 05's flatten: **88 frames of legibility — 1.47 s**,
 counting the frame it settles on. That fade is not new and it is not this scene's:
 the card is *inherited* by `SemanticScene.tsx` and taken out by `reportFade` over
@@ -385,7 +385,7 @@ luminance falloff sits over the geometry and under the labels, so a lit crossing
 near the frame edge is crushed while its node label is not. Accent at hop 3 is
 therefore carried by the labels at least as much as by the tubes — `nodeAccent`
 lifts an affected label out of its shell's luminance step toward full presence,
-which is what makes the far group legible at 1078.
+which is what makes the far group legible at 1198.
 
 **Repository presence.** There are no cluster meshes, no base surfaces and nothing
 drawn around a group. A repository is carried by depth, by distance and by one
@@ -420,10 +420,10 @@ at render time.
 
 ## Transition in
 
-Hard sequence boundary at 0990, and it is **visually continuous rather than
-byte-identical**: frames 0989 and 0990 measure **62.93 dB** PSNR, and the
+Hard sequence boundary at 1110, and it is **visually continuous rather than
+byte-identical**: frames 1109 and 1110 measure **62.93 dB** PSNR, and the
 difference is glyph antialiasing and nothing else. Scene 03's camera move
-completes at 0958 and nothing in the film moves the camera after it, so the pose
+completes at 1078 and nothing in the film moves the camera after it, so the pose
 is provably still for all 140 frames of this scene.
 
 Scene 03 hands over its whole settled graph: eight nodes and seven edges at the
@@ -459,7 +459,7 @@ lands on a clean frame.
 
 ## Transition out
 
-At 1130 `SemanticScene.tsx` takes over and the transition comes from the content
+At 1250 `SemanticScene.tsx` takes over and the transition comes from the content
 (`STORYBOARD.md` §27, *Graph → Semantic comparison*): the graph flattens and the
 frame becomes a split view. The camera does not straighten up first, and it should
 not: the graph sequence ends 15° off `-Z`, and the flatten resolves that oblique
@@ -468,7 +468,7 @@ rather than a camera move.
 
 Consequences this scene must respect:
 
-- the graph must be **at rest** at 1130 — a flatten applied to a still frame reads
+- the graph must be **at rest** at 1250 — a flatten applied to a still frame reads
   as a deliberate change of representation; applied to a moving frame it reads as a
   glitch;
 - the accent state produced here carries into the right-hand side of the split, so
@@ -521,25 +521,25 @@ No other text. No explanatory sentence, no legend, no sub-caption.
 Frames to inspect manually (`STORYBOARD.md` §28):
 
 ```text
-0990 — single pulse on withRetry(); frame otherwise identical to 0989
-1040 — propagation mid-flight, ordering clearly readable
-1078 — KEY VISUAL: full blast radius plus impact card, first settled frame
-1129 — last frame of the scene; identical to 1082, card and propagation, nothing dimmed
+1110 — single pulse on withRetry(); frame otherwise identical to 1109
+1160 — propagation mid-flight, ordering clearly readable
+1198 — KEY VISUAL: full blast radius plus impact card, first settled frame
+1249 — last frame of the scene; identical to 1202, card and propagation, nothing dimmed
 ```
 
-**Frame 1078 is a key visual frame** (`STORYBOARD.md` §29, and `AGENTS.md`'s list
-of frames that must remain intentional as stills: 0380, 0989, 1078, 1224, 1424,
-1590, 1750), earmarked for the README. 1078 is *defined* as the frame the impact
+**Frame 1198 is a key visual frame** (`STORYBOARD.md` §29, and `AGENTS.md`'s list
+of frames that must remain intentional as stills: 0500, 1109, 1198, 1344, 1544,
+1708, 1960), earmarked for the README. 1198 is *defined* as the frame the impact
 card settles on — the frame the scene's argument is complete on — so a retime moves
 it to wherever `cardEntry`'s window now ends. It must work as a still image, which
-means at 1078:
+means at 1198:
 
 - the propagation reads complete and every affected node is unambiguously marked.
   Its tail is one mark: because a mark trails its relation by six and the third
   `checkout-service` consumer is staggered by eight, that ramp ends at local 96,
-  four frames after the frame stops measurably changing at 1082. The easing is
-  front-loaded (`Easing.bezier(0.22, 1, 0.36, 1)`), so at 1078 the last mark is
-  already deep in its own tail; if a render ever shows it short, 1082 is its
+  four frames after the frame stops measurably changing at 1202. The easing is
+  front-loaded (`Easing.bezier(0.22, 1, 0.36, 1)`), so at 1198 the last mark is
+  already deep in its own tail; if a render ever shows it short, 1202 is its
   settled twin and the card is identical on both;
 - the card is fully settled, not mid-entry, and all four of its own lines — the
   `CHANGE IMPACT` heading and the three values — are legible;
@@ -559,7 +559,7 @@ Inspect it as an exported still, not only by scrubbing.
 
 Preserve unless the creative direction is explicitly changed:
 
-- **One pulse, not a loop.** `withRetry()` pulses exactly once at 0990. No
+- **One pulse, not a loop.** `withRetry()` pulses exactly once at 1110. No
   repeating pulse, no heartbeat, no expanding ring.
 - **Strict propagation order.** Hop 0 → hop 1 → hop 2 → hop 3; that is
   `withRetry` → its direct callers → the public bridge → the remote consumers.
@@ -600,8 +600,8 @@ Preserve unless the creative direction is explicitly changed:
 - **Readable without audio and in a small embedded player.** The tick sequence
   suggested in `STORYBOARD.md` §18 may reinforce the propagation steps but must
   never be required to understand them.
-- **Frame 1078 works as a still image.**
-- **The card's dwell is not spent.** It settles at 1078, stands 51 frames of this
+- **Frame 1198 works as a still image.**
+- **The card's dwell is not spent.** It settles at 1198, stands 51 frames of this
   scene and stays legible for 88 across the cut — 1.47 s. Anything that pushes its
   entry later, or that animates inside the read, spends the reading time this scene
   was retimed to buy.
@@ -611,13 +611,13 @@ Preserve unless the creative direction is explicitly changed:
 Safe to change without altering the scene's purpose:
 
 - exact frames of the card's entry, provided it begins no earlier than the
-  propagation being visibly under way, is fully settled before 1078, and leaves
+  propagation being visibly under way, is fully settled before 1198, and leaves
   the read at least 48 frames long;
 - exact card dimensions, padding and line spacing;
 - exact card position, subject to not occluding the three evidence objects;
 - exact easing, as long as it stays non-elastic;
 - exact per-step propagation durations and the small gaps between steps, as long
-  as the order stays unambiguous and the propagation completes by 1086, before the
+  as the order stays unambiguous and the propagation completes by 1206, before the
   card is fully read;
 - exact opacity floor for unaffected structure;
 - whether a subtle energy point travels each activating edge;
@@ -627,7 +627,7 @@ Safe to change without altering the scene's purpose:
 
 - Component: `src/scenes/BlastRadiusScene.tsx`.
 - Global scene boundaries live only as inline `<Sequence>` literals in
-  `src/Composition.tsx` (`from={710}`, `durationInFrames={140}`), so Remotion
+  `src/Composition.tsx` (`from={1110}`, `durationInFrames={140}`), so Remotion
   Studio can trim them. There is no timing module; do not introduce one and do not
   restate 710/850 inside the scene. The scene animates in scene-local frames, and
   offsets to absolute frames only where it samples Scene 03's graph curve.
@@ -636,9 +636,9 @@ Safe to change without altering the scene's purpose:
   composed by `src/components/ImpactReport.tsx`, which this scene and Scene 05
   both draw. `ImpactReport` is now the card alone: it used to compose the card
   with the claim line under it, and the claim line was cut. Scene 05 inherits the
-  block at 1130 and fades it out during the flatten, so the two scenes have to
+  block at 1250 and fades it out during the flatten, so the two scenes have to
   render it identically; the first version had this scene own the markup, Scene 05
-  simply not draw it, and the 1129/1130 seam measured 22 dB PSNR. It is now
+  simply not draw it, and the 1249/1250 seam measured 22 dB PSNR. It is now
   pixel-identical.
 - Rendering pieces involved: `src/scenes/GraphRevealScene.tsx` is the reference
   implementation of this graph — extruded plates from `src/three/GraphNode.tsx`,
@@ -666,8 +666,8 @@ Safe to change without altering the scene's purpose:
   tubes are real geometry rebuilt per frame, which is cheap at this count, and
   per-edge accent means each tube carries its own material. Avoid stacked
   postprocessing (`AGENTS.md` §35, §36).
-- Iterate with Remotion Studio plus a small range render over roughly 0900–1140;
-  scrub forward, backward, forward and confirm 1078 renders identically each time
+- Iterate with Remotion Studio plus a small range render over roughly 1020–1260;
+  scrub forward, backward, forward and confirm 1198 renders identically each time
   (`AGENTS.md` §40).
 
 ## Current compromises
@@ -714,9 +714,9 @@ Safe to change without altering the scene's purpose:
   `05-semantic-resolution.md` and is not resolved here.
 - **Card entry frames are not specified by the storyboard.** It gives the motion
   (`opacity 0 → 1`, `x +24 → 0`) and the position (right) but no timing. The
-  1056–1078 window in `## Timeline` is this document's proposal, constrained from
+  1176–1198 window in `## Timeline` is this document's proposal, constrained from
   the front by the propagation being visibly under way and from the back by the
-  measurement in `## Motion` → **Holds**: the card has to settle at key frame 1078
+  measurement in `## Motion` → **Holds**: the card has to settle at key frame 1198
   and leave the 49-frame read behind it intact.
 - **Node-kind colour is a narrower open decision than it was**, shared with
   `03-graph-reveal.md`: `tokens.ts` ships four graph kind

@@ -5,7 +5,7 @@ import { fontMono, fontSans } from "../brand/fonts";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 09 - outro (master 1530-1650, scene-local 0000-0120).
+ * Scene 09 - outro (master 2050-2170, scene-local 0000-0120).
  *
  * The scene that gives the viewer one thing to do and one thing to remember.
  * The name landed in scene 08; everything left is conversion, and conversion
@@ -132,7 +132,7 @@ export const OutroScene: React.FC = () => {
    *
    * Storyboard frame numbers mark when a beat **reads**, not when its ramp
    * starts, so both conclude on their beat rather than beginning there: the
-   * integrations by local `0028` and the URL at `0030` - master `1560`.
+   * integrations by local `0028` and the URL at `0030` - master `2080`.
    *
    * The per-name stagger is three frames, which is what four names fit into the
    * window: they start at local `0004`, `0007`, `0010` and `0013` and land at

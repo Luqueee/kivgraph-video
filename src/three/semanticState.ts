@@ -9,7 +9,7 @@ import type { Look } from "./projection";
 /**
  * Scene 05's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-200 (master 0770-0970).
+ * Scene-local frames 0-200 (master 1250-1450).
  *
  * The scene retires the 3D graph by flattening it, not by cutting away from it.
  * Its argument is a difference in count rather than a spatial claim, so depth
