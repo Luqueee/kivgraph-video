@@ -331,6 +331,28 @@ export const impactSummary = {
  * showed seven invented contexts; a video selling exactness cannot illustrate it
  * with a fabricated fixture. If a seven-way demonstration is ever wanted, the
  * honest route is a real compilable fixture documented as a demo — not a prop.
+ *
+ * ## Verified against the published graph, 2026-08-27
+ *
+ * That claim used to rest on this comment. It now rests on the graph: both
+ * declarations were looked up through the MCP server against snapshot `87`,
+ * built `2026-08-26T15:12:00Z`, resolver `0.7.0`.
+ *
+ * ```text
+ * src/utils/retry.ts                          135-163   function, exported
+ * internal/infrastructure/postgres/retry.go    49-78    func, unexported
+ * ```
+ *
+ * Two declarations, two repositories, two languages — which is what the left
+ * column of `05-semantic-resolution.md` counts, and what the right column then
+ * resolves to one symbol. Re-run the lookup if the corpus is re-indexed; a
+ * fixture that was true once is not the same as a fixture that is true.
+ *
+ * One thing worth knowing if this is ever revisited: the `find_by_intent`
+ * documentation's own example returns `withRetry` at lines `135-163`, which is
+ * the first of these two exactly. The published example is this declaration with
+ * its repository and path anonymised — so the tool's canonical demonstration and
+ * this film's fixture are pointing at the same code.
  */
 export const nameMatches = [
   {

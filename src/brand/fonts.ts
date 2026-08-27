@@ -15,9 +15,37 @@ import { staticFile } from "remotion";
  * depends on a network resource. `loadFont()` holds the render open until the
  * face is ready, which keeps text metrics identical in Studio and in a
  * headless render.
+ *
+ * Metrics, not pixels: the same outlines at the same advances still rasterise
+ * differently in Studio and in a render, because they go through different text
+ * engines - macOS smoothing paints visibly wider and heavier than the FreeType
+ * in headless Chrome. That difference is expected and is not a font mismatch.
+ * The render is the artefact; Studio is a preview of it.
  */
-export const fontSans = "Geist";
-export const fontMono = "JetBrains Mono";
+
+/**
+ * The names the faces are REGISTERED under, and the CSS stacks the DOM asks for.
+ *
+ * The registered names carry a ` Video` suffix on purpose. A bare `Geist` or
+ * `JetBrains Mono` is the same string a machine may already have installed -
+ * JetBrains Mono especially, which is a developer font and is on half the
+ * laptops that will ever open this project - and a family name a local face can
+ * also answer to is a family name that can resolve to different outlines in
+ * Studio than in a headless render. The suffix makes the name ours: nothing but
+ * the `loadFont()` calls below can claim it.
+ *
+ * The stacks end in a generic so a miss degrades to the right *kind* of face.
+ * Without one, an unresolved family falls through to the browser's default,
+ * which in headless Chrome is a SERIF: the narration would render in Times and
+ * nothing in the build would say so. Verified by rendering a frame against a
+ * deliberately absent family - the copy came back as Times, not as a near-miss
+ * sans that could pass review.
+ */
+const sansFamily = "Geist Video";
+const monoFamily = "JetBrains Mono Video";
+
+export const fontSans = `"${sansFamily}", sans-serif`;
+export const fontMono = `"${monoFamily}", monospace`;
 
 /**
  * The same mono face, in the one format the SDF text renderer can read.
@@ -55,14 +83,14 @@ export const fontMono = "JetBrains Mono";
 export const fontMonoSdf = staticFile("fonts/jetbrains-mono-variable.ttf");
 
 void loadFont({
-  family: fontSans,
+  family: sansFamily,
   url: staticFile("fonts/geist-variable.woff2"),
   weight: "100 900",
   display: "block",
 });
 
 void loadFont({
-  family: fontMono,
+  family: monoFamily,
   url: staticFile("fonts/jetbrains-mono-variable.woff2"),
   weight: "100 900",
   display: "block",

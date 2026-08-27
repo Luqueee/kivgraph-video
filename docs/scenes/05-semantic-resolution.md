@@ -1140,3 +1140,23 @@ Safe to change without altering the scene's purpose:
   152 px per world unit, the 11 px whole-cascade measurement and the 35-45 px
   surviving labels.
 ```
+
+```text
+2026-08-27
+- The left column's count is verified rather than asserted. Both `withRetry`
+  declarations in `nameMatches` were looked up through the MCP server against
+  snapshot 87, built 2026-08-26T15:12:00Z, resolver 0.7.0:
+      src/utils/retry.ts                          135-163  function, exported
+      internal/infrastructure/postgres/retry.go    49-78   func, unexported
+  Two declarations, two repositories, two languages - which is exactly what this
+  scene's left column counts and what its right column resolves to one symbol.
+- Nothing in the scene changed. What changed is that `graphDemo.ts`'s claim that
+  "two is the number the corpus actually contains" now rests on the graph rather
+  than on a comment. Re-run the lookup if the corpus is re-indexed: a fixture
+  that was true once is not the same as a fixture that is true.
+- Noted in `graphDemo.ts` and worth repeating: the `find_by_intent`
+  documentation's own example returns `withRetry` at 135-163, which is the first
+  of these two exactly, with its repository and path anonymised. The tool's
+  canonical demonstration and this film's fixture point at the same code.
+```
+
