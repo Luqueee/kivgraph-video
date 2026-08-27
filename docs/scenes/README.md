@@ -128,6 +128,8 @@ reading time rather than from feel, and the figures as the film stands are:
 
 | Element                                     | Dwell    |
 | ------------------------------------------- | -------- |
+| the cold open's parity line                 | `0.73 s` (32.7 characters per second) |
+| scene 00's third candidate row              | `0.87 s` (20.7 characters per second, read tier) |
 | scene 04's impact card                      | `1.47 s` |
 | scene 05's two counters                     | `1.00 s` |
 | scene 06's lead-in                          | `2.23 s` |
@@ -172,6 +174,7 @@ the only place in the scene where the answer is read.
 
 | #   | Scene               | Status                                    |
 | --- | ------------------- | ----------------------------------------- |
+| —   | Cold Open           | implemented, key frames inspected         |
 | 00  | Intent              | implemented, key frames inspected         |
 | 01  | Symbol              | implemented, key frames inspected         |
 | 02  | Agent               | implemented, key frames inspected         |
@@ -483,7 +486,7 @@ frame.
 Re-measured once more after the cold open landed, on PNG stills, at 2170 frames:
 
 ```text
-0119/0128   inf        the ten empty frames the teaser hands to the intent scene
+0119/0126   inf        the eight empty frames the teaser hands to the intent scene
 0419/0420   45.01 dB   candidate -> source, unchanged by the shift
 1109/1110   66.36 dB   glyph antialiasing only
 1629/1630   22.21 dB   the hard cut into the benchmark
@@ -782,6 +785,20 @@ mechanical pass across all nine documents and has not been done yet.
 ## Modification history
 
 ```text
+2026-08-27
+- Cold open added at frame 0: two seconds of the published benchmark as a hook.
+  Master 2050 -> 2170 frames, 34.17 s -> 36.17 s; every other scene moved +120
+  and none changed length. New document, cold-open.md, unnumbered on purpose.
+- Scene 00 rebuilt as a result stack: three heterogeneous Go candidates with the
+  kind in a hanging gutter. Length unchanged at 300 frames, so nothing moved.
+  New fixture module src/data/intentCandidates.ts, verified against the source
+  the film renders.
+- Documentation repair pass alongside the retime: the scene-local column of
+  eight documents, scene 07's beat table, four Registration strings, the
+  still-image key frame (1590 vs 1588), scene 08's frozen 1440, three corrupted
+  layout constants and six half-shifted seam pairs. See **Retiming this film
+  without corrupting it**, which grew four bullets from what this pass found.
+
 2026-08-25
 - Scene 06 (Agent Answer) implemented: src/scenes/AgentAnswerScene.tsx and
   src/three/answerState.ts. mountedFrames 880 -> 970, so the film that renders

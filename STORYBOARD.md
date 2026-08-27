@@ -89,7 +89,7 @@ historia responde.
 Código -> ... -> Kivgraph                  ->  así
 ```
 
-La historia de arriba no cambia. Ver SCENE 00 en §16 y `docs/scenes/cold-open.md`.
+La historia de arriba no cambia. Ver COLD OPEN en §16 y `docs/scenes/cold-open.md`.
 
 No intentar explicar:
 
@@ -738,14 +738,14 @@ Las SCENE 03 y 04 son un solo componente, y la 05 se conserva como registro de
 una escena cortada; de ahí el desfase. La tabla de `docs/scenes/README.md` es la
 correspondencia autoritativa.
 
-Una escena de la película no tiene sección propia aquí y sí documento: la de
-**intent** (`docs/scenes/00-intent.md`), que llegó después de que este archivo se
-escribiera. El **cold open** sí la tiene, justo debajo, y no lleva número porque
-no forma parte de la historia.
+El **cold open** y la escena de **intent** llegaron después de que este archivo
+se escribiera y tienen sección propia abajo, fuera de la numeración original. El
+cold open no lleva número porque no forma parte de la historia; la de intent es
+la SCENE 00 del documento `docs/scenes/00-intent.md`.
 
 ---
 
-## SCENE 00 — THE NUMBERS (cold open)
+## COLD OPEN — THE NUMBERS
 
 ### Frames
 
@@ -839,6 +839,83 @@ la escena de intent aparece en el mismo campo que acaban de dejar. El primer
 **corte** de la película sigue siendo el match cut de `0420`.
 
 Detalle completo en `docs/scenes/cold-open.md`.
+
+---
+
+## SCENE 00 — INTENT (find_by_intent)
+
+### Frames
+
+```text
+0120–0420
+2.0–7.0 s
+```
+
+---
+
+### Qué hace
+
+Impide que la película dé por supuesta su propia respuesta. Todo lo que viene
+después abre con `withRetry` ya señalado, lo que afirma en voz baja que el agente
+sabía cómo se llamaba el símbolo. Normalmente no lo sabe.
+
+### La metáfora visual: una pila corta de candidatos heterogéneos
+
+```text
+FUNC     withRetry()
+CONST    maxAttempts
+METHOD   Policy.Do()
+```
+
+Esa segunda columna es todo el argumento de la escena. `find_by_intent`
+recupera **contexto de código relevante, no sólo nombres de función**: un helper
+de reintento, el presupuesto contra el que cuenta y el método que pasa por él son
+tres cosas de tipos distintos, y las tres sirven para empezar a leer. Tres
+nombres de función no podían decirlo, porque tres funciones son un solo tipo de
+cosa.
+
+Es deliberadamente **lo contrario de una UI de búsqueda**. Sin caja, sin campo,
+sin cards, sin panel de resultados, sin columnas, sin score. Una lista editorial
+vertical de tipografía en el mismo campo oscuro que el resto de la película.
+
+### Reglas semánticas que no se pueden romper
+
+```text
+candidate   != relación probada
+match       != confianza
+```
+
+`match` vale `lexical` o `lexical+calls` y dice **por qué apareció una fila**,
+nunca cuánto creérsela. No existe score y no puede mostrarse ninguno: ni
+porcentajes, ni barras, ni estrellas, ni ticks verdes, ni filas marcadas como
+incorrectas. Las candidatas que no se abren se atenúan al 30 %; nunca se marcan
+mal.
+
+**Nunca una fila de comentario.** El índice guarda nombres, nombres cualificados,
+kinds y rutas — no prosa —, así que una fila `COMMENT` sería un comportamiento
+inventado de la herramienta.
+
+### Ritmo
+
+```text
+0126–0172   el problema, dos líneas
+0178–0216   la pregunta, con el ❯
+0224–0248   kivgraph / find_by_intent
+0250–0294   las tres filas, uno cada doce frames
+0294–0346   la pila entera quieta
+0346–0370   las otras dos retroceden al 30 %; la elegida pierde sus metadatos
+0378–0416   se va todo menos el nombre, que escala hasta el símbolo fuente
+```
+
+Sin rebotes, sin muelles, sin zoom dramático, sin contadores.
+
+### Transición
+
+Match cut a `01-symbol.md` en `0420`. El nombre sólo **escala**: la pila está
+maquetada hacia fuera desde el ancla `620, 662`, así que la fila elegida está
+sobre su destino desde el primer frame en que existe.
+
+Detalle completo en `docs/scenes/00-intent.md`.
 
 ---
 

@@ -17,8 +17,30 @@ import type { CodeLine } from "../components/CodePlane";
  */
 
 /**
+ * The repository-relative paths of the two files the film ever names on screen.
+ *
+ * They live here, beside the source they belong to, because two other places
+ * need them and neither should retype a path: `SymbolScene` prints one as the
+ * caption under the anchored symbol, and `intentCandidates.ts` prints both
+ * under the candidates it derives from these very arrays. A file that is
+ * described in one place and named in another is a file that will eventually be
+ * described and named differently.
+ *
+ * The other two files in this world are never named on screen — `backoff.go` is
+ * a legible neighbour and `client.go` is the blurred depth bed — so they have no
+ * constant here. Add one the moment either is captioned.
+ */
+export const retryGoPath = "payments-api/internal/retry/retry.go";
+export const policyGoPath = "payments-api/internal/retry/policy.go";
+
+/**
  * `payments-api/internal/retry/retry.go` — the camera plane.
  * `withRetry` sits on line 12 at column 5 and is the anchor of the whole video.
+ *
+ * Three of its declarations are also the film's `find_by_intent` candidates, and
+ * `src/data/intentCandidates.ts` finds them in this array rather than restating
+ * them. Deleting `const maxAttempts` or `var ErrExhausted` from these lines
+ * fails the render with the reason.
  */
 export const retryGo: CodeLine[] = [
   [{ text: "package retry", role: "context" }],
@@ -153,7 +175,10 @@ export const policyGo: CodeLine[] = [
   [{ text: "}", role: "context" }],
   [{ text: "", role: "context" }],
   [
-    { text: "func Once(ctx context.Context, fn func() error) error {", role: "context" },
+    {
+      text: "func Once(ctx context.Context, fn func() error) error {",
+      role: "context",
+    },
   ],
   [
     { text: "    return ", role: "context" },
