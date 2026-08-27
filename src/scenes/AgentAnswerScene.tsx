@@ -26,7 +26,7 @@ import { brand } from "../brand/tokens";
 import type { Camera } from "../world/camera";
 
 /**
- * Scene 06 - agent answer (master 1450-1630, scene-local 0000-0180).
+ * Scene 06 - agent answer (master 1400-1580, scene-local 0000-0180).
  *
  * The scene that closes the loop. Scene 02 asked a question inside a coding
  * agent; everything since has been structure. This returns to the same prompt,
@@ -35,7 +35,7 @@ import type { Camera } from "../world/camera";
  * Four things happen and then nothing does: the last graph node travels back
  * onto the `withRetry()` token it grew out of, the token takes over from it, the
  * answer arrives in three blocks, and an attribution line settles. From local 94
- * - master 1544 - the frame is static, because scene 07 opens on a hard cut and
+ * - master 1494 - the frame is static, because scene 07 opens on a hard cut and
  * a hard cut out of a moving frame reads as an editing accident.
  *
  * The scene is 180 frames, doubled from 90, and a measurement is why. The path

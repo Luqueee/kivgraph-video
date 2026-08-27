@@ -47,84 +47,87 @@ read a single name.
 
 ## Timeline
 
-- Global frames: `0120`–`0420`
-- Scene-local frames: `0000`–`0300` (last rendered frame `0299` / master `0419`)
-- Time: 2.0 s – 7.0 s
-- Duration: 300 frames / 5.0 s at 60 fps
+- Global frames: `0120`–`0370`
+- Scene-local frames: `0000`–`0250` (last rendered frame `0249` / master `0369`)
+- Time: 2.0 s – 6.17 s
+- Duration: 250 frames / 4.17 s at 60 fps
 - Remotion component: `src/scenes/IntentScene.tsx`
 - Data: `src/data/intentCandidates.ts`
-- Registration: `<Sequence name="00 Intent" from={120} durationInFrames={300}>`
+- Registration: `<Sequence name="00 Intent" from={120} durationInFrames={250}>`
 
 | Master        | Local         | Beat                                                                       |
 | ------------- | ------------- | -------------------------------------------------------------------------- |
-| `0120`–`0126` | `0000`–`0006` | Empty. The silence the cold open hands over.                               |
-| `0126`–`0172` | `0006`–`0052` | **Beat 1, the problem.** Two lines, the second the punch.                  |
-| `0178`–`0216` | `0058`–`0096` | **Beat 1, the question**, at the `❯` scene 02 also uses.                   |
-| `0224`–`0248` | `0104`–`0128` | **Beat 2, the invocation.** `kivgraph / find_by_intent`.                   |
-| `0240`–`0260` | `0120`–`0140` | The header: `payments-api · 3 candidates`, over the rows it heads.         |
-| `0250`–`0270` | `0130`–`0150` | **Beat 3.** Row 1 — `FUNC` · `withRetry()`.                                |
-| `0262`–`0282` | `0142`–`0162` | Row 2 — `CONST` · `maxAttempts`.                                           |
-| `0274`–`0294` | `0154`–`0174` | Row 3 — `METHOD` · `Policy.Do()`.                                          |
-| `0294`–`0346` | `0174`–`0226` | **Beat 4.** The stack complete. Measured byte-identical, 53 frames.        |
-| `0346`–`0370` | `0226`–`0250` | **Beat 5.** The other two recede to 30 %; the selected row sheds metadata. |
-| `0370`–`0378` | `0250`–`0258` | The selected candidate alone at full strength, the other two still there.  |
-| `0378`–`0406` | `0258`–`0286` | Everything except the name leaves.                                         |
-| `0382`–`0416` | `0262`–`0296` | The name scales onto the source symbol. It never travels.                  |
-| `0420`        | `0300`        | Match cut into `01-symbol.md` frame 0.                                     |
+| `0120`–`0128` | `0000`–`0008` | Empty. The silence the cold open hands over.                               |
+| `0128`–`0166` | `0008`–`0046` | **Beat 1, the question**, at the `❯` scene 02 also uses.                   |
+| `0174`–`0198` | `0054`–`0078` | **Beat 2, the invocation.** `kivgraph / find_by_intent`.                   |
+| `0190`–`0210` | `0070`–`0090` | The header: `payments-api · 3 candidates`, over the rows it heads.         |
+| `0200`–`0220` | `0080`–`0100` | **Beat 3.** Row 1 — `FUNC` · `withRetry()`.                                |
+| `0212`–`0232` | `0092`–`0112` | Row 2 — `CONST` · `maxAttempts`.                                           |
+| `0224`–`0244` | `0104`–`0124` | Row 3 — `METHOD` · `Policy.Do()`.                                          |
+| `0244`–`0296` | `0124`–`0176` | **Beat 4.** The stack complete. Measured byte-identical, 53 frames.        |
+| `0296`–`0320` | `0176`–`0200` | **Beat 5.** The other two recede to 30 %; the selected row sheds metadata. |
+| `0320`–`0328` | `0200`–`0208` | The selected candidate alone at full strength, the other two still there.  |
+| `0328`–`0356` | `0208`–`0236` | Everything except the name leaves.                                         |
+| `0332`–`0366` | `0212`–`0246` | The name scales onto the source symbol. It never travels.                  |
+| `0370`        | `0250`        | Match cut into `01-symbol.md` frame 0.                                     |
 
 Every window lives in one `beat` object in `IntentScene.tsx`, so this table and
 the code cannot drift.
 
-**The scene did not change length when it was rebuilt as a stack**, which is why
-nothing else in the film moved. The top half lands 30 frames earlier than it used
-to and those frames went to beats 4 and 5.
+**The scene is 250 frames, and it was 300 until the opening couplet was cut.**
+The fifty frames were returned to the film rather than spent inside the scene:
+every window above moved by that same constant, so no element lost dwell and
+nothing arrives faster than it did. The list and the match cut are untouched in
+rhythm; the scene simply starts fifty frames later in its own story and fifty
+frames earlier in the film's.
 
 ## Reading time is what the length is for
 
-The scene is 300 frames because it is the only one in the film that introduces a
-tool, a vocabulary and a result to a viewer holding none of them, and time is the
-only thing that buys that.
-
 The stack has two tiers and they are read differently. The **kind and the name**
 are read; the **path and the `match`** are scanned, exactly as `02-agent.md`'s
-file caption is. Measured against the 25–40 characters per second the rest of the
-film is timed by, with the top half leaving at local `0258` and the stack
-committing at local `0226`:
+file caption is. Measured against the 25–40 characters per second the rest of
+the film is timed by, with the top half leaving at local `0208` and the stack
+committing at local `0176`:
 
 ```text
 block                          read  settles   dwell    char/s   scanned
-You know what the code does.     28     0042   3.60 s      7.8        --
-Not where it lives.              19     0052   3.43 s      5.5        --
-Where do we retry failed req?    34     0096   2.70 s     12.6        --
-kivgraph / find_by_intent        25     0128   2.17 s     11.5        --
-FUNC   withRetry()               16     0150   1.27 s     12.6        43
-CONST  maxAttempts               17     0162   1.07 s     15.9        43
-METHOD Policy.Do()               18     0174   0.87 s     20.7        50
+Where do we retry failed req?    34     0046   2.70 s     12.6        --
+kivgraph / find_by_intent        25     0078   2.17 s     11.5        --
+payments-api · 3 candidates      27     0090   1.97 s     13.7        --
+FUNC   withRetry()               16     0100   1.27 s     12.6        30
+CONST  maxAttempts               17     0112   1.07 s     15.9        30
+METHOD Policy.Do()               18     0124   0.87 s     20.7        37
 ```
 
-Every read tier is inside the budget with room. Counting the scanned tier too,
-the last row runs at 78 characters per second — which is the same order as the
-figure this scene has always carried for its path and match line, and it is the
-same claim: a repository-relative path is recognised, not spelled out, and two of
-the three here are the same path.
+**These are the same figures the 300-frame cut measured**, to the decimal,
+because the cut removed a block rather than compressing the ones that stayed.
+Every read tier is inside the budget with room.
 
 The rows arrive on a twelve-frame pitch, so by the time the third lands the
 viewer has already read two kinds. That is what makes 0.87 s enough for the
 third: `METHOD` is being contrasted with something, not learned cold.
 
-The first build of these beats ran 180 frames, and the same table failed on three
-of five rows, the worst settling two frames before the scene began to leave.
-Structure was the fix for *hard to parse*; it could not also be the fix for *not
-on screen long enough*.
+### The couplet that used to open it
+
+`You know what the code does.` / `Not where it lives.` ran for three builds and
+cost fifty frames. It said in words what the stack now says in evidence, and the
+brief that asked for the stack also asked that the tool be demonstrated rather
+than described. Two further things made it removable rather than merely
+redundant: the cold open puts a question in front of the viewer two seconds
+earlier, so arriving on a second one is continuity rather than an abrupt start;
+and the film is a promo, where fifty frames at the front are worth more than
+fifty frames anywhere else.
+
+It stays an approved phrase in `STORYBOARD.md` §32. Restoring it costs one block
+and fifty frames.
 
 ## Five beats, one idea
 
 `describe what I need` → `Kivgraph answers` → `the answers are different kinds of
 code` → `I pick an entry point` → `we enter its source`.
 
-**Beat 1 — the problem, then the question.** `You know what the code does.` /
-`Not where it lives.` Sans, because it is addressed to the viewer. Then the
-question itself, in mono, at the `❯` scene 02 also uses.
+**Beat 1 — the question.** The scene opens on it, in mono, at the `❯` scene 02
+also uses. No box, no field, no terminal card: the glyph is the whole affordance.
 
 **The glyph took three builds to earn.** It promises a command or a question
 typed at a prompt. For three builds the line under it was the tool's documented
@@ -139,25 +142,23 @@ inventing one is the point — the viewer has to read the two as the same kind o
 event.
 
 **Beat 3 — the stack.** Three rows on a twelve-frame pitch, each opacity plus a
-10 px upward settle. Nothing bounces and nothing springs.
+10 px upward settle, under a header that hoists what they share. Nothing bounces
+and nothing springs.
 
-**Beat 4 — the hold.** The render measures `0294`–`0346` byte-identical: 53
+**Beat 4 — the hold.** The render measures `0244`–`0296` byte-identical: 53
 frames, 0.88 s, with the whole stack on screen and nothing moving. This is where
-the scene's idea actually lands, and it is the beat the previous build did not
-have at all.
+the scene's idea actually lands.
 
 **Beat 5 — the commit.** The other two rows go to 30 % and scale to `0.97` and
-`0.955` about their own left edges;
-the selected row loses its kind, its path and its match until only `withRetry()`
-is left. Then everything else leaves and the name opens into its own source.
+`0.955` about their own left edges; the selected row loses its kind, its path and
+its match until only `withRetry()` is left. Then everything else leaves and the
+name opens into its own source.
 
 ### The subtitle that is no longer there
 
 `Tells your agent where to read` sat under the tool name for three builds and is
 gone. It was doing the stack's job with a sentence, and the stack does it with
-evidence — which is the brief's own instruction: *demonstrate it through the
-results*. It remains an approved phrase in `STORYBOARD.md` §32 and costs one line
-to restore if a viewer test ever says the demonstration is not enough.
+evidence. It remains an approved phrase in `STORYBOARD.md` §32.
 
 ## Time to useful entry point — investigated, and not shown
 
@@ -299,9 +300,6 @@ These must survive future edits. They are not stylistic.
 ## Copy
 
 ```text
-You know what the code does.
-Not where it lives.
-
 ❯  Where do we retry failed requests?
 
 ■ kivgraph / find_by_intent
@@ -489,46 +487,46 @@ time on a twelve-frame pitch, which is inside the 8–12 the design asked for an
 at the top of it because three rows on a shorter pitch read as one block
 appearing.
 
-**The commit**, local `0226`–`0250`. The two rows that are not being opened go to
+**The commit**, local `0176`–`0200`. The two rows that are not being opened go to
 30 % and scale to `0.97` and `0.955` about their own left edge — the 2.5D depth
-stated as the only thing a DOM layer can state it as. The first build used
-`0.985` and `0.975` and the separation did not read at all against the opacity
-change; this is still under a twentieth and it is visible. It is deliberately the
+stated as the only thing a DOM layer can state it as. It is deliberately the
 *others* that move back rather than the selected one coming forward: the selected
 row is standing on the match cut's anchor at an exact size, and anything that
-scaled it would move the seam.
+scaled it would move the seam. An earlier build used `0.985` and `0.975` and the
+separation did not read at all against the opacity change.
 
 At the same time the selected row sheds its kind, its path and its `match`, until
 only `withRetry()` is left. That is the whole preparation for the cut — *remove
 the metadata, keep the token fixed, let the source materialise around it* — and
 it is why the transition is not a fade to a new scene.
 
-**The exit**, local `0258`–`0286`, and then the open, `0262`–`0296`. Everything
+**The exit**, local `0208`–`0236`, and then the open, `0212`–`0246`. Everything
 except the name goes; the name scales.
 
 There is no camera. `AGENTS.md` asks that a move answer a question the viewer is
 currently asking, and in a DOM list there is none to answer — the parallax on the
-receding rows is the whole of the depth here, and it is 1.5 % of scale.
+receding rows is the whole of the depth here.
 
 ## Transition in
 
 A dissolve out of the cold open, not a cut.
 
-`cold-open.md` recedes its two token figures and its tie line, `35,961` last, and
-hands over an empty `#0a0b0d` field at `0119`. This scene's own opening beat is
-eight more empty frames, so the join is ten byte-identical frames of nothing —
-the same opening silence `08-brand.md` uses — and then `You know what the code
-does.` becomes visible at `0129`.
+`cold-open.md` recedes its two token figures and its parity line, `35,961` last,
+and hands over an empty `#0a0b0d` field at `0119`. This scene's own opening beat
+is eight more empty frames, so the join is ten byte-identical frames of nothing —
+the same opening silence `08-brand.md` uses — and then the question becomes
+visible at `0129`.
 
 **The join is what makes the teaser part of the film rather than an advert in
 front of it.** The cold open leaves the viewer a question — *how?* — and the
-first thing that arrives in the field it left is the first line of the answer.
+first thing that arrives in the field it left is a second question, the one the
+rest of the film answers.
 Nothing restarts, nothing announces a beginning, and the background never
-changes. The film's first cut is still the match cut at `0420`.
+changes. The film's first cut is still the match cut, now at `0370`.
 
 ## Transition out
 
-A match cut into `01-symbol.md` frame `0420`, and it is the film's third.
+A match cut into `01-symbol.md` frame `0370`, and it is the film's third.
 
 `withRetry` is the same object crossing representations: a row in a ranked answer
 becomes the symbol in its own source. Nothing fades and nothing cuts to black.
@@ -537,8 +535,8 @@ Measured on the render rather than trusted to arithmetic, which is what the othe
 two match cuts already do:
 
 ```text
-ink centroid, candidate `0419`   (609.30, 665.61)
-ink centroid, source    `0420`   (609.27, 665.62)
+ink centroid, candidate `0369`   (609.31, 665.61)
+ink centroid, source    `0370`   (609.28, 665.62)
 offset                           dx +0.03 px   dy -0.01 px
 ink mass ratio                   1.0005
 ```
@@ -585,11 +583,10 @@ a DOM line box and the code plane's baseline, not to the anchor.
 - **The path and `match` tiers are not legible below about 640 px of playback.**
   The names and the kinds are, which is the tier that matters: at small sizes the
   metadata reads as *there is metadata here*, which is the right amount.
-- **This scene is 5.0 s of a 36.17 s film**, and it is the longest in the piece.
-  It is also the only one that has to introduce a tool, a vocabulary and a result
-  to a viewer holding none of them. Trimming scene 01's 39-frame hold to pay for
-  it was tested and rejected on a measurement: the file caption is 36 characters
-  with 0.65 s of dwell, which is already 55 characters per second against a 25–40
+- **This scene is 4.17 s of a 35.33 s film.** It was 5.0 s until the opening
+  couplet was cut. Trimming scene 01's 39-frame hold to pay for anything else was
+  tested and rejected on a measurement: the file caption is 36 characters with
+  0.65 s of dwell, which is already 55 characters per second against a 25–40
   budget.
 - **Sound absent**, like the rest of the film. `STORYBOARD.md` §17 requires the
   piece to work muted and this scene is no exception.
@@ -597,6 +594,18 @@ a DOM line box and the code plane's baseline, not to the anchor.
 ## Modification history
 
 ```text
+2026-08-27 (c)
+- The opening couplet `You know what the code does. / Not where it lives.` was
+  cut. The scene now opens on the question.
+- Reason: the stack demonstrates the same idea in evidence, and the cold open
+  already hands the viewer a question two seconds earlier, so a second one is
+  continuity rather than an abrupt start.
+- **300 -> 250 frames, and the fifty were returned to the film rather than
+  redistributed inside the scene.** Every window moved by that constant: no
+  element lost dwell, the twelve-frame row pitch is unchanged and the candidate
+  -> source match cut is untouched. Master 2170 -> 2120 frames, 36.17 s ->
+  35.33 s; every scene from 01 onward moved -50.
+
 2026-08-27 (b)
 - The repository is hoisted into the page header — `payments-api · 3
   candidates` — and the rows print a repository-relative path, which is the
@@ -643,7 +652,7 @@ a DOM line box and the code plane's baseline, not to the anchor.
 - **Length unchanged at 300 frames, so no other scene moved.** The top half
   lands 30 frames earlier and those frames went to the hold and the commit.
 - The match cut is untouched and re-measured: `45.01 dB` whole-frame across
-  `0419`/`0420`, ink centroid offset `dx 0.03 px`, `dy 0.01 px`. The stack is
+  `0369`/`0370`, ink centroid offset `dx 0.03 px`, `dy 0.01 px`. The stack is
   laid out outward from the anchor, which is why a redesign of everything around
   it moved the seam by nothing.
 

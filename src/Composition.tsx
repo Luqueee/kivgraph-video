@@ -13,18 +13,18 @@ import { SemanticScene } from "./scenes/SemanticScene";
 import { SymbolScene } from "./scenes/SymbolScene";
 
 /**
- * The 36.17 s master. This file is the only place that holds global frame
+ * The 35.33 s master. This file is the only place that holds global frame
  * boundaries; scenes animate in their own local frame space, because
  * `useCurrentFrame()` inside a `<Sequence>` starts at 0.
  *
  * `from` and `durationInFrames` stay inline literals so the sequences remain
  * trimmable in Remotion Studio.
  *
- * 0000-0120 Cold Open 0120-0420 Intent 0420-0540 Symbol 0540-0750 Agent
- * 0750-1110 Graph Reveal 1110-1250 Blast Radius 1250-1450 Semantic
- * 1450-1630 Agent Answer 1630-1880 Benchmark 1880-2050 Brand 2050-2170 Outro
+ * 0000-0120 Cold Open 0120-0370 Intent 0370-0490 Symbol 0490-0700 Agent
+ * 0700-1060 Graph Reveal 1060-1200 Blast Radius 1200-1400 Semantic
+ * 1400-1580 Agent Answer 1580-1830 Benchmark 1830-2000 Brand 2000-2120 Outro
  *
- * The master is 2170 frames, and eleven retimes got it there from 1410. The
+ * The master is 2120 frames, and twelve retimes got it there from 1410. The
  * cross-repository scene was deleted (-90). The blast radius lost twenty frames
  * of pixel-identical tail, then got forty back. The semantic resolution gained
  * thirty for reading time, then twenty more. The agent answer gained ninety. The
@@ -45,10 +45,18 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * result rather than on the mechanics that produce it. Nothing was compressed to
  * pay for it: every other scene moved by exactly +120 and none changed length.
  *
+ * The twelfth is the only one that has ever given time back. Scene 00 lost the
+ * couplet it opened on - *You know what the code does. / Not where it lives.* -
+ * and went 300 -> 250, because the candidate stack says the same thing in
+ * evidence and the cold open already hands the viewer a question. The fifty
+ * frames were returned to the film rather than spent inside the scene: every
+ * window in it moved by that same constant, so nothing in the list or the match
+ * cut arrives faster than it did.
+ *
  * Scenes 01 and 02 are one continuous camera move through one code environment
- * and have no cut between them; the boundary at 0540 is where the camera changes
+ * and have no cut between them; the boundary at 0490 is where the camera changes
  * intent, not where the image changes. The first cut in the video is the match
- * cut at 0420 - the cold open dissolves into the intent scene rather than cutting
+ * cut at 0370 - the cold open dissolves into the intent scene rather than cutting
  * to it, so nothing before that boundary is a cut either.
  *
  * Every scene exists. Nothing is left black on purpose.
@@ -67,7 +75,7 @@ import { SymbolScene } from "./scenes/SymbolScene";
  * reason it always was one: the length belongs to this file, which is the only
  * place that holds global frame boundaries.
  */
-export const masterFrames = 2170;
+export const masterFrames = 2120;
 
 export const KivgraphVideo: React.FC = () => {
   return (
@@ -88,13 +96,13 @@ export const KivgraphVideo: React.FC = () => {
       <Sequence name="Cold Open" durationInFrames={120}>
         <ColdOpenScene />
       </Sequence>
-      <Sequence name="00 Intent" from={120} durationInFrames={300}>
+      <Sequence name="00 Intent" from={120} durationInFrames={250}>
         <IntentScene />
       </Sequence>
-      <Sequence name="01 Symbol" from={420} durationInFrames={120}>
+      <Sequence name="01 Symbol" from={370} durationInFrames={120}>
         <SymbolScene />
       </Sequence>
-      <Sequence name="02 Agent" from={540} durationInFrames={210}>
+      <Sequence name="02 Agent" from={490} durationInFrames={210}>
         <AgentScene />
       </Sequence>
       {/**
@@ -102,11 +110,11 @@ export const KivgraphVideo: React.FC = () => {
        * creative one.
        *
        * A `<Sequence>` renders its children only inside its range, so at the
-       * 1110 boundary `GraphRevealScene` unmounts and `BlastRadiusScene` mounts.
+       * 1060 boundary `GraphRevealScene` unmounts and `BlastRadiusScene` mounts.
        * Sharing the `GraphWorld` component does not share its instance: the
        * `ThreeCanvas` is destroyed and a new WebGL context is created at the
        * seam. Measured in Studio by counting `getContext` calls while stepping
-       * 1109 <-> 1112: four crossings, four new `webgl2` contexts. For the
+       * 1059 <-> 1062: four crossings, four new `webgl2` contexts. For the
        * first displayed frame after the cut the labels are painted and the
        * plates and tubes are not - the graph blinks at the one seam the design
        * spends everything to hide.
@@ -118,12 +126,12 @@ export const KivgraphVideo: React.FC = () => {
        * film is byte-identical - it never had the blink; only the preview did.
        *
        * `postmountFor` on scene 03 for the same reason in the other direction:
-       * scrubbing back across 1110 remounts it, and AGENTS.md asks for the
+       * scrubbing back across 1060 remounts it, and AGENTS.md asks for the
        * timeline to be walked backwards as well as forwards.
        */}
       <Sequence
         name="03 Graph Reveal"
-        from={750}
+        from={700}
         durationInFrames={360}
         premountFor={30}
         postmountFor={30}
@@ -132,7 +140,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="04 Blast Radius"
-        from={1110}
+        from={1060}
         durationInFrames={140}
         premountFor={30}
         postmountFor={30}
@@ -141,7 +149,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="05 Semantic Resolution"
-        from={1250}
+        from={1200}
         durationInFrames={200}
         premountFor={30}
       >
@@ -149,7 +157,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="06 Agent Answer"
-        from={1450}
+        from={1400}
         durationInFrames={180}
         premountFor={30}
       >
@@ -157,7 +165,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       <Sequence
         name="07 Benchmark"
-        from={1630}
+        from={1580}
         durationInFrames={250}
         premountFor={30}
       >
@@ -172,17 +180,17 @@ export const KivgraphVideo: React.FC = () => {
        * It matters less here than anywhere else in the film, and that is worth
        * knowing rather than discovering: the scene opens on ten deliberately
        * empty frames, so played forward the context has ten frames to warm
-       * before the first line is drawn at 1890. The premount is for the
+       * before the first line is drawn at 1840. The premount is for the
        * scrubber, not for the playthrough. As always it is gated on
        * `!isRendering`, so no rendered frame changes.
        *
        * No `postmountFor` yet. It becomes due the moment scene 09 exists, for
        * the same reason scenes 03 and 04 carry theirs: the timeline has to
-       * survive being walked backwards across 2050 as well as forwards.
+       * survive being walked backwards across 2000 as well as forwards.
        */}
       <Sequence
         name="08 Brand"
-        from={1880}
+        from={1830}
         durationInFrames={170}
         premountFor={30}
         postmountFor={30}
@@ -191,7 +199,7 @@ export const KivgraphVideo: React.FC = () => {
       </Sequence>
       {/**
        * `postmountFor` on scene 08 became due the moment this scene existed:
-       * scene 08 mounts a `ThreeCanvas`, and scrubbing backwards across 2050
+       * scene 08 mounts a `ThreeCanvas`, and scrubbing backwards across 2000
        * remounts it. `AGENTS.md` asks for the timeline to survive being walked
        * backwards as well as forwards.
        *
@@ -199,7 +207,7 @@ export const KivgraphVideo: React.FC = () => {
        * over the frame scene 08 settled on - and there is nothing after it to
        * scrub back from.
        */}
-      <Sequence name="09 Outro" from={2050} durationInFrames={120}>
+      <Sequence name="09 Outro" from={2000} durationInFrames={120}>
         <OutroScene />
       </Sequence>
     </>

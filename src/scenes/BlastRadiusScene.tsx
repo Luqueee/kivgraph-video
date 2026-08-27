@@ -8,7 +8,7 @@ import type { Camera } from "../world/camera";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 04 - blast radius (master 1110-1250, scene-local 0000-0140).
+ * Scene 04 - blast radius (master 1060-1200, scene-local 0000-0140).
  *
  * The scene that turns structure into consequence. Everything before it has
  * shown that relationships exist and that they leave the repository; this one

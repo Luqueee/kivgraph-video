@@ -97,7 +97,7 @@ the same dark field the numbers just left.
 | `0058`–`0102` | `0058`–`0102` | Settled. The complete statement, held. **Still-image key frame `0058`.** |
 | `0102`–`0115` | `0102`–`0115` | The comparison and the parity line recede.                                 |
 | `0106`–`0119` | `0106`–`0119` | `35,961` recedes last. The frame empties back to what it opened on.     |
-| `0119`–`0126` | `0119`–`0126` | Eight empty frames, measured byte-identical, across the sequence boundary. |
+| `0119`–`0128` | `0119`–`0128` | Ten empty frames, measured byte-identical, across the sequence boundary. |
 
 ## Reading time
 
@@ -134,7 +134,7 @@ measures.
 
 At `0118`, the last frame with anything in it, the subject figure is at 7 %
 and everything else is gone. At `0119` the frame is empty and stays empty to
-`0126`, seven frames into the intent scene.
+`0128`, nine frames into the intent scene.
 
 ## Visual composition
 
@@ -258,16 +258,19 @@ which then vanishes at `0120`. That is a one-frame pop at a boundary that is
 supposed to be invisible. Closing a frame early makes the seam disappear:
 
 ```text
-frames 0119–0126   byte-identical PNG stills, md5 4f8fc76764f2dae122b0c5834c2abdcd
-frame  0127        the intent scene's first copy becomes visible
+frames 0119–0128   byte-identical PNG stills, md5 4f8fc76764f2dae122b0c5834c2abdcd
+frame  0129        the intent scene's question becomes visible
 ```
 
-Eight empty frames — the beat in which the viewer's *how?* forms before anything
-starts answering it. This scene contributes one of them and the intent scene's
-own opening beat contributes the other seven. It was ten until the intent scene
-was rebuilt as a result stack and moved its whole top half two frames earlier to
-pay for the hold; nothing here had to change, which is the point of ending the
-fade a frame inside the sequence rather than on its boundary.
+Ten empty frames — the same opening silence `08-brand.md` uses, and the beat in
+which the viewer's *how?* forms before anything starts answering it. This scene
+contributes one of them and the intent scene's own opening beat contributes the
+other nine.
+
+It has been eight and ten across three rebuilds of the scene next door and
+nothing here ever had to change, which is the point of ending the fade a frame
+*inside* the sequence rather than on its boundary: the silence is owned jointly
+and neither side has to know the other's windows.
 
 The film's first **cut** is still the match cut at `0420`.
 
@@ -326,7 +329,7 @@ frame 0000 — 35,961 and its label, at full strength; POSTER FRAME
 frame 0034 — the comparison has landed; two figures, no parity line yet
 frame 0058 — complete: both figures, both labels, the parity line; STILL-IMAGE KEY FRAME
 frame 0102 — the last settled frame before anything leaves
-frame 0119 — empty; identical to 0126
+frame 0119 — empty; identical to 0128
 ```
 
 `0058` is *defined* as the first frame on which the parity line has finished

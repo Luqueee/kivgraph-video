@@ -14,7 +14,7 @@ import { brand } from "../brand/tokens";
 import type { Camera } from "../world/camera";
 
 /**
- * Scene 01 — Symbol (master frames 0420-0540, scene-local 0000-0120).
+ * Scene 01 — Symbol (master frames 0370-0490, scene-local 0000-0120).
  *
  * The camera is inside the code. `withRetry` is pinned to one screen point for
  * the whole scene while the camera pulls back, so the symbol is the fixed thing

@@ -8,11 +8,11 @@ import {
   selectedCandidate,
   sharedRepository,
 } from "../data/intentCandidates";
-import { fontMono, fontSans } from "../brand/fonts";
+import { fontMono } from "../brand/fonts";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 00 - intent (master 0120-0420, scene-local 0000-0300).
+ * Scene 00 - intent (master 0120-0370, scene-local 0000-0250).
  *
  * The scene that stops the film assuming its own answer. Everything after it
  * opens on `withRetry` already singled out, which quietly claims the agent knew
@@ -43,6 +43,12 @@ import { brand } from "../brand/tokens";
  *
  * `describe what I need` -> `Kivgraph answers` -> `the answers are different
  * kinds of code` -> `I pick an entry point` -> `we enter its source`.
+ *
+ * It opens on the question and nothing else. The couplet that used to precede
+ * it - *You know what the code does. / Not where it lives.* - said in words what
+ * the stack now says in evidence, and it cost fifty frames to say it. The cold
+ * open already asks the viewer a question two seconds earlier, so arriving on a
+ * second one is continuity rather than an abrupt start.
  *
  * The first build did the opposite. It showed three candidates of equal weight,
  * each with a repository, a package and a `match` value, and asked the viewer to
@@ -97,22 +103,22 @@ import { brand } from "../brand/tokens";
 /**
  * Every window in the scene, in scene-local frames, in one place.
  *
- * The scene is 300 frames and did not change length when it was rebuilt as a
- * stack, which is the reason nothing else in the film moved. What changed is
- * where the frames go: the top half lands 30 frames earlier than it used to, so
- * a stack of three rows can finish arriving and then stand still.
+ * The scene is 250 frames. It was 300 until the opening couplet was cut, and
+ * **the fifty frames were returned to the film rather than spent inside this
+ * scene**: every window below moved -50 by exactly that constant, so no element
+ * lost dwell and nothing arrives faster than it did. The list and the match cut
+ * are untouched in rhythm; the scene simply starts fifty frames later in its own
+ * story and fifty frames earlier in the film's.
  */
 const beat = {
-  problem: [6, 42],
-  problemPitch: 10,
-  intent: [58, 96],
-  tool: [104, 128],
-  rows: [130, 150],
+  intent: [8, 46],
+  tool: [54, 78],
+  rows: [80, 100],
   rowPitch: 12,
-  focus: [226, 250],
-  parens: [250, 274],
-  leave: [258, 286],
-  open: [262, 296],
+  focus: [176, 200],
+  parens: [200, 224],
+  leave: [208, 236],
+  open: [212, 246],
 } as const;
 
 /**
@@ -144,12 +150,6 @@ const entry = (frame: number, from: number, to: number, lift = 8) => {
 
   return { opacity: progress, offsetY: lift * (1 - progress) };
 };
-
-/** Beat 1. The problem, addressed to the viewer, so it is sans. */
-const problem = [
-  "You know what the code does.",
-  "Not where it lives.",
-] as const;
 
 /** Beat 2. The tool, in the invocation language `AgentPrompt` already uses. */
 const tool = "find_by_intent";
@@ -218,7 +218,6 @@ const columnX = 500;
 const stackLeft = symbolAnchor.x - (target.glyphs * 0.6 * nameSize) / 2;
 
 const layout = {
-  problem: { top: 250, fontSize: 34, pitch: 48 },
   intent: { top: 408, fontSize: 30 },
   tool: { top: 478, fontSize: 20 },
   header: { top: 598, fontSize: 16 },
@@ -415,34 +414,6 @@ export const IntentScene: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ backgroundColor: brand.background }}>
-      {/** Beat 1 - the problem. */}
-      {problem.map((line, index) => {
-        const arrive = entry(
-          frame,
-          beat.problem[0] + index * beat.problemPitch,
-          beat.problem[1] + index * beat.problemPitch,
-        );
-
-        return (
-          <div
-            key={line}
-            style={{
-              position: "absolute",
-              left: columnX,
-              top: layout.problem.top + index * layout.problem.pitch,
-              fontFamily: fontSans,
-              fontSize: layout.problem.fontSize,
-              lineHeight: 1,
-              whiteSpace: "pre",
-              color: index === 0 ? brand.textMuted : brand.textPrimary,
-              opacity: arrive.opacity * context,
-              translate: `0px ${arrive.offsetY}px`,
-            }}
-          >
-            {line}
-          </div>
-        );
-      })}
 
       {/**
        * Beat 1 - the question.

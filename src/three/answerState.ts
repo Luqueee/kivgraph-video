@@ -10,7 +10,7 @@ import type { Look } from "./projection";
 /**
  * Scene 06's visual state, derived from the scene-local frame and nothing else.
  *
- * Scene-local frames 0-180 (master 1450-1630).
+ * Scene-local frames 0-180 (master 1400-1580).
  *
  * The scene closes the loop scene 02 opened. Its one piece of 3D work is the
  * inverse of the film's most important transition: scene 03 grew the prompt's

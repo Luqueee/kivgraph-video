@@ -13,7 +13,7 @@ import { master } from "../three/projection";
 import { brand, graph } from "../brand/tokens";
 
 /**
- * Scene 08 - brand reveal (master 1880-2050, scene-local 0000-0170).
+ * Scene 08 - brand reveal (master 1830-2000, scene-local 0000-0170).
  *
  * The scene that attaches twenty-two seconds of behaviour to a name. Everything
  * before it argued; this names the thing that did the arguing, and it is placed
@@ -173,7 +173,7 @@ const settleWindow = 12;
  * line lands at `0056`, so the whole thing exists for two frames, and then the
  * relationships spend ten frames becoming the name.
  *
- * Gone at `0068` - master `1948`, two frames before the wordmark reads. The
+ * Gone at `0068` - master `1898`, two frames before the wordmark reads. The
  * invariant is that the lines are not on screen when the wordmark is.
  */
 const dissolve = { from: 58, to: 68 } as const;
@@ -182,7 +182,7 @@ export const BrandScene: React.FC = () => {
   const frame = useCurrentFrame();
 
   /**
-   * The node appears at `0010` - master `1890` - and the ten frames before it
+   * The node appears at `0010` - master `1840` - and the ten frames before it
    * are empty on purpose. That emptiness is the `silence` of `STORYBOARD.md`
    * §27's `fade -> silence -> brand reveal`, scene 07 hands it over rather than
    * rendering it, and it is the reason the reveal lands at all. It is not dead
@@ -226,8 +226,8 @@ export const BrandScene: React.FC = () => {
    * The turn.
    *
    * One full revolution of the mark, on direct art direction, starting with the
-   * wordmark's entrance at local `0060` / master `1940` and **concluding at
-   * `0076` / master `1956`**. That end frame is the whole constraint and it is
+   * wordmark's entrance at local `0060` / master `1890` and **concluding at
+   * `0076` / master `1906`**. That end frame is the whole constraint and it is
    * not negotiable by a later edit: `1440` is a still-image key frame in
    * `AGENTS.md` and `STORYBOARD.md` §28, it is the single frame from this film
    * most likely to be seen outside it, and a logo caught mid-rotation there is

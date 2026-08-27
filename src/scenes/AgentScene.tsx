@@ -13,7 +13,7 @@ import { brand } from "../brand/tokens";
 import type { Camera } from "../world/camera";
 
 /**
- * Scene 02 — Agent (master frames 0540-0750, scene-local 0000-0210).
+ * Scene 02 — Agent (master frames 0490-0700, scene-local 0000-0210).
  *
  * The scene the opening has been walking toward: the question gets said out
  * loud. It is said by a developer to an agent, as a prompt, not by the video to

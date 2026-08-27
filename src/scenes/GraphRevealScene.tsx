@@ -14,7 +14,7 @@ import type { Camera } from "../world/camera";
 import { brand } from "../brand/tokens";
 
 /**
- * Scene 03 - from code to graph (master 0750-1110, scene-local 0000-0360).
+ * Scene 03 - from code to graph (master 0700-1060, scene-local 0000-0360).
  *
  * The video's first Three.js scene and its hinge: the token `withRetry()` stops
  * being HTML text and becomes a node, in the same screen rectangle, at the same

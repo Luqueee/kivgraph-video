@@ -13,7 +13,7 @@ tool, `kivgraph / get_blast_radius`. That single line is the first mention of th
 product in the video. It is deliberately small, technical and undramatic, because
 Kivgraph's positioning is credibility, not spectacle.
 
-The scene also has a mechanical job: by frame 0749 the token `withRetry()` must be
+The scene also has a mechanical job: by frame 0699 the token `withRetry()` must be
 sitting in a known screen position at a known apparent scale, selected and
 slightly enlarged, so that scene 03 can turn that exact glyph into a 3D graph node
 without a visible jump.
@@ -41,18 +41,18 @@ already works — they ask their agent, and the agent uses tools.
 
 ## Narrative context
 
-**Before.** Scene 01 (`01-symbol.md`, frames 0420–0540) ends settled and
+**Before.** Scene 01 (`01-symbol.md`, frames 0370–0490) ends settled and
 motionless: the camera stopped at zoom 1.12, `withRetry` accented at screen
 `x 700, y 662` with a 1 px accent underline exactly as wide as it, and the file
 caption `payments-api/internal/retry/retry.go` in the upper right. What is
 unresolved there is the claim, not the camera — a symbol has been marked and
 nothing has been said about it.
 
-**After.** Scene 03 (`03-graph-reveal.md`, frames 0750–1110) match-cuts out of
+**After.** Scene 03 (`03-graph-reveal.md`, frames 0700–1060) match-cuts out of
 this frame: `withRetry()` stops being HTML text and becomes the central node of a
 Three.js graph.
 
-**Later.** Scene 06 (`06-agent-answer.md`, frames 1450–1630) match-cuts _back_
+**Later.** Scene 06 (`06-agent-answer.md`, frames 1400–1580) match-cuts _back_
 into this prompt row to deliver the answer. This scene therefore defines a
 reusable geometry, not a one-off layout: the rule, the row and the token positions
 established here must be reproducible 720 frames later, which is why they are
@@ -82,37 +82,37 @@ this scene, where it is a transition rather than a statement.
 ## Timeline
 
 - Storyboard scene: `STORYBOARD.md` — SCENE 02 ASK THE AGENT
-- Global frames: 0540–0750
+- Global frames: 0490–0700
 - Scene-local frames: 0000–0210
-- Time: 9.0 s – 12.5 s
+- Time: 8.17 s – 11.67 s
 - Duration: 210 frames (3.5 s at 60 fps)
 - Remotion component: `src/scenes/AgentScene.tsx`
-- Registration: `<Sequence name="02 Agent" from={540} durationInFrames={210}>`
+- Registration: `<Sequence name="02 Agent" from={490} durationInFrames={210}>`
 - The global boundary lives inline in `src/Composition.tsx`. The component
   animates in scene-local frames.
 
 | Master | Local | Beat |
 | -----: | ----: | ---- |
-| 0540 | 0000 | Scene 01's last image, unchanged. The camera picks up from rest and begins to widen. |
-| 0546 | 0006 | The inherited file caption starts leaving. |
-| 0554 | 0014 | The two package siblings begin resolving out of the falloff. |
-| 0570 | 0030 | The prompt rule starts drawing. |
-| 0576 | 0036 | The `❯` glyph resolves; the caption is gone. |
-| 0585 | 0045 | Typing begins. |
-| 0592 | 0052 | The code has reached its held luminance — before the first word is legible. |
-| 0598 | 0058 | The prompt rule is fully drawn. |
-| 0610 | 0070 | The camera has finished widening at zoom 0.66. |
-| 0630 | 0090 | Mid-typing, around `What breaks if`. |
-| 0665 | 0125 | Typing complete, including the `?`. |
-| 0675 | 0135 | Enter. The caret retires and the `❯` gains weight. |
-| 0690 | 0150 | `kivgraph / get_blast_radius` begins to appear. |
-| 0720 | 0180 | Tool line settled. Both `withRetry` occurrences begin to be selected; the push-in starts. |
-| 0749 | 0209 | Last frame; the match-cut contract frame. |
-| 0750 | — | Scene 03 takes over the same glyph. |
+| 0490 | 0000 | Scene 01's last image, unchanged. The camera picks up from rest and begins to widen. |
+| 0496 | 0006 | The inherited file caption starts leaving. |
+| 0504 | 0014 | The two package siblings begin resolving out of the falloff. |
+| 0520 | 0030 | The prompt rule starts drawing. |
+| 0526 | 0036 | The `❯` glyph resolves; the caption is gone. |
+| 0535 | 0045 | Typing begins. |
+| 0542 | 0052 | The code has reached its held luminance — before the first word is legible. |
+| 0548 | 0058 | The prompt rule is fully drawn. |
+| 0560 | 0070 | The camera has finished widening at zoom 0.66. |
+| 0580 | 0090 | Mid-typing, around `What breaks if`. |
+| 0615 | 0125 | Typing complete, including the `?`. |
+| 0625 | 0135 | Enter. The caret retires and the `❯` gains weight. |
+| 0640 | 0150 | `kivgraph / get_blast_radius` begins to appear. |
+| 0670 | 0180 | Tool line settled. Both `withRetry` occurrences begin to be selected; the push-in starts. |
+| 0699 | 0209 | Last frame; the match-cut contract frame. |
+| 0700 | — | Scene 03 takes over the same glyph. |
 
 ## Initial state
 
-At master frame 0540 (local 0000) the previous image is still on screen, exactly.
+At master frame 0490 (local 0000) the previous image is still on screen, exactly.
 There is no cut:
 
 - the camera at `zoom 1.12`, targeting world `(0, 0)` and projecting it to screen
@@ -131,7 +131,7 @@ arrives in the following 60 frames.
 
 ## Final state
 
-At master frame 0749 (local 0209):
+At master frame 0699 (local 0209):
 
 - the code world widened to `zoom 0.70` and dimmed to a texture, with `withRetry`
   at `x 792, y 356`;
@@ -186,11 +186,11 @@ At the match-cut frame the token is scaled by `settledGrow` (1.08) about
 scaled rectangle is not simply the one above times 1.08. Scene 03 reads
 `selectedTokenRect` — `213.84 × 47.52 px` centred on `(1427, 733.82)` — and does
 not apply the scale itself. That rectangle has been measured against a render:
-the selection field in frame `0749` agrees with it to within half a pixel.
+the selection field in frame `0699` agrees with it to within half a pixel.
 
 **Hierarchy.**
 
-1. the typed question, and within it `withRetry()` from 0720;
+1. the typed question, and within it `withRetry()` from 0670;
 2. `withRetry` in the code above, which never stops being the anchor;
 3. the tool invocation line;
 4. the code world, which is now texture.
@@ -225,8 +225,8 @@ present under the prompt, because the video never leaves it.
 
 ## Motion
 
-**The widen (0540–0610 / local 0000–0070).** The same camera that has been moving
-since frame 0420 of scene 01, resumed. Scene 01 pulled back to 1.12 and stopped;
+**The widen (0490–0560 / local 0000–0070).** The same camera that has been moving
+since frame 0370 of scene 01, resumed. Scene 01 pulled back to 1.12 and stopped;
 this scene picks the world up from rest and keeps going in the same direction, on
 `bezier(0.4, 0, 0.2, 1)` — zero initial velocity, because an easing with a slope
 at frame 0 reads as a jerk against a still frame. There is no reversal anywhere
@@ -236,7 +236,7 @@ lower half of the frame — and the anchor travels from `x 700, y 662` to
 `x 792, y 356`, carried by the camera, never re-laid-out.
 
 **The world loses light faster than the camera moves**, falling from scene 01's
-settled ladder to its held one by 0592, before the first typed word is legible,
+settled ladder to its held one by 0542, before the first typed word is legible,
 so the question never has to compete with a line of code sitting next to it.
 Scene 01 hands over lit values and this scene takes every step of the light down.
 `withRetry` keeps its accent throughout: the world recedes, the symbol does not.
@@ -246,19 +246,19 @@ is inherited at full strength and held, unchanged, through the whole scene. It i
 exactly as wide as the symbol and never extends: nothing is connected to anything
 before scene 03.
 
-**The caption leaves (0546–0576 / local 0006–0036).** The frame stops labelling
+**The caption leaves (0496–0526 / local 0006–0036).** The frame stops labelling
 where we are and starts carrying what is being asked.
 
-**The prompt layer emerges (0570–0598 / local 0030–0058).** The rule draws from
+**The prompt layer emerges (0520–0548 / local 0030–0058).** The rule draws from
 its left end on `bezier(0.22, 1, 0.36, 1)`; the `❯` glyph fades in behind it; the
-vertical falloff comes up over 0556–0590. Nothing slides, nothing scales, nothing
+vertical falloff comes up over 0506–0540. Nothing slides, nothing scales, nothing
 bounces.
 
 The rule finishes drawing after typing has begun, on purpose. The prompt is not
 presented and then filled; it resolves while the first word is already arriving,
 which is what keeps it from reading as a UI that was introduced.
 
-**Typing (0585–0665 / local 0045–0125).** Revealed in groups, never at a uniform
+**Typing (0535–0615 / local 0045–0125).** Revealed in groups, never at a uniform
 per-character rate — uniform typing reads as a machine printing a string, grouped
 typing with unequal pauses reads as a person thinking:
 
@@ -272,21 +272,21 @@ What breaks if I change withRetry()?
 ```
 
 The number of groups is a rhythm decision. What is not flexible is that the reveal
-is grouped and irregular and that it finishes by 0665, so there is a beat of
+is grouped and irregular and that it finishes by 0615, so there is a beat of
 stillness before Enter. The caret blinks on a period derived from the frame, never
 from a timer.
 
-**Enter (0675 / local 0135).** The caret disappears and the `❯` glyph gains weight
-over ten frames. No flash, no ripple, no sound dependency. The gap 0665–0675 is
+**Enter (0625 / local 0135).** The caret disappears and the `❯` glyph gains weight
+over ten frames. No flash, no ripple, no sound dependency. The gap 0615–0625 is
 intentional: the question sits complete and uncommitted for ten frames, which is
 what makes pressing Enter feel like a decision.
 
-**Tool invocation (0690–0720 / local 0150–0180).** The line fades in with an 8 px
+**Tool invocation (0640–0670 / local 0150–0180).** The line fades in with an 8 px
 upward settle, damped and mechanical. It arrives as *information*, not as an
 event. No spinner, no progress bar, no streaming dots, no "thinking" animation —
 Kivgraph resolving a symbol is not a wait state in this video.
 
-**Selection and push-in (0720–0750 / local 0180–0210).** Four things happen
+**Selection and push-in (0670–0700 / local 0180–0210).** Four things happen
 together and must read as one:
 
 1. `withRetry()` in the prompt takes the selection field and `accentText`;
@@ -310,7 +310,7 @@ before the next begins; only the last four overlap, deliberately.
 
 Not used.
 
-This scene is DOM only. The push-in that starts at 0720 is a 2.5D camera move, and
+This scene is DOM only. The push-in that starts at 0670 is a 2.5D camera move, and
 the handoff to the Three.js camera happens at the scene boundary. See
 `## Transition out`.
 
@@ -328,7 +328,7 @@ arriving instead.
 
 ## Transition out
 
-Match cut at 0750 into `03-graph-reveal.md`. This is the transition
+Match cut at 0700 into `03-graph-reveal.md`. This is the transition
 `STORYBOARD.md` §27 names `Code → Graph`:
 
 ```text
@@ -337,7 +337,7 @@ symbol text
 same symbol as graph node
 ```
 
-**The contract.** At 0749 this scene owes scene 03:
+**The contract.** At 0699 this scene owes scene 03:
 
 - the token's screen rectangle: `x 1048–1166`, centre `x 1427, y 654`, scaled 1.08
   about that centre — available programmatically as `tokenRect` and
@@ -346,15 +346,15 @@ same symbol as graph node
 - the font (`JetBrains Mono`), 30 px;
 - the token colour `brand.accentText` and the selection field `brand.selection`
   behind it;
-- the camera's velocity and direction at 0749, so the R3F camera starting at
+- the camera's velocity and direction at 0699, so the R3F camera starting at
   `Z: 9` reads as a continuation rather than a new move;
-- the fact that what dissolves after 0750 is the *prompt layer and the code
+- the fact that what dissolves after 0700 is the *prompt layer and the code
   world*, not a terminal panel;
 - **the image itself.** `AgentFrame` is exported alongside `AgentScene`: it is
   this scene's body with the frame as a prop, and scene 03 renders
   `<AgentFrame frame={209} />` underneath its canvas and fades it out. The cross
   fade is between the same pixels rather than between an image and a
-  reconstruction of it, which is why master `0749` and `0750` render
+  reconstruction of it, which is why master `0699` and `0700` render
   byte-identical. Any change to this scene's last frame therefore changes scene
   03's first frame, automatically and by construction.
 
@@ -401,17 +401,17 @@ Notes on the copy:
 ## Key frames
 
 ```text
-frame 0540 — scene 01's last image, unchanged; nothing has arrived yet
-frame 0570 — mid-widen; the world is opening, the caption is going, the code is dimming
-frame 0690 — the prompt layer is drawn and the code has receded; the question is starting
-frame 0630 — mid-typing; the question is legibly forming
-frame 0675 — Enter; the question is complete and committed
-frame 0690 — the tool line appears
-frame 0720 — both withRetry occurrences begin to be selected; push-in starts
-frame 0749 — the match-cut contract frame; must be inspected together with frame 0750
+frame 0490 — scene 01's last image, unchanged; nothing has arrived yet
+frame 0520 — mid-widen; the world is opening, the caption is going, the code is dimming
+frame 0640 — the prompt layer is drawn and the code has receded; the question is starting
+frame 0580 — mid-typing; the question is legibly forming
+frame 0625 — Enter; the question is complete and committed
+frame 0640 — the tool line appears
+frame 0670 — both withRetry occurrences begin to be selected; push-in starts
+frame 0699 — the match-cut contract frame; must be inspected together with frame 0700
 ```
 
-Frame 0749 must always be inspected as a pair with frame 0750 of
+Frame 0699 must always be inspected as a pair with frame 0700 of
 `03-graph-reveal.md`; a discontinuity there is the most expensive visual error in
 the video.
 
@@ -420,13 +420,13 @@ the video.
 - **No terminal window and no panel.** No surface, no border box, no chrome, no
   window buttons, no tab bar, no rounded corners, no drop shadow. The prompt layer
   is a rule, a glyph, a line and a tool line, over the code world.
-- **No cut into this scene.** The code world is continuous from frame 0420 of the
-  video to frame 0750.
+- **No cut into this scene.** The code world is continuous from frame 0370 of the
+  video to frame 0700.
 - **Do not visually imitate Claude Code** or any other specific agent product. No
   cloned chrome, no cloned colour scheme, no cloned status line, no cloned
   tool-result formatting.
 - **The prompt geometry is a shared constant.** `06-agent-answer.md` rebuilds this
-  row at frame 1450 and `03-graph-reveal.md` matches the token at 0750. All three
+  row at frame 1400 and `03-graph-reveal.md` matches the token at 0700. All three
   read `promptLayout` / `tokenRect`; none of them re-derives the numbers.
 - **Typing is grouped and irregular**, never a uniform per-character stream.
 - **The tool invocation stays discreet.** One line, small, one accent square. It
@@ -437,7 +437,7 @@ the video.
   target.
 - **`withRetry` in the code stays on screen and accented for the whole scene.**
   Losing it would sever the prompt from what it is about.
-- **The two occurrences are treated identically at 0720.** That rhyme is the
+- **The two occurrences are treated identically at 0670.** That rhyme is the
   scene's argument; replacing it with a drawn connector would pre-empt scene 03.
 - **The neighbouring columns stay texture.** They may never become legible enough
   to read as content, carry a label, or take accent. They are not an argument
@@ -455,7 +455,7 @@ the video.
   it starts at zero velocity, never moves inward, and the lower half of the frame
   is clear before typing is legible;
 - the number and boundaries of the typing groups and the delays between them, as
-  long as the reveal stays grouped and irregular and completes by 0665;
+  long as the reveal stays grouped and irregular and completes by 0615;
 - the exact form of the Enter feedback;
 - the rule's width and the vertical gaps between rule, row and tool line, as long
   as `tokenRect` is updated with them and the consuming scenes are checked;
@@ -475,15 +475,15 @@ applied by `AgentAnswerScene` — rather than by moving `promptLayout`. The reas
 is the one this line already gives, and it is stronger than it looks:
 `graphFrame.ts` derives `graphOffset`, the world position of the entire graph for
 scenes 03 to 06, from `selectedTokenRect`. Moving the row would have carried the
-graph, the camera path and the key stills `1109`, `1198` and `1344` with it.
-Nothing in this scene changed; `1449` renders byte-identical.
+graph, the camera path and the key stills `1059`, `1148` and `1294` with it.
+Nothing in this scene changed; `1399` renders byte-identical.
 
 ## Technical notes
 
 - Pure DOM/React scene. Everything derives from `useCurrentFrame()` and
   `interpolate()`; no CSS keyframes, transitions or browser timers.
 - Global scene boundaries live inline in `src/Composition.tsx` as
-  `<Sequence name="02 Agent" from={540} durationInFrames={210}>`.
+  `<Sequence name="02 Agent" from={490} durationInFrames={210}>`.
 - Components: `src/components/AgentPrompt.tsx` (the prompt layer, its exported
   geometry and the tool line) and `src/components/CodeWorld.tsx` (the shared
   spatial layout, also used by scene 01). There is deliberately no `Terminal.tsx`
@@ -506,7 +506,7 @@ Nothing in this scene changed; `1449` renders byte-identical.
   rectangle sized from the anchor's `ch` metrics and drawn under the text.
 - Colours come from `src/brand/tokens.ts`; fonts from `src/brand/fonts.ts`. No
   hard-coded hex values in the scene.
-- Verified: frame `0749` of `KivgraphPromo` is byte-identical to frame `0629` of
+- Verified: frame `0699` of `KivgraphPromo` is byte-identical to frame `0579` of
   the standalone `Scene02Agent` composition, and the full `0000–0409` opening
   renders without error.
 
@@ -514,11 +514,11 @@ Nothing in this scene changed; `1449` renders byte-identical.
 
 - **The match-cut contract is numeric but unverified against scene 03**, which
   does not exist yet. `tokenRect` gives scene 03 the exact rectangle, so the
-  contract is machine-readable rather than prose — but frames 0749 and 0750 have
+  contract is machine-readable rather than prose — but frames 0699 and 0700 have
   not been inspected as a pair.
 - **How scene 03 obtains this scene's final image is still open.** Recommendation,
   not a decision: keep the `Sequence` boundary clean and let scene 03 render
-  `AgentPrompt` and `CodeWorld` in a static "0749" state that it fades out.
+  `AgentPrompt` and `CodeWorld` in a static "0699" state that it fades out.
 - **Scene 07's return is specified but not built.** Its document has been brought
   in line with this one — no panel, `promptLayout` as the shared geometry — but
   nothing has been rendered against it, and it still has one open decision:
