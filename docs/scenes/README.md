@@ -102,7 +102,7 @@ reading time rather than from feel, and the figures as the film stands are:
 | scene 06's `Answered with Kivgraph` label   | `1.43 s` |
 | scene 07's column heads                     | `2.93 s` |
 | scene 07's `tokens / 35,961`                | `2.67 s` |
-| scene 07's `grep + read / 347,980`          | `2.67 s` |
+| scene 07's `grep + read / 267,980`          | `2.67 s` |
 | scene 07's `exact answers / 28 / 29`        | `2.27 s` |
 | scene 07's `precision / 1.000`              | `1.87 s` |
 | scene 07's `recall / 0.996`                 | `1.47 s` |

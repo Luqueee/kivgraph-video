@@ -245,7 +245,7 @@ which is a report of the measurement and not a design choice. See
 `## Provenance` → **The discrepancy that put every figure on hold, and how it
 resolved**.
 
-The render measures this frame byte-identical for **63 frames**, master `1686`–
+The render measures this frame byte-identical for **67 frames**, master `1682`–
 `1748`. A viewer landing on any one of those 63 frames should be able to
 reconstruct the entire argument of the scene without having seen it fill.
 
@@ -258,7 +258,7 @@ body.
 ```text
                           kivgraph        grep + read
               ────────────────────────────────────────
-tokens                      35,1041            347,1060
+tokens                      35,961            267,980
 exact answers              28 / 29            28 / 29
 precision                    1.000              1.000
 recall                       0.996              0.989
@@ -297,20 +297,20 @@ Vertical positions, in master pixels:
 
 | Element           | Top   |
 | ----------------- | ----- |
-| column heads      | `642` |
-| the hairline rule | `688` |
-| row 1 (cost)      | `716` |
-| row 2             | `816` |
-| row 3             | `936` |
-| row 4             | `996` |
-| the source note   | `1076` |
+| column heads      | `342` |
+| the hairline rule | `388` |
+| row 1 (cost)      | `416` |
+| row 2             | `516` |
+| row 3             | `576` |
+| row 4             | `636` |
+| the source note   | `716` |
 
 Vertical rhythm: 24 px between rows, 28 px either side of the rule, and **44 px
 above the source note**. The note gets nearly double a row's gap because at a
 row's spacing it read as a fifth measure that had lost its figures; a source note
 has to sit outside the body it vouches for.
 
-The block runs `642`–`1094` and is centred on **618**, not 620: mono digits sit
+The block runs `342`–`734` and is centred on **538**, not 540: mono digits sit
 high in their em, so a geometrically centred box of numerals reads low. Within a
 row, everything sits on the tallest figure's optical centre
 (`top + size * 0.375`), not on its top edge — in the cost row the two figures
@@ -320,15 +320,15 @@ above its own baseline. The table is centred within the frame so future
 
 Measured on the render at settled frame `1745`: column A right-aligns at exactly
 `x 1057` and column B at `x 1357` — 3 px of mono side bearing inside the declared
-column edges — the block's ink spans `x 560`–`1759` for a centre of **1039.5**
-against a frame centre of 1040, and the rule spans `x 560`–`1759` at `y 388`,
+column edges — the block's ink spans `x 560`–`1359` for a centre of **959.5**
+against a frame centre of 960, and the rule spans `x 560`–`1359` at `y 388`,
 1 px tall and exactly 800 px wide.
 
-Type, all `JetBrains Mono`, weights 480 and 580 only:
+Type, all `JetBrains Mono`, weights 400 and 500 only:
 
-- the cost row, subject column: 76 px, weight 580, `textPrimary` `#f5f5f5`;
-- the cost row, baseline column: 36 px, weight 480, `textFaint` `#737373`;
-- the six correctness figures: 36 px, weight 480, `textPrimary` `#f5f5f5`;
+- the cost row, subject column: 76 px, weight 500, `textPrimary` `#f5f5f5`;
+- the cost row, baseline column: 36 px, weight 400, `textFaint` `#737373`;
+- the six correctness figures: 36 px, weight 400, `textPrimary` `#f5f5f5`;
 - row labels and column heads: 18 px, `textMuted` `#a3a3a3`, letter-spacing
   `0.04em`;
 - the source note: 18 px, `textFaint` `#737373`.
@@ -383,16 +383,17 @@ bounce, no scale-up, no blur, no slide from off-frame. The motion language here 
 
 Windows as built:
 
-| Element                   | Local       | Master        |
-| ------------------------- | ----------- | ------------- |
-| the two column heads      | `302`–`322` | `1512`–`1572` |
-| the hairline rule         | `310`–`330` | `1440`–`1500` |
-| the cost row, `tokens`    | `314`–`338` | `1524`–`1588` |
-| the `exact answers` row   | `342`–`362` | `1592`–`1612` |
-| the `precision` row       | `366`–`386` | `1616`–`1636` |
-| the `recall` row          | `390`–`410` | `1640`–`1660` |
-| the source note           | `416`–`436` | `1666`–`1686` |
-| fade out, the whole table | `498`–`510` | `1748`–`1760` |
+| Element                                  | Local       | Master        |
+| ---------------------------------------- | ----------- | ------------- |
+| the bridge, `Same answer. Less context.` | `006`–`030` | `1516`–`1540` |
+| the two column heads                     | `042`–`062` | `1552`–`1572` |
+| the hairline rule                        | `050`–`070` | `1560`–`1580` |
+| the cost row, `tokens`                   | `054`–`078` | `1564`–`1588` |
+| the `exact answers` row                  | `082`–`102` | `1592`–`1612` |
+| the `precision` row                      | `106`–`126` | `1616`–`1636` |
+| the `recall` row                         | `130`–`150` | `1640`–`1660` |
+| the source note                          | `156`–`176` | `1666`–`1686` |
+| fade out, the whole table                | `238`–`250` | `1748`–`1760` |
 
 The heads and the rule arrive first and almost together: the table has to exist
 before it can be filled. The rule fades to `0.9`, not to `1` — it separates the
@@ -446,7 +447,7 @@ sits between 6.5 and 11.9, so nothing else is close. 35.8 is inside this
 project's 25–40 budget for on-screen technical text, with nothing to spare — if
 the note ever gets longer, the scene has to get longer with it.
 
-The hold from master `1686` to `1748` is not padding and it is not a settled
+The hold from master `1682` to `1748` is not padding and it is not a settled
 frame waiting for a cut. Four measures across two columns can only be read as one
 composition while they are all on screen together, and this is the only place in
 the scene where that is true. The render measures **63 byte-identical frames**
@@ -488,8 +489,8 @@ stillness is the only place in that scene where the answer is read, so it cannot
 be trimmed. This scene used to open on a frame holding 34% of its settled ink,
 reaching 38% by local 6. A hard cut out of a frozen frame and into an almost
 empty one reads as the film stalling rather than as a change of register: the
-viewer's eye is parked at the answer's last line around `y 956` and the table
-builds at `y 342`–`1094`, so for a third of a second there was nothing to look at
+viewer's eye is parked at the answer's last line around `y 728` and the table
+builds at `y 342`–`734`, so for a third of a second there was nothing to look at
 anywhere.
 
 Carrying the attribution puts something at `1510` in the place the eye already
@@ -562,7 +563,7 @@ grep + read
 The four rows, as label, column A, column B:
 
 ```text
-tokens          35,1041      347,1060
+tokens          35,961      267,980
 exact answers   28 / 29     28 / 29
 precision       1.000       1.000
 recall          0.996       0.989
@@ -807,7 +808,7 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
 - The cheapest scene in the video: two heads, four rows, a rule and a note, all
   absolutely positioned. No 3D, no images.
 - Measured on the render: **1760 frames with no black frame**, the settled table
-  byte-identical for 63 frames (`1686`–`1748`), and the only single-frame
+  byte-identical for 67 frames (`1682`–`1748`), and the only single-frame
   anomalies at the two hard cuts, `1329`/`1330` and `1509`/`1510`. Seams:
   `0989`/`0990` at **62.93 dB** and `1129`/`1130` pixel-identical, both unchanged
   by this figures pass; `1329`/`1330` at **30.44 dB whole frame**, a match cut,
@@ -1256,3 +1257,25 @@ dimmed figure, the column heads as plain labels, and whether any accent is used.
   rather than by being dragged: the first frame on which the cost row is complete
   with both arms named above it is now local 78, master 1288.
 ```
+
+```text
+2026-08-27
+- Audit pass, nothing in the scene changed. Three defects in this document, all
+  of them left by the bulk frame shifts the retimes were done with.
+- The benchmark figures were corrupted. `35,961` had become `35,1041` and
+  `267,980` had become `347,1060`, because a shift that matches any 3-4 digit
+  number reaches inside a comma-grouped one. Four instances here and eleven
+  across the repository, all restored. `src/data/benchmark.ts` was never touched
+  - it is code and the shifts only ran over markdown - so no frame of the film
+  ever displayed a wrong figure, and the two values on screen are still the
+  published ones.
+- `Duration:` read 330 frames against the code's 250: a duration is not a
+  position and should never have been in the shift's path. `Time:` was stale from
+  a retime that never updated it. Both are now derived from `src/Composition.tsx`.
+- The settled table's byte-identical run was stated as 63 frames from `1686`,
+  which is what the schedule gives. Measured it is 67 frames from `1682`: the
+  project's easing is within one 255th of its final value about four frames
+  before the source note's twenty-frame ramp ends. Same cause as scene 08's
+  two-frame version, longer ramp.
+```
+

@@ -1951,7 +1951,7 @@ Las cabeceras nombran los dos brazos y las filas nombran las medidas:
 
 ```text
                 kivgraph    grep + read
-tokens          35,1041      347,1060
+tokens          35,961      267,980
 exact answers   28 / 29     28 / 29
 precision       1.000       1.000
 recall          0.996       0.989
@@ -2016,7 +2016,7 @@ Entra la regla, del ancho de la tabla. Separa las cabeceras del cuerpo y es lo
 Primera fila, la de coste:
 
 ```text
-tokens          35,1041      347,1060
+tokens          35,961      267,980
 ```
 
 Entra pisando la regla a propósito: es la fila que lleva el argumento y no espera
@@ -2822,7 +2822,7 @@ Usable como thumbnail.
 
 ---
 
-## Frame ~0900
+## Frame ~0980
 
 ```text
 The cascade complete, seen from above it.
@@ -2871,10 +2871,10 @@ Usable para marketing técnico.
 
 ```text
                 kivgraph    grep + read
-tokens          35,1041      347,1060
+tokens          35,961      267,980
 ```
 
-Local 40 de la escena 09. La definición del frame es estructural y no un número:
+Local 78 de la escena 09. La definición del frame es estructural y no un número:
 es el primer frame en el que la **fila de coste está completa y legible con sus dos
 brazos ya nombrados encima**. Eso es lo que le permite explicarse sola como imagen
 suelta, que es justo lo que la versión anterior de la escena no conseguía —

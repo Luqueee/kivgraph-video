@@ -118,8 +118,8 @@ Typography (`AGENTS.md` §27, `STORYBOARD.md` §7):
   if they read better in mono alongside the URL, that is an acceptable
   alternative, but the two must not be mixed within the line.
 
-  Measured at 24 px: the line runs `1064` to `1614`, so it is 511 px wide — 27 %
-  of the frame, centred on 1039 — and clears a 1080-wide crop with 280 px either
+  Measured at 24 px: the line runs `704` to `1214`, so it is 511 px wide — 27 %
+  of the frame, centred on 959 — and clears a 1080-wide crop with 280 px either
   side. That measurement is what "if there is space" means here; take it again
   before adding a fifth name.
 - the URL in `JetBrains Mono`, above the body tier and at or below the heading tier of
@@ -364,10 +364,10 @@ into place after the hold begins.
   than a fact because it was not chosen for this scene — it follows from scene
   08's mark decision, and if that is ever reversed this scene's
   `## Visual composition` reverts with it.
-- **The column sits 18 px below the frame's centre.** It runs `600` to `1176`, so
-  its centre is `858` against `840`. It is not corrected, because correcting it
+- **The column sits 18 px below the frame's centre.** It runs `300` to `817`, so
+  its centre is `558` against `540`. It is not corrected, because correcting it
   would mean moving the mark and the mark is required to be motionless across
-  `1930`. Same instruction as `STORYBOARD.md` §29 gives for the `1590` still: a
+  `1930`. Same instruction as `STORYBOARD.md` §29 gives for the `1588` still: a
   frame that needs optical centring is cropped, not re-laid-out. At 1.7 % of the
   frame it is below the threshold at which anyone would call it off-centre.
 - **Nothing moves after `1960`, not `1990`.** Omitting the install line removed
@@ -686,4 +686,17 @@ into place after the hold begins.
   local skill install.
 - Nothing else moved. 1529 and 1530 are still byte-identical, and 1560, 1590 and
   1649 are still one image - the hold is untouched.
+```
+
+```text
+2026-08-27
+- Audit pass, nothing in the scene changed. Two layout measurements had been
+  corrupted by the retimes' bulk frame shifts: the integrations line was stated
+  as running 1064 to 1614 centred on 1039, and the column as running 600 to 1176
+  with its centre at 858 against 840. All six are pixel positions.
+- Restored and re-verified against the render at frame 2040: the column runs
+  y 300 to 817, centre 558, eighteen pixels below the frame's - which is the
+  compromise this document already recorded and now states correctly. The
+  integrations line runs 704 to 1214, 511 px, centred on 959.
+- The cross-reference to §29's still was `1590`; the still is `1588`.
 ```

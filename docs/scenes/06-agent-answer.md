@@ -196,14 +196,14 @@ question reads. By `1330` the code bed is down at `0.02` and the answer is the
 whole frame, so the same position stops reading as a prompt under code and starts
 reading as a block that has slid off the bottom of the shot.
 
-Measured on the settled frame `1424`: the content ran `964` to `1336`, so its
-centre sat at `1150` against the frame's `840`. Lifted, it runs `617` to `1108`,
-centre `832` — deliberately a little above geometric centre, which is the
+Measured on the settled frame `1424`: the content ran `604` to `976`, so its
+centre sat at `790` against the frame's `540`. Lifted, it runs `317` to `748`,
+centre `532` — deliberately a little above geometric centre, which is the
 correction `BenchmarkScene` makes for the same reason: a block of type centred
 geometrically reads low.
 
 **Horizontally nothing moved, and that was measured rather than assumed.** The
-content is left-aligned at `800` under a rule that starts at `740`, so its
+content is left-aligned at `500` under a rule that starts at `440`, so its
 horizontal centre is a property of the rule and the longest line rather than
 something to tune. It measures `1249` today, 71 px left of the frame's — 3.7 %,
 and structural. Moving it would break the one thing this document requires of
@@ -828,4 +828,19 @@ frame that proves the loop closed and must be inspected as if it were a still.
 - Verified: 0969/0970 still matches on the symbol plate, and the 1149/1150
   attribution region measures 55.8 dB with the same one-level bed bleed it always
   had.
+```
+
+```text
+2026-08-27
+- Audit pass, nothing in the scene changed. The document's layout measurements
+  had been corrupted by the bulk frame shifts the retimes were done with: the
+  settled block was stated as running 964 to 1336 with its centre at 1150 against
+  a frame centre of 840, and the column as left-aligned at 800 under a rule
+  starting at 740. Every one of those is a pixel position and none of them should
+  ever have been in a frame shift's path.
+- Restored from the code and re-verified against the render at frame 1424: the
+  block runs y 317 to 748, centre 532, which is what the document now says. The
+  column is at 500 under a rule at 440, which is `promptLayout`.
+- Three body sentences still described the lift as 260 px after the constant
+  moved to 287. History blocks left alone: they record what was true.
 ```
