@@ -63,7 +63,7 @@ symbol alone and must have it fully settled at 1329.
   holds the whole mapping.
 - Global frames: **1130–1330**
 - Scene-local frames: **0300–0500**
-- Time: **13.83 s – 17.17 s**
+- Time: **18.83 s – 22.17 s**
 - Duration: **200 frames / 3.33 s** at 60 fps
 - Remotion component: `src/scenes/SemanticScene.tsx`
 - Boundary source: the inline `<Sequence name="05 Semantic Resolution" from={850} durationInFrames={200}>`
@@ -425,7 +425,7 @@ regardless, because a tube has width and a `line` primitive has one pixel at
 every distance — `linewidth` is ignored by every WebGL platform that matters — and
 a one-pixel edge beside 40 px type is not a relationship, it is a scratch. What
 does not stay is the rest of the cascade: sixteen world units of graph inside the
-940 px the right half has to offer puts every label at about 11 px, under half
+860 px the right half has to offer puts every label at about 11 px, under half
 the Body floor of `STORYBOARD.md` §7. The resolved symbol and its two callers
 span five units and read at 35–45 px.
 

@@ -44,8 +44,8 @@ scene, every document after this one sits two behind: storyboard SCENE 06 is doc
   EXPANDS
 - Global frames: 0630–0990
 - Scene-local frames: 0300–0660
-- Time: 5.5 s – 11.5 s
-- Duration: 440 frames (6.0 s at 60 fps)
+- Time: 10.5 s – 16.5 s
+- Duration: 360 frames (6.0 s at 60 fps)
 - Remotion component: `src/scenes/GraphRevealScene.tsx`
 - First fully Three.js scene of the video
 - The global boundary lives inline in `src/Composition.tsx` as the scene's `<Sequence>` literals.

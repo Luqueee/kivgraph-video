@@ -2235,7 +2235,7 @@ Claude Code · Codex · OpenCode · Oh My Pi
 ```
 
 Opcionalmente otras compatibles si hay espacio. `Oh My Pi` es una de ellas y
-entró el 2026-08-26 por dirección de arte directa: la línea mide 591 px, el 27 %
+entró el 2026-08-26 por dirección de arte directa: la línea mide 511 px, el 27 %
 del cuadro, y sobra sitio. El quinto cliente que el producto soporta, `Claude
 Desktop`, se queda fuera — es el único target de user scope y sin skill local, o
 sea el más estrecho de los cinco.
@@ -2754,10 +2754,10 @@ Durante desarrollo revisar específicamente:
 0690
 0750
 
-0700
+0780
 0840
 0950
-0900
+0980
 
 0990
 1030
@@ -2784,7 +2784,7 @@ Durante desarrollo revisar específicamente:
 
 1760
 1810
-1440
+1840
 
 1930
 1990
@@ -2795,11 +2795,11 @@ Los frames:
 
 ```text
 0380
-0900
+0980
 1078
 1224
 1588
-1440
+1840
 ```
 
 deben funcionar incluso como capturas estáticas.

@@ -84,7 +84,7 @@ this scene, where it is a transition rather than a statement.
 - Storyboard scene: `STORYBOARD.md` — SCENE 02 ASK THE AGENT
 - Global frames: 0420–0630
 - Scene-local frames: 0300–0510
-- Time: 2.0 s – 5.5 s
+- Time: 7.0 s – 10.5 s
 - Duration: 210 frames (3.5 s at 60 fps)
 - Remotion component: `src/scenes/AgentScene.tsx`
 - Registration: `<Sequence name="02 Agent" from={120} durationInFrames={210}>`
@@ -469,7 +469,7 @@ Not flexible, because scenes 03 and 07 depend on them: the row's position, the
 token's final apparent scale, and the push-in curve.
 
 That first item was tested on 2026-08-26 and held. Scene 06 needed the prompt
-layer 340 px higher to sit centred in a frame that no longer has code above it,
+layer 287 px higher to sit centred in a frame that no longer has code above it,
 and it took the lift as its own constant — `answerLift` in `AgentPrompt.tsx`,
 applied by `AgentAnswerScene` — rather than by moving `promptLayout`. The reason
 is the one this line already gives, and it is stronger than it looks:

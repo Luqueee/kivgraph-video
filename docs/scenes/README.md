@@ -503,10 +503,42 @@ where it is a transition rather than a scene.
 Do not reintroduce it. If the opening ever needs more room, the honest place to
 find it is in the length of the two scenes that remain.
 
+## Retiming this film without corrupting it
+
+Every retime in this project's history has been a bulk frame shift over the
+documents, and each one has damaged something a bulk shift should not touch. The
+three failure modes, so the next one does not rediscover them:
+
+- **A measurement is not a position.** A shift that matches any 3–4 digit number
+  will move `755 px`, `331 px`, `1133 px` and `62 characters` along with the
+  frames. Eighteen measurements were corrupted this way before they were caught
+  and restored from the pre-shift commit. Excluding numbers followed by a unit is
+  not optional.
+- **A duration is not a position either.** `Duration: 360 frames` became
+  `440 frames` for exactly the same reason.
+- **A blocklist freezes what it protects.** `1440` was excluded from the shift as
+  a suspected resolution and stayed `1440` through three retimes while everything
+  around it moved; it was scene 08's still-image key frame and its correct value
+  was `1840`. It had been wrong for two retimes before anyone noticed.
+
+What does work, and what this file's tables are now maintained by:
+
+- derive every beat table's **master** column from its own **local** column plus
+  the scene's start, rather than shifting it — self-correcting, and it repairs
+  historical drift instead of carrying it;
+- derive `Duration:` and `Time:` from `src/Composition.tsx` rather than editing
+  them;
+- after any shift, diff every unit-bearing number against the pre-shift commit,
+  and check that §28's list is still strictly ascending and ends inside the
+  master. Both catches are cheap and both have caught real damage.
+
+Modification-history blocks are excluded from all of it. They record what was
+true at the time and are wrong the moment they are updated.
+
 ## Key frames
 
 Frames that must hold up as still images: `0380`, `0989`, `1078`, `1224`, `1424`,
-`1588`, `1440`. Each is documented in the scene that owns it, and each is stated
+`1588`, `1840`. Each is documented in the scene that owns it, and each is stated
 there as a *definition* rather than as a number, so the next retime can recompute
 it instead of guessing:
 
@@ -518,7 +550,7 @@ it instead of guessing:
 | `1224` | the first frame of scene 05's measured byte-identical stand.             |
 | `1424` | the frame scene 06's attribution label finishes on; the scene goes static.|
 | `1588` | scene 07's cost row complete, with both arms already named above it.     |
-| `1440` | scene 08's settled lockup plus tagline; static since `1838`.             |
+| `1840` | scene 08's settled lockup plus tagline; static since `1838`.             |
 
 How they got here. `1424` joined the list as scene 06's label frame — it was
 `1000` when the scene landed and `1330` after the semantic scene grew. Of the six
@@ -528,7 +560,7 @@ then +30 when the semantic scene grew. The 2026-08-25 pacing pass moved five of
 them: `1070` → `1078`, `0900` → `1224`, `1330` → `1424`, `1400` → `1588` and
 `1200` → `1750`. Only `0380` and `0989` are untouched by it. The 2026-08-26
 benchmark pass moved one of them: `1750` → `1500`, carried by scene 08's +50
-offset, and the same day's rebuild of scene 07 moved it again, `1500` → `1440`,
+offset, and the same day's rebuild of scene 07 moved it again, `1500` → `1840`,
 carried by scene 08's further +40. `1588` has not moved through either pass,
 because scene 07 grew at its tail both times — its start is unchanged and the
 frame is scene-local 40 either way — and it is now measured on the render rather

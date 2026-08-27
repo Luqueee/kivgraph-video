@@ -77,7 +77,7 @@ the rest of the video refers to.
   whole mapping.
 - Global frames: **0990–1130**
 - Scene-local frames: **0300–0440**
-- Time: **11.5 s – 13.83 s**
+- Time: **16.5 s – 18.83 s**
 - Duration: **140 frames / 2.33 s** at 60 fps
 - Remotion component: `src/scenes/BlastRadiusScene.tsx`
 - Boundary source: the inline `<Sequence name="04 Blast Radius" from={710} durationInFrames={140}>`

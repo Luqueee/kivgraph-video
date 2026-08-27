@@ -51,7 +51,7 @@ from the film, so storyboard SCENE 08 is document 06. Read the mapping table in
 
 - Global frames: `1330`–`1510`
 - Scene-local frames: `0300`–`0480` (last rendered frame `0479` / master `1509`)
-- Time: 17.17 s – 20.17 s
+- Time: 22.17 s – 25.17 s
 - Duration: 180 frames / 3.0 s at 60 fps
 - Remotion component: `src/scenes/AgentAnswerScene.tsx`
 
@@ -77,7 +77,7 @@ long as the blocks remain three distinct beats, the scene is fully settled by
 ## Initial state
 
 At `1330` the frame is the agent prompt layer from `02-agent.md`, at the same
-scale it had there and **340 px higher up the frame** — see
+scale it had there and **287 px higher up the frame** — see
 `## Visual composition`, `The lift`:
 
 - **no terminal panel.** Scene 02 never draws one, and neither does this scene:
@@ -153,7 +153,7 @@ correct: this scene is the answer, not the asking. The prompt row stays at 30 px
 because that is `promptLayout`, which `02-agent.md` marks not flexible.
 
 The path sentence sets on **two lines**, broken before the package. The copy is
-unchanged; at 26 px on one line it measured 1493 px, 62 % of the frame, and would
+unchanged; at 26 px on one line it measured 1193 px, 62 % of the frame, and would
 be gone in the 1:1 and 9:16 crops `STORYBOARD.md` §2 requires to stay possible.
 The attribution label sits at the label scale (16–20 px). No text smaller than
 16 px.
@@ -182,7 +182,7 @@ Agent output that does not share the prompt's left edge stops reading as output.
 
 ### The lift
 
-The whole prompt layer sits **367 px above** where `promptLayout` puts it, and
+The whole prompt layer sits **287 px above** where `promptLayout` puts it, and
 the falloff behind it moves with it. `answerLift` in `AgentPrompt.tsx` is the
 constant; nothing in this scene writes the number itself. It is not a constant of
 the layout - it is the answer to a measurement, and it is re-measured whenever
@@ -435,7 +435,7 @@ frame that proves the loop closed and must be inspected as if it were a still.
 ## Invariants
 
 - The prompt layer reappears at the **same scale** it had in `02-agent.md`, read
-  from `promptLayout`, and 340 px higher — `answerLift`. The scale is what the
+  from `promptLayout`, and 287 px higher — `answerLift`. The scale is what the
   match cut depends on; the position is this scene's to compose, because the
   prompt is not on screen at `1329` and there is nothing for it to match. If the
   *scale* drifts, the match cut stops being a match cut and the scene becomes an

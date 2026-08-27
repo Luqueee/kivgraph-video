@@ -175,8 +175,8 @@ Storyboard SCENE 09 is document 07. See `docs/scenes/README.md`.
 
 - Global frames: `1510`–`1760`
 - Scene-local frames: `0300`–`0550` (last rendered frame `0549` / master `1759`)
-- Time: 20.17 s – 24.33 s
-- Duration: 330 frames / 4.17 s at 60 fps
+- Time: 25.17 s – 29.33 s
+- Duration: 250 frames / 4.17 s at 60 fps
 - Remotion component: `src/scenes/BenchmarkScene.tsx`
 
 The storyboard drafted 120 frames. The scene is 210, because a two-column table
@@ -283,7 +283,7 @@ Columns, in master pixels, exported as `tableGrid` from
   1920 frame.
 
 Two proportions were measured off the render and then fixed. The gap from a label
-to its first figure runs **174–411 px** depending on how long the label and its
+to its first figure runs **174–331 px** depending on how long the label and its
 figure are, and the gap between the two figures runs **158–201 px**. A label
 therefore reads as belonging to its row while the two figures still read as two
 columns rather than as one wide number. Both ranges tightened when the figures
@@ -730,7 +730,7 @@ compromise is vertical; see `## Current compromises`.
 - Exact row tops and the vertical rhythm, provided the source note keeps roughly
   double a row's gap above it.
 - The table's width and column positions, provided the two measured proportions
-  hold: a label sits 174–411 px from its first figure, and the two figures sit
+  hold: a label sits 174–331 px from its first figure, and the two figures sit
   158–201 px apart. Those are the numbers that keep a label attached to its row
   without letting the two figures merge into one wide number.
 - Whether the hairline under the column heads exists at all, and its opacity

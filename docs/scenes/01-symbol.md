@@ -34,7 +34,7 @@ out loud inside the same frame.
 
 - Storyboard scene: `STORYBOARD.md` — SCENE 01 THE SYMBOL
 - Global frames: `0300–0420`
-- Time: 3.0 s – 5.0 s
+- Time: 5.0 s – 7.0 s
 - Duration: 120 frames (2.0 s)
 - Remotion component: `src/scenes/SymbolScene.tsx`
 - Registration: `<Sequence name="01 Symbol" from={180} durationInFrames={120}>`
@@ -293,8 +293,8 @@ The still-image key frame is `0380`. The project's still-image list reads `0380`
   value: pulling back makes planes at different depths converge (so lateral
   neighbours that must separate live at depth 1), and the camera targets the
   symbol, so the anchor cannot drift by accident.
-- The anchor is expressed in `ch` units inside the plane: `left: calc(700px −
-  9.5ch)` with `transform-origin: 9.5ch 830px`, where 9.5 is `col + width / 2`
+- The anchor is expressed in `ch` units inside the plane: `left: calc(620px −
+  9.5ch)` with `transform-origin: 9.5ch 750px`, where 9.5 is `col + width / 2`
   for `withRetry` (line 12, column 5, 9 characters). In a monospace face `1ch` is
   exactly one advance width, so the anchor needs no text measurement, survives a
   font-size change, and cannot drift out of sync with the glyphs.
@@ -328,7 +328,7 @@ The still-image key frame is `0380`. The project's still-image list reads `0380`
   a joined double bar in `err == nil`; kept, since that is the face's normal
   behaviour for the audience that reads it daily.
 - **The left margin is now empty.** Removing the `CHANGE IMPACT` annotation left
-  roughly 450 px of unused space left of the code. It reads as an intentional
+  roughly 370 px of unused space left of the code. It reads as an intentional
   margin rather than a hole, and filling it with anything would reintroduce the
   problem the annotation was removed for. Accepted as-is.
 - **The bed enters frame later than it used to.** With a true projected camera,

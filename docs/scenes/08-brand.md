@@ -51,7 +51,7 @@ cut from the film. Storyboard SCENE 10 is document 08. See
 
 - Global frames: `1760`–`1930`
 - Scene-local frames: `0300`–`0470` (last rendered frame `0469` / master `1929`)
-- Time: 24.33 s – 27.17 s
+- Time: 29.33 s – 32.17 s
 - Duration: 170 frames / 2.83 s at 60 fps
 - Remotion component: `src/scenes/BrandScene.tsx`
 
@@ -614,7 +614,7 @@ result would reconstruct the opposite reasoning and be wrong.
   `favicon.svg`, and the same trap `src/brand/fonts.ts` records for the
   `.woff2` / `.ttf` pair.
 - **The mark is a raster in a 1920 × 1080 film.** It is drawn at 120 px from a
-  835 px source, so there is headroom for any reasonable resize — but there is no
+  755 px source, so there is headroom for any reasonable resize — but there is no
   vector, so a scene that ever wants the mark full-frame does not have the
   artwork for it.
 - **Sound absent.** `STORYBOARD.md` §18 asks for a *very soft impact* on the

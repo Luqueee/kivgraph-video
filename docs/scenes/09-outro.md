@@ -43,7 +43,7 @@ cut from the film. Storyboard SCENE 11 is document 09. See
 
 - Global frames: `1930`–`2050`
 - Scene-local frames: `0300`–`0420` (last rendered frame `0419` / master `2049`)
-- Time: 27.17 s – 29.17 s
+- Time: 32.17 s – 34.17 s
 - Duration: 120 frames / 2.0 s at 60 fps
 - Remotion component: `src/scenes/OutroScene.tsx`
 
@@ -118,8 +118,8 @@ Typography (`AGENTS.md` §27, `STORYBOARD.md` §7):
   if they read better in mono alongside the URL, that is an acceptable
   alternative, but the two must not be mixed within the line.
 
-  Measured at 24 px: the line runs `1064` to `1614`, so it is 591 px wide — 27 %
-  of the frame, centred on 1039 — and clears a 1080-wide crop with 360 px either
+  Measured at 24 px: the line runs `1064` to `1614`, so it is 511 px wide — 27 %
+  of the frame, centred on 1039 — and clears a 1080-wide crop with 280 px either
   side. That measurement is what "if there is space" means here; take it again
   before adding a fifth name.
 - the URL in `JetBrains Mono`, above the body tier and at or below the heading tier of
@@ -351,7 +351,7 @@ into place after the hold begins.
   the two seconds.
 - **Measured length of the install line.** The real command is 89 characters. In
   `JetBrains Mono`, whose advance width is approximately `0.6 em`, that is roughly
-  1430 px at 20 px and roughly 1680 px at 24 px — that is, 56 % to 67 % of the
+  1130 px at 20 px and roughly 1380 px at 24 px — that is, 56 % to 67 % of the
   1920 px frame width. It fits in 16:9, but it is the widest single element in the
   entire video, it visually outweighs the URL it is supposed to support, and it
   cannot survive a 1080-wide crop at a readable size (`AGENTS.md` §38). These are
