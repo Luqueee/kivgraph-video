@@ -339,6 +339,18 @@ settled composition, which is the image the scene actually holds for 44 frames.
 A poster that needs the figure optically centred is cropped, not re-laid-out —
 the same rule `07-benchmark.md` applies to `1708`.
 
+## Why the hook has no second beat
+
+A second beat was considered for the teaser — token cost first, then a duration
+— and it is not here for the same reason `07-benchmark.md` has no time row: the
+published benchmark does not time the baseline arm, in any of its nine result
+files.
+
+The hook is two seconds long and its whole job is one comparison the viewer can
+trust on sight. A second, weaker comparison would not strengthen it; a second,
+*unmeasured* one would undermine the first. See `00-intent.md` → **Time to
+useful entry point**.
+
 ## Invariants
 
 - **Every figure is read from `src/data/benchmark.ts`.** Two scenes stating the

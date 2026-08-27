@@ -61,7 +61,7 @@ read a single name.
 | `0126`–`0172` | `0006`–`0052` | **Beat 1, the problem.** Two lines, the second the punch.                  |
 | `0178`–`0216` | `0058`–`0096` | **Beat 1, the question**, at the `❯` scene 02 also uses.                   |
 | `0224`–`0248` | `0104`–`0128` | **Beat 2, the invocation.** `kivgraph / find_by_intent`.                   |
-| `0242`–`0262` | `0122`–`0142` | The `candidates` header, just before the rows it heads.                    |
+| `0240`–`0260` | `0120`–`0140` | The header: `payments-api · 3 candidates`, over the rows it heads.         |
 | `0250`–`0270` | `0130`–`0150` | **Beat 3.** Row 1 — `FUNC` · `withRetry()`.                                |
 | `0262`–`0282` | `0142`–`0162` | Row 2 — `CONST` · `maxAttempts`.                                           |
 | `0274`–`0294` | `0154`–`0174` | Row 3 — `METHOD` · `Policy.Do()`.                                          |
@@ -146,7 +146,8 @@ frames, 0.88 s, with the whole stack on screen and nothing moving. This is where
 the scene's idea actually lands, and it is the beat the previous build did not
 have at all.
 
-**Beat 5 — the commit.** The other two rows go to 30 % and recede very slightly;
+**Beat 5 — the commit.** The other two rows go to 30 % and scale to `0.97` and
+`0.955` about their own left edges;
 the selected row loses its kind, its path and its match until only `withRetry()`
 is left. Then everything else leaves and the name opens into its own source.
 
@@ -157,6 +158,87 @@ gone. It was doing the stack's job with a sentence, and the stack does it with
 evidence — which is the brief's own instruction: *demonstrate it through the
 results*. It remains an approved phrase in `STORYBOARD.md` §32 and costs one line
 to restore if a viewer test ever says the demonstration is not enough.
+
+## Time to useful entry point — investigated, and not shown
+
+The scene has a slot for a measured duration, at the right end of the
+`payments-api · 3 candidates` header, and **it is empty on purpose**. This
+section is why, so the question is not reopened from scratch.
+
+### What the published benchmark actually measures
+
+`kivgraph/benchmarks/graph-tools-comparison` records an `ms` on every call and
+an `ms_total` per arm. Reading them:
+
+```text
+arm            tokens   calls    ms_total
+kivgraph        35,961      36      19.966
+native         267,980     101       0.000
+```
+
+**The baseline arm is not timed at all, and never has been.** `ms_total` is
+`0.000` for `native` in all nine `results*.json` files in that directory — 101
+calls across 29 questions, not one of them with a non-zero `ms`. It is not that
+`grep` was immeasurably fast: `measureNative` in `main.go` builds its
+observations as `observation{Tool: "grep", Tokens: …}` and never sets the `MS`
+field, while the MCP and subprocess arms set it from a `time.Since`. The number
+does not exist.
+
+Three further problems, each of which would sink the comparison on its own:
+
+- **The two arms do different work in different processes.** The `native` arm's
+  "grep" is `searchCorpus`, a `filepath.WalkDir` plus `regexp` scan **inside the
+  harness**, and its "read" is `os.ReadFile`. Timing that would measure the
+  harness's own warm-cache file I/O, not a tool an agent runs.
+- **No index build cost is recorded anywhere.** `indexing` is `{}` in
+  `results-all.json`. Kivgraph's `19.966 ms` is query latency against an
+  already-published snapshot; `native` is recorded as *«nothing is indexed»*. A
+  duration that counts one arm's queries and neither arm's setup is exactly the
+  selective accounting a benchmark exists to prevent.
+- **The metric a viewer would infer is model-dominated.** *Time to useful entry
+  point* for an agent is mostly inference over whatever the search returned.
+  Neither arm has a model in it, so neither measures the thing the number would
+  appear to claim.
+
+### The measurement taken here, and why it does not rescue the claim
+
+For completeness, both halves were measured directly rather than argued about:
+
+```text
+grep -rw retry over the 53-repository corpus, warm page cache, Linux
+  runs     89, 106, 157, 86, 88 ms
+  median   89 ms
+  returns  254 hit lines, 768,753 bytes
+
+find_by_intent, one MCP round trip against snapshot 90
+  the published benchmark's own per-call range, Apple M5 / macOS: 0.159–4.15 ms
+```
+
+Per call, the tool is one to three orders of magnitude faster, and it returns a
+ranked page instead of 750 KB. **That still does not license a number on
+screen.** The two figures come from different machines and different operating
+systems, the fast one excludes the index build that made it possible, and the
+slow one is a raw search rather than the workflow a viewer would picture. Two
+true measurements that cannot be divided by each other are not a benchmark.
+
+### What would make it publishable
+
+A separate timing harness, not a column added to this one:
+
+```text
+metric        time to useful entry point, defined as first read of a symbol
+              that the ground truth accepts
+arms          find_by_intent -> get_source   |   search -> read candidate files
+setup         index build timed for the arm that needs one, reported separately
+runs          >= 20 per question, median and p95, cold and warm stated apart
+machine       one machine for both arms, stated
+model         either excluded from both arms and the metric renamed to tool
+              time, or included in both with the model and version pinned
+```
+
+Until that exists, the film states token cost and exact answers, which are
+measured, and says nothing about seconds. `07-benchmark.md`'s table gains no
+time row for the same reason.
 
 ## Invariants
 
@@ -224,18 +306,18 @@ Not where it lives.
 
 ■ kivgraph / find_by_intent
 
-candidates
+payments-api  ·  3 candidates
 
 FUNC     withRetry()
-         payments-api/internal/retry/retry.go
+         internal/retry/retry.go
          lexical
 
 CONST    maxAttempts
-         payments-api/internal/retry/retry.go
+         internal/retry/retry.go
          lexical
 
 METHOD   Policy.Do()
-         payments-api/internal/retry/policy.go
+         internal/retry/policy.go
          lexical+calls
 ```
 
@@ -269,11 +351,23 @@ the point rather than an accident:** *these are different kinds of thing in the
 same place*, which is what a retrieval that indexes more than function names can
 tell you and a symbol search cannot.
 
-| Row | Kind     | Declared in the film's own Go                              | `match`         |
-| --- | -------- | ---------------------------------------------------------- | --------------- |
-| 1   | `func`   | `retry.go` — `func withRetry(ctx context.Context, ...)`     | `lexical`       |
-| 2   | `const`  | `retry.go` — `const maxAttempts = 5`                        | `lexical`       |
-| 3   | `method` | `policy.go` — `func (p Policy) Do(ctx context.Context, ...)` | `lexical+calls` |
+| Row | Kind     | Declared in the film's own Go                                | `match`         |
+| --- | -------- | ------------------------------------------------------------ | --------------- |
+| 1   | `func`   | `retry.go` — `func withRetry(ctx context.Context, ...)`       | `lexical`       |
+| 2   | `const`  | `retry.go` — `const maxAttempts = 5`                          | `lexical`       |
+| 3   | `method` | `policy.go` — `func (p Policy) Do(ctx context.Context, ...)`   | `lexical+calls` |
+
+All three are in the repository `payments-api`, so it is stated once in the
+header rather than three times in the rows — **the tool's own unanimous-or-
+nothing hoist**, and `sharedRepository` in `intentCandidates.ts` implements it
+rather than assuming it. Add a candidate from another repository and it returns
+`null`, and the rows carry the repository themselves.
+
+The rows therefore print a **repository-relative** path, which is the shape
+every row of this surface actually has: Kivgraph returns `repository` and
+`file_path` as two fields and never joins them. The first build printed the
+joined string, which was one string too many and hid the field the header is
+allowed to hoist.
 
 **Every one of those declarations is on screen two seconds later.** `retry.go` is
 the plane the camera lives inside for scenes 01–03, and `const maxAttempts = 5`
@@ -345,9 +439,13 @@ an order:
 | Element  |  Size | Share | Colour           | Position                 |
 | -------- | ----: | ----: | ---------------- | ------------------------ |
 | name     | 44 px |  100% | `textPrimary`    | the stack's own column   |
-| kind     | 19 px |   43% | `textMuted`      | hanging left gutter      |
+| kind     | 22 px |   50% | `textMuted`      | hanging left gutter      |
 | path     | 17 px |   39% | `textFaint`      | under the name           |
 | `match`  | 15 px |   34% | `textFaint`      | under the path           |
+
+The kind is at half the name's size rather than the 43 % of the first build.
+It is the element that carries the scene's whole idea and it was the one under
+its own weight; the gutter also moved 22 px left to keep the gap it hangs in.
 
 **The stack is built outward from the match cut.** `stackLeft` is the left edge
 the selected name already has at 44 px when its nine glyphs are centred on
@@ -392,8 +490,10 @@ at the top of it because three rows on a shorter pitch read as one block
 appearing.
 
 **The commit**, local `0226`–`0250`. The two rows that are not being opened go to
-30 % and scale to `0.985` and `0.975` about their own left edge — the 2.5D depth
-stated as the only thing a DOM layer can state it as. It is deliberately the
+30 % and scale to `0.97` and `0.955` about their own left edge — the 2.5D depth
+stated as the only thing a DOM layer can state it as. The first build used
+`0.985` and `0.975` and the separation did not read at all against the opacity
+change; this is still under a twentieth and it is visible. It is deliberately the
 *others* that move back rather than the selected one coming forward: the selected
 row is standing on the match cut's anchor at an exact size, and anything that
 scaled it would move the seam.
@@ -497,6 +597,22 @@ a DOM line box and the code plane's baseline, not to the anchor.
 ## Modification history
 
 ```text
+2026-08-27 (b)
+- The repository is hoisted into the page header — `payments-api · 3
+  candidates` — and the rows print a repository-relative path, which is the
+  shape Kivgraph actually returns. `sharedRepository` implements the tool's
+  unanimous-or-nothing hoist instead of assuming it.
+- Kind labels 19 px -> 22 px, half the name's size, and the gutter moved 22 px
+  left. They carry the scene's idea and were the element under their own weight.
+- The recede on the two unopened rows went from `0.985`/`0.975` to
+  `0.97`/`0.955`: at the first values the depth did not read against the opacity
+  change.
+- **Time to useful entry point investigated and deliberately not shown.** The
+  published benchmark does not time the baseline arm at all — `ms_total` is
+  `0.000` for `native` in all nine result files, 101 calls, none timed — and no
+  index build cost is recorded anywhere. See the section above for the direct
+  measurements taken and for what a publishable timing benchmark would need.
+
 2026-08-27
 - Rebuilt as a result stack. Three rows of heterogeneous Go declarations —
   `FUNC withRetry()`, `CONST maxAttempts`, `METHOD Policy.Do()` — with the kind

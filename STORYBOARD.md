@@ -862,10 +862,29 @@ sabía cómo se llamaba el símbolo. Normalmente no lo sabe.
 ### La metáfora visual: una pila corta de candidatos heterogéneos
 
 ```text
+payments-api  ·  3 candidates
+
 FUNC     withRetry()
+         internal/retry/retry.go
+         lexical
+
 CONST    maxAttempts
+         internal/retry/retry.go
+         lexical
+
 METHOD   Policy.Do()
+         internal/retry/policy.go
+         lexical+calls
 ```
+
+El repositorio se dice **una vez**, en la cabecera, porque los tres candidatos lo
+comparten: es el *hoist* de la vista compacta de la herramienta, implementado y
+no imitado — si un candidato viniera de otro repositorio, la cabecera lo suelta y
+cada fila lo lleva. Las rutas son relativas al repositorio, que es la forma real
+en que Kivgraph devuelve `repository` y `file_path`: dos campos, nunca uno.
+
+La columna de kinds va a la mitad del tamaño del nombre. Es la que lleva toda la
+idea de la escena y es la que más se lee.
 
 Esa segunda columna es todo el argumento de la escena. `find_by_intent`
 recupera **contexto de código relevante, no sólo nombres de función**: un helper
@@ -901,13 +920,25 @@ inventado de la herramienta.
 0126–0172   el problema, dos líneas
 0178–0216   la pregunta, con el ❯
 0224–0248   kivgraph / find_by_intent
-0250–0294   las tres filas, uno cada doce frames
-0294–0346   la pila entera quieta
-0346–0370   las otras dos retroceden al 30 %; la elegida pierde sus metadatos
+0240–0260   la cabecera: payments-api · 3 candidates
+0250–0294   las tres filas, una cada doce frames
+0294–0346   la pila entera quieta, 53 frames byte-idénticos
+0346–0370   las otras dos retroceden al 30 % y a escala 0,97 / 0,955;
+            la elegida pierde kind, ruta y match
 0378–0416   se va todo menos el nombre, que escala hasta el símbolo fuente
 ```
 
 Sin rebotes, sin muelles, sin zoom dramático, sin contadores.
+
+### Sin cifra de tiempo
+
+Se investigó enseñar *time to useful entry point* y **no se enseña**: el
+benchmark publicado no cronometra el brazo de referencia en ninguno de sus nueve
+ficheros de resultados — `ms_total` de `native` es `0.000`, 101 llamadas, ninguna
+medida — y tampoco registra el coste de indexar. La ranura existe, al final de la
+línea de cabecera, y está vacía a propósito. Detalle completo, y qué haría falta
+para poder publicarla, en `docs/scenes/00-intent.md` → *Time to useful entry
+point*.
 
 ### Transición
 

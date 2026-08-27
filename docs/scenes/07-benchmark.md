@@ -692,6 +692,30 @@ caption to explain which was which — a reader who has never seen the video can
 now tell which number belongs to which way of working. The still's one remaining
 compromise is vertical; see `## Current compromises`.
 
+## Why there is no time row
+
+The table has four rows and a fifth was considered: *time to useful entry
+point*, Kivgraph against `grep + read`. **It is not here because the benchmark
+does not measure it.**
+
+`ms_total` is `0.000` for the `native` arm in all nine `results*.json` files —
+101 calls across 29 questions, not one timed. `measureNative` never sets the
+`MS` field its observations carry, while the MCP arms set it from a
+`time.Since`, so the baseline's duration is absent by construction rather than
+small. And `indexing` is `{}`, so no arm's setup cost is recorded either:
+Kivgraph's `19.966 ms` is query latency against an already-published snapshot,
+against a baseline recorded as *«nothing is indexed»*.
+
+A row pairing those two figures would be the one thing this scene exists to
+avoid — a number that looks measured and is not. The full investigation,
+including the direct measurements taken and what a publishable timing benchmark
+would require, is in `00-intent.md` → **Time to useful entry point**.
+
+If that benchmark is ever built, this table is the right place for the result:
+it already carries the corpus, the tokenizer and the source note that make a
+figure checkable, and `src/data/benchmark.ts` is the one file the value would
+be added to.
+
 ## Invariants
 
 - **The figures are the published benchmark and are never adjusted for visual

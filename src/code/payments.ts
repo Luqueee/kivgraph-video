@@ -17,7 +17,7 @@ import type { CodeLine } from "../components/CodePlane";
  */
 
 /**
- * The repository-relative paths of the two files the film ever names on screen.
+ * The repository and the two files the film ever names on screen.
  *
  * They live here, beside the source they belong to, because two other places
  * need them and neither should retype a path: `SymbolScene` prints one as the
@@ -30,8 +30,21 @@ import type { CodeLine } from "../components/CodePlane";
  * a legible neighbour and `client.go` is the blurred depth bed — so they have no
  * constant here. Add one the moment either is captioned.
  */
-export const retryGoPath = "payments-api/internal/retry/retry.go";
-export const policyGoPath = "payments-api/internal/retry/policy.go";
+export const repository = "payments-api";
+export const retryGoFile = "internal/retry/retry.go";
+export const policyGoFile = "internal/retry/policy.go";
+
+/**
+ * The same two files as one string each, which is the form a caption takes.
+ *
+ * Kivgraph returns a `repository` and a **repository-relative** `file_path` as
+ * two fields, never as one joined path, so `intentCandidates.ts` uses the parts
+ * above and the scene hoists the repository into its header the way the tool's
+ * compact view does. These joined forms exist for the one surface that is not a
+ * tool answer: the caption `SymbolScene` prints over the code.
+ */
+export const retryGoPath = `${repository}/${retryGoFile}`;
+export const policyGoPath = `${repository}/${policyGoFile}`;
 
 /**
  * `payments-api/internal/retry/retry.go` — the camera plane.

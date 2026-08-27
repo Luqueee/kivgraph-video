@@ -1,5 +1,11 @@
 import type { CodeLine } from "../components/CodePlane";
-import { policyGo, policyGoPath, retryGo, retryGoPath } from "../code/payments";
+import {
+  policyGo,
+  policyGoFile,
+  repository,
+  retryGo,
+  retryGoFile,
+} from "../code/payments";
 import { edges, nodeById } from "./graphDemo";
 
 /**
@@ -152,7 +158,15 @@ export type IntentCandidate = {
   readonly label: string;
   /** A Go `DefinitionKind`, uppercased for display and otherwise unaltered. */
   readonly kind: string;
-  /** Repository-relative, from `src/code/payments.ts`. */
+  /** The repository the candidate belongs to, as its own field. */
+  readonly repository: string;
+  /**
+   * **Repository-relative**, which is the shape every row of this surface uses.
+   *
+   * Kivgraph returns `repository` and `file_path` as two fields and never joins
+   * them; the previous build printed the joined path, which was one string too
+   * many and hid the field the header is allowed to hoist.
+   */
   readonly path: string;
   /** How this candidate matched. Never how much to believe it. */
   readonly match: CandidateMatch;
@@ -177,6 +191,7 @@ const candidate = (
   return {
     label,
     kind,
+    repository,
     path,
     match:
       nodeId !== null && creditedForCallees(nodeId)
@@ -208,7 +223,7 @@ export const candidates: readonly IntentCandidate[] = [
   candidate(
     nodeById("payments.withRetry").label,
     "func",
-    retryGoPath,
+    retryGoFile,
     retryGo,
     "func withRetry(",
     "payments.withRetry",
@@ -216,7 +231,7 @@ export const candidates: readonly IntentCandidate[] = [
   candidate(
     "maxAttempts",
     "const",
-    retryGoPath,
+    retryGoFile,
     retryGo,
     "const maxAttempts",
     null,
@@ -224,12 +239,29 @@ export const candidates: readonly IntentCandidate[] = [
   candidate(
     nodeById("payments.policyDo").label,
     "method",
-    policyGoPath,
+    policyGoFile,
     policyGo,
     "func (p Policy) Do(",
     "payments.policyDo",
   ),
 ] as const;
+
+/**
+ * The repository every row shares, or `null` if they do not all share one.
+ *
+ * This is the tool's own **unanimous-or-nothing hoist**, implemented rather than
+ * imitated. Its compact view *«lifts into a header what every row shares»* and
+ * *«one row disagreeing is enough to push a column back down to every row»*, so
+ * the scene asks this question instead of assuming the answer. Today all three
+ * candidates are in `payments-api` and the header carries it once; add a
+ * candidate from anywhere else and this returns `null`, and the scene puts the
+ * repository back on every row without anyone editing the layout.
+ */
+export const sharedRepository: string | null = candidates.every(
+  (row) => row.repository === candidates[0].repository,
+)
+  ? candidates[0].repository
+  : null;
 
 /**
  * The row the scene opens, by position rather than by name.

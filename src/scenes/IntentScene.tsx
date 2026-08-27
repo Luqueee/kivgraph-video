@@ -6,6 +6,7 @@ import {
   candidates,
   intent,
   selectedCandidate,
+  sharedRepository,
 } from "../data/intentCandidates";
 import { fontMono, fontSans } from "../brand/fonts";
 import { brand } from "../brand/tokens";
@@ -220,15 +221,15 @@ const layout = {
   problem: { top: 250, fontSize: 34, pitch: 48 },
   intent: { top: 408, fontSize: 30 },
   tool: { top: 478, fontSize: 20 },
-  header: { top: 600, fontSize: 17 },
+  header: { top: 598, fontSize: 16 },
   row: {
     top: symbolAnchor.y - nameSize / 2,
     pitch: 112,
-    kindLeft: 380,
-    kindTop: 17,
+    kindLeft: 358,
+    kindTop: 15,
     pathTop: 58,
     matchTop: 82,
-    kindSize: 19,
+    kindSize: 22,
     pathSize: 17,
     matchSize: 15,
   },
@@ -238,8 +239,10 @@ const layout = {
  * How far a candidate that is not being opened recedes.
  *
  * `0.30`, which is the bottom of the brief's 25-35 % band, and a scale of
- * `0.985` and `0.975` for the two of them - the 2.5D depth stated as the only
- * thing a DOM layer can state it as. It is deliberately the *others* that move
+ * `0.97` and `0.955` for the two of them - the 2.5D depth stated as the only
+ * thing a DOM layer can state it as. The first build used `0.985` and `0.975`
+ * and the separation did not read at all against the opacity change; this is
+ * still under a twentieth and it is visible. It is deliberately the *others* that move
  * back rather than the selected one coming forward: the selected row is
  * standing on the match cut's anchor at an exact size, and anything that scaled
  * it would move the seam.
@@ -247,7 +250,7 @@ const layout = {
  * They are never marked wrong. No cross, no strike-through, no red. Receding is
  * what picking an entry point looks like; being a mistake is not.
  */
-const recede = { opacity: 0.3, scale: [1, 0.985, 0.975] } as const;
+const recede = { opacity: 0.3, scale: [1, 0.97, 0.955] } as const;
 
 type RowProps = {
   candidate: (typeof candidates)[number];
@@ -380,7 +383,7 @@ export const IntentScene: React.FC = () => {
 
   const intentIn = entry(frame, beat.intent[0], beat.intent[1]);
   const toolIn = entry(frame, beat.tool[0], beat.tool[1]);
-  const headerIn = entry(frame, beat.rows[0] - 8, beat.rows[1] - 8);
+  const headerIn = entry(frame, beat.rows[0] - 10, beat.rows[1] - 10);
   const focus = ramp(frame, beat.focus[0], beat.focus[1]);
   /** The anchored name arrives on its own row's window, and with its lift. */
   const selectedIn = entry(frame, beat.rows[0], beat.rows[1], 10);
@@ -515,17 +518,31 @@ export const IntentScene: React.FC = () => {
       </div>
 
       {/**
-       * Beat 3 - the header the whole page shares.
+       * Beat 3 - the page header, over the stack it heads.
        *
-       * One word, and it is the most important word in the scene. `candidate` is
-       * the project's term for *plausible and not proven*, and putting it at the
-       * head of the stack is the tool's own compact-view idiom: lift into a
-       * header what every row shares. The rows then carry only what differs,
-       * which is their `match`.
+       * This is the tool's compact view, implemented rather than imitated:
+       * *«lifts into a header what every row shares»*. The repository is shared
+       * by all three candidates, so it is stated once instead of three times,
+       * and `sharedRepository` returns `null` the moment that stops being true —
+       * at which point the rows carry it themselves and nothing here has to be
+       * redesigned.
        *
-       * Lowercase, where the kinds beside it are uppercase, and on the name
-       * column rather than in the gutter. Both are so that it cannot be read as
-       * a fourth kind.
+       * `candidates` is the most important word in the scene. It is the
+       * project's term for *plausible and not proven*, and it is the reason the
+       * stack needs no other caption. Lowercase, where the kinds below it are
+       * uppercase, and on the name column rather than in the gutter: both so it
+       * cannot be read as a fourth kind.
+       *
+       * It sat on the invocation line for one build, right-aligned on the
+       * question's right edge, and it collided with `find_by_intent` — 315 px of
+       * header against a 320 px gap. The line over the stack was always the
+       * better place; it costs no vertical space, because the rows start on an
+       * anchor and the gap above them exists either way.
+       *
+       * **This is also the slot a timing figure would take**, at the right end
+       * of this line, if the benchmark ever measured one comparably. It does not
+       * today — see `docs/scenes/00-intent.md` → *Time to useful entry point* —
+       * and nothing here may state a duration until it does.
        */}
       <div
         style={{
@@ -535,14 +552,16 @@ export const IntentScene: React.FC = () => {
           fontFamily: fontMono,
           fontSize: layout.header.fontSize,
           lineHeight: 1,
-          letterSpacing: "0.14em",
+          letterSpacing: "0.1em",
           whiteSpace: "pre",
           color: brand.textFaint,
           opacity: headerIn.opacity * context,
           translate: `0px ${headerIn.offsetY}px`,
         }}
       >
-        {"candidates"}
+        {sharedRepository === null
+          ? `${candidates.length} candidates`
+          : `${sharedRepository}  ·  ${candidates.length} candidates`}
       </div>
 
       {/** Beat 3 - the stack, one row at a time on a twelve-frame pitch. */}
