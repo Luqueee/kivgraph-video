@@ -292,6 +292,14 @@ These must survive future edits. They are not stylistic.
   `SymbolScene.tsx`; neither is written down here. **The stack is laid out
   outward from that anchor** — `stackLeft` and the first row's top are derived
   from it — so a redesign of the list cannot move the seam.
+- **The empty upper third is the composition, not a gap to fill.** The block
+  runs `y 408`–`955` and the top of the frame is deliberately bare. It looks like
+  something is missing and nothing is: the couplet that used to sit there was cut
+  on 2026-08-27 and the space it left was kept. Do not centre the block, do not
+  move the question or the invocation down to close the gap, and above all do not
+  move the anchor — the stack hangs off `symbolAnchor` and every pixel of the
+  match cut depends on it. The frame reads top-down as one descending column,
+  question → invocation → header → stack, and the air above it is what lets it.
 - **No colour per kind.** `STORYBOARD.md` §6 keeps the frame 85–90 % neutral and
   the accent has three permitted meanings; a code kind is not one of them. Kinds
   are separated by label and position only, and the scene survives greyscale.

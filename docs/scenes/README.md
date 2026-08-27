@@ -607,9 +607,12 @@ class of mistake.
 - **A pixel is not a frame either, and neither is a resolution.** Shifts have
   turned scene 07's `columnRight: [1060, 1360]` into `[1420, 1760]`, scene 02's
   match-cut centre `x 1427` into `x 1547`, and `1920 × 1080` into `1920 × 1200`.
-  A layout constant a retime can reach is one that will eventually be wrong on
-  screen; the benchmark table's grid is exported from a single file precisely so
-  the code could not drift with the document.
+  The same two grid edges were then found **shifted twice**, in a second place
+  nobody had checked, and repaired back to `1060` / `1360` — which is the real
+  lesson: a corrupted layout constant is not corrected by the next retime, it is
+  compounded by it. A layout constant a retime can reach is one that will
+  eventually be wrong on screen; the benchmark table's grid is exported from a
+  single file precisely so the code could not drift with the document.
 - **A number behind a `/` or a `-` is invisible to a naive shift.** `1129/1130`
   became `1249/1130`: the first half moved and the second did not, because the
   separator swallowed it. Seam pairs are the most common frame notation in these
